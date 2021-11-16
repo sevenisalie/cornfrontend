@@ -1,0 +1,1 @@
+export const nftURI = "https://gateway.pinata.cloud/ipfs/QmXTPNJ6RbgvBoLk9r37ALjK6z8jTMFJ3PuW11U1Sp8vfv"

@@ -96,11 +96,11 @@ const GearIcon = styled(BsGearFill)`
         width: auto;
     }
 `
-const EthIcon = styled(FaEthereum)`
+export const EthIcon = styled(FaEthereum)`
 `
-const BitcoinIcon = styled(FaBitcoin)`
+export const BitcoinIcon = styled(FaBitcoin)`
 `
-const DollarIcon = styled(BiDollarCircle)`
+export const DollarIcon = styled(BiDollarCircle)`
 `
 
 const CardFooterRow = styled(Container)`
