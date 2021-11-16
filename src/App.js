@@ -6,7 +6,8 @@ import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 //pages
 import Home from "./pages/vaults";
 import Vaults from "./pages/myvaults";
-import {NavigationBar} from "./components/NavigationBar"
+import NFT from "./pages/nftgallery";
+import {NavigationBar} from "./components/NavigationBar";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
           <Route path='/' element={<Home/>} />
      
           <Route path='/vaults' element={<Vaults/>} />
+
+          <Route path="/nfts" element={<NFT/>} />
         
 
         </Routes>

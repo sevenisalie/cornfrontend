@@ -29,7 +29,7 @@ const MyVaultRow = styled(Container)`
 `
 
 const MyVaultCard = styled(Card)`
-    padding: 5px;
+    padding: 10px;
     border-radius: 8px;
     height: auto;
     width: 100%;
@@ -54,6 +54,18 @@ const PriceTargetRow = styled(Container)`
     align-items: flex-start;
     justify-content: flex-start;
     gap: 2px;
+`
+
+const CardHeader = styled.h2`
+    font-size: 220%;
+    font-weight: 600;
+    color: #fbfbfb;
+    text-justify: center;
+    align-self: center;
+`
+const HorizontalLine = styled.hr`
+    width: 100%;
+    color: #fbfbfb;
 `
 
 const MintButton = styled(Button)`
@@ -117,52 +129,10 @@ const LittleHeading = styled.h2`
 `
 
 const Vaults = () => {
-    const [nftContract, setNftContract] = useState('');
-    const [userNFTData, setUserNFTData] = useState('');
+   
     const {active, account, library, connector} = useWeb3React();
-    const [transacting, setTransacting] = useState(false);
 
-    useEffect( () => {
-        if (active) {
-            const nftctr = writeContract(
-                active,
-                library.getSigner(),
-                account,
-                addresses.nft,
-                nftABI,
-            )
-            .then( value => {
-                setNftContract(value)
-                console.log(value.address)
-            })
-        } else {
-            const noData = setNftContract('')
-        }
-    }, [account])
-
-    useEffect( () => {
-        if (active) {
-            axios.get(nftURI)
-            .then(response => setUserNFTData(response.data))
-            
-        } else {
-            const noData = setUserNFTData('')
-        }
-    }, [nftContract])
-
-    const handleMint = async () => {
-        setTransacting(true)
-        userMint(nftContract, account, nftURI)
-        setTransacting(false)
-    }
-    
-    const getNFTData = async () => {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
-        return response
-    }
-
- 
-    console.log(userNFTData)
+   
     return (
         <>
         <Page>
@@ -171,7 +141,6 @@ const Vaults = () => {
                 <HeadingBackground>
                     <BigHeading>Vault Dashboard</BigHeading>
                     <LittleHeading>Keep Track of Your Open Vaults and Strategies</LittleHeading>
-                    <MintButton onClick={async () => handleMint()}>Mint Now</MintButton>
                 </HeadingBackground>
             </HeadingContainer>
 
@@ -181,17 +150,20 @@ const Vaults = () => {
                     <MyVaultCard>
                         <MyVaultCardContainer>
                         <PriceTargetRow>
-                            <h2> ETH/USDC </h2>
-                            <h2><EthIcon /></h2>
+                            <CardHeader> ETH/USDC </CardHeader>
+                            <HorizontalLine></HorizontalLine>
+                            <CardHeader><EthIcon /></CardHeader>
                         </PriceTargetRow>
 
                         <PriceTargetRow>
-                            <h2> Status</h2>
-                            <h2>Open</h2>
+                            <CardHeader> Status</CardHeader>
+                            <HorizontalLine></HorizontalLine>
+                            <CardHeader>Open</CardHeader>
                         </PriceTargetRow>
                         <PriceTargetRow>
-                            <h2> Strat</h2>
-                            <h2>5% Bracket</h2>
+                            <CardHeader> Strat</CardHeader>
+                            <HorizontalLine></HorizontalLine>
+                            <CardHeader>5% Bracket</CardHeader>
                         </PriceTargetRow>
 
                         <PriceTargetRow>
@@ -202,12 +174,7 @@ const Vaults = () => {
                         
                         </MyVaultCardContainer>
                     </MyVaultCard>
-                    <MyVaultCard>
-                        <h2>Shabat</h2>
-                    </MyVaultCard>
-                    <MyVaultCard>
-                        <h2>Ketuviim</h2>
-                    </MyVaultCard>
+                    
                 </MyVaultRow>
             </MyVaultContainer>
 

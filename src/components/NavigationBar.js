@@ -139,6 +139,9 @@ export const NavigationBar = () => {
                             <CleanLink to="/vaults">
                                 <NavbarLink href="#">Vaults</NavbarLink>
                             </CleanLink>
+                            <CleanLink to="/nfts">
+                                <NavbarLink href="#">NFTs</NavbarLink>
+                            </CleanLink>
                         </LinkContainer>
                         <NetworkContainer>
                             <NetworkImage src={`/assets/images/CornLogo.png`}></NetworkImage>
