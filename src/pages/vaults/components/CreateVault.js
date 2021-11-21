@@ -20,7 +20,7 @@ const VaultSectionWrapper = styled(Container)`
 
 const VaultCard = styled(Card)`
     padding: 5px;
-    border-radius: 7% 7% 7% 7%;
+    border-radius: 12px;
     height: auto;
     width: auto;
     background-color: #1D1E20;
@@ -96,11 +96,11 @@ const GearIcon = styled(BsGearFill)`
         width: auto;
     }
 `
-const EthIcon = styled(FaEthereum)`
+export const EthIcon = styled(FaEthereum)`
 `
-const BitcoinIcon = styled(FaBitcoin)`
+export const BitcoinIcon = styled(FaBitcoin)`
 `
-const DollarIcon = styled(BiDollarCircle)`
+export const DollarIcon = styled(BiDollarCircle)`
 `
 
 const CardFooterRow = styled(Container)`

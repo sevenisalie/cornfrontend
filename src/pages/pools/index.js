@@ -10,6 +10,7 @@ import axios from "axios"
 import {nftABI} from "../../config/abis";
 import {Container, Card, Button} from "react-bootstrap";
 import {writeContract, userMint} from "../../utils/nft";
+import PoolCard from "./components/PoolCard"
 
 import {EthIcon, BitcoinIcon, DollarIcon} from "../vaults/components/CreateVault"
 const MyVaultContainer = styled(Container)`
@@ -131,7 +132,7 @@ const LittleHeading = styled.h2`
 `
 
 
-const Vaults = () => {
+const Pools = () => {
    
     const {active, account, library, connector} = useWeb3React();
 
@@ -142,40 +143,15 @@ const Vaults = () => {
 
             <HeadingContainer>
                 <HeadingBackground>
-                    <BigHeading>Vault Dashboard</BigHeading>
-                    <LittleHeading>Keep Track of Your Open Vaults and Strategies</LittleHeading>
+                    <BigHeading>Staking Pools</BigHeading>
+                    <LittleHeading>Stake Assets to Earn COB</LittleHeading>
                 </HeadingBackground>
             </HeadingContainer>
 
             <MyVaultContainer>
                 <MyVaultRow>
-                    <MyVaultCard>
-                        <MyVaultCardContainer>
-                        <PriceTargetRow>
-                            <CardHeader> Token </CardHeader>
-                            <HorizontalLine></HorizontalLine>
-                            <CardHeader><EthIcon /></CardHeader>
-                        </PriceTargetRow>
 
-                        <PriceTargetRow>
-                            <CardHeader> Status</CardHeader>
-                            <HorizontalLine></HorizontalLine>
-                            <CardHeader>Open</CardHeader>
-                        </PriceTargetRow>
-                        <PriceTargetRow>
-                            <CardHeader> Strat</CardHeader>
-                            <HorizontalLine></HorizontalLine>
-                            <CardHeader>5% Bracket</CardHeader>
-                        </PriceTargetRow>
-
-                        <PriceTargetRow>
-                            <p>entry price: 4587.48</p>
-                            <p>max profit target: 4786.14</p>
-                            <p>entry amount: 120.0</p>
-                        </PriceTargetRow>
-                        
-                        </MyVaultCardContainer>
-                    </MyVaultCard>
+                <PoolCard/>
             
                 </MyVaultRow>
             </MyVaultContainer>
@@ -187,4 +163,4 @@ const Vaults = () => {
     )
 }
 
-export default Vaults
+export default Pools
