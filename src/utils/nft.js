@@ -42,3 +42,20 @@ const getNFTData = async () => {
         return value
     })
 }
+
+
+//staking stuff
+
+export const userStake = async (_masterchef, pid, amount) => {
+    const ctr = _masterchef;
+    try {
+        const strAmount = amount.toString();
+        const strPid = pid.toString();
+        console.log(strAmount)
+        const bnAmount = ethers.utils.parseUnits(strAmount, "ether");
+        const bnPid = ethers.utils.parseUnits(strPid, "wei")
+        console.log(bnAmount)
+        await ctr.deposit(bnPid, bnAmount);
+    } catch (err) {console.log(err)}
+
+}

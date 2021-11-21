@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
 import Home from "./pages/vaults";
 import Vaults from "./pages/myvaults";
 import NFT from "./pages/nftgallery";
+import Pools from "./pages/pools";
 import {NavigationBar} from "./components/NavigationBar";
 
 function App() {
@@ -20,7 +21,10 @@ function App() {
      
           <Route path='/vaults' element={<Vaults/>} />
 
+          <Route path="/pools" element={<Pools/>} />
+
           <Route path="/nfts" element={<NFT/>} />
+
         
 
         </Routes>

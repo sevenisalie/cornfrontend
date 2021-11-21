@@ -20,7 +20,7 @@ const VaultSectionWrapper = styled(Container)`
 
 const VaultCard = styled(Card)`
     padding: 5px;
-    border-radius: 7% 7% 7% 7%;
+    border-radius: 12px;
     height: auto;
     width: auto;
     background-color: #1D1E20;
