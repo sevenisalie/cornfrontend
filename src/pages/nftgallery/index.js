@@ -10,8 +10,15 @@ import axios from "axios"
 import {nftABI} from "../../config/abis";
 import {Container, Card, Button} from "react-bootstrap";
 import {writeContract, userMint} from "../../utils/nft";
+import { StyledDetailsButton } from "../../pages/pools/components/PoolCard"
+import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
 
 import {EthIcon, BitcoinIcon, DollarIcon} from "../vaults/components/CreateVault"
+
+import {NFTFooter} from "./components/NFTFooter";
+import {NFTCard} from "./components/NFTCard";
+import {NFTHeading} from "./components/NFTHeading";
+
 const MyNFTContainer = styled(Container)`
     display: flex;
     flex-direction: column;
@@ -42,119 +49,8 @@ const MyNFTGrid = styled(Container)`
 `
 
 
-const MyNFTCard = styled(Card)`
-    border-radius: 8px;
-    height: auto;
-    width: auto;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-`
-const MyNFTCardContainer = styled(Container)`
-    display: flex;
-    flex-direction: column;
-    padding: 12px;
-    align-items: flex-start;
-    align-content: flex-start;
-    justify-content: space-around;
-    gap: 8px;
-
-    @media (max-width: 768px) {
-        flex-direction: column;
-      }
-`
-const NFTImageWrapper = styled.img`
-    border-radius: 5px;
-`
-const NFTBrandName = styled.p`
-    font-size: 70%;
-    color: #fbdb37;
-`
-const NFTTitle = styled.h3`
-    font-size: 120%;
-    font-weight: 600;
-    color: #fbfbfb;
-`
-const NFTLineBreak = styled.hr`
-      color: #393C3F;
-      width: 100%;
-`
-const PriceRow = styled(Container)`
-    display: flex;
-    flex-direction: row;
-    padding: 0px;
-    width: 100%;
-    margin: 0px;
-    align-content: space-between;
-    justify-content: space-between;
-    gap: 12px;
-`
-
-const ButtonWrapper = styled.div`
-      display: flex;
-      flex-direction: row;
-      width: 40%;
-      height: auto;
-`
-
-const MintButton = styled(Button)`
-    border-radius: 15px;
-    height: 50px;
-    width: auto;
-    background: #fbdb37;
-    border-color: #fce984;
-    border-width: 3px;
-    color: #FFFFE0;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 20px;
 
 
-    &:hover {
-        background: #fbdb37;
-        border-color: #dfbb05;
-        border-width: 3px;
-        color: #dfbb05;
-        font-size: 20px;
-        font-weight: 800;
-    }
-
-    &:focus {
-        background: #fbdb37;
-        border-color: #dfbb05;
-        border-width: 3px;
-        color: #dfbb05;
-        font-size: 20px;
-        font-weight: 800;
-    }
-`
-const HeadingContainer = styled(Container)`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;
-`
-
-const HeadingBackground = styled(Card)`
-    height: auto;
-    width: 100%;
-    padding: 20px;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-`
-
-const BigHeading = styled.h1`
-    font-size: 280%;
-    font-weight: 800;
-    color:  #fbdb37;
-    
-`
-const LittleHeading = styled.h2`
-    font-size: 200%;
-    font-weight: 600;
-    color: #fbfbfb;
-    
-`
 
 const NFT = () => {
     const [nftContract, setNftContract] = useState('');
@@ -206,36 +102,30 @@ const NFT = () => {
         "0xisdhfwouhfihfihsdkfjhaskdjfhasjkdf",
     ]
  
-    console.log(userNFTData)
+
+
 
     if (fakeUserNFTs !== null && userNFTData !== null) {
         console.log(fakeUserNFTs)
-        const mapFakeUserNFTs =  fakeUserNFTs.map((nft) => (
-            <MyNFTCard>
-                <MyNFTCardContainer>
-                <NFTImageWrapper src={userNFTData.image}></NFTImageWrapper>
-                <NFTBrandName>HelloFrontier</NFTBrandName>
-                <NFTTitle>{userNFTData.description}</NFTTitle>
-                <NFTLineBreak size="8"/>
-                <PriceRow>
-                    <NFTBrandName>Asking Price</NFTBrandName>
-                    <NFTTitle><EthIcon />100.00</NFTTitle>
-                </PriceRow>
-                </MyNFTCardContainer>
-            </MyNFTCard>
+
+        const mapFakeUserNFTs = fakeUserNFTs.map((nft, index) => (
+
+            <NFTCard
+                mintData = {{nftContract, account, nftURI}}
+                id={index}
+                image={userNFTData.image}
+                title={userNFTData.description}
+            ></NFTCard>
+ 
         ));
 
+
+        
         return (
         <>
         <Page>
 
-            <HeadingContainer>
-                <HeadingBackground>
-                    <BigHeading>Strategy Marketplace</BigHeading>
-                    <LittleHeading>Acquire new strategies by minting an NFT to suit your trading style</LittleHeading>
-                    <ButtonWrapper><MintButton onClick={async () => handleMint()}>Mint Now</MintButton></ButtonWrapper>
-                </HeadingBackground>
-            </HeadingContainer>
+            <NFTHeading/>
 
             <MyNFTGrid>
 
@@ -251,14 +141,9 @@ const NFT = () => {
         return (
             <>
             <Page>
-    
-                <HeadingContainer>
-                    <HeadingBackground>
-                        <BigHeading>Strategy Marketplace</BigHeading>
-                        <LittleHeading>Acquire new strategies by minting an NFT to suit your trading style</LittleHeading>
-                        <ButtonWrapper><MintButton onClick={async () => handleMint()}>Mint Now</MintButton></ButtonWrapper>
-                    </HeadingBackground>
-                </HeadingContainer>
+
+            <NFTHeading/>
+
     
                 <MyNFTContainer>
     

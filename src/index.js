@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {GlobalStyle} from "./theme/GlobalStyle";
+import {RefreshContextProvider} from "./contexts/RefreshContext"
 
 //web3 shit
 import { Web3ReactProvider } from "@web3-react/core";
@@ -18,7 +19,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
     <GlobalStyle />
+    <RefreshContextProvider>
     <App />
+    </RefreshContextProvider>
     </Web3ReactProvider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -17,22 +17,25 @@ const TheButton = styled(Button)`
  
 
     border-radius: 15px;
-    height: 50px;
+    height: auto;
     width: auto;
     background: #fbdb37;
     border-color: #fce984;
     border-width: 3px;
     color: #FFFFE0;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 1.3em;
+    font-weight: 800;
 
+    @media (max-width: 768px) {
+       font-size: 1em;
+      }
 
     &:hover {
         background: #fbdb37;
         border-color: #dfbb05;
         border-width: 3px;
         color: #dfbb05;
-        font-size: 20px;
+
         font-weight: 800;
     }
 
@@ -41,7 +44,6 @@ const TheButton = styled(Button)`
         border-color: #dfbb05;
         border-width: 3px;
         color: #dfbb05;
-        font-size: 20px;
         font-weight: 800;
     }
     

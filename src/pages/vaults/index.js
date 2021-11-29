@@ -1,14 +1,15 @@
 import React, {useState, useEffect}from 'react'
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import NavigationBar from "../../components/NavigationBar"
 import {Page} from "../../components/Page"
 import {Vault} from "./components/CreateVault"
 import {BsArrowUpRight} from "react-icons/bs"
 import {GiToken} from "react-icons/gi"
 import {Card, Container, Button, Dropdown, Form} from "react-bootstrap"
+import {HowToSection} from "./components/HowToSection"
 
 const HeaderGridContainer = styled(Container)`
-    margin-top: 25px;
+    margin-top: 66px;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: auto;
@@ -22,6 +23,7 @@ const HeaderGridContainer = styled(Container)`
         flex-direction: column;
         grid-template-columns: auto;
         grid-template-rows: auto;
+        gap: 50px;
     }
 `
 const HeaderContentContainer = styled(Container)`
@@ -30,25 +32,36 @@ const HeaderContentContainer = styled(Container)`
     align-items: center;
     justify-content: center;
     align-content: center;
+    height: auto;
+    width: 100%;
 `
 
-const BigHeading = styled.h1`
-    font-size: 380%;
+export const BigHeading = styled.h1`
+    font-size: clamp(1rem, 4rem, 4rem);
     font-weight: 800;
     color:  #fbdb37;
     margin-bottom: 24px;
+    @media (max-width: 768px) {
+        font-size: clamp(1rem, 2.1rem, 3rem);
+    }
     
 `
-const LittleHeading = styled.h2`
+export const LittleHeading = styled.h2`
     font-size: 130%;
     font-weight: 600;
     color: #fbfbfb;
+    @media (max-width: 768px) {
+        font-size: 1.0rem;
+    }
     
 `
-const HeaderImage = styled.img`
-    height: 120%;
-    width: auto;
+const HeaderImage = styled.object`
+    height: 500%;
+    width: 100%;
     align-self: start;
+    @media (max-width: 768px) {
+        height: 250px;
+    }
 `
 
 const BackgroundImage = styled.div`
@@ -145,24 +158,25 @@ const BodyGridContainer = styled(Container)`
         grid-template-rows: auto;
     }
 `
-const BodyContentContainer = styled(Container)`
+export const BodyContentContainer = styled(Container)`
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
     align-content: center;
+    margin-bottom: 35px;
 `
-const BodyBigHeading = styled(BigHeading)`
+export const BodyBigHeading = styled(BigHeading)`
     font-weight: 600;
     font-size 190%;
     color: #fbdb37;
 `
-const BodyLittleHeading = styled(LittleHeading)`
+export const BodyLittleHeading = styled(LittleHeading)`
     font-weight: 400;
     font-size: 120%;
     color: #fbfbfb;
 `
-const BodyContentCard = styled(Card)`
+export const BodyContentCard = styled(Card)`
     align-self: center;
     height: auto;
     padding: 19px;
@@ -171,7 +185,7 @@ const BodyContentCard = styled(Card)`
     background-radius: 8px;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 `
-const BodyContentCardContainer = styled(Container)`
+export const BodyContentCardContainer = styled(Container)`
     width: 100%
     height: auto;
     padding: 8px;
@@ -217,6 +231,56 @@ const TokenSubHeaderContentContainer = styled(Container)`
     align-content: center;
 
 `
+const FooterImage = styled.img`
+    width: 60%;
+    height: auto;
+    
+    @media (min-width: 1200px) {
+        margin-bottom: 100px;
+    }
+    
+`
+const rotateTwo = keyframes`
+    from {
+        transform: rotate(0deg) translate(0, 0) translate(0, 0);
+    }
+    to {
+        transform: rotate(360deg) translate(7%, 15%) translate(-7%, -15%);
+    }
+    
+`
+const rotateThree = keyframes`
+    0% {
+        transform: translateX(0px) translateY(0px);
+    }
+    50% {
+        transform: translateX(-22px) translateY(-22px);
+    }
+    100% {
+        transform: translateX(0px) translateY(0px);
+    }
+    
+`
+const FooterImageTwo = styled.img`
+    width: 20%;
+    height: auto;
+    animation: ${rotateTwo} infinite 10s linear;
+    @media (min-width: 1200px) {
+        margin-bottom: 100px;
+    }
+    
+`
+const FooterImageThree = styled.img`
+    width: 20%;
+    height: auto;
+    animation: ${rotateThree} infinite 9s ease-in-out;
+    transform: rotate(180deg);
+    @media (min-width: 1200px) {
+        margin-bottom: 100px;
+    }
+
+    
+`
 export const Home = () => {
  
     return (
@@ -231,29 +295,13 @@ export const Home = () => {
                     <HeaderButtonSecondary>Learn</HeaderButtonSecondary>
                     </StupidSpan>
                 </HeaderContentContainer>
-                <HeaderContentContainer>
-                    <HeaderImage src={`/assets/images/CornLogo.png`}></HeaderImage>
+                <HeaderContentContainer style={{alignSelf: "center"}}>
+                    <HeaderImage type="image/svg+xml" data="/assets/images/MovingCircles.svg">svg-animation</HeaderImage>
                 </HeaderContentContainer>
             </HeaderGridContainer>
-            <TokenSubHeaderGridContainer>
-                <TokenSubHeaderContentContainer style={{alignSelf: "center"}}>
-                    <GiToken style={{alignSelf: "center", color: "#fbdb37", fontSize: "500%", marginBottom: "20px"}}/>
-                    <h2 style={{color: "#fbdb37", fontWeight: "600"}}>100% Fair Launch Governance Token</h2>
-                    <BodyContentCard>
-                        <BodyContentCardContainer>
-                    <p>Stake liquidity to earn COB token.  No pre-sale, no whitelist, one-hundred percent community driven staking.</p>
-                    <hr></hr>
- 
-                    <p>COB will be used as a governance tool to vote on new strategies and proposals for the protocol. The fair launch mechanism ensures that no group controls the protocol from the start.</p>
-                    </BodyContentCardContainer>
-                    </BodyContentCard>
-                    <BuyButtonSecondary>Stake <BsArrowUpRight/></BuyButtonSecondary>
-
-
-                </TokenSubHeaderContentContainer>
-            </TokenSubHeaderGridContainer>
             
-            <SubHeaderGridContainer>
+            
+            <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
                 <SubHeaderContentContainer>
               
                     <h2 style={{color: "#fbdb37", fontWeight: "600"}}>COB Token</h2>
@@ -271,7 +319,7 @@ export const Home = () => {
                 </SubHeaderContentContainer>
             </SubHeaderGridContainer>
 
-            <BodyGridContainer>
+            <BodyGridContainer style={{marginBottom: "85px"}}>
                 <BodyContentContainer>
                     <BodyContentCard>
                         <BodyContentCardContainer>
@@ -287,30 +335,36 @@ export const Home = () => {
                     </BodyContentCard>
                 </BodyContentContainer>
                 <BodyContentContainer>
-                    <BodyBigHeading>We're bringing Advanced Orders to DeFi</BodyBigHeading>
-                    <BodyLittleHeading>One of the biggest disadvantages of trading with AMMs is the absence of conditional trades. That's where we come in.</BodyLittleHeading>
+                    <BodyBigHeading style={{color: "#fbdb37", fontWeight: "800", fontSize: "270%"}}>We're bringing Advanced Orders to DeFi</BodyBigHeading>
                 </BodyContentContainer>
             </BodyGridContainer>
 
-            <BodyGridContainer>
+            
                 <BodyContentContainer>
+                    <HowToSection>
 
-                            <BodyBigHeading style={{fontSize: "310%"}}>Smart Aggregation and Routing</BodyBigHeading>
-
-           
+                    </HowToSection>
                 </BodyContentContainer>
+        
+
+            <BodyGridContainer>
                 <BodyContentContainer>
                     <BodyImageContainer>
-                    <HeaderImage src={`/assets/images/CornLogo.png`}></HeaderImage>
+                    <FooterImageTwo style={{width: "100%"}} src={`/assets/images/Sircle.svg`}></FooterImageTwo>
                     </BodyImageContainer>
+                </BodyContentContainer>
+
+                <BodyContentContainer>
+                    <BodyBigHeading style={{fontSize: "310%"}}>Smart Aggregation and Routing</BodyBigHeading>
+                    <BodyLittleHeading>We route orders through multiple DEX's to ensure ample liquidity and reduce slippage.</BodyLittleHeading>
                 </BodyContentContainer>
             </BodyGridContainer>
 
             <BodyGridContainer>
 
                 <BodyContentContainer>
-                    <BodyBigHeading>We're bringing Advanced Orders to DeFi</BodyBigHeading>
-                    <BodyLittleHeading>One of the biggest disadvantages of trading with AMMs is the absence of stop-losses and other conditional trades. We fix that.</BodyLittleHeading>
+                    <BodyLittleHeading style={{color: "#fbfbfb", fontWeight: "400", fontSize: "180%", textAlign: "center"}}>
+                        Many AMMs lack stop-losses and other conditional order-types. We aim to fix that.</BodyLittleHeading>
                 </BodyContentContainer>
                 <BodyContentContainer>
                     <BodyContentCard>
@@ -325,8 +379,36 @@ export const Home = () => {
                 </BodyContentContainer>
             </BodyGridContainer>
 
+            <TokenSubHeaderGridContainer>
+                <TokenSubHeaderContentContainer style={{alignSelf: "center"}}>
+                    <GiToken style={{alignSelf: "center", color: "#fbdb37", fontSize: "500%", marginBottom: "30px"}}/>
+                    <h2 style={{color: "#fbdb37", fontWeight: "600", fontSize: "240%", marginBottom: "50px"}}>100% Fair Launch Governance Token</h2>
+                    <BodyContentCard>
+                        <BodyContentCardContainer>
+                    <p>Stake liquidity to earn COB token.  No pre-sale, no whitelist, one-hundred percent community driven staking.</p>
+                    <hr></hr>
+ 
+                    <p>COB will be used as a governance tool to vote on new strategies and proposals for the protocol. The fair launch mechanism ensures that no group controls the protocol from the start.</p>
+                    </BodyContentCardContainer>
+                    </BodyContentCard>
+                    <BuyButtonSecondary>Stake <BsArrowUpRight/></BuyButtonSecondary>
 
-            <Vault></Vault>
+
+                </TokenSubHeaderContentContainer>
+            </TokenSubHeaderGridContainer>
+
+
+        <Container style={{height: "460px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "100px", marginBottom: "20px"}}>
+
+      
+        <FooterImage src={'/assets/images/Docs.svg'}></FooterImage> 
+   
+        <FooterImageTwo style={{alignSelf: "flex-start"}} src={'/assets/images/Sircle.svg'}></FooterImageTwo>
+        <FooterImageThree src={'/assets/images/Sircle.svg'}></FooterImageThree>
+        
+        
+
+        </Container>
         </Page>
         </>
     )

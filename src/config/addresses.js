@@ -5,8 +5,8 @@ export const addresses = {
     mockToken1: "0x7DBaFf79d13A0c842777742A86aE3aCAc9817250",
     mockToken2: "0xCCd1660797fe05dAe3439568aD39D2a4DacEab0e",
     mockLP: "0xea718C7dd15C6E1F98de3ED10f50d812e39E66D2",
-    realLP: "0xadbF1854e5883eB8aa7BAf50705338739e558E5b",
-    realLP2: "0xEEf611894CeaE652979C9D0DaE1dEb597790C6eE",
+    realLP: "0xadbF1854e5883eB8aa7BAf50705338739e558E5b", //etherwmatic
+    realLP2: "0xEEf611894CeaE652979C9D0DaE1dEb597790C6eE", //daimatic
     CobUSDCLP: "0x972575f78ee1738fc578289b1de98e0cd90c0119",
     tokens: {
         USDC: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
