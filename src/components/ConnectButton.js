@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import styled from "styled-components"
-import {Button} from "react-bootstrap";
 import {TruncateAddress} from "../utils/TruncateAddress"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import {Button} from "react-bootstrap";
 
 //web3 shit
 import {InjectedConnector} from "@web3-react/injected-connector";
@@ -53,25 +56,41 @@ export const ConnectButton = () => {
     const { active, account, library, connector, provider, activate, deactivate } = useWeb3React();
     const shortie = TruncateAddress(account);
 
-    useEffect(() => {
-        const eagerConnect = async (connector) => {
-            try {
-                activate(injected);
-            } catch (err) {console.log(err)}
-        }
-        eagerConnect(injected);
+    const goodToast = (msg) => {
+        toast.success(`${msg}`, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
+    const badToast = (msg) => {
+        toast.warning(`${msg}`, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
+    useEffect( async () => {
+        
+        await handleConnect(injected);
         
     }, [])
 
     const handleConnect = async (connector) => {
         try {
             await activate(connector);
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const account = accounts[0];
+            goodToast(`Connected to ${account}`)
+
         } catch (err) {console.log(err)}
+
     }
 
     const handleDisconnect = async () => {
+        const leavingAccount = account
+
         try {
             deactivate(injected);
+            badToast(`Disconnected from ${leavingAccount}`)
         } catch (err) {console.log(err)}
     }
     return (
@@ -79,10 +98,15 @@ export const ConnectButton = () => {
         
 
         { !active ? 
+        <>
         <TheButton onClick={() => handleConnect(injected)} >Connect</TheButton>
+        <ToastContainer></ToastContainer>
+        </>
         :
+        <>
         <TheButton library={library} onClick={() => handleDisconnect()} >{shortie}</TheButton>
-
+        <ToastContainer></ToastContainer>
+        </>
         }
         </>
     )

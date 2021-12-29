@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import {Link} from 'react-router-dom';
+import {useWeb3React} from "@web3-react/core"
 
 import {ConnectButton} from "./ConnectButton"
 
+import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
+
 //bootstrap components
 import {Container, Navbar, NavItem} from "react-bootstrap";
+
 
 
 const NavContainer = styled(Container)`
@@ -143,6 +147,8 @@ const NetworkText = styled.div`
 
 
 export const NavigationBar = () => {
+    const {active, account, library, connector} = useWeb3React();
+
     return (
         <>
             <Nav>
@@ -166,7 +172,11 @@ export const NavigationBar = () => {
                             </CleanLink>
                         </LinkContainer>
                         <NetworkContainer>
-                            <NetworkImage src={`/assets/images/CornLogo.png`}></NetworkImage>
+                            {active
+                                ? <AiFillCheckCircle style={{color: "green", marginLeft: "5px", marginRight: "5px"}}/>
+                                : <AiFillExclamationCircle style={{color: "red", marginLeft: "5px", marginRight: "5px"}}/>
+                            }
+                            
                             <NetworkText>Polygon</NetworkText>
                         </NetworkContainer>
                         <ConnectButton></ConnectButton>

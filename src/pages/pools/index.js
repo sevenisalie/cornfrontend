@@ -4,7 +4,10 @@ import axios from "axios"
 import {ethers} from "ethers";
 import React, {useEffect, useState} from "react";
 import { useWeb3React } from "@web3-react/core";
+
 //static confg
+
+
 import { addresses } from "../../config/addresses";
 import {pools} from "../../config/pools";
 import {MasterChefABI, ERC20Abi} from "../../config/abis";
@@ -14,6 +17,10 @@ import {fetchUserPoolData, mapPendingToOriginalData, getPoolBalance} from "../..
 import {Page} from "../../components/Page"
 import {Container, Card, Button} from "react-bootstrap";
 import PoolCard from "./components/PoolCard";
+import PoolPageHeading from "./components/PoolPageHeading"
+import BackdropFilter from "react-backdrop-filter";
+
+
 
 //hooks
 import {useRefresh} from "../../utils/useRefresh";
@@ -29,7 +36,7 @@ const PoolGrid = styled(Container)`
     justify-items: center;
     align-content: start;
     column-gap: 2px;
-    row-gap: 20px;
+    row-gap: 4.20em;
     margin-bottom: 25px;
 
     @media (max-width: 768px) {
@@ -40,37 +47,10 @@ const PoolGrid = styled(Container)`
   
 `
 
-const HeadingContainer = styled(Container)`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;
-`
-
-const HeadingBackground = styled(Card)`
-    height: auto;
-    width: 100%;
-    padding: 20px;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-`
-
-const BigHeading = styled.h1`
-    font-size: 280%;
-    font-weight: 800;
-    color:  #fbdb37;
-    
-`
-const LittleHeading = styled.h2`
-    font-size: 200%;
-    font-weight: 600;
-    color: #fbfbfb;
-    
-`
 
 
-const Pools = () => {
+
+const Pools = (props) => {
    
     const {active, account, library, connector} = useWeb3React();
     const [poolData, setPoolData] = useState(pools); //imported above
@@ -103,22 +83,26 @@ const Pools = () => {
 
     useEffect( async () => {
      
+            try {
+
+                if (library && account) {
             
-            if (library && account) {
+                    const farmData = await fetchUserPoolData(masterChefContract, library, account, 4)
+                    const userFarmData = await mapPendingToOriginalData(farmData, pools, masterChefContract, 4)
+                    const alounces = await fetchPoolAllowance(userFarmData, library.getSigner(), account, masterChefContract)
+                    const bal = await fetchTokenStakeBalance(userFarmData, library.getSigner(), account)
+                    setBalances(bal)
+                    setPoolData(userFarmData)
+                    setAllowances(alounces)
+                } else {
+                    console.log("stillbroke no pooldata")
+                    setPoolData(pools)
+                    setAllowances("false")
+                    setBalances('0')
+                }
+
+            } catch (err) {console.log(err)}
             
-                const farmData = await fetchUserPoolData(masterChefContract, library, account, 4)
-                const userFarmData = await mapPendingToOriginalData(farmData, pools, masterChefContract, 4)
-                const alounces = await fetchPoolAllowance(userFarmData, library.getSigner(), account, masterChefContract)
-                const bal = await fetchTokenStakeBalance(userFarmData, library.getSigner(), account)
-                setBalances(bal)
-                setPoolData(userFarmData)
-                setAllowances(alounces)
-            } else {
-                console.log("stillbroke no pooldata")
-                setPoolData(pools)
-                setAllowances("false")
-                setBalances('0')
-            }
     
               
        }, [masterChefContract, fastRefresh])
@@ -152,13 +136,10 @@ const Pools = () => {
 
         return (
             <>
-            <HeadingContainer>
-                <HeadingBackground>
-                    <BigHeading>Staking Pools</BigHeading>
-                    <LittleHeading>Stake Assets to Earn COB</LittleHeading>
-                </HeadingBackground>
-            </HeadingContainer>
-            <PoolGrid>
+  
+            <PoolPageHeading/>
+            
+            <PoolGrid style={{marginBottom: "6.5em"}}>
                 {mapPoolData}
             </PoolGrid>
             
@@ -173,12 +154,7 @@ const Pools = () => {
         <>
         <Page>
 
-            <HeadingContainer>
-                <HeadingBackground>
-                    <BigHeading>Staking Pools</BigHeading>
-                    <LittleHeading>Stake Assets to Earn COB</LittleHeading>
-                </HeadingBackground>
-            </HeadingContainer>
+            <PoolPageHeading/>
 
             <PoolGrid>
 

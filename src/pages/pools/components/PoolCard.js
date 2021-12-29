@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import { Link } from 'react-router-dom'
 import { useWeb3React } from "@web3-react/core";
 import axios from "axios"
-import { StringToFixedDecimal, userClaim, fetchPoolAllowance, setPoolAllowance, toFixed, getTokenStakeBalance} from "../../../utils/nft"
+import { stringToFixed, userClaim, fetchPoolAllowance, setPoolAllowance, toFixed, getTokenStakeBalance, userStake} from "../../../utils/nft"
 
 //components
 import {Container, Card, Button, Image} from "react-bootstrap";
@@ -13,20 +13,25 @@ import {MultiplierBadge} from "./Badges"
 import DepositModal from "./DepositModal"
 import UnstakeModal from "./UnstakeModal"
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 //icons
 import {BsArrowUpRightSquare, BsCalculatorFill} from "react-icons/bs"
 import {GoVerified} from "react-icons/go"
 import {FaCircle, FaRegCircle, FaRegCheckCircle} from "react-icons/fa"
 import {BiCoinStack} from "react-icons/bi"
+import {GiLockedChest} from "react-icons/gi"
 import {RiCoinLine} from "react-icons/ri"
 import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
 
 
 const ActualPoolCard = styled.div`
-    background: #1D1E20;
-    box-shadow: 0px 2px 12px -8px rgba(25, 19, 38, 0.1), 0px 1px 1px rgba(25, 19, 38, 0.05);
-    border-radius: 32px;
+    border-radius: 50px;
+    background-color: transparent;
+
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -191,6 +196,16 @@ const StyledDetails = styled.div`
   font-weight: 600;
   color: #fbfbfb;
 `
+const CoinCard = styled(Card)`
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(103, 107, 114, 0.2));
+  border: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 100%;
+  background-color: transparent;
+  
+  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.1), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
+`
 const CardFooter = ({
     projectLink,
     totalStaked,
@@ -198,6 +213,8 @@ const CardFooter = ({
     isFinished,
     blocksUntilStart,
     poolCategory,
+    userStaked,
+    bal
   }) => {
     const [isOpen, setIsOpen] = useState(false)
     const Icon = isOpen ? HiChevronDoubleUp : HiChevronDoubleDown
@@ -228,15 +245,15 @@ const CardFooter = ({
             
             <StyledDetails>
             <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                  <p style={{fontSize: "80%"}}>Total Staked:</p>
-                  <p style={{fontSize: "80%"}}>{totalStaked}</p>
+                  <p style={{fontSize: "80%"}}>My Balance</p>
+                  <p style={{fontSize: "80%"}}>{bal}</p>
                 </Container>
             </StyledDetails>
 
             <StyledDetails>
             <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                   <p style={{fontSize: "80%"}}>My Staked Amount:</p>
-                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{`3738.34`}</p>
+                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{`${userStaked}`}</p>
                 </Container>
             </StyledDetails>
 
@@ -257,6 +274,18 @@ const PoolCard = (props) => {
     const masterChef = props.masterChef
     const signer = props.signer
 
+    const goodToast = (msg) => {
+      toast.success(`${msg}`, {
+          position: toast.POSITION.BOTTOM_RIGHT
+      })
+  }
+
+    const badToast = (msg) => {
+      toast.warning(`${msg}`, {
+          position: toast.POSITION.BOTTOM_RIGHT
+      })
+  }
+
     const handleModalOnClick = () => {
         setShowDepositModal(prev => !prev)
     }
@@ -272,8 +301,12 @@ const PoolCard = (props) => {
       try {
         
         await userClaim(masterChef, pid)
+        goodToast("Claimed Rewards... Allow the UI to Update")
         
-      } catch (err) {console.log(err)}
+      } catch (err) {
+        console.log(err)
+        badToast(`Something Went Wrong....Try Claiming Rewards Again`)
+      }
     }
 
 
@@ -281,7 +314,11 @@ const PoolCard = (props) => {
       try {
         //pid, tokenAddress, masterchef, _signer
         await setPoolAllowance(token, masterChef, signer)
-      } catch (err) {console.log(err)}
+        goodToast(`Approved Pool...Allow the UI to Update`)
+      } catch (err) {
+        console.log(err)
+        badToast(`Something Went Wrong... Try Approving the Pool Again`)
+      }
     }
     
     if (props.pool !== undefined) {
@@ -291,18 +328,23 @@ const PoolCard = (props) => {
       const allowance = props.allowance
       const answer = allowance.approved
       const balance = props.balance
+
+      const stakedAmount = stringToFixed(poolData.userStaked, 3)
       return (
 
         <>
     <DepositModal walletBalance={balance} pid={pid} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal}/>
-    <UnstakeModal showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
+    <UnstakeModal userStaked={stakedAmount} pid={pid} showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
     <ActualPoolCard>
 
       <div style={{ padding: '24px' }}>
 
 
           <div style={{ display: 'flex', flexDirection: 'row', flexWrap: "wrap", alignItems: 'center', justifyContent: "space-between"}}>
+            <CoinCard>
             <Image style={{ marginRight: "19px" }}src={`/assets/images/CornLogo.png`} width={64} height={64} alt={"COB"} />
+
+            </CoinCard>
             <CardTitle >
            
            <div style={{display: "flex", flexDirection: 'column', alignContent: "center", justifyContent: "space-between", textAlign: "center", marginBottom: "12px"}}>
@@ -322,8 +364,10 @@ const PoolCard = (props) => {
 
             <StyledDetails>
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                  <p>APR:</p>
-                  <p><BsCalculatorFill style={{marginRight: "6px"}}/>{balance}</p>
+                  <p>TVL:</p>
+                  <p><GiLockedChest style={{marginRight: "6px", color: "#fbfbfb"}}/>
+                  {toFixed(poolBalance, 2)}
+                  </p>
                 </Container>
         
             </StyledDetails>
@@ -408,6 +452,8 @@ const PoolCard = (props) => {
       <CardFooter
         projectLink={"#"}
         totalStaked={`${toFixed(poolBalance, 2)}`}
+        bal={balance}
+        userStaked={stakedAmount}
         blocksRemaining={"10340233"}
         isFinished={false}
         blocksUntilStart={"0"}

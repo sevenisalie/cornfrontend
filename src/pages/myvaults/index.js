@@ -7,15 +7,22 @@ import { useWeb3React } from "@web3-react/core";
 import { addresses } from "../../config/addresses";
 import { nftURI } from "../../config/uri";
 
+
 import axios from "axios"
-import {nftABI} from "../../config/abis";
+import {nftABI, stopLossAbi} from "../../config/abis";
 import {Container, Card, Button} from "react-bootstrap";
 import {writeContract, userMint} from "../../utils/nft";
 import {VaultNFTCard} from "./components/VaultNFTCard";
+import VaultsPageHeading from "./components/VaultsPageHeading"
+import {OracleBar} from "../../components/OracleBar";
 import {VaultNFTFooter} from "./components/VaultNFTFooter";
 import {Chart} from "./components/Chart";
+import Marquee from "react-fast-marquee";
+import {MultiplierBadge} from "../pools/components/Badges"
+import {FaCircle, FaRegCircle, FaTicketAlt} from "react-icons/fa"
 
-import {EthIcon, BitcoinIcon, DollarIcon} from "../vaults/components/CreateVault"
+
+import {EthIcon, BitcoinIcon, DollarIcon} from "../nftgallery/components/CreateVault"
 
 const SoManyContainers = styled(Container)`
     display: flex;
@@ -69,13 +76,16 @@ const VaultGrid = styled(Container)`
 
 const MyVaultCard = styled(Card)`
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 50px;
     position: relative;
+    border-color: transparent;
     z-index: 0;
     height: auto;
     width: 100%;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    
+    background-color: transparent;
+    
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
     width: 100%;
 
 `
@@ -109,7 +119,7 @@ const MyVaultCardContainer = styled(Container)`
 `
 const PriceTargetRow = styled(Container)`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 0px;
     width: auto;
     margin: 0px;
@@ -125,9 +135,14 @@ const CardHeader = styled.h2`
     text-justify: center;
     align-self: center;
 `
-const HorizontalLine = styled.hr`
+const DetailsCard = styled(Card)`
+    border-radius: 25px;
+    margin-bottom: 18px;
+    height: 100%;
     width: 100%;
-    color: #fbfbfb;
+    background-color: transparent;
+    
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
 `
 
 const MintButton = styled(Button)`
@@ -189,14 +204,61 @@ const LittleHeading = styled.h2`
     color: #fbfbfb;
     
 `
+const HeaderGrid = styled(Container)`
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(3, minmax(auto, auto));;
+    border-radius: 25px;
+    
+`
 
 
 const Vaults = () => {
     const [nftContract, setNftContract] = useState('');
     const [userNFTData, setUserNFTData] = useState('');
+    const [userTradeData, setUserTradeData] = useState('')
     const [transacting, setTransacting] = useState(false);
    
     const {active, account, library, connector} = useWeb3React();
+
+    const getNFTs = async (userAddress) => {
+        const data = await axios.get(`https://cornoracleapi.herokuapp.com/stoploss/nfts/${userAddress}`)
+        console.log("data from function")
+        console.log(data)
+        const darta = data.data
+        return darta
+    }
+
+    const getUserTrades = async (nftIds) => {
+        const tradePromises = nftIds.map( async (id) => {
+            const resp = await axios.get(`https://cornoracleapi.herokuapp.com/stoploss/userTrades/${id}&[0]`)
+            const raw = resp.data
+            return raw 
+        })
+
+        const trades = await Promise.all(tradePromises)
+        console.log("TRADE DATA")
+        console.log(userTradeData)
+        return trades
+    }
+
+    useEffect( async () => {
+        if (active && account) {
+    
+            const NFTs = await getNFTs(account)
+            setUserNFTData(NFTs)
+            const trades = await getUserTrades(NFTs.nfts)
+            setUserTradeData(trades)
+
+
+            
+        } else {
+            const noData = setUserNFTData('')
+            setUserTradeData('')
+        }
+    }, [account])
+
+
 
     useEffect( () => {
         if (active) {
@@ -204,52 +266,66 @@ const Vaults = () => {
                 active,
                 library.getSigner(),
                 account,
-                addresses.nft,
-                nftABI,
+                addresses.StopLoss,
+                stopLossAbi,
             )
             .then( value => {
                 setNftContract(value)
-                console.log(value.address)
+    
             })
         } else {
             const noData = setNftContract('')
         }
-    }, [account])
+    }, [userNFTData])
 
-    useEffect( () => {
-        if (active) {
-    
-            axios.get(nftURI)
-            .then(response => setUserNFTData(response.data))
-            
-        } else {
-            const noData = setUserNFTData('')
-        }
-    }, [nftContract])
 
-    const fakeUserNFTs = [ 
-        "0xisdhfwouhfihfihsdkfjhaskdjfhasjkdf",
-        "0xisdhfwouhfihfihsdkfjhaskdjfhasjkdf",
 
-    ] //this would be live data
 
-    if (fakeUserNFTs !== null && userNFTData !== null) {
-
-        const mapFakeNFTs = fakeUserNFTs.map( (nft, index) => (
+    if (userNFTData !== '') {
+        const userNFTs = userNFTData.nfts //this would be live data
+        const mapNFTs = userNFTs.map( (nft, index) => (
 
                         <>
                         <MyVaultContainer>
                             <MyVaultCard>
+                                <MyVaultCardContainer style={{marginLeft: "12px", alignItems: "flex-start", justifyContent: "flex-start"}}>
+                                    <HeaderGrid>
+                                        <MultiplierBadge style={{margin: "0px !important", alignSelf: "end", display: "flex", flexDirection: "row", justifyContent: "space-evenly", height: "100%"}}>
+                                        <FaTicketAlt style={{color: "#fbdb37", fontSize: "3.2em", alignSelf: "center"}}></FaTicketAlt>
+
+                                            <div style={{marginBottom: "0px", marginTop: "3px", fontSize: "2.5em", alignSelf: "center", fontWeight: "600"}}>
+                                                {`${nft}`}
+                                            </div>
+                                        </MultiplierBadge>
+                                        <BigHeading style={{ alignSelf: "center", textAlign: "center", fontSize: "2.0em"}}>
+                                            {`${userNFTData.strategy} Vault`}
+                                        </BigHeading>
+
+                                        <MultiplierBadge style={{margin: "0px !important", alignSelf: "end", justifyContent: "center" }}>
+                                            <FaCircle style={{marginBottom: "5px", fontSize: "240%"}}/>
+                                            <p style={{marginBottom: "3px", fontSize: "100%"}}>Open / Working</p>
+                                        </MultiplierBadge>
+                                        
+                                    </HeaderGrid>
+
+                                </MyVaultCardContainer>
                                 <CardGrid>
                                     <VaultNFTCard
-                                        mintData = {{nftContract, account, nftURI}}
+                                        mintData = {{nftContract, account}}
                                         id={index}
-                                        image={userNFTData.image}
-                                        title={userNFTData.description}
+                                        nftId={nft}
+                                        nftData={userNFTData}
+                                        image={"/assets/images/StopLoss.svg"}
+                                        title={userNFTData.strategy}
                                     />
-                                    <VaultChartGrid>
-                                        <Chart/>
-                                        <VaultNFTFooter id={index} />
+                                    <VaultChartGrid style={{rowGap: "1.5em"}}>
+                                        <DetailsCard >
+                                            <Chart/>
+                                        </DetailsCard>
+                                        
+                                        <DetailsCard>
+                                            <VaultNFTFooter id={index} nftData={userTradeData[index]} />
+                                        </DetailsCard>
                                     </VaultChartGrid>
                                 </CardGrid>
                             </MyVaultCard>
@@ -265,17 +341,14 @@ const Vaults = () => {
             <>
             <Page>
     
-                <HeadingContainer>
-                    <HeadingBackground>
-                        <BigHeading>Vault Dashboard</BigHeading>
-                        <LittleHeading>Keep Track of Your Open Vaults and Strategies</LittleHeading>
-                    </HeadingBackground>
-                </HeadingContainer>
+                <VaultsPageHeading />
+
+                <OracleBar />
 
                 <SoManyContainers>
                 
 
-                            {mapFakeNFTs}
+                            {mapNFTs}
                         
                 </SoManyContainers>
             </Page>
@@ -289,12 +362,7 @@ const Vaults = () => {
             <>
             <Page>
     
-                <HeadingContainer>
-                    <HeadingBackground>
-                        <BigHeading>Vault Dashboard</BigHeading>
-                        <LittleHeading>Keep Track of Your Open Vaults and Strategies</LittleHeading>
-                    </HeadingBackground>
-                </HeadingContainer>
+            <VaultsPageHeading />
     
                 <MyVaultContainer>
                     <VaultGrid>

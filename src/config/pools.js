@@ -8,7 +8,7 @@ export const pools = [
         tokenEarnName: "COB",
         tokenEarnLogoName: "cornlogo",
         multiplier: "2x",
-        depositFee: "1%"
+        depositFee: "10%"
 
     },
     {   
@@ -20,7 +20,7 @@ export const pools = [
         tokenEarnName: "COB",
         tokenEarnLogoName: "cornlogo",
         multiplier: "2x",
-        depositFee: "1%"
+        depositFee: "10%"
 
     },
     {   pid: 2,
@@ -31,7 +31,7 @@ export const pools = [
         tokenEarnName: "COB",
         tokenEarnLogoName: "cornlogo",
         multiplier: "2x",
-        depositFee: "1%"
+        depositFee: "10%"
 
     },
     {
@@ -43,7 +43,7 @@ export const pools = [
         tokenEarnName: "COB",
         tokenEarnLogoName: "cornlogo",
         multiplier: "2x",
-        depositFee: "1%"
+        depositFee: "10%"
 
     }
 ]

@@ -4,6 +4,7 @@ import {Container, Button, Card} from "react-bootstrap"
 import TradingViewWidget, { Themes, IntervalTypes } from 'react-tradingview-widget';
 
 const ChartContainer = styled(Container)`
+    margin-top: 12px;
     display: flex;
     flex-direction: column;
     height: 420px;

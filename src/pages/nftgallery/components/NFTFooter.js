@@ -76,10 +76,12 @@ export const NFTFooter = () => {
             </StyledDetailsButton>
         </DetailsButtonWrapper>
 
-        { isOpen && 
+        { isOpen
+            ?
             <DetailsDropDownGrid>
                 <DetailsRow>
                     <FaTicketAlt style={{color: "#fbdb37", fontSize: "200%"}}></FaTicketAlt>
+
                 </DetailsRow>
             
                 <DetailsGrid>
@@ -100,6 +102,8 @@ export const NFTFooter = () => {
                     <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0px"}}>MiMATIC</p></NFTFooterBadge>
                 </DetailsGrid>
             </DetailsDropDownGrid>
+            :
+            null
           
         }
 

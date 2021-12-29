@@ -6,15 +6,16 @@ import {userMint} from "../../../utils/nft";
 
 
 import {VaultNFTFooter} from "./VaultNFTFooter";
-import {EthIcon, BitcoinIcon, DollarIcon} from "../../vaults/components/CreateVault"
+import {EthIcon, BitcoinIcon, DollarIcon} from "../../nftgallery/components/CreateVault"
 
 
 export const MyNFTCard = styled(Card)`
-    border-radius: 8px;
-    height: auto;
-    width: auto;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    border-radius: 25px;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
 `
 const MyNFTCardContainer = styled(Container)`
     display: flex;
@@ -25,12 +26,16 @@ const MyNFTCardContainer = styled(Container)`
     justify-content: space-around;
     gap: 8px;
 
+
     @media (max-width: 768px) {
         flex-direction: column;
       }
 `
 const NFTImageWrapper = styled.img`
     border-radius: 5px;
+    border: 5px solid #141516;
+    background: #4c4e54;
+
 `
 const NFTBrandName = styled.p`
     font-size: 70%;
@@ -41,7 +46,7 @@ const NFTTitle = styled.h3`
     font-weight: 600;
     color: #fbfbfb;
 `
-const NFTLineBreak = styled.hr`
+export const NFTLineBreak = styled.hr`
       color: #393C3F;
       width: 100%;
 `
@@ -104,7 +109,7 @@ export const VaultNFTCard = (props) => {
            <MyNFTCard>
                 <MyNFTCardContainer>
                 <NFTImageWrapper src={props.image}></NFTImageWrapper>
-                <NFTBrandName>CornFinance</NFTBrandName>
+                <NFTBrandName>CornFinance Algo-Vault</NFTBrandName>
                 <NFTTitle>{props.title}</NFTTitle>
                 <NFTLineBreak size="8"/>
                 <PriceRow>
@@ -112,7 +117,7 @@ export const VaultNFTCard = (props) => {
                     <ButtonWrapper style={{justifyContent: "flex-start"}}><MintButton >Flatten</MintButton></ButtonWrapper>
                     
                     <EthIcon />
-                    <NFTTitle>Accumulator</NFTTitle>
+                    <NFTTitle>Distributor</NFTTitle>
 
                 </PriceRow>
 

@@ -7,17 +7,17 @@ import { useWeb3React } from "@web3-react/core";
 import { addresses } from "../../config/addresses";
 import { nftURI } from "../../config/uri";
 import axios from "axios"
-import {nftABI} from "../../config/abis";
+import {stopLossAbi} from "../../config/abis";
 import {Container, Card, Button} from "react-bootstrap";
 import {writeContract, userMint} from "../../utils/nft";
 import { StyledDetailsButton } from "../../pages/pools/components/PoolCard"
 import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
 
-import {EthIcon, BitcoinIcon, DollarIcon} from "../vaults/components/CreateVault"
+import {EthIcon, BitcoinIcon, DollarIcon} from "./components/CreateVault"
 
 import {NFTFooter} from "./components/NFTFooter";
 import {NFTCard} from "./components/NFTCard";
-import {NFTHeading} from "./components/NFTHeading";
+import MarketPageHeading from "./components/MarketPageHeading";
 
 const MyNFTContainer = styled(Container)`
     display: flex;
@@ -32,8 +32,8 @@ const MyNFTContainer = styled(Container)`
 const MyNFTGrid = styled(Container)`
     margin-top: 25px;
     display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
     justify-items: center;
     align-content: start;
     column-gap: 2px;
@@ -53,10 +53,22 @@ const MyNFTGrid = styled(Container)`
 
 
 const NFT = () => {
-    const [nftContract, setNftContract] = useState('');
+    const [stopLossContract, setStopLossContract] = useState('');
     const [userNFTData, setUserNFTData] = useState('');
     const {active, account, library, connector} = useWeb3React();
     const [transacting, setTransacting] = useState(false);
+
+    useEffect( async () => {
+        if (active) {
+            const nfts = await getNFTs(account)
+            console.log("user NFTS")
+            console.log(nfts)
+            setUserNFTData(nfts)
+            
+        } else {
+            const noData = setUserNFTData('')
+        }
+    }, [active])
 
     useEffect( () => {
         if (active) {
@@ -64,57 +76,49 @@ const NFT = () => {
                 active,
                 library.getSigner(),
                 account,
-                addresses.nft,
-                nftABI,
+                userNFTData.contract,
+                stopLossAbi,
             )
             .then( value => {
-                setNftContract(value)
-                console.log(value.address)
+                setStopLossContract(value)
+                console.log("setted stop tract")
+                console.log(value)
+                
             })
-        } else {
-            const noData = setNftContract('')
-        }
-    }, [account])
-
-
-    useEffect( () => {
-        if (active) {
-    
-            axios.get(nftURI)
-            .then(response => setUserNFTData(response.data))
             
         } else {
-            const noData = setUserNFTData('')
+            const noData = setStopLossContract('')
         }
-    }, [nftContract])
+    }, [userNFTData])
 
-    const handleMint = async () => {
-        setTransacting(true)
-        userMint(nftContract, account, nftURI)
-        setTransacting(false)
+
+    const getNFTs = async (_account) => {
+        const data = await axios.get(`https://cornoracleapi.herokuapp.com/stoploss/nfts/${_account}`)
+        console.log("data from function")
+        console.log(data)
+        const darta = data.data
+        return darta
     }
     
 
-    const fakeUserNFTs = [ 
-        "0xisdhfwouhfihfihsdkfjhaskdjfhasjkdf",
-        "0xisdhfwouhfihfihsdkfjhaskdjfhasjkdf",
-        "0xisdhfwouhfihfihsdkfjhaskdjfhasjkdf",
-        "0xisdhfwouhfihfihsdkfjhaskdjfhasjkdf",
-    ]
- 
+    
+    
+    
+  
 
+    const userNFTs = userNFTData.nfts
+    if (userNFTs !== undefined && userNFTData !== null) {
+        console.log(userNFTs)
 
-
-    if (fakeUserNFTs !== null && userNFTData !== null) {
-        console.log(fakeUserNFTs)
-
-        const mapFakeUserNFTs = fakeUserNFTs.map((nft, index) => (
+        const mapUserNFTs = userNFTs.map((nft, index) => (
 
             <NFTCard
-                mintData = {{nftContract, account, nftURI}}
+                mintData = {{account: account}}
+                contract = {stopLossContract}
                 id={index}
-                image={userNFTData.image}
-                title={userNFTData.description}
+                nftId={nft}
+                image={null}
+                title={userNFTData.strategy}
             ></NFTCard>
  
         ));
@@ -125,11 +129,11 @@ const NFT = () => {
         <>
         <Page>
 
-            <NFTHeading/>
+            <MarketPageHeading/>
 
             <MyNFTGrid>
 
-                {mapFakeUserNFTs}
+                {mapUserNFTs}
            
             </MyNFTGrid>
 
@@ -142,7 +146,7 @@ const NFT = () => {
             <>
             <Page>
 
-            <NFTHeading/>
+            <MarketPageHeading/>
 
     
                 <MyNFTContainer>

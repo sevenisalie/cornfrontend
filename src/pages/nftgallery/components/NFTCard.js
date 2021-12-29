@@ -1,20 +1,26 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Container, Card, Button} from "react-bootstrap";
 import styled from "styled-components";
 
+
+
+import {MultiplierBadge} from "../../pools/components/Badges"
 import {userMint} from "../../../utils/nft";
-
-
 import {NFTFooter} from "./NFTFooter";
-import {EthIcon, BitcoinIcon, DollarIcon} from "../../vaults/components/CreateVault"
+import {MintModal} from "./MintModal"
+
+import {EthIcon, BitcoinIcon, DollarIcon} from "./CreateVault"
+import {GiCorn} from "react-icons/gi"
 
 
 export const MyNFTCard = styled(Card)`
-    border-radius: 8px;
+    border: none;
+    margin-bottom: 100px;
+    border-radius: 25px;
     height: auto;
     width: auto;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    background-color: transparent;
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
 `
 const MyNFTCardContainer = styled(Container)`
     display: flex;
@@ -31,6 +37,8 @@ const MyNFTCardContainer = styled(Container)`
 `
 const NFTImageWrapper = styled.img`
     border-radius: 5px;
+    border: 5px solid #141516;
+    background: #4c4e54;
 `
 const NFTBrandName = styled.p`
     font-size: 70%;
@@ -98,27 +106,38 @@ const MintButton = styled(Button)`
 
 export const NFTCard = (props) => {
 
+    const [showStopModal, setShowStopModal] = useState(false)
+    const [chosenStrategy, setChosenStrategy] = useState(props.title)
+
+
+    
+    const handleStopModal = () => {
+        setShowStopModal( prev => !prev)
+    }
+
     const handleMint = async () => {
         userMint(
             props.mintData.nftContract, 
             props.mintData.account, 
-            props.mintData.nftURI
             )
     }
+
     return (
         <>
+            <MintModal contract={props.contract} strategy={props.title} showModal={showStopModal} setShow={setShowStopModal}></MintModal>
            <MyNFTCard>
                 <MyNFTCardContainer>
-                <NFTImageWrapper src={props.image}></NFTImageWrapper>
-                <NFTBrandName>CornFinance</NFTBrandName>
+                <NFTImageWrapper src={`/assets/images/StopLoss.svg`}></NFTImageWrapper>
+                <NFTBrandName>CornFinance Algo-Vault</NFTBrandName>
                 <NFTTitle>{props.title}</NFTTitle>
                 <NFTLineBreak size="8"/>
                 <PriceRow>
-                    <ButtonWrapper style={{justifyContent: "flex-start"}}><MintButton onClick={async () => handleMint()}>Mint Now</MintButton></ButtonWrapper>
+                    <ButtonWrapper style={{justifyContent: "flex-start"}}><MintButton onClick={()=>handleStopModal()}>Mint</MintButton></ButtonWrapper>
+                    <MultiplierBadge><p style={{fontSize: "1.5em", marginBottom: "0px"}}>0% Deposit Fee</p></MultiplierBadge>
 
-                    <NFTBrandName style={{fontSize: "0.88em"}}>Asking Price</NFTBrandName>
-                    <NFTTitle><EthIcon />100.00</NFTTitle>
-
+                    <MultiplierBadge>
+                    <GiCorn style={{fontSize: "3.8em"}} />
+                    </MultiplierBadge>
                 </PriceRow>
 
 

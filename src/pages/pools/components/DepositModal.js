@@ -17,7 +17,6 @@ const ExitButton = styled.button`
     outline: 0;
     border: 0;
     background-color: transparent !important;
-    align-items: flex-start;
     color: #fbdb37;
     cursor: pointer;
     font-size: 22px;
@@ -43,7 +42,7 @@ const ModalContainer = styled(Container)`
     z-index: 9999;
     grid-template-columns: auto;
     grid-template-rows: auto;
-    
+
     height: 100%;
     width: auto;
     padding: 0;
@@ -185,7 +184,6 @@ const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid
         <ModalContainer showDepositModal={showDepositModal}>
             <ModalCard>
                 <ModalCardContentContainer>
-                    <DepositForm>
 
                     <ExitButton onClick={() => setShowDepositModal(prev => !prev)}><FaTimesCircle/></ExitButton>
                     <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
@@ -202,7 +200,6 @@ const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid
                     <DepositButton>Max</DepositButton>
                     </Container>
 
-                    </DepositForm>
                 </ModalCardContentContainer>
                 <ModalCardFooter>
                     Deposit

@@ -28,7 +28,7 @@ const CardOne = styled(Card)`
     align-self: center;
     height: auto;
     padding: 19px;
-    width: 90%;
+    width: 100%;
     background-color: #1D1E20;
     background-radius: 8px;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
@@ -49,10 +49,12 @@ const CardTwo = styled(Card)`
     align-self: center;
     height: auto;
     padding: 19px;
-    width: 90%;
+    width: 100%;
     background-color: #1D1E20;
     background-radius: 8px;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    transform: rotate(8deg);
+
     top: -38px;
     width: 30%;
     
@@ -66,11 +68,11 @@ const CardThree = styled(Card)`
     align-self: center;
     height: auto;
     padding: 19px;
-    width: 90%;
+    width: 100%;
     background-color: #1D1E20;
     background-radius: 8px;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-    transform: rotate(30deg);
+    transform: rotate(-8deg);
     right: -3%;
     width: 30%;
 
@@ -89,6 +91,7 @@ const BigCard = styled(Card)`
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 9px;
+    height: 530px;
 
 `
 
@@ -100,9 +103,9 @@ export const HowToSection = () => {
             <ContainerRow>
                 <CardOne >
                     <BodyContentCardContainer>
-                        <BodyBigHeading style={{fontSize: "80%"}}>1. Purchase a Vault</BodyBigHeading>
+                        <BodyBigHeading style={{fontSize: "200%"}}>1. Purchase a Vault</BodyBigHeading>
                         <hr></hr>
-                        <BodyLittleHeading style={{fontSize: "70%"}}>
+                        <BodyLittleHeading style={{fontSize: "100%"}}>
                             Purchase a vault from the marketplace to get started.  Each Vault has a unique trading algorithm, you can check it's details to learn more.
                         </BodyLittleHeading>
                         <BodyLittleHeading style={{textAlign: "center", color: "#fbdb37", fontSize: "150%", fontWeight: "600"}}>
@@ -113,9 +116,9 @@ export const HowToSection = () => {
 
                 <CardTwo>
                     <BodyContentCardContainer>
-                        <BodyBigHeading style={{fontSize: "80%"}}>2. Deposit Funds</BodyBigHeading>
+                        <BodyBigHeading style={{fontSize: "200%"}}>2. Deposit Funds</BodyBigHeading>
                         <hr></hr>
-                        <BodyLittleHeading style={{fontSize: "70%"}}>
+                        <BodyLittleHeading style={{fontSize: "100%"}}>
                             Deposit any amount of funds into the vault that you'd like to trade.  If you're swapping 10 ETH for USDC, then you would deposit 10 ETH into your vault.
                         </BodyLittleHeading>
                         <BodyLittleHeading style={{textAlign: "center", color: "#fbdb37", fontSize: "150%", fontWeight: "600"}}>
@@ -123,12 +126,14 @@ export const HowToSection = () => {
                         </BodyLittleHeading>
                     </BodyContentCardContainer>
                 </CardTwo>
+                </ContainerRow>
 
+                <ContainerRow style={{justifyContent: "center"}}>
                 <CardThree>
                     <BodyContentCardContainer>
-                        <BodyBigHeading style={{fontSize: "80%"}}>3. Relax</BodyBigHeading>
+                        <BodyBigHeading style={{fontSize: "200%"}}>3. Relax</BodyBigHeading>
                         <hr></hr>
-                        <BodyLittleHeading style={{fontSize: "70%"}}>
+                        <BodyLittleHeading style={{fontSize: "100%"}}>
                             Every 30 minutes our price oracles update and check your NFTs trade conditions. So long as your conditions are met then the swaps will automatically happen. 
                         </BodyLittleHeading>
                         <BodyLittleHeading style={{textAlign: "center", color: "#fbdb37", fontSize: "150%", fontWeight: "600"}}>

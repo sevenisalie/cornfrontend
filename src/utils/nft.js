@@ -115,12 +115,32 @@ export const getTokenStakeBalance = async (tokenAddress, _signer, account) => {
 export const userStake = async (_masterchef, pid, amount) => {
     const ctr = _masterchef;
     try {
-        const strAmount = amount.toString();
+        //const strAmount = amount.toString();
+        const bigNumAmount = ethers.utils.parseUnits(amount, 18)
+        const formattedBigNumAmount = ethers.utils.formatUnits(bigNumAmount, 18)
         const strPid = pid.toString();
 
-        await ctr.deposit(strPid, strAmount);
+        const tx = await ctr.deposit(strPid, bigNumAmount);
+        const receipt = await tx.wait()
+        return receipt
     } catch (err) {console.log(err)}
+}
 
+export const userUnstake = async (_masterchef, pid, amount) => {
+    const ctr = _masterchef;
+    try {
+        //const strAmount = amount.toString();
+        const bigNumAmount = ethers.utils.parseUnits(amount, 18)
+        const formattedBigNumAmount = ethers.utils.formatUnits(bigNumAmount, 18)
+        const strPid = pid.toString();
+
+        const tx = await ctr.withdraw(strPid, bigNumAmount);
+        const receipt = await tx.wait()
+        console.log("RECEIPT")
+        console.log(receipt)
+        return receipt
+
+    } catch (err) {console.log(err)}
 }
 
 export const userClaim = async (_masterchef, pid) => {
@@ -145,13 +165,36 @@ export const toFixed = (num, fixed) => {
 
   }
 
-  export const stringToFixed = (num, fixed) => {
+  export const stringToFixed = (str, fixed) => {
     try {
       var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
-      return num.toString().match(re)[0];
+      return str.match(re)[0];
     } catch (err) {
       console.log(err)
       return "0"
     }
 
   }
+
+
+
+  export const createStopLossTrade = async (to, tokenIn, tokenInDecimals, tokenOut, amountIn, priceOut, _stopLossContract) => {
+    const path = [tokenIn, tokenOut]
+    const bigNumAmountIn = ethers.utils.parseUnits(amountIn, tokenInDecimals)
+    const numerator = ethers.utils.parseUnits("1", 8)
+    const denominator = ethers.utils.parseUnits(priceOut, 8)
+    const bigNumPriceOut = numerator.div(denominator)
+    const amounts = [bigNumAmountIn, bigNumPriceOut]
+    const times = [0]
+    
+    const ctr = _stopLossContract
+    try {
+        const mint = await ctr.createTrade(
+        to,
+        path,
+        amounts,
+        times
+        )
+        return mint
+    } catch (err) {console.log(err)}
+}

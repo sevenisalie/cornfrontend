@@ -1,12 +1,16 @@
 import React, {useState, useEffect}from 'react'
 import styled, { keyframes } from "styled-components"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import NavigationBar from "../../components/NavigationBar"
 import {Page} from "../../components/Page"
-import {Vault} from "./components/CreateVault"
 import {BsArrowUpRight} from "react-icons/bs"
 import {GiToken} from "react-icons/gi"
 import {Card, Container, Button, Dropdown, Form} from "react-bootstrap"
 import {HowToSection} from "./components/HowToSection"
+import OracleBar from "../../components/OracleBar"
 
 const HeaderGridContainer = styled(Container)`
     margin-top: 66px;
@@ -282,6 +286,11 @@ const FooterImageThree = styled.img`
     
 `
 export const Home = () => {
+    const notify = () => {
+        toast.success("hallo world", {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
  
     return (
         <>
@@ -292,13 +301,18 @@ export const Home = () => {
                     <LittleHeading>Buy and Sell Algo-NFTs that can automate your on-chain trading strategies</LittleHeading>
                     <StupidSpan>
                     <HeaderButton>Mint Now</HeaderButton>
-                    <HeaderButtonSecondary>Learn</HeaderButtonSecondary>
+                    <HeaderButtonSecondary onClick={notify}>Learn</HeaderButtonSecondary>
+                    <ToastContainer></ToastContainer>
                     </StupidSpan>
                 </HeaderContentContainer>
                 <HeaderContentContainer style={{alignSelf: "center"}}>
                     <HeaderImage type="image/svg+xml" data="/assets/images/MovingCircles.svg">svg-animation</HeaderImage>
                 </HeaderContentContainer>
             </HeaderGridContainer>
+
+            
+
+    
             
             
             <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
@@ -360,6 +374,8 @@ export const Home = () => {
                 </BodyContentContainer>
             </BodyGridContainer>
 
+            
+
             <BodyGridContainer>
 
                 <BodyContentContainer>
@@ -377,6 +393,19 @@ export const Home = () => {
                         </BodyContentCardContainer>
                     </BodyContentCard>
                 </BodyContentContainer>
+            </BodyGridContainer>
+
+            <BodyGridContainer >
+                    <BodyContentContainer style={{marginTop: "0px"}}>
+                        <BodyImageContainer>
+                        <img style={{height: "100%", width: "100%"}} src={`/assets/images/ChainlinkBox.svg`}></img>
+                        </BodyImageContainer>
+                    </BodyContentContainer>
+
+                    <BodyContentContainer>
+                        <BodyBigHeading style={{fontSize: "310%"}}>Powered by Chainlink</BodyBigHeading>
+                        <BodyLittleHeading>We use Chainlink's world class data-feed oracle solution to obtain potential trade execution prices and moving price targets. This data allows for traditionally static vaults to become dynamic, algirothmic trading bots  </BodyLittleHeading>
+                    </BodyContentContainer>
             </BodyGridContainer>
 
             <TokenSubHeaderGridContainer>
