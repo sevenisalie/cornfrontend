@@ -10,9 +10,6 @@ export const Page = styled(Container)`
   padding-left: 16px;
   padding-right: 16px;
   flex-direction: column;
-
-
-  
   
 
 `

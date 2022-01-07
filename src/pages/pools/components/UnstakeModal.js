@@ -2,12 +2,18 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import {useWeb3React} from "@web3-react/core";
+import {ethers} from "ethers"
+
 //addresses etc
 import {ERC20Abi, MasterChefABI} from "../../../config/abis" //will need forapprove button
 import { addresses } from "../../../config/addresses";
+import {writeContract, userUnstake} from "../../../utils/nft";
+
 
 import {Container, Card, Modal} from "react-bootstrap"
 import {HeaderButtonSecondary} from "../../vaults/index"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
 
@@ -94,25 +100,123 @@ const TokenInput = styled.input`
 
 `
 
-const UnstakeModal = ({showUnstakeModal, setShowUnstakeModal}) => {
+const WithdrawButton = styled(HeaderButtonSecondary)`
+    &:focus {
+        background: #fbdb37;
+        border-color: #dfbb05;
+        border-width: 3px;
+        color: #dfbb05;
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    &:disabled {
+        background: transparent;
+        border-color: #ffc67a;
+        border-width: 3px;
+        color: #ffc67a;
+        font-size: 20px;
+        font-weight: 800;
+    }
+`
+
+const UnstakeModal = ({showUnstakeModal, setShowUnstakeModal, userStaked, pid}) => {
     const {active, account, library, connector} = useWeb3React();
+    const [masterChefContract, setMasterChefContract] = useState(null)
+    const [amount, setAmount] = useState('')
+    const [userStakedAmount, setUserStakedAmount] = useState(userStaked)
+    const [poolId, setPoolId] = useState(pid)
+
+        useEffect( () => {
+            if (active) {
+            const masterChef = writeContract(
+                active, 
+                library.getSigner(), 
+                account,
+                addresses.masterChef,
+                MasterChefABI,
+                )
+            .then( value => setMasterChefContract(value))
+            } else {
+            const noData = setMasterChefContract(null)
+            }
+            
+            
+        }, [account, library])
+
+        const goodToast = (msg) => {
+            toast.success(`${msg}`, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+        }
+    
+        const badToast = (msg) => {
+            toast.warning(`${msg}`, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+        }
+
+        const handleUnstakeOnClick = async (pid, amount) => {
+            try {
+
+                if (active) {
+                    console.log(pid)
+                    const tx = await userUnstake(masterChefContract, pid, amount)
+                    setShowUnstakeModal(prev => !prev)
+
+                    if (tx) {
+                        if (tx.status == 1) {
+                            goodToast(`Successfully Unstaked... Allow for UI to Update`)
+    
+                        } else {
+                            badToast("Unstake Failed... Check Gas Settings and Try Again")
+                        }
+                    } else if (tx === undefined) {
+                        badToast(`Withdrawal cancelled`)
+                    }
+
+
+                }  
+            } catch (err) {console.log(err)}
+
+        }
+
+
+ 
+    let button;
+    if (amount == '') {
+        button = <WithdrawButton disabled>Withdraw</WithdrawButton>;
+      } else if (amount !== ''){
+        button = <WithdrawButton onClick={async () => handleUnstakeOnClick(poolId, amount)}>Withdraw</WithdrawButton>
+        ;
+      } else {
+        button = <WithdrawButton disabled >Withdraw</WithdrawButton>;
+      }
 
 
     return (
         <>
         { showUnstakeModal ? (
+            
         <FakeBackground>
+
         <ModalContainer showUnstakeModal={showUnstakeModal}>
             <ModalCard>
                 <ModalCardContentContainer>
                     <ExitButton onClick={() => setShowUnstakeModal(prev => !prev)}><FaTimesCircle/></ExitButton>
                     <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
                         <FaWallet/>
-                        {`Balance: 3738.34`}
+                        {`Balance: ${userStaked}`}
                     </Container>
-                    <TokenInput />
+                    <TokenInput 
+                        placeholder = "0.00"
+                        value={amount}
+                        onChange = {(e) => setAmount(e.target.value)}
+                    />
                     <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
-                    <HeaderButtonSecondary>Withdraw</HeaderButtonSecondary>
+                        {button}
+                        <ToastContainer></ToastContainer>
+
                     <HeaderButtonSecondary>Max</HeaderButtonSecondary>
                     </Container>
 

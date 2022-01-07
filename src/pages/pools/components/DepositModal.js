@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import {useWeb3React} from "@web3-react/core";
+import {ethers} from "ethers";
 //addresses etc
 import {ERC20Abi, MasterChefABI} from "../../../config/abis" //will need forapprove button
 import { addresses } from "../../../config/addresses";
@@ -16,7 +17,6 @@ const ExitButton = styled.button`
     outline: 0;
     border: 0;
     background-color: transparent !important;
-    align-items: flex-start;
     color: #fbdb37;
     cursor: pointer;
     font-size: 22px;
@@ -42,7 +42,7 @@ const ModalContainer = styled(Container)`
     z-index: 9999;
     grid-template-columns: auto;
     grid-template-rows: auto;
-    
+
     height: 100%;
     width: auto;
     padding: 0;
@@ -78,7 +78,9 @@ const ModalCardContentContainer = styled(Container)`
     justify-content: center;
     align-items: center;
 `
+const DepositForm = styled.form`
 
+`
 const TokenInput = styled.input`
   
     width: 90%;
@@ -94,11 +96,47 @@ const TokenInput = styled.input`
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 
 `
+const DepositButton = styled(HeaderButtonSecondary)`
+    &:hover {
+        background: #fbdb37;
+        border-color: #dfbb05;
+        border-width: 3px;
+        color: #dfbb05;
+        font-size: 20px;
+        font-weight: 800;
+    }
 
-const DepositModal = ({showDepositModal, setShowDepositModal}) => {
+    &:focus {
+        background: #fbdb37;
+        border-color: #dfbb05;
+        border-width: 3px;
+        color: #dfbb05;
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    &:disabled {
+        background: transparent;
+        border-color: #ffc67a;
+        border-width: 3px;
+        color: #ffc67a;
+        font-size: 20px;
+        font-weight: 800;
+    }
+`
+
+const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid}) => {
     const {active, account, library, connector} = useWeb3React()
     const [masterChefContract, setMasterChefContract] = useState(null)
-    
+    const [amount, setAmount] = useState('')
+    const [userBalance, setUserBalance] = useState(walletBalance)
+    const [poolId, setPoolId] = useState(pid)
+
+    //props
+    // const bal = props.walletBalance;
+    // console.log("pooooop")
+    // console.log(bal)
+
     useEffect( () => {
         if (active) {
           const masterChef = writeContract(
@@ -118,12 +156,25 @@ const DepositModal = ({showDepositModal, setShowDepositModal}) => {
 
     const handleStakeOnClick = async (pid, amount) => {
         try {
-            if (active && amount > 0) {
+            if (active) {
+                console.log(pid)
+
                 await userStake(masterChefContract, pid, amount)
             }  
         } catch (err) {console.log(err)}
 
     }
+
+    //hide and show button
+    let button;
+
+    if (amount == '') {
+        button = <DepositButton disabled>Deposit</DepositButton>;
+      } else if (amount !== ''){
+        button = <DepositButton onClick={async () => handleStakeOnClick(pid, amount)}>Deposit</DepositButton>;
+      } else {
+        button = <DepositButton disabled >Deposit</DepositButton>;
+      }
 
     return (
 
@@ -133,21 +184,21 @@ const DepositModal = ({showDepositModal, setShowDepositModal}) => {
         <ModalContainer showDepositModal={showDepositModal}>
             <ModalCard>
                 <ModalCardContentContainer>
+
                     <ExitButton onClick={() => setShowDepositModal(prev => !prev)}><FaTimesCircle/></ExitButton>
                     <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
                         <FaWallet/>
-                        {`Balance: 348539.35`}
+                        {walletBalance !== 0 ? walletBalance : "0"}
                     </Container>
-                    <TokenInput />
+                    <TokenInput 
+                        placeholder = "0.00"
+                        value={amount}
+                        onChange = {(e) => setAmount(e.target.value)}
+                    />
                     <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
-                    <HeaderButtonSecondary 
-                    onClick={async () => handleStakeOnClick(0, '10')}
-                    >
-                        Deposit
-                    </HeaderButtonSecondary>
-                    <HeaderButtonSecondary>Max</HeaderButtonSecondary>
+                    {button}
+                    <DepositButton>Max</DepositButton>
                     </Container>
-
 
                 </ModalCardContentContainer>
                 <ModalCardFooter>

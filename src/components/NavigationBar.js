@@ -1,27 +1,36 @@
 import React from "react";
 import styled from "styled-components";
 import {Link} from 'react-router-dom';
+import {useWeb3React} from "@web3-react/core"
 
 import {ConnectButton} from "./ConnectButton"
 
+import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
+
 //bootstrap components
 import {Container, Navbar, NavItem} from "react-bootstrap";
+
 
 
 const NavContainer = styled(Container)`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    width: 100%;
+    height: auto;
     
     
 `
 
 const Nav = styled(Navbar)`
-    height: 130px;
-    width: 100vw;
-    max-width: 100vw;
     
+    height: auto;
+    width: auto;
+    padding: 5px;
+    padding-top: 8px;
+    max-width: auto;
     background-color: transparent !important;
+    
     
 `
 
@@ -31,6 +40,11 @@ const ImageWrapper = styled(Container)`
     align-items: center;
     padding: 2px;
     margin-left: 1px;
+    height: auto;
+    width: auto;
+    @media (max-width: 768px) {
+        display: none;
+      }
     
 `
 const LogoText = styled.p`
@@ -60,6 +74,9 @@ const LinkContainer = styled.div`
     justify-content: space-evenly;
     align-items: center;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+
+
+
     
 `
 
@@ -68,7 +85,7 @@ const NavbarLink = styled.a`
     margin-left: 5px;
     margin-right: 5px;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.3em;
     padding-left: 8px;
     padding-right: 8px;
     padding-top: 4px;
@@ -76,6 +93,12 @@ const NavbarLink = styled.a`
     color: white;
     border-radius: 40px;
     text-decoration: none;
+
+    @media (max-width: 768px) {
+        font-size: 0.9em;
+        margin-left: 3px;
+        margin-right: 3px;
+      }
 
     &:hover {
         padding-left: 8px;
@@ -124,6 +147,8 @@ const NetworkText = styled.div`
 
 
 export const NavigationBar = () => {
+    const {active, account, library, connector} = useWeb3React();
+
     return (
         <>
             <Nav>
@@ -147,7 +172,11 @@ export const NavigationBar = () => {
                             </CleanLink>
                         </LinkContainer>
                         <NetworkContainer>
-                            <NetworkImage src={`/assets/images/CornLogo.png`}></NetworkImage>
+                            {active
+                                ? <AiFillCheckCircle style={{color: "green", marginLeft: "5px", marginRight: "5px"}}/>
+                                : <AiFillExclamationCircle style={{color: "red", marginLeft: "5px", marginRight: "5px"}}/>
+                            }
+                            
                             <NetworkText>Polygon</NetworkText>
                         </NetworkContainer>
                         <ConnectButton></ConnectButton>

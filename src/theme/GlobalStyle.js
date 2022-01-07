@@ -7,10 +7,11 @@ export const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
 
     html, body {
-        
+        display: flex;
+        flex-direction: column;
         overflow-x: hidden;
-        margin: 0 auto;
-        padding: 0 auto;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
         font-family: 'Ubuntu', sans-serif;
         color: #fbfbfb;
         width: 100vw;
