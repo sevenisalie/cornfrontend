@@ -1,5 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect, useState} from "react";
+import { useWeb3React } from "@web3-react/core";
+import LIMITABI from "../../../config/contracts/LimitOrderVault.json"
+import STOPABI from "../../../config/contracts/StopLossVault.json"
+import ACCDISTABI from "../../../config/contracts/AccumulatorDistributorVault.json"
+import { addresses } from "../../../config/addresses";
+
 import styled from "styled-components";
+import axios from "axios"
 import {stringToFixed} from "../../../utils/nft"
 import {StyledDetailsButton, NFTLineBreak} from "../components/VaultNFTCard";
 import {MultiplierBadge} from "../../pools/components/Badges"
@@ -13,10 +20,11 @@ const DetailsCard = styled(Card)`
     height: 100%;
     width: auto;
     padding: 5px;
-    background: linear-gradient(-45deg, rgba(0, 0, 0, 0.3), rgba(103, 107, 114, 0.1));
-    background-color: transparent;
-
-    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3);
 `
 
 const NFTFooterBadge = styled(MultiplierBadge)`
@@ -81,11 +89,59 @@ const DetailsDropDownGrid = styled(Container)`
 
 `
 
-export const VaultNFTFooter = ({nftData}) => {
-    if (nftData !== undefined) {
-        const amountA = stringToFixed(nftData.amounts[0].toString(), 5)
-        const amountB = stringToFixed(nftData.amounts[1].toString(), 5)
-        const amountC = stringToFixed(nftData.amounts[2].toString(), 5)
+export const VaultNFTFooter = (props) => {
+
+    
+
+    const VAULTSWITCH = [
+        { 
+            name: "limit",
+            address: addresses.vaults.limitVault,
+            abi: LIMITABI.abi
+        },
+        { 
+            name: "stop",
+            address: addresses.vaults.stopVault,
+            abi: STOPABI.abi
+        },
+        { 
+            name: "accumulatordistributor",
+            address: addresses.vaults.accDistVault,
+            abi: ACCDISTABI.abi
+        },
+    ]
+
+
+    
+
+
+
+    
+    if (props.userTradeData !== null) {
+
+
+        const mappedTradeData = props.userTradeData.map( (item) => {
+            // const amountA = stringToFixed(item.rates.amountA.toString(), 5)
+            // const amountB = stringToFixed(item.rates.amountB.toString(), 5)
+            // const rateA = stringToFixed(data.rates.AB.toString(), 5)
+            // const rateB = stringToFixed(data.rates.BA.toString(), 5)
+            return (
+                <>
+                    <DetailsGrid>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>Amount In</p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}></p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>Amount Out</p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}></p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>Sell Price A:B</p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}></p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>Sell Price B:A</p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}></p></NFTFooterBadge>
+
+                        
+                    </DetailsGrid>
+                </>
+            )
+        })
 
         return (
             <>
@@ -99,15 +155,7 @@ export const VaultNFTFooter = ({nftData}) => {
                         </DetailsCard>
                     </DetailsRow>
                 
-                    <DetailsGrid>
-                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>Amount In</p></NFTFooterBadge>
-                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>{amountA}</p></NFTFooterBadge>
-                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>Buy Price</p></NFTFooterBadge>
-                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>{amountB}</p></NFTFooterBadge>
-                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>Sell Price</p></NFTFooterBadge>
-                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>{amountC}</p></NFTFooterBadge>
-                        
-                    </DetailsGrid>
+                        {/* {mappedTradeData} */}
                  
                     <DetailsRow>
                         <DetailsCard>
@@ -118,8 +166,8 @@ export const VaultNFTFooter = ({nftData}) => {
                     </DetailsRow>
     
                     <DetailsGrid>
-                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>{nftData.tokens.tokenA.tokenName.toString()}</p></NFTFooterBadge>
-                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>{nftData.tokens.tokenB.tokenName.toString()}</p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>sym</p></NFTFooterBadge>
+                        <NFTFooterBadge><p style={{fontSize: "1.4em", marginBottom: "1px", marginTop: "1px"}}>sym</p></NFTFooterBadge>
                         
                     </DetailsGrid>
 

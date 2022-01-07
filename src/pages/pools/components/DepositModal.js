@@ -7,7 +7,8 @@ import {ethers} from "ethers";
 import {ERC20Abi, MasterChefABI} from "../../../config/abis" //will need forapprove button
 import { addresses } from "../../../config/addresses";
 import {writeContract, userStake} from "../../../utils/nft";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {Container, Card, Modal} from "react-bootstrap"
 import {HeaderButtonSecondary} from "../../vaults/index"
 
@@ -157,12 +158,33 @@ const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid
     const handleStakeOnClick = async (pid, amount) => {
         try {
             if (active) {
-                console.log(pid)
-
-                await userStake(masterChefContract, pid, amount)
+                const tx = await userStake(masterChefContract, pid, amount)
+                setShowDepositModal(prev => !prev)
+                    if (tx) {
+                        if (tx.status == 1) {
+                            goodToast(`Successfully Unstaked... Allow for UI to Update`)
+    
+                        } else {
+                            badToast("Unstake Failed... Check Gas Settings and Try Again")
+                        }
+                    } else if (tx === undefined) {
+                        badToast(`Withdrawal cancelled`)
+                    }
             }  
         } catch (err) {console.log(err)}
 
+    }
+
+    const goodToast = (msg) => {
+        toast.success(`${msg}`, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
+    const badToast = (msg) => {
+        toast.warning(`${msg}`, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
     }
 
     //hide and show button
@@ -197,6 +219,8 @@ const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid
                     />
                     <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
                     {button}
+                    <ToastContainer></ToastContainer>
+
                     <DepositButton>Max</DepositButton>
                     </Container>
 

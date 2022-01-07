@@ -13,9 +13,11 @@ export const MyNFTCard = styled(Card)`
     border-radius: 25px;
     height: 100%;
     width: 100%;
-    background-color: transparent;
-    
-    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.3);
 `
 const MyNFTCardContainer = styled(Container)`
     display: flex;
@@ -73,14 +75,15 @@ const MintButton = styled(Button)`
     border-radius: 15px;
     height: auto;
     width: auto;
-    background: #fbdb37;
+    background: none;
     border-color: #fce984;
     border-width: 3px;
     color: #FFFFE0;
     font-size: 20px;
     font-weight: 600;
-   
-
+    margin-top: 20px;
+    align-self: start;
+    margin-right: 15px;
 
     &:hover {
         background: #fbdb37;
@@ -101,16 +104,18 @@ const MintButton = styled(Button)`
     }
 `
 
-export const VaultNFTCard = (props) => {
+export const VaultNFTCard = (props, {vaultData}) => {
+    console.log("NNGNNGNGNGNGNG")
+    console.log(props.vaultData)
 
-
+if (props.vaultData !== undefined) {
     return (
         <>
            <MyNFTCard>
                 <MyNFTCardContainer>
                 <NFTImageWrapper src={props.image}></NFTImageWrapper>
                 <NFTBrandName>CornFinance Algo-Vault</NFTBrandName>
-                <NFTTitle>{props.title}</NFTTitle>
+                <NFTTitle>{vaultData.vault}</NFTTitle>
                 <NFTLineBreak size="8"/>
                 <PriceRow>
                     <ButtonWrapper style={{justifyContent: "flex-start"}}><MintButton >Execute</MintButton></ButtonWrapper>
@@ -126,6 +131,12 @@ export const VaultNFTCard = (props) => {
             </MyNFTCard> 
         </>
     )
+} else {
+    return (
+        <MyNFTCard></MyNFTCard>
+    )
+}
+
 }
 
 export default VaultNFTCard

@@ -2,15 +2,23 @@ import React, {useState, useEffect}from 'react'
 import styled, { keyframes } from "styled-components"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useWeb3React } from "@web3-react/core";
+import {fetchCobTokenInfo} from "../../utils/fetchUserData"
 
 import NavigationBar from "../../components/NavigationBar"
 import {Page} from "../../components/Page"
 import {BsArrowUpRight} from "react-icons/bs"
 import {GiToken} from "react-icons/gi"
-import {Card, Container, Button, Dropdown, Form} from "react-bootstrap"
+import {Card, Container, Button, Dropdown, Form, Placeholder} from "react-bootstrap"
 import {HowToSection} from "./components/HowToSection"
 import OracleBar from "../../components/OracleBar"
+
+//images
+import Gelatologo from "../../assets/images/Gelatologo.svg"
+import waves1 from "../../assets/images/waves1.png"
+import waves2 from "../../assets/images/waves2.svg"
+import waves3 from "../../assets/images/waves3.svg"
+
 
 const HeaderGridContainer = styled(Container)`
     margin-top: 66px;
@@ -145,13 +153,12 @@ const StupidSpan = styled.span`
     align-self: start;
 `
 const BodyGridContainer = styled(Container)`
-
     margin-top: 100px;
     display: grid;
     grid-template-columns: auto auto;
-    grid-template-rows: auto;
+    grid-template-rows: 100%;
     justify-items: center;
-    align-content: end;
+    align-content: center;
     column-gap: 2px;
     row-gap: 20px;
     margin-bottom: 25px;
@@ -160,6 +167,7 @@ const BodyGridContainer = styled(Container)`
         flex-direction: column;
         grid-template-columns: auto;
         grid-template-rows: auto;
+        place-items: center;
     }
 `
 export const BodyContentContainer = styled(Container)`
@@ -174,20 +182,25 @@ export const BodyBigHeading = styled(BigHeading)`
     font-weight: 600;
     font-size 190%;
     color: #fbdb37;
+    1px 3px 3px rgba(29, 30, 32, 0.88)
 `
 export const BodyLittleHeading = styled(LittleHeading)`
     font-weight: 400;
     font-size: 120%;
     color: #fbfbfb;
+    1px 3px 3px rgba(29, 30, 32, 0.88)
 `
 export const BodyContentCard = styled(Card)`
     align-self: center;
     height: auto;
     padding: 19px;
-    width: 90%;
-    background-color: #1D1E20;
-    background-radius: 8px;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    backdrop-filter: blur(0px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+   
 `
 export const BodyContentCardContainer = styled(Container)`
     width: 100%
@@ -282,39 +295,46 @@ const FooterImageThree = styled.img`
     @media (min-width: 1200px) {
         margin-bottom: 100px;
     }
-
-    
 `
-export const Home = () => {
-    const notify = () => {
-        toast.success("hallo world", {
-            position: toast.POSITION.BOTTOM_RIGHT
-        })
-    }
- 
-    return (
-        <>
-        <Page>
-            <HeaderGridContainer>
-                <HeaderContentContainer>
-                    <BigHeading>Beef-up with a Corn-fed portfolio</BigHeading>
-                    <LittleHeading>Buy and Sell Algo-NFTs that can automate your on-chain trading strategies</LittleHeading>
-                    <StupidSpan>
-                    <HeaderButton>Mint Now</HeaderButton>
-                    <HeaderButtonSecondary onClick={notify}>Learn</HeaderButtonSecondary>
-                    <ToastContainer></ToastContainer>
-                    </StupidSpan>
-                </HeaderContentContainer>
-                <HeaderContentContainer style={{alignSelf: "center"}}>
-                    <HeaderImage type="image/svg+xml" data="/assets/images/MovingCircles.svg">svg-animation</HeaderImage>
-                </HeaderContentContainer>
-            </HeaderGridContainer>
 
-            
-
-    
-            
-            
+const CobTokenDetails = (props) => {
+    if (props.token == undefined) {
+        return (
+        
+            <>
+            <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
+                    <SubHeaderContentContainer>
+                  
+                        <Placeholder animation="glow" as="h2" >
+                            <Placeholder size="lg" lg={10} />
+                        </Placeholder>
+                        <Placeholder  animation="glow" >
+                            <Placeholder size="lg" lg={7} />
+                        </Placeholder>
+                    </SubHeaderContentContainer>
+                    <SubHeaderContentContainer>
+                        <Placeholder animation="glow" as="h2"  >
+                            <Placeholder size="lg" lg={10} />
+                        </Placeholder>
+                    
+                        <Placeholder animation="glow" as="p"  >
+                            <Placeholder size="lg" lg={10} />
+                        </Placeholder>
+                    </SubHeaderContentContainer>
+                    <SubHeaderContentContainer>
+                        <Placeholder animation="glow" as="p"  >
+                            <Placeholder size="lg" lg={10} />
+                        </Placeholder>
+                        <Placeholder animation="glow" as="p"  >
+                            <Placeholder size="lg" lg={10} />
+                        </Placeholder>
+                    </SubHeaderContentContainer>
+                </SubHeaderGridContainer>    
+            </>
+        )
+    } else if (props.token.supply) {
+        return (
+            <>
             <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
                 <SubHeaderContentContainer>
               
@@ -325,22 +345,86 @@ export const Home = () => {
                 </SubHeaderContentContainer>
                 <SubHeaderContentContainer>
                     <h2 style={{color: "#fbdb37", fontWeight: "600"}}>Market Cap</h2>
-                    <h2>100,344,104</h2>
+                    {}
+                    <h2>{props.token.marketCap}</h2>
                 </SubHeaderContentContainer>
                 <SubHeaderContentContainer>
-                    <h2 style={{color: "#fbdb37", fontWeight: "600"}}>Emissions Rate</h2>
-                    <h2>0.4/block</h2>
+                    <h2 style={{color: "#fbdb37", fontWeight: "600"}}>Total Supply</h2>
+                    <h2>{props.token.supply}</h2>
                 </SubHeaderContentContainer>
             </SubHeaderGridContainer>
+            </>
+        )
+    } else {
+        return (null)
+    }
+    
+}
 
-            <BodyGridContainer style={{marginBottom: "85px"}}>
+
+
+export const Home = () => {
+    const [cobData, setCobData] = useState({Hi: "Hello"})
+    const {active, account, library, connector} = useWeb3React();
+
+
+    useEffect( async () => {
+        try {
+            if (active && library && account) {
+                const tokenData = await fetchCobTokenInfo(
+                    active,
+                    library.getSigner(),
+                    account
+                )
+                setCobData(tokenData)
+                console.log("POOOP")
+                console.log(tokenData)
+            } else if (!active) {
+                setCobData({Hi: "Hello"})
+            }
+        } catch (err) {console.log(err)}
+
+    }, [active])
+
+
+
+    const notify = () => {
+        toast.success("hallo world", {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+ 
+    return (
+        <>
+            <HeaderGridContainer>
+                <HeaderContentContainer>
+                    <BigHeading>Beef-up with a Corn-fed portfolio</BigHeading>
+                    <LittleHeading>Buy and Sell Algo-NFTs that can automate your on-chain trading strategies</LittleHeading>
+                    <StupidSpan>
+                    <HeaderButtonSecondary>Mint Now <BsArrowUpRight /></HeaderButtonSecondary>
+                    <HeaderButtonSecondary onClick={notify}>Learn</HeaderButtonSecondary>
+                    <ToastContainer></ToastContainer>
+                    </StupidSpan>
+                </HeaderContentContainer>
+                <HeaderContentContainer style={{alignSelf: "center"}}>
+                    <HeaderImage type="image/svg+xml" data="/assets/images/MovingCircles.svg">svg-animation</HeaderImage>
+                </HeaderContentContainer>
+            </HeaderGridContainer>
+
+            
+            
+            {/* <CobTokenDetails token={cobData} /> */}
+
+             
+            <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves2})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "550px"}} >
+            <BodyGridContainer >
                 <BodyContentContainer>
                     <BodyContentCard>
                         <BodyContentCardContainer>
-                            <BodyBigHeading>Accumulator Distributor</BodyBigHeading>
+                            <BodyBigHeading>Accumulation Distribution Model</BodyBigHeading>
                             <hr></hr>
                             <BodyLittleHeading>
-                                Our smart contract is built on the principals of institutional algorithmic investing. Accumulate tokens at low prices and Distribute them at higher prices.
+                                Our base smart contract is built on the principals of institutional algorithmic investing. Accumulate tokens at low price targets and Distribute them at higher prices. 
                             </BodyLittleHeading>
                             <BodyLittleHeading style={{color: "#fbdb37", fontWeight: "600"}}>
                                 Easy right? 
@@ -349,12 +433,12 @@ export const Home = () => {
                     </BodyContentCard>
                 </BodyContentContainer>
                 <BodyContentContainer>
-                    <BodyBigHeading style={{color: "#fbdb37", fontWeight: "800", fontSize: "270%"}}>We're bringing Advanced Orders to DeFi</BodyBigHeading>
+                    <BodyBigHeading style={{color: "#fbdb37", fontWeight: "800", fontSize: "2.8em"}}>We're bringing Algorithmic Trading to DeFi</BodyBigHeading>
                 </BodyContentContainer>
             </BodyGridContainer>
-
+            </div>
             
-                <BodyContentContainer>
+                <BodyContentContainer style={{marginBottom: "200px"}}>
                     <HowToSection>
 
                     </HowToSection>
@@ -375,12 +459,11 @@ export const Home = () => {
             </BodyGridContainer>
 
             
-
+            <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves1})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "550px"}} >
             <BodyGridContainer>
-
                 <BodyContentContainer>
-                    <BodyLittleHeading style={{color: "#fbfbfb", fontWeight: "400", fontSize: "180%", textAlign: "center"}}>
-                        Many AMMs lack stop-losses and other conditional order-types. We aim to fix that.</BodyLittleHeading>
+                    <BodyLittleHeading style={{color: "#fbdb37", fontWeight: "800", fontSize: "2.8em", textAlign: "center"}}>
+                        New Trading Infrastructure for a New DeFi</BodyLittleHeading>
                 </BodyContentContainer>
                 <BodyContentContainer>
                     <BodyContentCard>
@@ -394,17 +477,18 @@ export const Home = () => {
                     </BodyContentCard>
                 </BodyContentContainer>
             </BodyGridContainer>
+            </div>
 
             <BodyGridContainer >
                     <BodyContentContainer style={{marginTop: "0px"}}>
                         <BodyImageContainer>
-                        <img style={{height: "100%", width: "100%"}} src={`/assets/images/ChainlinkBox.svg`}></img>
+                        <img style={{height: "100%", width: "100%"}} src={Gelatologo}></img>
                         </BodyImageContainer>
                     </BodyContentContainer>
 
                     <BodyContentContainer>
-                        <BodyBigHeading style={{fontSize: "310%"}}>Powered by Chainlink</BodyBigHeading>
-                        <BodyLittleHeading>We use Chainlink's world class data-feed oracle solution to obtain potential trade execution prices and moving price targets. This data allows for traditionally static vaults to become dynamic, algirothmic trading bots  </BodyLittleHeading>
+                        <BodyBigHeading style={{fontSize: "310%"}}>Powered by Gelato</BodyBigHeading>
+                        <BodyLittleHeading>We use Gelato's world class smart contract automation solution to obtain potential trade execution prices and moving price targets. These executors allows for traditionally static vaults to become dynamic, algirothmic trading bots  </BodyLittleHeading>
                     </BodyContentContainer>
             </BodyGridContainer>
 
@@ -414,13 +498,13 @@ export const Home = () => {
                     <h2 style={{color: "#fbdb37", fontWeight: "600", fontSize: "240%", marginBottom: "50px"}}>100% Fair Launch Governance Token</h2>
                     <BodyContentCard>
                         <BodyContentCardContainer>
-                    <p>Stake liquidity to earn COB token.  No pre-sale, no whitelist, one-hundred percent community driven staking.</p>
+                    <p>Stake liquidity to earn COB token.  No pre-sale, no whitelist, just 100% community driven emissions.</p>
                     <hr></hr>
  
-                    <p>COB will be used as a governance tool to vote on new strategies and proposals for the protocol. The fair launch mechanism ensures that no group controls the protocol from the start.</p>
+                    <p>Not only will COB be useful for the community to drive the development of strategies through governance, but it will also serve as a gas utility token to power trades and as a rewards token to incentivize liquidity staking</p>
                     </BodyContentCardContainer>
                     </BodyContentCard>
-                    <BuyButtonSecondary>Stake <BsArrowUpRight/></BuyButtonSecondary>
+                    <BuyButtonSecondary >Staking Coming Soon<BsArrowUpRight/></BuyButtonSecondary>
 
 
                 </TokenSubHeaderContentContainer>
@@ -428,17 +512,17 @@ export const Home = () => {
 
 
         <Container style={{height: "460px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "100px", marginBottom: "20px"}}>
-
-      
         <FooterImage src={'/assets/images/Docs.svg'}></FooterImage> 
-   
         <FooterImageTwo style={{alignSelf: "flex-start"}} src={'/assets/images/Sircle.svg'}></FooterImageTwo>
         <FooterImageThree src={'/assets/images/Sircle.svg'}></FooterImageThree>
-        
-        
-
         </Container>
-        </Page>
+
+        <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "25px", marginBottom: "50px"}}>
+            <HeaderButtonSecondary>Medium</HeaderButtonSecondary>
+            <HeaderButtonSecondary>Twitter</HeaderButtonSecondary>
+            <HeaderButtonSecondary>Github</HeaderButtonSecondary>
+        </Container>
+
         </>
     )
 }

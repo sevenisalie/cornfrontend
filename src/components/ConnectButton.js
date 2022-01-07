@@ -22,7 +22,7 @@ const TheButton = styled(Button)`
     border-radius: 15px;
     height: auto;
     width: auto;
-    background: #fbdb37;
+    background: transparent;
     border-color: #fce984;
     border-width: 3px;
     color: #FFFFE0;

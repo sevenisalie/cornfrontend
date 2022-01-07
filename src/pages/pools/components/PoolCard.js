@@ -29,12 +29,15 @@ import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
 
 const ActualPoolCard = styled.div`
     border-radius: 50px;
-    background-color: transparent;
-
-    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
     display: flex;
     flex-direction: column;
     position: relative;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5)
+
 `
 const Divider = styled.div`
   background-color: #fbfbfb;
@@ -197,7 +200,6 @@ const StyledDetails = styled.div`
   color: #fbfbfb;
 `
 const CoinCard = styled(Card)`
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(103, 107, 114, 0.2));
   border: none;
   width: 64px;
   height: 64px;
@@ -300,8 +302,17 @@ const PoolCard = (props) => {
     const handleClaimClick = async (pid) => {
       try {
         
-        await userClaim(masterChef, pid)
-        goodToast("Claimed Rewards... Allow the UI to Update")
+        const tx = await userClaim(masterChef, pid)
+        if (tx) {
+          if (tx.status == 1) {
+              goodToast(`Successfully Claimed Rewards... Allow for UI to Update`)
+
+          } else {
+              badToast("Claim Failed... Check Gas Settings and Try Again")
+          }
+      } else if (tx === undefined) {
+          badToast(`Withdrawal cancelled`)
+      }
         
       } catch (err) {
         console.log(err)

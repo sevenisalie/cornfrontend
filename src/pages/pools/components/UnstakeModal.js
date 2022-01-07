@@ -163,7 +163,6 @@ const UnstakeModal = ({showUnstakeModal, setShowUnstakeModal, userStaked, pid}) 
                     console.log(pid)
                     const tx = await userUnstake(masterChefContract, pid, amount)
                     setShowUnstakeModal(prev => !prev)
-
                     if (tx) {
                         if (tx.status == 1) {
                             goodToast(`Successfully Unstaked... Allow for UI to Update`)

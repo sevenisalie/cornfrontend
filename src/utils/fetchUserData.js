@@ -1,8 +1,9 @@
 import React from "react";
 import {ethers} from "ethers";
 import {writeContract} from "./nft"
-import {quickRouterAbi} from "../config/abis"
+import {quickRouterAbi, ERC20Abi} from "../config/abis"
 import {addresses} from "../config/addresses"
+import BigNumber from "bignumber.js";
 
 const getPoolInfo = async (masterchef, poolLength) => {
     const pLength = poolLength
@@ -172,4 +173,38 @@ export const getSwapInfo = async (tokenA, tokenADecimals, tokenB, tokenBDecimals
         BPerA: amountBPerOneA,
         APerB: amountAPerOneB
     }
+}
+
+export const fetchCobTokenInfo = async (_active, signer, _account) => {
+    try {
+        const cobctr = await writeContract(_active, signer, _account, addresses.tokens.COB, ERC20Abi)
+        const usdcctr = await writeContract(_active, signer, _account, addresses.tokens.USDC, ERC20Abi)
+    
+    
+        // const lpctr = await fetchContract(addresses.tokens.lp.COBUSDC, UniPairAbi)
+        // const ctr = ctr_read.connect(signer)
+        const totalSupply = await cobctr.totalSupply()
+        const numTotalSupply = parseFloat(ethers.utils.formatUnits(totalSupply, 18))
+    
+        const tokenALpBalance = await cobctr.balanceOf(addresses.tokens.lp.COBUSDC)
+        const cobLpBalance = parseFloat(ethers.utils.formatUnits(tokenALpBalance, 18))
+    
+        const tokenBLpBalance = await usdcctr.balanceOf(addresses.tokens.lp.COBUSDC)
+        const UsdcLpBalance = parseFloat(ethers.utils.formatUnits(tokenBLpBalance, 6))
+    
+        const tokenPriceVsQuote = new BigNumber(UsdcLpBalance).div(new BigNumber(cobLpBalance))
+        const mc = UsdcLpBalance / cobLpBalance 
+    
+        BigNumber.config({ EXPONENTIAL_AT: 1e+9 })
+       
+    
+        const data = {
+            supply: numTotalSupply,
+            marketCap: tokenPriceVsQuote.toPrecision()
+    
+        }
+    
+        return data
+    } catch (err) {console.log(err)}
+    
 }
