@@ -35,6 +35,11 @@ const CardOne = styled(Card)`
     transform: rotate(-20deg);
     left: -3%;
     width: 30%;
+    backdrop-filter: blur(6px) saturate(200%);
+    -webkit-backdrop-filter: blur(6px) saturate(200%);
+    background-color: rgba(1, 1, 1, 0.72);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
     
 
     @media (max-width: 768px) {
@@ -54,6 +59,11 @@ const CardTwo = styled(Card)`
     background-radius: 8px;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
     transform: rotate(8deg);
+    backdrop-filter: blur(6px) saturate(200%);
+    -webkit-backdrop-filter: blur(6px) saturate(200%);
+    background-color: rgba(1, 1, 1, 0.72);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
 
     top: -38px;
     width: 30%;
@@ -75,6 +85,11 @@ const CardThree = styled(Card)`
     transform: rotate(-8deg);
     right: -3%;
     width: 30%;
+    backdrop-filter: blur(6px) saturate(200%);
+    -webkit-backdrop-filter: blur(6px) saturate(200%);
+    background-color: rgba(1, 1, 1, 0.72);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
 
     @media (max-width: 768px) {
         width: 100%;
@@ -88,10 +103,10 @@ const BigCard = styled(Card)`
     background-image: url("assets/images/CardBackground.svg");
     background-position: relative;
     border: none;
+    height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 9px;
-    height: 530px;
 
 `
 
@@ -134,7 +149,7 @@ export const HowToSection = () => {
                         <BodyBigHeading style={{fontSize: "200%"}}>3. Relax</BodyBigHeading>
                         <hr></hr>
                         <BodyLittleHeading style={{fontSize: "100%"}}>
-                            Every 30 minutes our price oracles update and check your NFTs trade conditions. So long as your conditions are met then the swaps will automatically happen. 
+                            We check conditions and route orders every block. So long as your conditions are met then the swaps will automatically happen. 
                         </BodyLittleHeading>
                         <BodyLittleHeading style={{textAlign: "center", color: "#fbdb37", fontSize: "150%", fontWeight: "600"}}>
                         <RiFundsLine/>

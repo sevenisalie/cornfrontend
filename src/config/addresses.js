@@ -11,6 +11,8 @@ export const addresses = {
     VaultBase: "0x100e4c4D33E92E9463549F5C8698A67555B12b13",
     StopLoss: "0x6CA11661B0B49268CF9e9f064F1c7DC36FbF2862",
     ROUTER: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
+    COB: "0x793acf39c3d605d3ad042ae01fd290a6fe489164",
+
 
     vaults: {
         controller: "0xfeD1424aF43D162B421EabB162d8678c46bD3E03",
@@ -68,6 +70,7 @@ export const addresses = {
         MATIC: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
         MiMATIC: "0xa3Fa99A148fA48D14Ed51d610c367C61876997F1",
         DAI: "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
+        COB: "0x793acf39c3d605d3ad042ae01fd290a6fe489164",
         DINO: "0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
         LINK: "0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39",
         SUSHI: "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a",
@@ -79,6 +82,9 @@ export const addresses = {
         COMP: "0x8505b9d2254a7ae468c0e9dd10ccea3a837aef5c",
         SNX: "0x50b728d8d964fd00c2d0aad81718b71311fef68a",
         CRV: "0x172370d5cd63279efa6d502dab29171933a610af",
+        lp: {
+            COBUSDC: "0x972575f78EE1738Fc578289b1DE98e0Cd90c0119"
+        },
     },
     amTokens: [
         {

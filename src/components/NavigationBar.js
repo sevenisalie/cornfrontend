@@ -4,11 +4,13 @@ import {Link} from 'react-router-dom';
 import {useWeb3React} from "@web3-react/core"
 
 import {ConnectButton} from "./ConnectButton"
+import {MultiplierBadge} from "../pages/pools/components/Badges"
 
 import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
 
 //bootstrap components
 import {Container, Navbar, NavItem} from "react-bootstrap";
+
 
 
 
@@ -155,7 +157,9 @@ export const NavigationBar = () => {
                 <NavContainer>
                         <ImageWrapper>
                             <NavBrandImageWrapper src={`/assets/images/CornLogo.png`}></NavBrandImageWrapper>
-                            <LogoText>Corn Finance</LogoText>
+                            <MultiplierBadge style={{borderRadius: "20px", fontSize: "1.8em", fontWeight: "600"}}>
+                                Corn Finance
+                            </MultiplierBadge>
                         </ImageWrapper>
                         <LinkContainer>
                             <CleanLink to="/">

@@ -1,4 +1,6 @@
-
+import LIMITABI from "../../config/contracts/LimitOrderVault.json"
+import STOPABI from "../../config/contracts/StopLossVault.json"
+import ACCDISTABI from "../../config/contracts/AccumulatorDistributorVault.json"
 import styled from "styled-components";
 import {Page} from "../../components/Page"
 import {ethers} from "ethers";
@@ -6,7 +8,8 @@ import React, {useEffect, useState} from "react";
 import { useWeb3React } from "@web3-react/core";
 import { addresses } from "../../config/addresses";
 import { nftURI } from "../../config/uri";
-
+import BackdropFilter from "react-backdrop-filter";
+//abis
 
 import axios from "axios"
 import {nftABI, stopLossAbi} from "../../config/abis";
@@ -16,6 +19,7 @@ import {VaultNFTCard} from "./components/VaultNFTCard";
 import VaultsPageHeading from "./components/VaultsPageHeading"
 import {OracleBar} from "../../components/OracleBar";
 import {VaultNFTFooter} from "./components/VaultNFTFooter";
+import VaultSelector from "./components/VaultSelector"
 import {Chart} from "./components/Chart";
 import Marquee from "react-fast-marquee";
 import {MultiplierBadge} from "../pools/components/Badges"
@@ -83,9 +87,11 @@ const MyVaultCard = styled(Card)`
     height: auto;
     width: 100%;
     
-    background-color: transparent;
-    
-    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3);
     width: 100%;
 
 `
@@ -211,80 +217,34 @@ const HeaderGrid = styled(Container)`
     border-radius: 25px;
     
 `
-
-
-const Vaults = () => {
-    const [nftContract, setNftContract] = useState('');
-    const [userNFTData, setUserNFTData] = useState('');
-    const [userTradeData, setUserTradeData] = useState('')
-    const [transacting, setTransacting] = useState(false);
-   
-    const {active, account, library, connector} = useWeb3React();
-
-    const getNFTs = async (userAddress) => {
-        const data = await axios.get(`https://cornoracleapi.herokuapp.com/stoploss/nfts/${userAddress}`)
-        console.log("data from function")
-        console.log(data)
-        const darta = data.data
-        return darta
-    }
-
-    const getUserTrades = async (nftIds) => {
-        const tradePromises = nftIds.map( async (id) => {
-            const resp = await axios.get(`https://cornoracleapi.herokuapp.com/stoploss/userTrades/${id}&[0]`)
-            const raw = resp.data
-            return raw 
-        })
-
-        const trades = await Promise.all(tradePromises)
-        console.log("TRADE DATA")
-        console.log(userTradeData)
-        return trades
-    }
-
-    useEffect( async () => {
-        if (active && account) {
+const StyledBackDrop = styled(Card)`
+    width: 40%;
+    display: flex;
+    margin-top: 40px;
+    padding-top: 6px;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    border-radius: 50px;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.3);
     
-            const NFTs = await getNFTs(account)
-            setUserNFTData(NFTs)
-            const trades = await getUserTrades(NFTs.nfts)
-            setUserTradeData(trades)
+`
 
+const UserVaults = (props) => {
+    
 
+    if (props.userVaultData !== undefined) {
+       
+        console.log("State Vaults")
+        console.log(props.userVaultData)
+        
+        const mapNFTs = props.userVaultData.map( (nft, index) => (
             
-        } else {
-            const noData = setUserNFTData('')
-            setUserTradeData('')
-        }
-    }, [account])
-
-
-
-    useEffect( () => {
-        if (active) {
-            const nftctr = writeContract(
-                active,
-                library.getSigner(),
-                account,
-                addresses.StopLoss,
-                stopLossAbi,
-            )
-            .then( value => {
-                setNftContract(value)
-    
-            })
-        } else {
-            const noData = setNftContract('')
-        }
-    }, [userNFTData])
-
-
-
-
-    if (userNFTData !== '') {
-        const userNFTs = userNFTData.nfts //this would be live data
-        const mapNFTs = userNFTs.map( (nft, index) => (
-
+            
                         <>
                         <MyVaultContainer>
                             <MyVaultCard>
@@ -292,39 +252,36 @@ const Vaults = () => {
                                     <HeaderGrid>
                                         <MultiplierBadge style={{margin: "0px !important", alignSelf: "end", display: "flex", flexDirection: "row", justifyContent: "space-evenly", height: "100%"}}>
                                         <FaTicketAlt style={{color: "#fbdb37", fontSize: "3.2em", alignSelf: "center"}}></FaTicketAlt>
-
+    
                                             <div style={{marginBottom: "0px", marginTop: "3px", fontSize: "2.5em", alignSelf: "center", fontWeight: "600"}}>
-                                                {`${nft}`}
+                                                {`Vault ID`}
                                             </div>
                                         </MultiplierBadge>
                                         <BigHeading style={{ alignSelf: "center", textAlign: "center", fontSize: "2.0em"}}>
-                                            {`${userNFTData.strategy} Vault`}
+                                            {`NAME Vault`}
                                         </BigHeading>
-
+    
                                         <MultiplierBadge style={{margin: "0px !important", alignSelf: "end", justifyContent: "center" }}>
                                             <FaCircle style={{marginBottom: "5px", fontSize: "240%"}}/>
                                             <p style={{marginBottom: "3px", fontSize: "100%"}}>Open / Working</p>
                                         </MultiplierBadge>
                                         
                                     </HeaderGrid>
-
+    
                                 </MyVaultCardContainer>
                                 <CardGrid>
-                                    <VaultNFTCard
-                                        mintData = {{nftContract, account}}
-                                        id={index}
-                                        nftId={nft}
-                                        nftData={userNFTData}
+                                    {/* <VaultNFTCard    ///fix when data good
+                                        id={nft.tokenId}
+                                        vaultData={nft}
                                         image={"/assets/images/StopLoss.svg"}
-                                        title={userNFTData.strategy}
-                                    />
+                                    /> */}
                                     <VaultChartGrid style={{rowGap: "1.5em"}}>
                                         <DetailsCard >
                                             <Chart/>
                                         </DetailsCard>
                                         
                                         <DetailsCard>
-                                            <VaultNFTFooter id={index} nftData={userTradeData[index]} />
+                                            <VaultNFTFooter />
                                         </DetailsCard>
                                     </VaultChartGrid>
                                 </CardGrid>
@@ -332,38 +289,25 @@ const Vaults = () => {
                         </MyVaultContainer>
                         </>
                     
-
+    
         
             
         ))
-
         return (
             <>
-            <Page>
-    
-                <VaultsPageHeading />
-
-                <OracleBar />
-
-                <SoManyContainers>
+            <SoManyContainers>
                 
-
-                            {mapNFTs}
-                        
-                </SoManyContainers>
-            </Page>
     
+                {mapNFTs}
+            
+            </SoManyContainers>
             </>
         )
-
     } else {
-
         return (
             <>
-            <Page>
-    
-            <VaultsPageHeading />
-    
+        
+        
                 <MyVaultContainer>
                     <VaultGrid>
                         <MyVaultCard>
@@ -379,11 +323,132 @@ const Vaults = () => {
                     </VaultGrid>
                 </MyVaultContainer>
                 
-            </Page>
+         
     
             </>
         )
     }
+    
+}
+
+const Vaults = () => {
+    const [userVaultData, setUserVaultData] = useState(undefined);
+    const [userVaultIds, setUserVaultIds] = useState(null)
+    const [transacting, setTransacting] = useState(false);
+    const [vaultMode, setVaultMode] = useState(null)
+    const [userTradeData, setUserTradeData] = useState(null)
+    const {active, account, library, connector} = useWeb3React();
+
+    const VAULTSWITCH = [
+        { 
+            name: "limit",
+            address: addresses.vaults.limitVault,
+            abi: LIMITABI.abi
+        },
+        { 
+            name: "stop",
+            address: addresses.vaults.stopVault,
+            abi: STOPABI.abi
+        },
+        { 
+            name: "accumulatordistributor",
+            address: addresses.vaults.accDistVault,
+            abi: ACCDISTABI.abi
+        },
+    ]
+
+
+    //VAULTS
+
+    const getVaults = async (userAddress, _vaultMode) => {
+        const resp = await axios.get(`https://cornoracleapi.herokuapp.com/${VAULTSWITCH[_vaultMode].name}/vaults/${userAddress}`)
+
+        const raw = resp.data
+        
+        return raw
+    }
+
+    
+
+    useEffect( async () => {
+        
+        
+            try {
+            const Vaults = await getVaults(account, vaultMode)
+            setUserVaultData(Vaults)
+            console.log("Vaults Raw")
+            console.log(Vaults)
+           
+            
+            const vaultIds = Vaults.map( (data) => {
+                return data.id
+            })
+
+            setUserVaultIds(vaultIds)
+
+        } catch (err) {console.log(err)}
+            
+    }, [])
+
+
+    //TRADES
+
+    const getUserTrades = async (nftIds, _vaultMode) => {
+        
+        const tradePromises = nftIds.map( async (id) => {
+            const resp = await axios.get(`https://cornoracleapi.herokuapp.com/${VAULTSWITCH[_vaultMode].name}/trades/${id}`)
+            const raw = resp.data
+            
+            
+            return raw 
+        })
+    
+        const trades = await Promise.all(tradePromises)
+
+        return trades
+        
+    }
+
+
+    useEffect( async () => {
+        try {
+            const Trades = await getUserTrades(userVaultIds, vaultMode)
+            setUserTradeData(Trades)
+        } catch (err) {console.log(err)}
+    }, [])
+    
+
+    
+
+
+        return (
+            <>
+            <Page>
+    
+                <VaultsPageHeading />
+
+                <OracleBar />
+
+                <VaultSelector setVaultMode={setVaultMode}/>
+
+                { vaultMode ==null &&
+                <StyledBackDrop filter={"blur(5px)"}>
+                <h2 style={{color: "#fbdb37", opacity: "60%", fontWeight: "600", alignSelf: "center"}}>
+                    Select Order Type...
+                </h2>
+
+                </StyledBackDrop>
+                }
+
+                
+                <UserVaults userVaultData={userVaultData}/>
+                
+                                
+        
+            </Page>
+    
+            </>
+        )
 
     
 }

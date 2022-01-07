@@ -39,10 +39,11 @@ const AssetCard = styled(Card)`
     height: auto;
     width: auto;
     border-radius: 22px;
-    background-color: transparent;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-    box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.3) inset, -10px -6px 12px 0 rgba(103, 107, 114, 0.1) inset;
-
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.3);
 `
 const OracleCardHeader = styled.div`
     justify-text: center;
