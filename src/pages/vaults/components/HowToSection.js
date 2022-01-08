@@ -96,7 +96,13 @@ const CardThree = styled(Card)`
         transform: rotate(0deg);
         right: 0%;
         bottom: -22px;
+    }
 
+    @media (max-width: 375px) {
+        width: 100%;
+        transform: rotate(-11deg);
+        right: 0%;
+        bottom: -22px;
     }
 `
 const BigCard = styled(Card)`

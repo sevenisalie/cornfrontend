@@ -22,6 +22,10 @@ const NavContainer = styled(Container)`
     justify-content: space-between;
     width: 100%;
     height: auto;
+
+    @media (max-width: 375px) {
+        justify-content: space-around;
+      }
     
     
 `
@@ -29,13 +33,13 @@ const NavContainer = styled(Container)`
 const Nav = styled(Navbar)`
     
     height: auto;
-    width: auto;
+    width: 100%;
     padding: 5px;
     padding-top: 8px;
-    max-width: auto;
+    max-width: 100%;
     background-color: transparent !important;
     
-    
+
 `
 
 const ImageWrapper = styled(Container)`
@@ -79,7 +83,11 @@ const LinkContainer = styled.div`
     align-items: center;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
 
+    @media (max-width: 375px) {
+        margin-left: 5px;
+        margin-right: 8px;
 
+      }
 
     
 `
