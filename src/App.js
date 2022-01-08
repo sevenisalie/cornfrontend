@@ -22,11 +22,11 @@ function App() {
 
           <Route path='/' element={<Home/>} />
      
-          <Route path='/vaults' element={<Vaults/>} />
+          {/* <Route path='/vaults' element={<Vaults/>} />
 
           <Route path="/pools" element={<Pools/>} />
 
-          <Route path="/nfts" element={<NFT/>} />
+          <Route path="/nfts" element={<NFT/>} /> */}
 
         </Routes>
       

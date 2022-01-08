@@ -517,10 +517,10 @@ export const Home = () => {
         <FooterImageThree src={'/assets/images/Sircle.svg'}></FooterImageThree>
         </Container>
 
-        <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "25px", marginBottom: "50px"}}>
-            <HeaderButtonSecondary>Medium</HeaderButtonSecondary>
-            <HeaderButtonSecondary>Twitter</HeaderButtonSecondary>
-            <HeaderButtonSecondary>Github</HeaderButtonSecondary>
+        <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-evenly", marginTop: "25px", marginBottom: "50px"}}>
+            <HeaderButtonSecondary href="https://medium.com/@cornfinance">Medium</HeaderButtonSecondary>
+            <HeaderButtonSecondary href="https://twitter.com/PolyCornFi">Twitter</HeaderButtonSecondary>
+            <HeaderButtonSecondary href="https://github.com/Corn-Fi">Github</HeaderButtonSecondary>
         </Container>
 
         </>

@@ -5,6 +5,8 @@ import {useWeb3React} from "@web3-react/core"
 
 import {ConnectButton} from "./ConnectButton"
 import {MultiplierBadge} from "../pages/pools/components/Badges"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
 
@@ -151,8 +153,15 @@ const NetworkText = styled.div`
 export const NavigationBar = () => {
     const {active, account, library, connector} = useWeb3React();
 
+    const badToast = (msg) => {
+        toast.warning(`${msg}`, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
+
     return (
         <>
+        <ToastContainer></ToastContainer>
             <Nav>
                 <NavContainer>
                         <ImageWrapper>
@@ -162,18 +171,18 @@ export const NavigationBar = () => {
                             </MultiplierBadge>
                         </ImageWrapper>
                         <LinkContainer>
-                            <CleanLink to="/">
+                            {/* <CleanLink to="/"> */}
                                 <NavbarLink href="#">Home</NavbarLink>
-                            </CleanLink>
-                            <CleanLink to="/vaults">
-                                <NavbarLink href="#">Vaults</NavbarLink>
-                            </CleanLink>
-                            <CleanLink to="/pools">
-                                <NavbarLink href="#">Pools</NavbarLink>
-                            </CleanLink>
-                            <CleanLink to="/nfts">
-                                <NavbarLink href="#">NFTs</NavbarLink>
-                            </CleanLink>
+                            {/* </CleanLink> */}
+                            {/* <CleanLink to="/vaults"> */}
+                                <NavbarLink onClick={() => badToast("Coming Soon")} href="#">Trades</NavbarLink>
+                            {/* </CleanLink> */}
+                            {/* <CleanLink to="/pools"> */}
+                                <NavbarLink onClick={() => badToast("Coming Soon")} href="#">Pools</NavbarLink>
+                            {/* </CleanLink> */}
+                            {/* <CleanLink disabled to="/nfts"> */}
+                                <NavbarLink onClick={() => badToast("Coming Soon")} href="#">Market</NavbarLink>
+                            {/* </CleanLink> */}
                         </LinkContainer>
                         <NetworkContainer>
                             {active

@@ -59,6 +59,22 @@ const Pools = (props) => {
     const { fastRefresh } = useRefresh()
     const [allowances, setAllowances] = useState('false')
     const [balances, setBalances] = useState('0')
+    const [apiPoolData, setApiPoolData] = useState({})
+
+    useEffect( async () => {
+        if (account) {
+            try {
+                const poolData = await axios.get(`https://cornoracleapi.herokuapp.com/chef/userPoolData/${account}`)
+                if (poolData.status == 200) {
+                    setApiPoolData(poolData.data)
+                } else {
+                    setApiPoolData({})
+                }
+            } catch (err) {}
+        }
+
+        
+    }, [account])
     
     
     useEffect( () => {
@@ -71,14 +87,11 @@ const Pools = (props) => {
               MasterChefABI,
               ).then(val => {
                 setMasterChefContract(val)
-                console.log(val)
               })
         } else {
             console.log("no masterchef")
           const noData = setMasterChefContract(null)
         }
-        
-        
       }, [active])
 
     useEffect( async () => {
@@ -110,13 +123,11 @@ const Pools = (props) => {
     useEffect( async () => {
 
         try {
-            console.log(`This is poolData inside function ${poolData}`)
-            console.log(poolData)
+           
             const poolbl = await getPoolBalance(poolData, active, library.getSigner(), account, ERC20Abi, masterChefContract, 4)
             //const poolbal = ethers.utils.formatUnits(poolbl, "ether")
             setPoolBalance(poolbl)
-            console.log("poolbally")
-            console.log(poolbl)          
+                   
     
 
         } catch (err) {
@@ -128,7 +139,7 @@ const Pools = (props) => {
     if (masterChefContract !== null && active && balances != undefined) {
             const mapPoolData =  poolData.map((pool, index) => (
 
-                <PoolCard balance={balances[index]} allowance={allowances[index]} masterChef={masterChefContract} signer={library.getSigner()} pid={index} poolBalance={poolBalance[index]} pool={pool}/>
+                <PoolCard apiPoolData={apiPoolData[index]} balance={balances[index]} allowance={allowances[index]} masterChef={masterChefContract} signer={library.getSigner()} pid={index} poolBalance={poolBalance[index]} pool={pool}/>
                 ));
       
 

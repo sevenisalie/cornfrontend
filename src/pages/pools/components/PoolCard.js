@@ -20,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //icons
 import {BsArrowUpRightSquare, BsCalculatorFill} from "react-icons/bs"
 import {GoVerified} from "react-icons/go"
-import {FaCircle, FaRegCircle, FaRegCheckCircle} from "react-icons/fa"
+import {FaCircle, FaRegCircle, FaRegCheckCircle, FaPercent} from "react-icons/fa"
 import {BiCoinStack} from "react-icons/bi"
 import {GiLockedChest} from "react-icons/gi"
 import {RiCoinLine} from "react-icons/ri"
@@ -371,6 +371,16 @@ const PoolCard = (props) => {
            </MultiplierBadge>
             </CardTitle>
           </div>
+
+          <StyledDetails>
+                <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                  <p >APR:</p>
+                  <p style={{fontSize: "1.2em"}}><FaPercent style={{fontSize: "0.8em", marginRight: "6px", color: "#fbfbfb"}}/>
+                  {/* {toFixed(props.apiPoolData.USER.APY, 2)} */}
+                  </p>
+                </Container>
+        
+            </StyledDetails>
         
 
             <StyledDetails>
