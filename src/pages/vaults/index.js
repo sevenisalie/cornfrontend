@@ -76,6 +76,23 @@ const HeaderImage = styled.object`
     }
 `
 
+const HomeAnimation = keyframes`
+    0% {
+        transform: translateX(0px) translateY(0px);
+    }
+    50% {
+        transform: translateX(-18px) translateY(-18px);
+    }
+    100% {
+        transform: translateX(0px) translateY(0px);
+    }
+`
+
+const HomeImage = styled(HeaderImage)`
+    animation: ${HomeAnimation} infinite 9s ease-in-out;
+`
+
+
 const BackgroundImage = styled.div`
     aspect-ratio: 960/300;
     width: 100%;
@@ -407,7 +424,7 @@ export const Home = () => {
                     </StupidSpan>
                 </HeaderContentContainer>
                 <HeaderContentContainer style={{alignSelf: "center"}}>
-                    <HeaderImage type="image/svg+xml" data="/assets/images/MovingCircles.svg">svg-animation</HeaderImage>
+                    <HomeImage type="image/svg+xml" data="/assets/images/homeufo.svg"></HomeImage>
                 </HeaderContentContainer>
             </HeaderGridContainer>
 
