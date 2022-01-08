@@ -18,6 +18,7 @@ import Gelatologo from "../../assets/images/Gelatologo.svg"
 import waves1 from "../../assets/images/waves1.png"
 import waves2 from "../../assets/images/waves2.svg"
 import waves3 from "../../assets/images/waves3.svg"
+import homeufo from "../../assets/images/homeufo.svg"
 
 
 const HeaderGridContainer = styled(Container)`
@@ -424,7 +425,7 @@ export const Home = () => {
                     </StupidSpan>
                 </HeaderContentContainer>
                 <HeaderContentContainer style={{alignSelf: "center"}}>
-                    <HomeImage type="image/svg+xml" data="/assets/images/homeufo.svg"></HomeImage>
+                    <HomeImage type="image/svg+xml" data={homeufo}>svg-animation</HomeImage>
                 </HeaderContentContainer>
             </HeaderGridContainer>
 
