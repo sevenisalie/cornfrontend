@@ -18,6 +18,9 @@ import Gelatologo from "../../assets/images/Gelatologo.svg"
 import waves1 from "../../assets/images/waves1.png"
 import waves2 from "../../assets/images/waves2.svg"
 import waves3 from "../../assets/images/waves3.svg"
+import homeufo from "../../assets/images/homeufo.svg"
+
+
 
 
 const HeaderGridContainer = styled(Container)`
@@ -75,7 +78,22 @@ const HeaderImage = styled.object`
         height: 250px;
     }
 `
+const HomeAnimation = keyframes`
+    0% {
+        transform: translateX(0px) translateY(0px);
+    }
+    50% {
+        transform: translateX(-18px) translateY(-18px);
+    }
+    100% {
+        transform: translateX(0px) translateY(0px);
+    }
+`
 
+const HomeImage = styled(HeaderImage)`
+    animation: ${HomeAnimation} infinite 9s ease-in-out;
+
+`
 const BackgroundImage = styled.div`
     aspect-ratio: 960/300;
     width: 100%;
@@ -407,7 +425,7 @@ export const Home = () => {
                     </StupidSpan>
                 </HeaderContentContainer>
                 <HeaderContentContainer style={{alignSelf: "center"}}>
-                    <HeaderImage type="image/svg+xml" data="/assets/images/MovingCircles.svg">svg-animation</HeaderImage>
+                    <HomeImage type="image/svg+xml" data={homeufo}>svg-animation</HomeImage>
                 </HeaderContentContainer>
             </HeaderGridContainer>
 

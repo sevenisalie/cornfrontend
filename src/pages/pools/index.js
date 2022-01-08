@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import axios from "axios"
 import {ethers} from "ethers";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useReducer} from "react";
 import { useWeb3React } from "@web3-react/core";
 
 //static confg
@@ -46,9 +46,17 @@ const PoolGrid = styled(Container)`
       }
   
 `
+const poolReducer = (state, action) => {
+    return state
+}
 
-
-
+const initialState = {
+    poolData: [],
+    poolBalance: [],
+    allowances: [],
+    balances: [],
+    userPoolData: [],
+}
 
 const Pools = (props) => {
    
@@ -59,6 +67,24 @@ const Pools = (props) => {
     const { fastRefresh } = useRefresh()
     const [allowances, setAllowances] = useState('false')
     const [balances, setBalances] = useState('0')
+    const [userPoolData, setUserPoolData] = useState(undefined)
+
+    const [state, dispatch] = useReducer(poolReducer, initialState)
+
+    useEffect( async () => {
+        try {
+            if (account) {
+                const data = await axios.get(`https://cornoracleapi.herokuapp.com/chef/userPoolData/${account}`)
+                const poolData = data.data
+                setUserPoolData(poolData)
+          
+            } else {
+                setUserPoolData(undefined)
+            }
+
+        } catch (err) {console.log(err)}
+   
+    }, [account])
     
     
     useEffect( () => {
@@ -71,7 +97,6 @@ const Pools = (props) => {
               MasterChefABI,
               ).then(val => {
                 setMasterChefContract(val)
-                console.log(val)
               })
         } else {
             console.log("no masterchef")
@@ -95,7 +120,6 @@ const Pools = (props) => {
                     setPoolData(userFarmData)
                     setAllowances(alounces)
                 } else {
-                    console.log("stillbroke no pooldata")
                     setPoolData(pools)
                     setAllowances("false")
                     setBalances('0')
@@ -110,25 +134,20 @@ const Pools = (props) => {
     useEffect( async () => {
 
         try {
-            console.log(`This is poolData inside function ${poolData}`)
-            console.log(poolData)
+         
             const poolbl = await getPoolBalance(poolData, active, library.getSigner(), account, ERC20Abi, masterChefContract, 4)
             //const poolbal = ethers.utils.formatUnits(poolbl, "ether")
             setPoolBalance(poolbl)
-            console.log("poolbally")
-            console.log(poolbl)          
-    
-
         } catch (err) {
             console.log(err)
         }
     }, [poolData, active, library])
 
     //if we do have pooldata then go ahead and populate a card for each pool
-    if (masterChefContract !== null && active && balances != undefined) {
+    if (masterChefContract !== null && active && balances != undefined && userPoolData !== undefined) {
             const mapPoolData =  poolData.map((pool, index) => (
 
-                <PoolCard balance={balances[index]} allowance={allowances[index]} masterChef={masterChefContract} signer={library.getSigner()} pid={index} poolBalance={poolBalance[index]} pool={pool}/>
+                <PoolCard userPoolData={userPoolData[index]} balance={balances[index]} allowance={allowances[index]} masterChef={masterChefContract} signer={library.getSigner()} pid={index} poolBalance={poolBalance[index]} pool={pool}/>
                 ));
       
 

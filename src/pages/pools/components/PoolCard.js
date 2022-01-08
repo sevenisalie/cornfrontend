@@ -7,7 +7,7 @@ import axios from "axios"
 import { stringToFixed, userClaim, fetchPoolAllowance, setPoolAllowance, toFixed, getTokenStakeBalance, userStake} from "../../../utils/nft"
 
 //components
-import {Container, Card, Button, Image} from "react-bootstrap";
+import {Container, Card, Button, Image, Placeholder} from "react-bootstrap";
 import {HeaderButtonSecondary} from "../../vaults/index"
 import {MultiplierBadge} from "./Badges"
 import DepositModal from "./DepositModal"
@@ -339,8 +339,9 @@ const PoolCard = (props) => {
       const allowance = props.allowance
       const answer = allowance.approved
       const balance = props.balance
-
       const stakedAmount = stringToFixed(poolData.userStaked, 3)
+
+      const APR = (props.userPoolData.USER.APY !== 0) ? toFixed(props.userPoolData.USER.APY, 2) :  <Placeholder as="p" animation="glow"><Placeholder xs={12} /></Placeholder>
       return (
 
         <>
@@ -378,6 +379,16 @@ const PoolCard = (props) => {
                   <p>TVL:</p>
                   <p><GiLockedChest style={{marginRight: "6px", color: "#fbfbfb"}}/>
                   {toFixed(poolBalance, 2)}
+                  </p>
+                </Container>
+        
+            </StyledDetails>
+
+            <StyledDetails>
+                <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                  <p>APR:</p>
+                  <p><GiLockedChest style={{marginRight: "6px", color: "#fbfbfb"}}/>
+                  {APR}
                   </p>
                 </Container>
         
