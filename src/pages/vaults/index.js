@@ -12,6 +12,8 @@ import {GiToken} from "react-icons/gi"
 import {Card, Container, Button, Dropdown, Form, Placeholder} from "react-bootstrap"
 import {HowToSection} from "./components/HowToSection"
 import OracleBar from "../../components/OracleBar"
+import { Link as LinkS} from 'react-scroll'
+import {GoChecklist} from "react-icons/go"
 
 //images
 import Gelatologo from "../../assets/images/Gelatologo.svg"
@@ -211,13 +213,14 @@ export const BodyBigHeading = styled(BigHeading)`
     font-weight: 600;
     font-size 190%;
     color: #fbdb37;
-    1px 3px 3px rgba(29, 30, 32, 0.88)
+    text-shadow: 4px 4px 6px rgba(0,0,0,0.6);
+
 `
 export const BodyLittleHeading = styled(LittleHeading)`
     font-weight: 400;
     font-size: 120%;
     color: #fbfbfb;
-    1px 3px 3px rgba(29, 30, 32, 0.88)
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
 `
 export const BodyContentCard = styled(Card)`
     align-self: center;
@@ -229,6 +232,9 @@ export const BodyContentCard = styled(Card)`
     background-color: rgba(29, 30, 32, 0.57);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
+    -webkit-box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
+    -moz-box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
    
 `
 export const BodyContentCardContainer = styled(Container)`
@@ -326,6 +332,28 @@ const FooterImageThree = styled.img`
     }
 `
 
+const ScrollLink = styled(LinkS)`
+    padding: 15px;
+    border: 2px;
+    border-radius: 25px;
+    border-color: #fbdb37;
+    color: #fbdb37;
+    text-decoration: none;
+    list-style: none;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+`
+const UfoImageContainer = styled(HeaderContentContainer)`
+backdrop-filter: blur(2px) saturate(161%);
+-webkit-backdrop-filter: blur(2px) saturate(161%);
+background-color: rgba(255, 255, 255, 0.01);
+border-radius: 12px;
+border: 1px solid rgba(255, 255, 255, 0.125);
+`
+
+
 const CobTokenDetails = (props) => {
     if (props.token == undefined) {
         return (
@@ -418,7 +446,7 @@ export const Home = () => {
 
 
     const notify = () => {
-        toast.success("hallo world", {
+        toast.warning("Coming Soon", {
             position: toast.POSITION.BOTTOM_RIGHT
         })
     }
@@ -428,13 +456,17 @@ export const Home = () => {
             <HeaderGridContainer>
                 <HeaderContentContainer>
                     <BigHeading>Beef-up with a Corn-fed portfolio</BigHeading>
-                    <LittleHeading>Buy and Sell Algo-NFTs that can automate your on-chain trading strategies</LittleHeading>
+                    <LittleHeading>Buy Algo-NFTs that can automate your on-chain trading strategies</LittleHeading>
                     <StupidSpan>
-                    <HeaderButtonSecondary>Mint Now <BsArrowUpRight /></HeaderButtonSecondary>
-                    <HeaderButtonSecondary onClick={notify}>Learn</HeaderButtonSecondary>
+                    <HeaderButtonSecondary onClick={notify}>Mint Now <BsArrowUpRight /></HeaderButtonSecondary>
+                    
+                    
+                    <HeaderButtonSecondary href="https://medium.com/@cornfinance">Learn</HeaderButtonSecondary>
+
                     <ToastContainer></ToastContainer>
                     </StupidSpan>
                 </HeaderContentContainer>
+
                 <HeaderContentContainer style={{alignSelf: "center"}}>
                     <HomeImage type="image/svg+xml" data={homeufo}>svg-animation</HomeImage>
                 </HeaderContentContainer>
@@ -466,13 +498,14 @@ export const Home = () => {
                 </BodyContentContainer>
             </BodyGridContainer>
             </div>
-            
+
+
                 <BodyContentContainer style={{marginBottom: "200px"}}>
                     <HowToSection>
 
                     </HowToSection>
                 </BodyContentContainer>
-        
+                
 
             <BodyGridContainer>
                 <BodyContentContainer>
@@ -483,12 +516,16 @@ export const Home = () => {
 
                 <BodyContentContainer>
                     <BodyBigHeading style={{fontSize: "310%"}}>Smart Aggregation and Routing</BodyBigHeading>
-                    <BodyLittleHeading>We route orders through multiple DEX's to ensure ample liquidity and reduce slippage.</BodyLittleHeading>
+                    <BodyContentCard>
+
+                    <BodyLittleHeading>Our open-source API ranks liquidity of LP's across multiple DEX's to ensure best price execution and reduce slippage.</BodyLittleHeading>
+                    <GoChecklist style={{alignSelf: "center", fontSize: "2.1em", color: "#fbdb37"}}/>
+                    </BodyContentCard>
                 </BodyContentContainer>
             </BodyGridContainer>
 
             
-            <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves1})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "550px"}} >
+            <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves1})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "590px"}} >
             <BodyGridContainer>
                 <BodyContentContainer>
                     <BodyLittleHeading style={{color: "#fbdb37", fontWeight: "800", fontSize: "2.8em", textAlign: "center"}}>
@@ -516,15 +553,17 @@ export const Home = () => {
                     </BodyContentContainer>
 
                     <BodyContentContainer>
-                        <BodyBigHeading style={{fontSize: "310%"}}>Powered by Gelato</BodyBigHeading>
+                        <BodyBigHeading style={{fontSize: "310%", textAlign: "center"}}>Powered by Gelato</BodyBigHeading>
+                        <BodyContentCard>
                         <BodyLittleHeading>We use Gelato's world class smart contract automation solution to obtain potential trade execution prices and moving price targets. These executors allows for traditionally static vaults to become dynamic, algirothmic trading bots  </BodyLittleHeading>
+                        </BodyContentCard>
                     </BodyContentContainer>
             </BodyGridContainer>
 
             <TokenSubHeaderGridContainer>
                 <TokenSubHeaderContentContainer style={{alignSelf: "center"}}>
                     <GiToken style={{alignSelf: "center", color: "#fbdb37", fontSize: "500%", marginBottom: "30px"}}/>
-                    <h2 style={{color: "#fbdb37", fontWeight: "600", fontSize: "240%", marginBottom: "50px"}}>100% Fair Launch Governance Token</h2>
+                    <h2 style={{color: "#fbdb37", fontWeight: "600", fontSize: "240%", marginBottom: "50px"}}>100% Fair Launch Token</h2>
                     <BodyContentCard>
                         <BodyContentCardContainer>
                     <p>Stake liquidity to earn COB token.  No pre-sale, no whitelist, just 100% community driven emissions.</p>

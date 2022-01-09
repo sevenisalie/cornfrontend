@@ -40,11 +40,14 @@ const CardOne = styled(Card)`
     background-color: rgba(1, 1, 1, 0.72);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
+-webkit-box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
+-moz-box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
     
 
     @media (max-width: 768px) {
         width: 100%;
-        transform: rotate(0deg);
+        transform: rotate(-5deg);
         left: 0%;
         top: -22px;
     }
@@ -64,6 +67,9 @@ const CardTwo = styled(Card)`
     background-color: rgba(1, 1, 1, 0.72);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
+-webkit-box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
+-moz-box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
 
     top: -38px;
     width: 30%;
@@ -90,10 +96,13 @@ const CardThree = styled(Card)`
     background-color: rgba(1, 1, 1, 0.72);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
+-webkit-box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
+-moz-box-shadow: 4px 2px 13px 0px rgba(0,0,0,0.62);
 
     @media (max-width: 768px) {
         width: 100%;
-        transform: rotate(0deg);
+        transform: rotate(-11deg);
         right: 0%;
         bottom: -22px;
     }
@@ -113,15 +122,21 @@ const BigCard = styled(Card)`
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 9px;
+    @media (max-width: 768px) {
+        margin-top: 70px;
+
+    }
 
 `
 
 export const HowToSection = () => {
     return (
-        <>
+        <>            
+            <div id="howToContainer">
+
             <BigCard>
 
-            <ContainerRow>
+            <ContainerRow >
                 <CardOne >
                     <BodyContentCardContainer>
                         <BodyBigHeading style={{fontSize: "200%"}}>1. Purchase a Vault</BodyBigHeading>
@@ -164,7 +179,7 @@ export const HowToSection = () => {
                 </CardThree>
             </ContainerRow>
             </BigCard>
-
+            </div>
         </>
     )
 }
