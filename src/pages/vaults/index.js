@@ -12,7 +12,6 @@ import {GiToken} from "react-icons/gi"
 import {Card, Container, Button, Dropdown, Form, Placeholder} from "react-bootstrap"
 import {HowToSection} from "./components/HowToSection"
 import OracleBar from "../../components/OracleBar"
-import { Link as LinkS} from 'react-scroll'
 import {GoChecklist} from "react-icons/go"
 
 //images
@@ -332,19 +331,7 @@ const FooterImageThree = styled.img`
     }
 `
 
-const ScrollLink = styled(LinkS)`
-    padding: 15px;
-    border: 2px;
-    border-radius: 25px;
-    border-color: #fbdb37;
-    color: #fbdb37;
-    text-decoration: none;
-    list-style: none;
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
-`
+
 const UfoImageContainer = styled(HeaderContentContainer)`
 backdrop-filter: blur(2px) saturate(161%);
 -webkit-backdrop-filter: blur(2px) saturate(161%);
