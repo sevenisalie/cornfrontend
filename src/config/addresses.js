@@ -90,37 +90,45 @@ export const addresses = {
         {
             symbol: "BTC",
             address: "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6",
-            decimals: 8
+            decimals: 8,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png",
+            
         },
         {
             symbol: "USDC",
             address: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
-            decimals: 6
+            decimals: 6,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
         },
         {
             symbol: "USDT",
             address: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
-            decimals: 6
+            decimals: 6,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
         },
         {
             symbol: "ETH",
             address: "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
-            decimals: 18
+            decimals: 18,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
         },
         {
             symbol: "MATIC",
             address: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
-            decimals: 18
+            decimals: 18,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png",
         },
         {
             symbol: "DAI",
             address: "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
-            decimals: 18
+            decimals: 18,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
         },
         {
             symbol: "AAVE",
             address: "0xd6df932a45c0f255f85145f286ea0b292b21c90b",
-            decimals: 18
+            decimals: 18,
+            logoURI: "https://etherscan.io/token/images/aave_32.png"
         }
     ]
 }

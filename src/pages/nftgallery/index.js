@@ -2,10 +2,14 @@
 import styled from "styled-components";
 import {Page} from "../../components/Page"
 import {ethers} from "ethers";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useReducer} from "react";
 import { useWeb3React } from "@web3-react/core";
 import { addresses } from "../../config/addresses";
 import { nftURI } from "../../config/uri";
+import {MasterChefABI, ERC20Abi} from "../../config/abis";
+import {NFTS} from "../../config/nfts"
+import {POOLS} from "../../config/pools"
+
 import axios from "axios"
 import {stopLossAbi} from "../../config/abis";
 import {Container, Card, Button} from "react-bootstrap";
@@ -18,6 +22,8 @@ import {EthIcon, BitcoinIcon, DollarIcon} from "./components/CreateVault"
 import {NFTFooter} from "./components/NFTFooter";
 import {NFTCard} from "./components/NFTCard";
 import MarketPageHeading from "./components/MarketPageHeading";
+import LimitOrderEntry from './components/LimitOrderEntry'
+import TokenSelector from "./components/TokenSelector"
 
 const MyNFTContainer = styled(Container)`
     display: flex;
@@ -48,27 +54,62 @@ const MyNFTGrid = styled(Container)`
   
 `
 
+const marketReducer = (state, action) => {
+    switch (action.type) {
+        case 'stopLossContract': {
+            return {
+                ...state,
+                stopLossContract: action.payload
+            }
+        }
+        case 'openTradeWindow' : {
+            return {
+                ...state,
+                openTradeWindow: !state.openTradeWindow 
+            }
+        }
+        case 'ERROR': {
+            return {
+                ...state,
+                error: action.payload,
+                loading: true
+            }
+        }
+        case 'loading': {
+            return {
+                ...state,
+                loading: action.payload
+            }
+        }
+        default:
+            return state
+    
+
+    }
+}
+
+const initialState = {
+    loading: true,
+    stopLossContract: '',
+    error: '',
+    openTradeWindow: false,
+}
+
 
 
 
 
 const NFT = () => {
     const [stopLossContract, setStopLossContract] = useState('');
-    const [userNFTData, setUserNFTData] = useState('');
     const {active, account, library, connector} = useWeb3React();
-    const [transacting, setTransacting] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    useEffect( async () => {
-        if (active) {
-            const nfts = await getNFTs(account)
-            console.log("user NFTS")
-            console.log(nfts)
-            setUserNFTData(nfts)
-            
-        } else {
-            const noData = setUserNFTData('')
-        }
-    }, [active])
+    const [state, dispatch] = useReducer(marketReducer, initialState)
+    
+
+
+
+    
 
     useEffect( () => {
         if (active) {
@@ -76,49 +117,41 @@ const NFT = () => {
                 active,
                 library.getSigner(),
                 account,
-                userNFTData.contract,
+                addresses.vaults.stopVault,
                 stopLossAbi,
             )
             .then( value => {
-                setStopLossContract(value)
-                console.log("setted stop tract")
-                console.log(value)
+                dispatch({ type: 'stopLossContract', payload: value})
+      
                 
             })
             
         } else {
-            const noData = setStopLossContract('')
+            dispatch({ type: 'ERROR', payload: 'poop'})
         }
-    }, [userNFTData])
+    }, [active, account])
 
 
-    const getNFTs = async (_account) => {
-        const data = await axios.get(`https://cornoracleapi.herokuapp.com/stoploss/nfts/${_account}`)
-        console.log("data from function")
-        console.log(data)
-        const darta = data.data
-        return darta
+    
+
+    
+    const openTradeWindowToggle = () => {
+        dispatch({ type: 'openTradeWindow'})
     }
-    
-
-    
-    
     
   
 
-    const userNFTs = userNFTData.nfts
-    if (userNFTs !== undefined && userNFTData !== null) {
-        console.log(userNFTs)
+    if (loading == false) {
 
-        const mapUserNFTs = userNFTs.map((nft, index) => (
+        const mapUserNFTs = NFTS.map((nft, index) => (
 
             <NFTCard
-                mintData = {{account: account}}
-                contract = {stopLossContract}
+                state={state}
+                contract = {state.stopLossContract}
                 id={index}
-                nftId={nft}
+                nftId={nft.id}
                 image={null}
-                title={userNFTData.strategy}
+                title={nft.name}
             ></NFTCard>
  
         ));
@@ -130,6 +163,9 @@ const NFT = () => {
         <Page>
 
             <MarketPageHeading/>
+
+            <LimitOrderEntry state={state} openTradeWindowToggle={openTradeWindowToggle}/>
+
 
             <MyNFTGrid>
 

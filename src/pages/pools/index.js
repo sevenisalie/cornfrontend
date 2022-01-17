@@ -9,14 +9,15 @@ import { useWeb3React } from "@web3-react/core";
 
 
 import { addresses } from "../../config/addresses";
-import {pools} from "../../config/pools";
+import {POOLS} from "../../config/pools";
 import {MasterChefABI, ERC20Abi} from "../../config/abis";
-import {writeContract, fetchPoolAllowance, getTokenStakeBalance, fetchTokenStakeBalance} from "../../utils/nft";
-import {fetchUserPoolData, mapPendingToOriginalData, getPoolBalance} from "../../utils/fetchUserData";
+import {writeContract} from "../../utils/nft";
+import {fetchPendingCob} from "../../utils/fetchUserData";
 //Components
 import {Page} from "../../components/Page"
 import {Container, Card, Button} from "react-bootstrap";
 import PoolCard from "./components/PoolCard";
+import PlaceholderPoolCard from "./components/PlaceholderPoolCard"
 import PoolPageHeading from "./components/PoolPageHeading"
 import BackdropFilter from "react-backdrop-filter";
 
@@ -47,148 +48,176 @@ const PoolGrid = styled(Container)`
   
 `
 const poolReducer = (state, action) => {
+    switch (action.type) {
+        case 'allowances': {
+            return{
+                ...state,
+                allowances: action.payload,
+                loading: false
+            }
+        }
+        case 'userPoolData': {
+            return {
+                ...state,
+                userPoolData: action.payload,
+                userPoolDataLoading: false
+            }
+        }
+        case 'poolData': {
+            return {
+                ...state,
+                poolData: action.payload,
+                poolDataLoading: false
+            }
+        }
+        case 'masterChefContract': {
+            return {
+                ...state,
+                masterChefContract: action.payload,
+                masterChefLoading: false
+            }
+        }
+        case "signer": {
+            return {
+                ...state,
+                signer: action.payload
+            }
+        }
+        case 'ERROR': {
+            return {
+                ...state,
+                error: action.payload,
+                loading: true
+            }
+        }
+
+    
+
+    }
+    console.log("STATE")
+    console.log(state)
     return state
 }
 
 const initialState = {
+    loading: true,
+    masterChefLoading: true,
+    poolDataLoading: true,
+    userPoolDataLoading: true,
     poolData: [],
-    poolBalance: [],
-    allowances: [],
-    balances: [],
     userPoolData: [],
+    allowances: [],
+    masterChefContract: {},
+    signer: {},
+    error: '',
 }
 
 const Pools = (props) => {
    
     const {active, account, library, connector} = useWeb3React();
-    const [poolData, setPoolData] = useState(pools); //imported above
-    const [masterChefContract, setMasterChefContract] = useState()
-    const [poolBalance, setPoolBalance] = useState('0')
     const { fastRefresh } = useRefresh()
-    const [allowances, setAllowances] = useState('false')
-    const [balances, setBalances] = useState('0')
-    const [userPoolData, setUserPoolData] = useState(undefined)
+    
 
     const [state, dispatch] = useReducer(poolReducer, initialState)
 
     useEffect( async () => {
         try {
-            if (account) {
+            if (account){
                 const data = await axios.get(`https://cornoracleapi.herokuapp.com/chef/userPoolData/${account}`)
-                const poolData = data.data
-                setUserPoolData(poolData)
-          
-            } else {
-                setUserPoolData(undefined)
+                dispatch({ type: 'userPoolData', payload: data.data })
+                console.log("USERDATA")
             }
 
-        } catch (err) {console.log(err)}
-   
-    }, [account])
-    
-    
-    useEffect( () => {
-        if (active) {
-          const master = writeContract(
-              active, 
-              library.getSigner(), 
-              account,
-              addresses.masterChef,
-              MasterChefABI,
-              ).then(val => {
-                setMasterChefContract(val)
-              })
-        } else {
-            console.log("no masterchef")
-          const noData = setMasterChefContract(null)
-        }
-        
-        
-      }, [active])
-
-    useEffect( async () => {
-     
-            try {
-
-                if (library && account) {
-            
-                    const farmData = await fetchUserPoolData(masterChefContract, library, account, 4)
-                    const userFarmData = await mapPendingToOriginalData(farmData, pools, masterChefContract, 4)
-                    const alounces = await fetchPoolAllowance(userFarmData, library.getSigner(), account, masterChefContract)
-                    const bal = await fetchTokenStakeBalance(userFarmData, library.getSigner(), account)
-                    setBalances(bal)
-                    setPoolData(userFarmData)
-                    setAllowances(alounces)
-                } else {
-                    setPoolData(pools)
-                    setAllowances("false")
-                    setBalances('0')
-                }
-
-            } catch (err) {console.log(err)}
-            
-    
-              
-       }, [masterChefContract, fastRefresh])
-
-    useEffect( async () => {
-
-        try {
-         
-            const poolbl = await getPoolBalance(poolData, active, library.getSigner(), account, ERC20Abi, masterChefContract, 4)
-            //const poolbal = ethers.utils.formatUnits(poolbl, "ether")
-            setPoolBalance(poolbl)
         } catch (err) {
-            console.log(err)
+            dispatch({ type: 'ERROR', payload: err })
         }
-    }, [poolData, active, library])
+
+    }, [account, active])
+    useEffect( async () => {
+        try {
+            const data = await axios.get(`https://cornoracleapi.herokuapp.com/chef/poolData`)
+            dispatch({ type: `poolData`, payload: data.data})
+            console.log("POOLDATA")
+        } catch (err) {
+            dispatch({ type: 'ERROR', payload: err })
+        }
+    }, [])
+    useEffect( async () => {
+        if (active && library) {
+            try {
+            
+                const master = await writeContract(
+                    active, 
+                    library.getSigner(), 
+                    account,
+                    addresses.masterChef,
+                    MasterChefABI,
+                    )
+                
+                dispatch({ type: "masterChefContract", payload: master})
+                dispatch({type: 'signer', payload: library.getSigner()})
+                console.log("MASETERRR")
+            } catch (err) {
+                console.log(err)
+                dispatch({type: 'ERROR', payload: err})
+            }
+        }
+
+      }, [active, library])
+
+
+    
+
+    
 
     //if we do have pooldata then go ahead and populate a card for each pool
-    if (masterChefContract !== null && active && balances != undefined && userPoolData !== undefined) {
-            const mapPoolData =  poolData.map((pool, index) => (
+    if (state.poolDataLoading == false && library) {
+        const mapPoolData =  state.poolData.map((pool, index) => (
 
-                <PoolCard userPoolData={userPoolData[index]} balance={balances[index]} allowance={allowances[index]} masterChef={masterChefContract} signer={library.getSigner()} pid={index} poolBalance={poolBalance[index]} pool={pool}/>
-                ));
-      
-
-
-
+            <PoolCard  state={state} signer={library.getSigner()} pid={index} pool={pool}/>
+            ));
+            return (
+                <>
+        
+                <PoolPageHeading/>
+                
+            
+                    <PoolGrid style={{marginBottom: "6.5em"}}>
+                        {mapPoolData}
+                    </PoolGrid>
+           
+                
+                
+        
+                </>
+            )
+    } else if (state.poolDataLoading == true || !library) {
+        const mapPlaceHolderPoolData = POOLS.map( (pool) => (
+            <PlaceholderPoolCard tokenStake={pool.tokenStakeName}/>
+        ))
         return (
             <>
-  
+    
             <PoolPageHeading/>
             
-            <PoolGrid style={{marginBottom: "6.5em"}}>
-                {mapPoolData}
-            </PoolGrid>
+      
+                <PoolGrid style={{marginBottom: "6.5em"}}>
+                    {mapPlaceHolderPoolData}
+                </PoolGrid>
+      
             
             
     
             </>
         )
     }
-   
-    //if we dont have pool data then return static dummy
-    return (
-        <>
-        <Page>
+      
 
-            <PoolPageHeading/>
 
-            <PoolGrid>
-
-                <PoolCard/>
-                <PoolCard/>
-                <PoolCard/>
-                
-            
-            </PoolGrid>
-            
-
-        </Page>
-
-        </>
-    )
+        
+    
+        
+       
 }
 
 export default Pools

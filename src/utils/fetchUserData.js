@@ -164,8 +164,11 @@ export const getSwapInfo = async (tokenA, tokenADecimals, tokenB, tokenBDecimals
 
     const oneA = ethers.utils.parseUnits("1", tokenADecimals)
     const oneB = ethers.utils.parseUnits("1", tokenBDecimals)
-    const rateAB = await ctr.getAmountsOut(oneA, [tokenA, addresses.tokens.ETH, tokenB])
-    const rateBA = await ctr.getAmountsOut(oneB, [tokenB, addresses.tokens.ETH, tokenA])
+    const _rateAB = await ctr.getAmountsOut(oneA, [tokenA, addresses.tokens.ETH, tokenB])
+    const _rateBA = await ctr.getAmountsOut(oneB, [tokenB, addresses.tokens.ETH, tokenA])
+    const promises = [_rateAB, _rateBA]
+
+    const [rateAB, rateBA] = await Promise.all(promises)
 
     const amountBPerOneA = ethers.utils.formatUnits(rateAB[2], tokenBDecimals)
     const amountAPerOneB = ethers.utils.formatUnits(rateBA[2], tokenADecimals)
@@ -207,4 +210,24 @@ export const fetchCobTokenInfo = async (_active, signer, _account) => {
         return data
     } catch (err) {console.log(err)}
     
+}
+
+
+
+
+export const fetchPendingCob = async (_pools, _masterChef, _accountAddress) => {    
+    const pLength = _pools.length
+    const userPoolDataPromises = [];
+    for (let pid = 0; pid < pLength; pid++) {
+        const poolData = _masterChef.pendingCob(pid, _accountAddress);
+        userPoolDataPromises.push(poolData);
+    };
+
+    const returns = await Promise.all(userPoolDataPromises)
+
+    const data = returns.map( (d) => {
+        const cleaned = ethers.utils.formatUnits(d, 18)
+        return cleaned
+    })
+    return data
 }

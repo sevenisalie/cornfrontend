@@ -1,4 +1,4 @@
-export const pools = [
+export const POOLS = [
     {
         pid: 0,
         tokenStakeAddress: "0xea718C7dd15C6E1F98de3ED10f50d812e39E66D2",

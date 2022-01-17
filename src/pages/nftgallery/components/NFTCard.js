@@ -19,8 +19,11 @@ export const MyNFTCard = styled(Card)`
     border-radius: 25px;
     height: auto;
     width: auto;
-    background-color: transparent;
-    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
 `
 const MyNFTCardContainer = styled(Container)`
     display: flex;
@@ -108,6 +111,18 @@ export const NFTCard = (props) => {
 
     const [showStopModal, setShowStopModal] = useState(false)
     const [chosenStrategy, setChosenStrategy] = useState(props.title)
+    const [masterChef, setMasterChef] = useState('')
+
+    useEffect(() => {
+        if (props.state.masterChefLoading == false){
+            setMasterChef(props.state.masterChefContract)
+        } else {
+            setMasterChef('')
+        }
+        
+    }, [props.state])
+
+   
 
 
     

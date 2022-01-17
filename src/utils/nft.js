@@ -43,12 +43,12 @@ const getNFTData = async () => {
 
 
 //staking stuff
-export const fetchPoolAllowance = async (pools, _signer, account, masterchef) => {
+export const fetchPoolAllowance = async (_POOLS, _signer, account, masterchefAddress) => {
 
-    const calls = pools.map( async (pool) => {
+    const calls = _POOLS.map( async (pool) => {
         const token = pool.tokenStakeAddress;
         const ctr = new ethers.Contract(token, ERC20Abi, _signer)
-        const allowance = await ctr.allowance(account, masterchef.address)
+        const allowance = await ctr.allowance(account, masterchefAddress)
         const formattedAllowance = ethers.utils.formatUnits(allowance, "ether");
 
         if (formattedAllowance !== "0.0") {
