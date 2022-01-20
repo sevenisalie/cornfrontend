@@ -6,13 +6,84 @@ import {ethers} from "ethers";
 //addresses etc
 import {ERC20Abi, MasterChefABI} from "../../../config/abis" //will need forapprove button
 import { addresses } from "../../../config/addresses";
-import {writeContract, userStake} from "../../../utils/nft";
+import {writeContract, userStake, toFixed} from "../../../utils/nft";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Container, Card, Modal} from "react-bootstrap"
 import {HeaderButtonSecondary} from "../../vaults/index"
 
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
+
+const EntryContainer = styled.div`
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+    border-radius: 24px;
+    margin-top: 1rem;
+`
+const TitleContainer = styled.div`
+    display: flex;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    align-text: center;
+    margin-bottom: 1rem;
+    padding: 1rem 1.25rem 0.5rem;
+    justify-content: space-between;
+`
+
+const TitleTextContainer = styled.div`
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    display: flex;
+    padding: 0px;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    width: fit-content;
+`
+const TitleText = styled.h3`
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fbdb37 !important;
+    align-self: center;
+`
+const CloseButtonContainer = styled.div`
+    display: flex;
+    padding: 3px;
+    align-content: center;
+    justify-content: center;
+`
+const CloseButton  = styled.button`
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: nowrap;
+    z-index: 1;
+    will-change: transform;
+    transition: transform 450ms ease 0s;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    border: none;
+
+    &:select {
+        -webkit-animation: rotate-out-center 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        animation: rotate-out-center 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+    }
+
+`
 
 const ExitButton = styled.button`
     outline: 0;
@@ -43,34 +114,32 @@ const ModalContainer = styled(Container)`
     z-index: 9999;
     grid-template-columns: auto;
     grid-template-rows: auto;
-
-    height: 100%;
-    width: auto;
+    position: relative;
+    height: auto;
+    width: 100%;
     padding: 0;
+    max-width: 480px;
+
+    
 `
 const ModalCard = styled(Card)`
     display: flex;
     flex-direction: column;
     padding: 0;
     border-radius: 12px;
-    height: 60%;
-    width: auto;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-`
-const ModalCardFooter = styled.div`
-    border-top: 1px solid #7a7f87;
-    text-align: center;
-    font-weight: 800;
-    font-size: 200%;
-    color: #a3a7ac;
-    padding: 12px;
-    height: 50%;
+    position: relative;
+    max-width: 480px;
+    height: auto;
     width: 100%;
-    background-color: #5e6268;
-    align-self: stretch;
-    border-radius: 0 0 12px 12px;
+    backdrop-filter: blur(12px) saturate(189%);
+    -webkit-backdrop-filter: blur(12px) saturate(189%);
+    background-color: rgba(29, 30, 32, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.225);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+    border-radius: 24px;
+    margin-top: 1rem;
 
+    
 `
 const ModalCardContentContainer = styled(Container)`
     display: flex;
@@ -84,17 +153,22 @@ const DepositForm = styled.form`
 `
 const TokenInput = styled.input`
   
-    width: 90%;
-    height: 70px !important;
-    border: none;
-    background: #292C2D;
-    color: white;
+    position: relative;
+    display: flex;
+    padding: 16px;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+    background: none;
+    outline: none;
     border-radius: 20px;
-    border-width: 1px !important;
-    border-color: #4e5456 !important;
-    padding: 7px;
-    font-size: 22px;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    background-color: rgb(33, 36, 41);
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(64, 68, 79);
+    appearance: none;
+    font-size: 18px;
+    transition: border 100ms ease 0s;
 
 `
 const DepositButton = styled(HeaderButtonSecondary)`
@@ -126,12 +200,11 @@ const DepositButton = styled(HeaderButtonSecondary)`
     }
 `
 
-const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid}) => {
+const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
     const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
-    const [userBalance, setUserBalance] = useState(walletBalance)
-    const [poolId, setPoolId] = useState(pid)
+    const [poolId, setPoolId] = useState(props.pid)
 
     //props
     // const bal = props.walletBalance;
@@ -155,11 +228,11 @@ const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid
         
       }, [account, library])
 
-    const handleStakeOnClick = async (pid, amount) => {
+    const handleStakeOnClick = async (poolId, amount) => {
         try {
             if (active) {
-                const tx = await userStake(masterChefContract, pid, amount)
-                setShowDepositModal(prev => !prev)
+                const tx = await userStake(masterChefContract, poolId, amount)
+                props.setShowDepositModal(prev => !prev)
                     if (tx) {
                         if (tx.status == 1) {
                             goodToast(`Successfully Unstaked... Allow for UI to Update`)
@@ -193,7 +266,7 @@ const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid
     if (amount == '') {
         button = <DepositButton disabled>Deposit</DepositButton>;
       } else if (amount !== ''){
-        button = <DepositButton onClick={async () => handleStakeOnClick(pid, amount)}>Deposit</DepositButton>;
+        button = <DepositButton onClick={async () => handleStakeOnClick(poolId, amount)}>Deposit</DepositButton>;
       } else {
         button = <DepositButton disabled >Deposit</DepositButton>;
       }
@@ -201,17 +274,20 @@ const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid
     return (
 
         <>
-        { showDepositModal ? (
+        { props.showDepositModal == true ? (
         <FakeBackground>
-        <ModalContainer showDepositModal={showDepositModal}>
+
+        <ModalContainer>
             <ModalCard>
                 <ModalCardContentContainer>
-
-                    <ExitButton onClick={() => setShowDepositModal(prev => !prev)}><FaTimesCircle/></ExitButton>
-                    <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
-                        <FaWallet/>
-                        {walletBalance !== 0 ? walletBalance : "0"}
-                    </Container>
+                    <TitleContainer>
+                    <TitleText>Deposit</TitleText>
+                    <ExitButton onClick={() => props.setShowDepositModal(prev => !prev)}><FaTimesCircle/></ExitButton>
+                    </TitleContainer>
+                        <p style={{fontSize: "1.4em", alignSelf: "flex-start", marginLeft: "1.0em"}}>
+                        <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
+                        {props.state.userPoolData[poolId].USER.stakedAmount}
+                        </p>
                     <TokenInput 
                         placeholder = "0.00"
                         value={amount}
@@ -225,9 +301,7 @@ const DepositModal = ({showDepositModal, setShowDepositModal, walletBalance, pid
                     </Container>
 
                 </ModalCardContentContainer>
-                <ModalCardFooter>
-                    Deposit
-                </ModalCardFooter>
+            
             </ModalCard>
 
         </ModalContainer>

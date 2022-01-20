@@ -120,7 +120,7 @@ const WithdrawButton = styled(HeaderButtonSecondary)`
     }
 `
 
-const UnstakeModal = ({showUnstakeModal, setShowUnstakeModal, userStaked, pid}) => {
+const UnstakeModal = (props, {showUnstakeModal, setShowUnstakeModal, userStaked, pid}) => {
     const {active, account, library, connector} = useWeb3React();
     const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
@@ -204,8 +204,11 @@ const UnstakeModal = ({showUnstakeModal, setShowUnstakeModal, userStaked, pid}) 
                 <ModalCardContentContainer>
                     <ExitButton onClick={() => setShowUnstakeModal(prev => !prev)}><FaTimesCircle/></ExitButton>
                     <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
-                        <FaWallet/>
-                        {`Balance: ${userStaked}`}
+                    <p style={{fontSize: "1.4em", alignSelf: "flex-start", marginLeft: "1.0em"}}>
+                        <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
+                        {props.state.userPoolData[pid].USER.stakedAmount !== null ? props.state.userPoolData[pid].USER.stakedAmount : "0"}
+                        {props.state.userPoolData[pid].USER.stakedAmount !== null ? props.state.userPoolData[pid].USER.stakedAmount : "0" }
+                        </p>
                     </Container>
                     <TokenInput 
                         placeholder = "0.00"

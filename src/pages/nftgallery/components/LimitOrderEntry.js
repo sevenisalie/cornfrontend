@@ -516,6 +516,12 @@ const orderReducer = (state, action) => {
                 setLimitPrice: action.payload
             }
         }
+        case 'setAmountPrice': {
+            return {
+                ...state,
+                setAmountPrice: action.payload
+            }
+        }
         case 'setBalanceOut': {
             return {
                 ...state,
@@ -532,6 +538,12 @@ const orderReducer = (state, action) => {
             return {
                 ...state,
                 setSubmitButtonText: action.payload
+            }
+        }
+        case 'bothMarketPrices': {
+            return {
+                ...state,
+                bothMarketPrices: action.payload
             }
         }
        
@@ -555,11 +567,13 @@ const initialState = {
         },
     setTokenOut: '',
     setLimitPrice: '',
+    setAmountPrice: '',
     setAmountIn: '',
     setAmountOut: '',
     setBalanceIn: '',
     setBalanceOut: '',
     marketPrice: '',
+    bothMarketPrices: '',
     setSubmitButtonText: 'Select a Token',
 }
 
@@ -570,11 +584,20 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
     const { fastRefresh } = useRefresh()
     const [state, dispatch] = useReducer(orderReducer, initialState)
 
+    const clearOrderEntry = () => {
+        dispatch({ type: 'setLimitPrice', payload: ''})
+        dispatch({ type: 'setAmountOut', payload: ''})
+        dispatch({ type: 'setAmountIn', payload: ''})
+
+    }
+
     const setBuySide = () => {
+        clearOrderEntry()
         dispatch({ type: 'buySide' })
     }
 
     const setSellSide = () => {
+        clearOrderEntry()
         dispatch({ type: "sellSide" })
     }
 
@@ -618,6 +641,10 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         }
     }
 
+    const setBothMarketPrices = (_price) => {
+        dispatch({ type: 'bothMarketPrices', payload: _price})
+    }
+
     const setBalanceIn = (_balanceIn) => {
         dispatch({ type: 'setBalanceIn', payload: _balanceIn})
     }
@@ -637,6 +664,11 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         dispatch({ type: 'setSubmitButtonText', payload: _message})
     }
 
+    const setAmountPrice = (_price) => {
+        dispatch({ type: 'setAmountPrice', payload: _price })
+        setSubmitButtonText('Enter Limit Price')
+    }
+
     //get price from router
     useEffect( async () => {
         if (state.setTokenOut !== '' && state.setTokenIn !== '') {
@@ -645,6 +677,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                 const data = await axios.get(url)
                 
                 setMarketPrice(data.data)
+                setBothMarketPrices(data.data)
             } catch (err) {console.log(err)}
         }
         console.log(state)
@@ -691,7 +724,54 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         if (state.setAmountIn == '' && state.setLimitPrice !== '') {
             setAmountOut('')
         }
-    }, [state.setAmountIn, state.setLimitPrice, state.side, state.setAmountOut])
+    }, [state.side])
+
+    //then the reverse
+
+    useEffect(() => {
+
+        if (state.sell == true) {
+            if (state.setAmountOut !== '' && state.setAmountIn !== '') {
+                const amountInCalc = parseFloat(state.setAmountOut) / parseFloat(state.setAmountIn)
+                setLimitPrice(amountInCalc.toString())
+            }
+        }
+        else if (state.buy == true ) {
+            if (state.setAmountOut !== '' && state.setAmountIn !== '') {
+                const amountInCalc = parseFloat(state.setAmountIn) / parseFloat(state.setAmountOut)
+                setLimitPrice(amountInCalc.toString())
+            }
+        }
+        if (state.setAmountIn == '' && state.setLimitPrice !== '') {
+            setLimitPrice('')
+        }
+    }, [state.side, state.setAmountOut])
+
+    //top right price displayer
+
+    useEffect(() => {
+
+        if (state.sell == true) {
+            if (state.setAmountIn !== '' && state.marketPrice !== '') {
+                const amountOutCalc = parseFloat(state.setAmountIn) * parseFloat(state.marketPrice)
+                setAmountPrice(amountOutCalc.toString())
+                setAmountOut(amountOutCalc.toString())
+            }
+        }
+        else if (state.buy == true) {
+            if (state.setAmountIn !== '' && state.marketPrice !== '') {
+                const amountOutCalc = parseFloat(state.setAmountIn) / parseFloat(state.marketPrice)
+                setAmountPrice(amountOutCalc.toString())
+                setAmountOut(amountOutCalc.toString())
+            }
+        }
+        if (state.setAmountIn == '' && state.marketPrice !== '') {
+            setAmountPrice(state.marketPrice)
+        }
+        if (state.setAmountIn == '' && state.marketPrice == '') {
+            setAmountPrice('')
+        }
+    }, [state.setAmountIn, state.side, state.marketPrice, state.setTokenIn, state.setTokenOut])
  
 
     // const setMarketPrice = (_tokenA, _tokenB) => {
@@ -744,10 +824,10 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                          side={'out'}
                          openTokenSelectorToggle={openTokenSelectorOutToggle} />
 
-                        <PriceDisplay />
+                        <PriceDisplay state={state} clearOrderEntry={clearOrderEntry} />
 
 
-                        <SubmitSection state={state}/>
+                        <SubmitSection state={state} />
 
                     </FormContainer>
                 </CardContentContainer>
@@ -915,7 +995,7 @@ const AmountEntry = (props) => {
                                     
                                     
                                     {props.side == 'in' &&
-                                    <TokenPriceContainer>Price: $<TokenValue>{props.state.marketPrice !== '' ? props.state.marketPrice : '-'}</TokenValue></TokenPriceContainer>
+                                    <TokenPriceContainer>Price: $<TokenValue>{props.state.setAmountPrice !== '' ? props.state.setAmountPrice : '-'}</TokenValue></TokenPriceContainer>
 
                                     }
                                     {props.side == 'out' &&
@@ -938,10 +1018,14 @@ const PriceContainer = styled.div`
     height: auto;
     margin-bottom: 0px;
     padding: 2px;
+    justify-content: space-between;
+    align-content: space-between;
 `
 
 const ClearFormContainer = styled.div`
     display: flex;
+        align-content: space-between;
+
 `
 const ClearFormButton = styled.button`
 text-align: center;
@@ -986,6 +1070,7 @@ margin-right: 3px;
 `
 const RateContainer = styled.div`
     display: flex;
+    align-content: space-between;
 `
 
 const RateSwapButton = styled(ClearFormButton)`
@@ -1029,16 +1114,36 @@ margin-right: 3px;
     background-color: rgb(33, 35, 40);
 }
 `
+const SwapText = styled.div`
+    display: flex;
+    width: 100%;
+    height: auto;
+    font-size: 0.8em;
+    align-text: center;
+`
 
-export const PriceDisplay = () => {
+export const PriceDisplay = (props) => {
+    const [direction, setDirection] = useState(true)
+
+    const handleToggleDirection = () => {
+        setDirection( prev => !prev)
+    }
+
     return (
         <>
         <PriceContainer>
             <ClearFormContainer>
-                <ClearFormButton>Clear</ClearFormButton>
+                <ClearFormButton onClick={props.clearOrderEntry}>Clear</ClearFormButton>
             </ClearFormContainer>
             <RateContainer>
-                <RateSwapButton>1 Matic = 1 Matic</RateSwapButton>
+                <RateSwapButton onClick={() => handleToggleDirection()}>
+                    { direction == true 
+                    ?
+                    <SwapText>1 {props.state.setTokenIn.symbol} = {props.state.bothMarketPrices.BPerA} {props.state.setTokenOut.symbol}</SwapText>
+                    :
+                    <SwapText>1 {props.state.setTokenOut.symbol} = {props.state.bothMarketPrices.APerB} {props.state.setTokenIn.symbol}</SwapText>
+                    }
+                </RateSwapButton>
             </RateContainer>
         </PriceContainer>  
         </>

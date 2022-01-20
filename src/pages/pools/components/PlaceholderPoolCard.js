@@ -170,7 +170,7 @@ const PlaceholderPoolCard = (props) => {
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                       <p>Stake:</p>
                       <p><RiCoinLine style={{marginRight: "6px"}}/>
-                      tokenStake
+                      {props.tokenStake}
                       </p>
                     </Container>
                 </StyledDetails>

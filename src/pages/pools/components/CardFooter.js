@@ -3,6 +3,11 @@ import {ethers} from "ethers";
 import React, {useEffect, useState} from "react";
 import { Link } from 'react-router-dom'
 import { useWeb3React } from "@web3-react/core";
+import {MasterChefABI, ERC20Abi} from "../../../config/abis";
+import {getUserTokenBalance} from "../../../utils/fetchUserData"
+import { stringToFixed, userClaim, fetchPoolAllowance, setPoolAllowance, toFixed, getTokenStakeBalance, userStake} from "../../../utils/nft"
+
+
 
 import {BsArrowUpRightSquare, BsCalculatorFill} from "react-icons/bs"
 import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
@@ -122,7 +127,7 @@ const PoolFinishedSash = styled.div`
 `
 
 
-const CardFooter = ({
+const CardFooter = (props, {
     projectLink,
     totalStaked,
     blocksRemaining,
@@ -133,9 +138,20 @@ const CardFooter = ({
     bal
   }) => {
     const [isOpen, setIsOpen] = useState(false)
+    const {active, account, library, connector} = useWeb3React();
+    const [balance, setBalance] = useState('')
     const Icon = isOpen ? HiChevronDoubleUp : HiChevronDoubleDown
   
     const handleClick = () => setIsOpen(!isOpen)
+
+
+    useEffect( async () => {
+      if (active && library) {
+        const data = await getUserTokenBalance(active, library.getSigner(), account, props.state.poolData[props.pid].DepositToken.address, ERC20Abi)
+        setBalance(data.string)
+      }
+      
+    }, [])
 
 
     
@@ -161,15 +177,15 @@ const CardFooter = ({
             
             <StyledDetails>
             <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                  <p style={{fontSize: "80%"}}>My Balance</p>
-                  <p style={{fontSize: "80%"}}>{bal}</p>
+                  <p style={{fontSize: "80%"}}>Wallet:</p>
+                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{toFixed(balance, 6)}</p>
                 </Container>
             </StyledDetails>
 
             <StyledDetails>
             <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                  <p style={{fontSize: "80%"}}>My Staked Amount:</p>
-                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{`${userStaked}`}</p>
+                  <p style={{fontSize: "80%"}}>Staked:</p>
+                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{`${toFixed(props.state.userPoolData[props.pid].USER.stakedAmount, 6)}`}</p>
                 </Container>
             </StyledDetails>
 

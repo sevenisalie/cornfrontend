@@ -126,6 +126,8 @@ const Pools = (props) => {
                 const data = await axios.get(`https://cornoracleapi.herokuapp.com/chef/userPoolData/${account}`)
                 dispatch({ type: 'userPoolData', payload: data.data })
                 console.log("USERDATA")
+                console.log(state)
+
             }
 
         } catch (err) {
@@ -138,6 +140,7 @@ const Pools = (props) => {
             const data = await axios.get(`https://cornoracleapi.herokuapp.com/chef/poolData`)
             dispatch({ type: `poolData`, payload: data.data})
             console.log("POOLDATA")
+            console.log(state)
         } catch (err) {
             dispatch({ type: 'ERROR', payload: err })
         }
@@ -157,6 +160,7 @@ const Pools = (props) => {
                 dispatch({ type: "masterChefContract", payload: master})
                 dispatch({type: 'signer', payload: library.getSigner()})
                 console.log("MASETERRR")
+                console.log(state)
             } catch (err) {
                 console.log(err)
                 dispatch({type: 'ERROR', payload: err})
