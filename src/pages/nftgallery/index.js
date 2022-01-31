@@ -167,11 +167,6 @@ const NFT = () => {
             <LimitOrderEntry state={state} openTradeWindowToggle={openTradeWindowToggle}/>
 
 
-            <MyNFTGrid>
-
-                {mapUserNFTs}
-           
-            </MyNFTGrid>
 
         </Page>
 

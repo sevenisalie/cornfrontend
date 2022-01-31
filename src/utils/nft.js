@@ -121,8 +121,7 @@ export const userStake = async (_masterchef, pid, amount) => {
         const strPid = pid.toString();
 
         const tx = await ctr.deposit(strPid, bigNumAmount);
-        const receipt = await tx.wait()
-        return receipt
+        return tx
     } catch (err) {console.log(err)}
 }
 
@@ -135,10 +134,7 @@ export const userUnstake = async (_masterchef, pid, amount) => {
         const strPid = pid.toString();
 
         const tx = await ctr.withdraw(strPid, bigNumAmount);
-        const receipt = await tx.wait()
-        console.log("RECEIPT")
-        console.log(receipt)
-        return receipt
+        return tx
 
     } catch (err) {console.log(err)}
 }
@@ -150,7 +146,8 @@ export const userClaim = async (_masterchef, pid) => {
         const strAmount = amount.toString();
         const strPid = pid.toString();
 
-        await ctr.deposit(strPid, strAmount)
+        const tx = await ctr.deposit(strPid, strAmount)
+        return tx
     } catch (err) {console.log(err)}
 }
 

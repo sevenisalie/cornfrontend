@@ -113,7 +113,7 @@ const Label = styled.div`
 const TokenLink = styled.a`
   font-size: 14px;
   text-decoration: none;
-  color: #12aab5;
+
 `
 
 const PoolFinishedSash = styled.div`
@@ -137,12 +137,11 @@ const CardFooter = (props, {
     userStaked,
     bal
   }) => {
-    const [isOpen, setIsOpen] = useState(false)
     const {active, account, library, connector} = useWeb3React();
     const [balance, setBalance] = useState('')
-    const Icon = isOpen ? HiChevronDoubleUp : HiChevronDoubleDown
+    const Icon = props.isOpen ? HiChevronDoubleUp : HiChevronDoubleDown
   
-    const handleClick = () => setIsOpen(!isOpen)
+    const handleClick = () => props.setIsOpen()
 
 
     useEffect( async () => {
@@ -156,19 +155,19 @@ const CardFooter = (props, {
 
     
     return (
-      <StyledFooter isFinished={isFinished}>
+      <StyledFooter isOpen={props.isOpen} isFinished={isFinished}>
         <Row>
           <StyledDetailsButton onClick={handleClick}>
-            {isOpen ? 'Hide' : 'Details'} <Icon />
+            {props.isOpen ? 'Hide' : 'Details'} <Icon />
           </StyledDetailsButton>
         </Row>
-        {isOpen && (
+        {props.isOpen && (
           <Details style={{display: "flex", flexDirection: "column", height: "100%"}}>
             <StyledDetails>
 
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                   <p style={{fontSize: "80%"}}>Deposit:</p>
-                  <TokenLink style={{color: "#fbdb37"}} href={projectLink} target="_blank">
+                  <TokenLink style={{color: "#fbdb37"}} href={props.projectLink} target="_blank" >
                     {'View project site'} <BsArrowUpRightSquare style={{marginLeft: '5px'}}/>
                 </TokenLink>
                 </Container>

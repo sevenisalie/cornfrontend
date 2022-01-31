@@ -5,6 +5,8 @@ import {ethers} from "ethers";
 import React, {useEffect, useState, useReducer} from "react";
 import { useWeb3React } from "@web3-react/core";
 
+
+
 //static confg
 
 
@@ -12,7 +14,7 @@ import { addresses } from "../../config/addresses";
 import {POOLS} from "../../config/pools";
 import {MasterChefABI, ERC20Abi} from "../../config/abis";
 import {writeContract} from "../../utils/nft";
-import {fetchPendingCob} from "../../utils/fetchUserData";
+import {fetchPendingCob, getUserTokenBalance} from "../../utils/fetchUserData";
 //Components
 import {Page} from "../../components/Page"
 import {Container, Card, Button} from "react-bootstrap";
@@ -25,6 +27,7 @@ import BackdropFilter from "react-backdrop-filter";
 
 //hooks
 import {useRefresh} from "../../utils/useRefresh";
+import useFetchBalances from "../../hooks/useFetchBalances";
 
 
 
@@ -83,6 +86,12 @@ const poolReducer = (state, action) => {
                 signer: action.payload
             }
         }
+        case 'userBalances': {
+            return {
+                ...state,
+                userBalances: action.payload
+            }
+        }
         case 'ERROR': {
             return {
                 ...state,
@@ -106,6 +115,7 @@ const initialState = {
     userPoolDataLoading: true,
     poolData: [],
     userPoolData: [],
+    userBalances: [],
     allowances: [],
     masterChefContract: {},
     signer: {},
@@ -119,6 +129,8 @@ const Pools = (props) => {
     
 
     const [state, dispatch] = useReducer(poolReducer, initialState)
+
+    
 
     useEffect( async () => {
         try {
@@ -135,6 +147,31 @@ const Pools = (props) => {
         }
 
     }, [account, active])
+
+    useEffect( async () => {
+        if (active && library && account) {
+            try {
+                const userBalancePromises = POOLS.map( (pool) => {
+                    const promise = getUserTokenBalance(
+                        active, 
+                        library.getSigner(),
+                        account,
+                        pool.tokenStakeAddress,
+                        ERC20Abi
+                        )
+                    return promise
+                })
+                const _userBalances = await Promise.all(userBalancePromises)
+                
+                dispatch({ type: "userBalances", payload: _userBalances})
+                console.log("balances")
+                console.log(_userBalances)
+    
+            } catch (err) {console.log(err)}
+        } 
+        
+    }, [account, active, library])
+
     useEffect( async () => {
         try {
             const data = await axios.get(`https://cornoracleapi.herokuapp.com/chef/poolData`)
@@ -145,6 +182,7 @@ const Pools = (props) => {
             dispatch({ type: 'ERROR', payload: err })
         }
     }, [])
+
     useEffect( async () => {
         if (active && library) {
             try {
@@ -168,6 +206,8 @@ const Pools = (props) => {
         }
 
       }, [active, library])
+
+      
 
 
     

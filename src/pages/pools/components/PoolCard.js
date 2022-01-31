@@ -7,7 +7,7 @@ import axios from "axios"
 
 import {POOLS} from "../../../config/pools";
 import {useRefresh} from "../../../utils/useRefresh";
-import { stringToFixed, userClaim, fetchPoolAllowance, setPoolAllowance, toFixed, getTokenStakeBalance, userStake} from "../../../utils/nft"
+import { stringToFixed, userClaim, fetchPoolAllowance, setPoolAllowance, toFixed, getTokenStakeBalance, userStake, userUnstake} from "../../../utils/nft"
 import { fetchPendingCob } from "../../../utils/fetchUserData"
 
 //components
@@ -34,13 +34,13 @@ import {RiCoinLine} from "react-icons/ri"
 
 const ActualPoolCard = styled.div`
     border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    height: ${props => props.isOpen ? "auto" : "37em"};
     backdrop-filter: blur(12px) saturate(149%);
     -webkit-backdrop-filter: blur(0px) saturate(149%);
     background-color: rgba(29, 30, 32, 0.57);
     border: 1px solid rgba(255, 255, 255, 0.125);
-    display: flex;
-    flex-direction: column;
-    position: relative;
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5)
 
 `
@@ -132,6 +132,7 @@ const PoolCard = (props, {state}) => {
     const [poolData, setPoolData] = useState('')
     const [allowance, setAllowance] = useState(false)
     const [pendingCob, setPendingCob] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
     
 
     // catch previous reduced state
@@ -186,6 +187,7 @@ const PoolCard = (props, {state}) => {
       try {
         const pendingCob = await fetchPendingCob(POOLS, masterChef, account)
         setPendingCob(pendingCob[props.pid])
+        console.log(props.state)
       } catch (err) {
         console.log(err)
       }
@@ -219,21 +221,34 @@ const PoolCard = (props, {state}) => {
         setApproved(!approved)
     }
 
+    const ToastStyle = {
+      borderRadius: "50px",
+      backdropFilter: "blur(12px) saturate(149%)",
+      backgroundColor: "rgba(29, 30, 32, 0.57)",
+      border: "1px solid rgba(255, 255, 255, 0.125)",
+    }
+
     const handleClaimClick = async (pid) => {
       try {
-        
-        const tx = await userClaim(masterChef, pid)
+        const id = toast.loading("Please wait...", {
+          style: ToastStyle,
+          position: toast.POSITION.BOTTOM_RIGHT, closeOnClick: true, draggable: true})
+        const raw = await userClaim(masterChef, pid)
+        console.log("TRANNNY")
+        const tx = await raw.wait()
         if (tx) {
+
           if (tx.status == 1) {
-              goodToast(`Successfully Claimed Rewards... Allow for UI to Update`)
+            toast.update(id, { render: "Rewards Claimed.", position: "bottom-right", type: "success", autoClose: 5000, className: 'rotateY animated', draggable: true, isLoading: false });
 
           } else {
-              badToast("Claim Failed... Check Gas Settings and Try Again")
+            toast.update(id, { render: "Problem Claiming Rewards. Check Gas Settings.", position: "bottom-right", type: "error", draggable: true, isLoading: false });
           }
-      } else if (tx === undefined) {
-          badToast(`Withdrawal cancelled`)
-      }
-        
+        } else if (tx === undefined) {
+          toast.update(id, { render: "User Cancelled Transaction", position: "bottom-right", type: "error", draggable: true, isLoading: false });
+
+        }
+          
       } catch (err) {
         console.log(err)
         badToast(`Something Went Wrong....Try Claiming Rewards Again`)
@@ -244,14 +259,89 @@ const PoolCard = (props, {state}) => {
     const handleApproveClick = async (token) => {
       try {
         //pid, tokenAddress, masterchef, _signer
-        await setPoolAllowance(token, props.state.masterChefContract, props.state.signer)
-        goodToast(`Approved Pool...Allow the UI to Update`)
+        const id = toast.loading("Please wait...", {
+          style: ToastStyle,
+          position: toast.POSITION.BOTTOM_RIGHT, closeOnClick: true, draggable: true})
+        const raw = await setPoolAllowance(token, props.state.masterChefContract, props.state.signer)
+        const tx = await raw.wait()
+        if (tx) {
+
+          if (tx.status == 1) {
+            toast.update(id, { render: "Approved Pool.", position: "bottom-right", type: "success", autoClose: 5000, className: 'rotateY animated', draggable: true, isLoading: false });
+
+          } else {
+            toast.update(id, { render: "Problem Approving Pool. Check Gas Settings.", position: "bottom-right", type: "error", draggable: true, isLoading: false });
+          }
+        } else if (tx === undefined) {
+          toast.update(id, { render: "User Cancelled Transaction", position: "bottom-right", type: "error", draggable: true, isLoading: false });
+
+        }
       } catch (err) {
         console.log(err)
-        badToast(`Something Went Wrong... Try Approving the Pool Again`)
       }
     }
     
+    const handleStakeOnClick = async (poolId, amount) => {
+      try {
+          if (active) {
+            const id = toast.loading("Please wait...", {
+              style: ToastStyle,
+              position: toast.POSITION.BOTTOM_RIGHT, closeOnClick: true, draggable: true})
+              const raw = await userStake(masterChef, poolId, amount)
+              console.log("TRANNNY")
+              console.log(raw)
+              const tx = await raw.wait()
+              setShowDepositModal(false)
+                  if (tx) {
+
+                    if (tx.status == 1) {
+                      toast.update(id, { render: "Staked in Pool.", position: "bottom-right", type: "success", autoClose: 5000, className: 'rotateY animated', draggable: true, isLoading: false });
+          
+                    } else {
+                      toast.update(id, { render: "Problem Staking in Pool. Check Gas Settings.", position: "bottom-right", type: "error", draggable: true, isLoading: false });
+                    }
+                    } else if (tx === undefined) {
+                    toast.update(id, { render: "User Cancelled Transaction", position: "bottom-right", type: "error", draggable: true, isLoading: false });
+          
+                  }
+          }  
+        } catch (err) {
+          console.log(err)
+          badToast(`Something Went Wrong... Try Staking in the Pool Again`)
+        }
+
+    }
+
+    const handleUnstakeOnClick = async (pid, amount) => {
+      try {
+
+          if (active) {
+            const id = toast.loading("Please wait...", {
+              style: ToastStyle,
+              position: toast.POSITION.BOTTOM_RIGHT, closeOnClick: true, draggable: true})
+              const raw = await userUnstake(masterChef, pid, amount)
+              const tx = await raw.wait()
+              setShowUnstakeModal(prev => !prev)
+                if (tx) {
+
+                  if (tx.status == 1) {
+                    toast.update(id, { render: "Unstaked from Pool.", position: "bottom-right", type: "success", autoClose: 5000, draggable: true,  className: 'rotateY animated', isLoading: false });
+        
+                  } else {
+                    toast.update(id, { render: "Problem Unstaking from Pool. Check Gas Settings.", position: "bottom-right", type: "error", draggable: true, isLoading: false });
+                  }
+                  } else if (tx === undefined) {
+                  toast.update(id, { render: "User Cancelled Transaction", position: "bottom-right", type: "error", draggable: true,  isLoading: false });
+        
+                }
+
+
+          }  
+      } catch (err) {console.log(err)}
+
+    }
+    const handleDetailsClick = () => setIsOpen(!isOpen)
+
 
 
 
@@ -263,10 +353,10 @@ const PoolCard = (props, {state}) => {
       return (
 
         <>
-        <DepositModal state={props.state}  pid={props.pid} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal}/>
-        <UnstakeModal state={props.state} pid={props.pid} showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
+        <DepositModal state={props.state} handleStakeOnClick={handleStakeOnClick} tokenStake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl}  pid={props.pid} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal} />
+        <UnstakeModal state={props.state} handleUnstakeOnClick={handleUnstakeOnClick} tokenUnstake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl} pid={props.pid}  showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
 
-        <ActualPoolCard>
+        <ActualPoolCard isOpen={isOpen}>
 
           <div style={{ padding: '24px' }}>
               <div style={{ display: 'flex', flexDirection: 'row', flexWrap: "wrap", alignItems: 'center', justifyContent: "space-between"}}>
@@ -282,7 +372,7 @@ const PoolCard = (props, {state}) => {
                   
                  
                   <div style={{display: "flex", flexDirection: 'column', alignContent: "center", justifyContent: "space-between", textAlign: "center", marginBottom: "12px"}}>
-                    {props.state.poolData[props.pid].DepositToken.symbol} 
+                    {POOLS[props.pid].tokenStakeName} 
                   </div>
 
                   <MultiplierBadge><GoVerified style={{marginRight: "4px"}}/>
@@ -351,7 +441,7 @@ const PoolCard = (props, {state}) => {
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                       <p>Stake:</p>
                       <p><RiCoinLine style={{marginRight: "6px"}}/>
-                      {props.state.poolData[props.pid].DepositToken.symbol}
+                      {POOLS[props.pid].tokenStakeName}
                       </p>
                     </Container>
                 </StyledDetails>
@@ -375,7 +465,7 @@ const PoolCard = (props, {state}) => {
                             }
                            
                       </Container>
-                      <ClaimButton state={props.state} onClick={async () => handleClaimClick()}>
+                      <ClaimButton state={props.state} onClick={async () => handleClaimClick(props.pid)}>
                             {`Claim`}
                         </ClaimButton>
                     </Container>
@@ -389,10 +479,10 @@ const PoolCard = (props, {state}) => {
 
                     {allowance == true ? (
                     <>
-                        <StakeButton  onClick={handleModalOnClick}>
+                        <StakeButton  onClick={() => handleModalOnClick()}>
                             {`Stake`}
                         </StakeButton>
-                        <UnstakeButton onClick={handleUnstakeModalOnClick}>
+                        <UnstakeButton onClick={() => handleUnstakeModalOnClick()}>
                             {`Unstake`}
                         </UnstakeButton>
                     </>
@@ -441,8 +531,10 @@ const PoolCard = (props, {state}) => {
 
 
       <CardFooter
+        setIsOpen={handleDetailsClick}
+        isOpen={isOpen}
         state={props.state}
-        projectLink={"#"}
+        projectLink={POOLS[props.pid].poolurl}
         pid={props.pid}
         totalStaked={3535}
         bal={324343}
@@ -462,8 +554,8 @@ const PoolCard = (props, {state}) => {
       return (
 
         <>
-        <DepositModal showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal}/>
-        <UnstakeModal showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
+        <DepositModal state={props.state} tokenStake={POOLS[props.pid].tokenStakeName} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal}/>
+        <UnstakeModal state={props.state} tokenUnstake={POOLS[props.pid].tokenStakeName} showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
         
         <PlaceholderPoolCard tokenStake={POOLS[props.pid].tokenStakeName} />
             

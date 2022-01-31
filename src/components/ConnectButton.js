@@ -30,8 +30,13 @@ const TheButton = styled(Button)`
     font-weight: 800;
 
     @media (max-width: 768px) {
-       font-size: 1em;
-      }
+        font-size: 0.7em;
+        
+       }
+     
+     @media (max-width: 375px) {
+         font-size: 0.7em;
+       }
 
     &:hover {
         background: #fbdb37;

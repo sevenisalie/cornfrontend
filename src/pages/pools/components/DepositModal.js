@@ -6,13 +6,19 @@ import {ethers} from "ethers";
 //addresses etc
 import {ERC20Abi, MasterChefABI} from "../../../config/abis" //will need forapprove button
 import { addresses } from "../../../config/addresses";
+import { POOLS } from '../../../config/pools';
+
 import {writeContract, userStake, toFixed} from "../../../utils/nft";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Container, Card, Modal} from "react-bootstrap"
 import {HeaderButtonSecondary} from "../../vaults/index"
-
+import {TokenButton} from "../../nftgallery/components/TokenSelector"
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
+
+import useFetchBalances from '../../../hooks/useFetchBalances';
+
 
 const EntryContainer = styled.div`
     position: relative;
@@ -32,58 +38,22 @@ const TitleContainer = styled.div`
     height: auto;
     align-items: center;
     align-text: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem;
     padding: 1rem 1.25rem 0.5rem;
     justify-content: space-between;
 `
 
-const TitleTextContainer = styled.div`
-    box-sizing: border-box;
-    margin: 0px;
-    min-width: 0px;
-    display: flex;
-    padding: 0px;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-    width: fit-content;
-`
+
 const TitleText = styled.h3`
     box-sizing: border-box;
     margin: 0px;
     min-width: 0px;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 1.3em;
     color: #fbdb37 !important;
     align-self: center;
 `
-const CloseButtonContainer = styled.div`
-    display: flex;
-    padding: 3px;
-    align-content: center;
-    justify-content: center;
-`
-const CloseButton  = styled.button`
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    flex-wrap: nowrap;
-    z-index: 1;
-    will-change: transform;
-    transition: transform 450ms ease 0s;
-    background-color: transparent;
-    outline: none;
-    cursor: pointer;
-    user-select: none;
-    border: none;
 
-    &:select {
-        -webkit-animation: rotate-out-center 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-        animation: rotate-out-center 0.6s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-    }
-
-`
 
 const ExitButton = styled.button`
     outline: 0;
@@ -148,14 +118,22 @@ const ModalCardContentContainer = styled(Container)`
     justify-content: center;
     align-items: center;
 `
-const DepositForm = styled.form`
+const TokenLink = styled.a`
+    text-decoration: none;
+    cursor: pointer;
 
+    &:hover {
+      cursor: pointer;
+      text-decoration: none;
+    }
 `
 const TokenInput = styled.input`
   
     position: relative;
     display: flex;
     padding: 16px;
+    margin-bottom: 1.8em;
+    margin-top: 1.8em;
     -webkit-box-align: center;
     align-items: center;
     width: 100%;
@@ -172,6 +150,7 @@ const TokenInput = styled.input`
 
 `
 const DepositButton = styled(HeaderButtonSecondary)`
+    margin: 0px;
     &:hover {
         background: #fbdb37;
         border-color: #dfbb05;
@@ -204,12 +183,17 @@ const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
     const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
-    const [poolId, setPoolId] = useState(props.pid)
+    const {data: balanceData} = useFetchBalances()
+
 
     //props
     // const bal = props.walletBalance;
     // console.log("pooooop")
     // console.log(bal)
+
+    
+
+    
 
     useEffect( () => {
         if (active) {
@@ -228,49 +212,29 @@ const DepositModal = (props) => {
         
       }, [account, library])
 
-    const handleStakeOnClick = async (poolId, amount) => {
-        try {
-            if (active) {
-                const tx = await userStake(masterChefContract, poolId, amount)
-                props.setShowDepositModal(prev => !prev)
-                    if (tx) {
-                        if (tx.status == 1) {
-                            goodToast(`Successfully Unstaked... Allow for UI to Update`)
     
-                        } else {
-                            badToast("Unstake Failed... Check Gas Settings and Try Again")
-                        }
-                    } else if (tx === undefined) {
-                        badToast(`Withdrawal cancelled`)
-                    }
-            }  
-        } catch (err) {console.log(err)}
 
-    }
-
-    const goodToast = (msg) => {
-        toast.success(`${msg}`, {
-            position: toast.POSITION.BOTTOM_RIGHT
-        })
-    }
-
-    const badToast = (msg) => {
-        toast.warning(`${msg}`, {
-            position: toast.POSITION.BOTTOM_RIGHT
-        })
-    }
+    
 
     //hide and show button
     let button;
 
     if (amount == '') {
-        button = <DepositButton disabled>Deposit</DepositButton>;
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Deposit</DepositButton>;
       } else if (amount !== ''){
-        button = <DepositButton onClick={async () => handleStakeOnClick(poolId, amount)}>Deposit</DepositButton>;
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => props.handleStakeOnClick(props.pid, amount)}>Deposit</DepositButton>;
       } else {
-        button = <DepositButton disabled >Deposit</DepositButton>;
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Deposit</DepositButton>;
       }
-
+      
+    const amountFilter = (e) => {
+        e.preventDefault()
+        const enteredAmount = e.target.value
+        if (enteredAmount == '' || enteredAmount.match(/^[1-9]\d*\.?\d*$/)) {
+            setAmount(enteredAmount)
+        }   
+    }
+    
     return (
 
         <>
@@ -284,20 +248,35 @@ const DepositModal = (props) => {
                     <TitleText>Deposit</TitleText>
                     <ExitButton onClick={() => props.setShowDepositModal(prev => !prev)}><FaTimesCircle/></ExitButton>
                     </TitleContainer>
-                        <p style={{fontSize: "1.4em", alignSelf: "flex-start", marginLeft: "1.0em"}}>
+
+                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+
+                        <TokenLink href={POOLS[props.pid].poolurl} target="_blank">
+                        <TokenButton
+                        style={{alignSelf: "center"}}
+                        side="in" data={"0"} symbol={props.tokenStake} imageurl={props.imageurl} setTokenOut={() => console.log('dud')} setTokenIn={() => console.log('dud')}>
+                        </TokenButton>
+                        </TokenLink>
+
+                        <p style={{fontSize: "1.4em", marginTop: "1.0em"}}>
                         <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
-                        {props.state.userPoolData[poolId].USER.stakedAmount}
+                        {balanceData.loading !== true  ? toFixed(balanceData.balances[props.pid].string, 6) : 'loading...' }
+                        <DepositButton
+                            style={{fontSize: "0.6em", fontWeight: "800", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
+                            onClick={() => setAmount(balanceData.balances[props.pid].string)}>Max
+                        </DepositButton>
+
                         </p>
+                    </div>
                     <TokenInput 
                         placeholder = "0.00"
                         value={amount}
-                        onChange = {(e) => setAmount(e.target.value)}
+                        onChange = {amountFilter}
                     />
-                    <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
-                    {button}
-                    <ToastContainer></ToastContainer>
 
-                    <DepositButton>Max</DepositButton>
+                    {/* deposit button */}
+                    <Container style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "18px"}}>
+                        {button}
                     </Container>
 
                 </ModalCardContentContainer>

@@ -4,7 +4,7 @@ import ACCDISTABI from "../../config/contracts/AccumulatorDistributorVault.json"
 import styled from "styled-components";
 import {Page} from "../../components/Page"
 import {ethers} from "ethers";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useReducer} from "react";
 import { useWeb3React } from "@web3-react/core";
 import { addresses } from "../../config/addresses";
 import { nftURI } from "../../config/uri";
@@ -21,28 +21,19 @@ import {OracleBar} from "../../components/OracleBar";
 import {VaultNFTFooter} from "./components/VaultNFTFooter";
 import VaultSelector from "./components/VaultSelector"
 import {Chart} from "./components/Chart";
+import TokenSelector from "../nftgallery/components/TokenSelector"
+import {OrderTypeButton} from "../nftgallery/components/OrderSelector"
+import OrderSelector from "../nftgallery/components/OrderSelector"
+
 import Marquee from "react-fast-marquee";
 import {MultiplierBadge} from "../pools/components/Badges"
 import {FaCircle, FaRegCircle, FaTicketAlt} from "react-icons/fa"
+import {BiDownArrow} from "react-icons/bi"
 
 
 import {EthIcon, BitcoinIcon, DollarIcon} from "../nftgallery/components/CreateVault"
 
-const SoManyContainers = styled(Container)`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 200px;
 
-`
-const VaultChartGrid = styled(Container)`
-    display: grid;
-    z-index: 999;
-    grid-template-columns: auto
-    grid-template-rows: auto auto;
-    place-items: center;
-`
 
 const MyVaultContainer = styled(Container)`
     display: flex;
@@ -52,13 +43,7 @@ const MyVaultContainer = styled(Container)`
     gap: 12px;
     margin-top: 40px;
 `
-const MyVaultRow = styled(Container)`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-`
+
 const VaultGrid = styled(Container)`
     margin-top: 25px;
     display: grid;
@@ -86,7 +71,6 @@ const MyVaultCard = styled(Card)`
     z-index: 0;
     height: auto;
     width: 100%;
-    
     backdrop-filter: blur(12px) saturate(149%);
     -webkit-backdrop-filter: blur(0px) saturate(149%);
     background-color: rgba(29, 30, 32, 0.57);
@@ -94,6 +78,16 @@ const MyVaultCard = styled(Card)`
     box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3);
     width: 100%;
 
+`
+const OrderCard = styled(Card)`
+    border-radius: 25px;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.3);
 `
 const CardGrid = styled(Container)`
     margin-top: 25px;
@@ -113,197 +107,76 @@ const CardGrid = styled(Container)`
       }
   
 `
-const MyVaultCardContainer = styled(Container)`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: no-wrap;
-    align-content: space-around;
-    justify-content: space-around;
-    gap: 8px;
-    width: 100%;
 
-`
-const PriceTargetRow = styled(Container)`
-    display: flex;
-    flex-direction: row;
-    padding: 0px;
-    width: auto;
-    margin: 0px;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-`
-
-const CardHeader = styled.h2`
-    font-size: 220%;
-    font-weight: 600;
-    color: #fbfbfb;
-    text-justify: center;
-    align-self: center;
-`
-const DetailsCard = styled(Card)`
-    border-radius: 25px;
-    margin-bottom: 18px;
-    height: 100%;
-    width: 100%;
-    background-color: transparent;
-    
-    box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.3), -10px -6px 12px 0 rgba(103, 107, 114, 0.1);
-`
-
-const MintButton = styled(Button)`
-    border-radius: 15px;
-    height: 50px;
-    width: 20%;
-    background: #fbdb37;
-    border-color: #fce984;
-    border-width: 3px;
-    color: #FFFFE0;
-    font-size: 20px;
-    font-weight: 600;
-    margin-top: 20px;
-
-
-    &:hover {
-        background: #fbdb37;
-        border-color: #dfbb05;
-        border-width: 3px;
-        color: #dfbb05;
-        font-size: 20px;
-        font-weight: 800;
-    }
-
-    &:focus {
-        background: #fbdb37;
-        border-color: #dfbb05;
-        border-width: 3px;
-        color: #dfbb05;
-        font-size: 20px;
-        font-weight: 800;
-    }
-`
-const HeadingContainer = styled(Container)`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 15px;
-`
-
-const HeadingBackground = styled(Card)`
-    height: auto;
-    width: 100%;
-    padding: 20px;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-`
-
-const BigHeading = styled.h1`
-    font-size: 280%;
-    font-weight: 800;
-    color:  #fbdb37;
-    
-`
-const LittleHeading = styled.h2`
-    font-size: 200%;
-    font-weight: 600;
-    color: #fbfbfb;
-    
-`
-const HeaderGrid = styled(Container)`
+const HeaderContainer = styled.div`
     display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: repeat(3, minmax(auto, auto));;
-    border-radius: 25px;
-    
+    padding: 0.4em;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    place-items: center;
 `
-const StyledBackDrop = styled(Card)`
-    width: 40%;
+
+const SelectButton = styled.button`
+    text-align: center;
+    text-decoration: none;
     display: flex;
-    margin-top: 40px;
-    padding-top: 6px;
-    justify-content: center;
-    align-self: center;
-    align-content: center;
-    border-radius: 50px;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    transition: transform 450ms ease 0s;
+    transform: perspective(1px) translateZ(0px);
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: 500;
     backdrop-filter: blur(12px) saturate(149%);
     -webkit-backdrop-filter: blur(0px) saturate(149%);
     background-color: rgba(29, 30, 32, 0.57);
     border: 1px solid rgba(255, 255, 255, 0.125);
-    box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.3);
-    
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+
+    color: rgb(255, 255, 255);
+    border-radius: 16px;
+
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    height: 2.8rem;
+    width: initial;
+    padding: 0px 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-right: 3px;
+
+
+    &:hover {
+        background-color: rgb(44, 47, 54);
+    }
+    &:focus {
+        background-color: rgb(33, 35, 40);
+    }
 `
 
-const UserVaults = (props) => {
-    
+const TokenSelectorOverlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
 
-    if (props.userVaultData !== undefined) {
-       
-        console.log("State Vaults")
-        console.log(props.userVaultData)
+const OrdersCard = (props) => {
+  
+
         
-        const mapNFTs = props.userVaultData.map( (nft, index) => (
-            
-            
-                        <>
-                        <MyVaultContainer>
-                            <MyVaultCard>
-                                <MyVaultCardContainer style={{marginLeft: "12px", alignItems: "flex-start", justifyContent: "flex-start"}}>
-                                    <HeaderGrid>
-                                        <MultiplierBadge style={{margin: "0px !important", alignSelf: "end", display: "flex", flexDirection: "row", justifyContent: "space-evenly", height: "100%"}}>
-                                        <FaTicketAlt style={{color: "#fbdb37", fontSize: "3.2em", alignSelf: "center"}}></FaTicketAlt>
-    
-                                            <div style={{marginBottom: "0px", marginTop: "3px", fontSize: "2.5em", alignSelf: "center", fontWeight: "600"}}>
-                                                {`Vault ID`}
-                                            </div>
-                                        </MultiplierBadge>
-                                        <BigHeading style={{ alignSelf: "center", textAlign: "center", fontSize: "2.0em"}}>
-                                            {`NAME Vault`}
-                                        </BigHeading>
-    
-                                        <MultiplierBadge style={{margin: "0px !important", alignSelf: "end", justifyContent: "center" }}>
-                                            <FaCircle style={{marginBottom: "5px", fontSize: "240%"}}/>
-                                            <p style={{marginBottom: "3px", fontSize: "100%"}}>Open / Working</p>
-                                        </MultiplierBadge>
-                                        
-                                    </HeaderGrid>
-    
-                                </MyVaultCardContainer>
-                                <CardGrid>
-                                    {/* <VaultNFTCard    ///fix when data good
-                                        id={nft.tokenId}
-                                        vaultData={nft}
-                                        image={"/assets/images/StopLoss.svg"}
-                                    /> */}
-                                    <VaultChartGrid style={{rowGap: "1.5em"}}>
-                                        <DetailsCard >
-                                            <Chart/>
-                                        </DetailsCard>
-                                        
-                                        <DetailsCard>
-                                            <VaultNFTFooter />
-                                        </DetailsCard>
-                                    </VaultChartGrid>
-                                </CardGrid>
-                            </MyVaultCard>
-                        </MyVaultContainer>
-                        </>
-                    
-    
-        
-            
-        ))
-        return (
-            <>
-            <SoManyContainers>
-                
-    
-                {mapNFTs}
-            
-            </SoManyContainers>
-            </>
-        )
-    } else {
         return (
             <>
         
@@ -313,8 +186,19 @@ const UserVaults = (props) => {
                         <MyVaultCard>
                             <CardGrid>
     
-                                <VaultNFTCard/>
-    
+                                <OrderCard>
+                                    <HeaderContainer>
+                                        <SelectButton onClick={props.toggleTokenSelector} style={{justifySelf: 'start'}}>
+                                            {props.state.token !== '' ? props.state.token.symbol : 'Select Token'}
+                                            <BiDownArrow  style={{marginLeft: "0.2em"}}/>
+                                        </SelectButton>
+                                        <SelectButton onClick={props.toggleOrderSelector} style={{justifySelf: 'end'}}>
+                                        {props.state.orderType !== '' ? props.state.orderType.name : 'Select Order Type'}
+                                            <BiDownArrow  style={{marginLeft: "0.2em"}}/>
+                                        </SelectButton>
+                                    </HeaderContainer>
+                                </OrderCard>
+                       
                                 <Chart/>
                             
                             </CardGrid>
@@ -322,101 +206,91 @@ const UserVaults = (props) => {
                 
                     </VaultGrid>
                 </MyVaultContainer>
+
+
                 
          
     
             </>
         )
-    }
-    
+}
+
+
+const openOrderReducer = (state, action) => {
+    switch (action.type) {
+        case 'token': {
+            return {
+                ...state,
+                token: action.payload,
+                toggleTokenSelector: !state.toggleTokenSelector
+
+            }
+        }
+        case 'toggleTokenSelector': {
+            return {
+                ...state,
+                toggleTokenSelector: !state.toggleTokenSelector
+            }
+        }
+        case 'orderType': {
+            return {
+                ...state,
+                orderType: action.payload,
+                toggleOrderSelector: !state.toggleOrderSelector
+
+            }
+        }
+        case 'toggleOrderSelector': {
+            return {
+                ...state,
+                toggleOrderSelector: !state.toggleOrderSelector
+            }
+        }
+    } 
+}
+
+const initialState = {
+    token: '',
+    toggleTokenSelector: false,
+    orderType: '',
+    toggleOrderSelector: false,
 }
 
 const Vaults = () => {
-    const [userVaultData, setUserVaultData] = useState(undefined);
-    const [userVaultIds, setUserVaultIds] = useState(null)
-    const [transacting, setTransacting] = useState(false);
-    const [vaultMode, setVaultMode] = useState(null)
-    const [userTradeData, setUserTradeData] = useState(null)
+
+    const [state, dispatch] = useReducer(openOrderReducer, initialState)
     const {active, account, library, connector} = useWeb3React();
 
-    const VAULTSWITCH = [
-        { 
-            name: "limit",
-            address: addresses.vaults.limitVault,
-            abi: LIMITABI.abi
-        },
-        { 
-            name: "stop",
-            address: addresses.vaults.stopVault,
-            abi: STOPABI.abi
-        },
-        { 
-            name: "accumulatordistributor",
-            address: addresses.vaults.accDistVault,
-            abi: ACCDISTABI.abi
-        },
-    ]
 
+    const setToken = (_token) => {
+        dispatch({ type: 'token', payload: _token })
+    }
+
+    const setOrder= (_orderType) => {
+        dispatch({ type: 'orderType', payload: _orderType })
+    }
+
+    const toggleTokenSelector = () => {
+        dispatch({ type: 'toggleTokenSelector' })
+        console.log(state)
+    }
+
+    const setToggleOrderSelector = () => {
+        dispatch({ type: 'toggleOrderSelector' })
+        console.log(state)
+
+    }
 
     //VAULTS
 
-    const getVaults = async (userAddress, _vaultMode) => {
-        const resp = await axios.get(`https://cornoracleapi.herokuapp.com/${VAULTSWITCH[_vaultMode].name}/vaults/${userAddress}`)
-
-        const raw = resp.data
-        
-        return raw
-    }
-
     
 
-    useEffect( async () => {
-        
-        
-            try {
-            const Vaults = await getVaults(account, vaultMode)
-            setUserVaultData(Vaults)
-            console.log("Vaults Raw")
-            console.log(Vaults)
-           
-            
-            const vaultIds = Vaults.map( (data) => {
-                return data.id
-            })
-
-            setUserVaultIds(vaultIds)
-
-        } catch (err) {console.log(err)}
-            
-    }, [])
 
 
     //TRADES
 
-    const getUserTrades = async (nftIds, _vaultMode) => {
-        
-        const tradePromises = nftIds.map( async (id) => {
-            const resp = await axios.get(`https://cornoracleapi.herokuapp.com/${VAULTSWITCH[_vaultMode].name}/trades/${id}`)
-            const raw = resp.data
-            
-            
-            return raw 
-        })
-    
-        const trades = await Promise.all(tradePromises)
+ 
 
-        return trades
-        
-    }
-
-
-    useEffect( async () => {
-        try {
-            const Trades = await getUserTrades(userVaultIds, vaultMode)
-            setUserTradeData(Trades)
-        } catch (err) {console.log(err)}
-    }, [])
-    
 
     
 
@@ -427,23 +301,29 @@ const Vaults = () => {
     
                 <VaultsPageHeading />
 
-                <OracleBar />
-
-                <VaultSelector setVaultMode={setVaultMode}/>
-
-                { vaultMode ==null &&
-                <StyledBackDrop filter={"blur(5px)"}>
-                <h2 style={{color: "#fbdb37", opacity: "60%", fontWeight: "600", alignSelf: "center"}}>
-                    Select Order Type...
-                </h2>
-
-                </StyledBackDrop>
-                }
-
                 
-                <UserVaults userVaultData={userVaultData}/>
                 
-                                
+                <OrdersCard toggleTokenSelector={toggleTokenSelector} toggleOrderSelector={setToggleOrderSelector} state={state}/>
+                
+                            {/* popups */}
+
+
+            {state.toggleTokenSelector == true &&
+                
+                <TokenSelectorOverlay>
+                    <TokenSelector side={'in'} setTokenIn={setToken} setTokenOut={setToken} state={state} openTokenSelectorToggle={toggleTokenSelector}/>
+                </TokenSelectorOverlay>
+                
+            
+            }
+
+            {state.toggleOrderSelector == true &&
+                
+                <TokenSelectorOverlay>
+                    <OrderSelector setOrderType={setOrder} state={state} openOrderSelectorToggle={setToggleOrderSelector}/>
+                </TokenSelectorOverlay>
+ 
+            }     
         
             </Page>
     

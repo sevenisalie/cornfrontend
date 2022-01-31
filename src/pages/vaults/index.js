@@ -40,6 +40,12 @@ const HeaderGridContainer = styled(Container)`
         grid-template-rows: auto;
         gap: 50px;
     }
+    @media (max-width: 375px) {
+        flex-direction: column;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        gap: 95px;
+    }
 `
 const HeaderContentContainer = styled(Container)`
     display: flex;
@@ -76,6 +82,9 @@ const HeaderImage = styled.object`
     align-self: start;
     @media (max-width: 768px) {
         height: 250px;
+    }
+    @media (max-width: 375px) {
+        margin-bottom: 90px;
     }
 `
 const HomeAnimation = keyframes`

@@ -7,6 +7,7 @@ import {ConnectButton} from "./ConnectButton"
 import {MultiplierBadge} from "../pages/pools/components/Badges"
 
 import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
+import {GiCorn} from "react-icons/gi"
 
 //bootstrap components
 import {Container, Navbar, NavItem} from "react-bootstrap";
@@ -20,18 +21,43 @@ const NavContainer = styled(Container)`
     justify-content: space-between;
     width: 100%;
     height: auto;
+    padding: 5px;
+    @media (max-width: 375px) {
+        justify-content: space-around;
+        margin-left: none;
+
+      }
+
+      @media (max-width: 768px) {
+        justify-content: space-around;
+        margin-left: none;
+        
+      }
     
     
 `
 
 const Nav = styled(Navbar)`
-    
+    display: flex;
     height: auto;
-    width: auto;
-    padding: 5px;
+    width: 100%;
+    padding: 3px;
     padding-top: 8px;
     max-width: auto;
     background-color: transparent !important;
+    @media (max-width: 375px) {
+        padding: 0px;
+        margin-left: none;
+        max-width: 370px;
+
+      }
+      @media (max-width: 768px) {
+        padding: 0px;
+        margin-left: none;
+        max-width: 370px;
+
+
+      }
     
     
 `
@@ -72,12 +98,18 @@ const LinkContainer = styled.div`
     padding: 2px;
     margin-right: 30px;
     border-radius: 20px;
-    background-color: #1D1E20;
     justify-content: space-evenly;
     align-items: center;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-
-
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5)
+    
+    @media (max-width: 375px) {
+        margin-left: 5px;
+        margin-right: 8px;
+      }
 
     
 `
@@ -103,6 +135,16 @@ const NavbarLink = styled.a`
       }
 
     &:hover {
+
+        background: #393C3F;
+        border-radius: 13px;
+        color: white;
+        backdrop-filter: blur(12px) saturate(189%);
+        -webkit-backdrop-filter: blur(0px) saturate(189%);
+        background-color: rgba(255, 255, 255, 0.18);
+    }
+
+    &:active {
         padding-left: 8px;
         padding-right: 8px;
         padding-top: 4px;
@@ -110,6 +152,9 @@ const NavbarLink = styled.a`
         background: #393C3F;
         border-radius: 20px;
         color: white;
+        backdrop-filter: blur(12px) saturate(149%);
+        -webkit-backdrop-filter: blur(0px) saturate(149%);
+        background-color: rgba(0, 0, 0, 0.3);
     }
 
 `
@@ -144,6 +189,27 @@ const NetworkText = styled.div`
     align-self: center;
     margin-right: 4px
 `
+const CornIcon = styled(GiCorn)`
+    display: none;
+    @media (max-width: 768px) {
+        display: flex !important;
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+        font-size: 1.8em;
+        color: #fbdb37;
+
+
+      }
+
+    @media (max-width: 375px) {
+        display: flex !important;
+        margin-left: 0.3em;
+        margin-right: 0.1em;
+        font-size: 1.8em;
+        color: #fbdb37
+
+      }
+`
 
 
 
@@ -161,7 +227,11 @@ export const NavigationBar = () => {
                                 Corn Finance
                             </MultiplierBadge>
                         </ImageWrapper>
+
+
                         <LinkContainer>
+                            <CornIcon />
+
                             <CleanLink to="/">
                                 <NavbarLink href="#">Home</NavbarLink>
                             </CleanLink>
@@ -172,7 +242,7 @@ export const NavigationBar = () => {
                                 <NavbarLink href="#">Pools</NavbarLink>
                             </CleanLink>
                             <CleanLink to="/nfts">
-                                <NavbarLink href="#">NFTs</NavbarLink>
+                                <NavbarLink href="#">Trade</NavbarLink>
                             </CleanLink>
                         </LinkContainer>
                         <NetworkContainer>

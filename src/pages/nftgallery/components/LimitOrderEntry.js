@@ -21,6 +21,7 @@ import {FaTimes} from "react-icons/fa"
 import {FiDivide} from "react-icons/fi"
 import {HeaderButtonSecondary} from "../../vaults/index"
 import TokenSelector from "./TokenSelector"
+import OrderSelector from "./OrderSelector"
 import {EthIcon, BitcoinIcon, DollarIcon} from "../components/CreateVault"
 import {useRefresh} from "../../../utils/useRefresh"
 
@@ -443,6 +444,19 @@ const SubmitSection = (props) => {
 
 const orderReducer = (state, action) => {
     switch (action.type) {
+        case 'orderType': {
+            return {
+                ...state,
+                orderType: action.payload,
+                orderSelectorToggle: !state.orderSelectorToggle
+            }
+        }
+        case 'orderSelectorToggle': {
+            return {
+                ...state,
+                orderSelectorToggle: !state.orderSelectorToggle
+            }
+        }
         case 'sellSide': {
             return {
                 ...state,
@@ -553,6 +567,8 @@ const orderReducer = (state, action) => {
 }
 
 const initialState = {
+    orderType: '',
+    orderSelectorToggle: false,
     sell: true,
     buy: false,
     openTokenSelectorIn: false,
@@ -589,6 +605,15 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         dispatch({ type: 'setAmountOut', payload: ''})
         dispatch({ type: 'setAmountIn', payload: ''})
 
+    }
+
+    const setOrderType = (_orderType) => {
+        dispatch({ type: "orderType", payload: _orderType})
+    }
+
+    const openOrderSelectorToggle = () => {
+        dispatch({ type: 'orderSelectorToggle' })
+        console.log("reached")
     }
 
     const setBuySide = () => {
@@ -787,9 +812,16 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                         <TitleContainer>
                                 <TitleRow>
                                     <TitleTextContainer>
-                                        <TitleText>
-                                            {`Limit Order`}
-                                        </TitleText>
+                                        <OrderSelectorButton onClick={openOrderSelectorToggle}>
+                                            {
+                                            state.orderType !== ''
+                                            ?
+                                            state.orderType.name
+                                            :
+                                            `Select Order Type`
+                                            }
+                                            <BiDownArrow  style={{marginLeft: "0.2em"}}/>
+                                        </OrderSelectorButton>
                                     </TitleTextContainer>
                                     <TitleToggleContainer>
                                         <TitleButtonGrid>
@@ -849,6 +881,14 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                 
             
             }
+            {state.orderSelectorToggle == true &&
+                
+                <TokenSelectorOverlay>
+                    <OrderSelector setOrderType={setOrderType} state={state} openOrderSelectorToggle={openOrderSelectorToggle}/>
+                </TokenSelectorOverlay>
+                
+            
+            }
             
 
         </MainContainer>
@@ -857,8 +897,6 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
 }
 
 export default LimitOrderEntry
-
-
 
 
 
@@ -1122,6 +1160,11 @@ const SwapText = styled.div`
     align-text: center;
 `
 
+
+const OrderSelectorButton = styled(ClearFormButton)`
+
+`
+
 export const PriceDisplay = (props) => {
     const [direction, setDirection] = useState(true)
 
@@ -1149,4 +1192,6 @@ export const PriceDisplay = (props) => {
         </>
     )
 }
+
+
 
