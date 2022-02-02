@@ -175,7 +175,9 @@ export const NavigationBar = () => {
                         <ImageWrapper>
                             <NavBrandImageWrapper src={`/assets/images/CornLogo.png`}></NavBrandImageWrapper>
                             <MultiplierBadge style={{borderRadius: "20px", fontSize: "1.8em", fontWeight: "600"}}>
-                                Corn Finance
+                                <p style={{marginBottom: "0px", fontWeight: "800", fontStyle: "oblique 10deg"}}>
+                                {`Corn Finance`}
+                                </p>
                             </MultiplierBadge>
                         </ImageWrapper>
                         <LinkContainer>
