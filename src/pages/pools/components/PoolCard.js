@@ -235,7 +235,9 @@ const PoolCard = (props, {state}) => {
           position: toast.POSITION.BOTTOM_RIGHT, closeOnClick: true, draggable: true})
         const raw = await userClaim(masterChef, pid)
         console.log("TRANNNY")
+        console.log(raw)
         const tx = await raw.wait()
+        console.log(tx)
         if (tx) {
 
           if (tx.status == 1) {

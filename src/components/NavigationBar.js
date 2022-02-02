@@ -8,9 +8,13 @@ import {MultiplierBadge} from "../pages/pools/components/Badges"
 
 import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
 import {GiCorn} from "react-icons/gi"
+import {FaGasPump} from "react-icons/fa"
+
+
 
 //bootstrap components
 import {Container, Navbar, NavItem} from "react-bootstrap";
+import useFetchMaticBalance from "../hooks/useFetchMaticBalance";
 
 
 
@@ -211,20 +215,75 @@ const CornIcon = styled(GiCorn)`
       }
 `
 
+//gas button
 
+
+
+const GasContainer = styled.div`
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 100%;
+    width: auto;
+`
+const GasTextContainer = styled.div`
+    display: flex;
+    width: auto;
+    height: 100%;
+    padding: 0.4em;
+    margin-left: 0.4em;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+`
+const GasText = styled.p`
+    font-size: 0.94em;
+    align-self: center;
+    margin-bottom: 0px;
+    color: #fbfbfb;
+    font-weight: 600;
+`
+const GasButtonContainer = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-content: flex-end;
+    align-items: flex-end;
+    justify-content: flex-end;
+`
+
+const GasButton = styled.button`
+    width: 4.5em;
+    height: 100%;
+    border: none;
+    padding: 0.4em;
+    backdrop-filter: blur(12px) saturate(190%);
+    -webkit-backdrop-filter: blur(12px) saturate(190%);
+    background-color: rgba(180, 180, 180, 0.17);
+    border-radius: 1.09em;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    
+    &:hover {
+        background-color: rgba(180, 180, 180, 0.19);
+
+    }
+    `
 
 
 export const NavigationBar = () => {
     const {active, account, library, connector} = useWeb3React();
+    const { data } = useFetchMaticBalance()
 
     return (
         <>
             <Nav>
                 <NavContainer>
                         <ImageWrapper>
-                            <NavBrandImageWrapper src={`/assets/images/CornLogo.png`}></NavBrandImageWrapper>
                             <MultiplierBadge style={{borderRadius: "20px", fontSize: "1.8em", fontWeight: "600"}}>
-                                Corn Finance
+                                <p style={{marginBottom: "0px", fontWeight: "800", fontStyle: "oblique 10deg"}}>Corn Finance</p>
                             </MultiplierBadge>
                         </ImageWrapper>
 
@@ -244,6 +303,20 @@ export const NavigationBar = () => {
                             <CleanLink to="/nfts">
                                 <NavbarLink href="#">Trade</NavbarLink>
                             </CleanLink>
+                        </LinkContainer>
+
+                        <LinkContainer>
+                            <GasContainer>
+                                <GasTextContainer>
+                                    <GasText>{data}</GasText>
+                                   
+                                </GasTextContainer>
+                                <GasButtonContainer>
+                                    <GasButton>
+                                        <FaGasPump style={{color: "#fbdb37", fontSize: "1.2em"}} />
+                                    </GasButton>
+                                </GasButtonContainer>
+                            </GasContainer>
                         </LinkContainer>
                         <NetworkContainer>
                             {active
