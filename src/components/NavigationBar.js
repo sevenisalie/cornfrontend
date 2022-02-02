@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
-
+import {GiCorn} from "react-icons/gi"
 //bootstrap components
 import {Container, Navbar, NavItem} from "react-bootstrap";
 
@@ -155,6 +155,28 @@ const NetworkText = styled.div`
     margin-right: 4px
 `
 
+const CornIcon = styled(GiCorn)`
+    display: none;
+    @media (max-width: 768px) {
+        display: flex !important;
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+        font-size: 1.8em;
+        color: #fbdb37;
+
+
+      }
+
+    @media (max-width: 375px) {
+        display: flex !important;
+        margin-left: 0.3em;
+        margin-right: 0.1em;
+        font-size: 1.8em;
+        color: #fbdb37
+
+      }
+`
+
 
 
 
@@ -175,11 +197,12 @@ export const NavigationBar = () => {
                         <ImageWrapper>
                             <MultiplierBadge style={{borderRadius: "20px", fontSize: "1.8em", fontWeight: "600"}}>
                                 <p style={{marginBottom: "0px", fontWeight: "800", fontStyle: "oblique 10deg"}}>
-                                {`Corn Finance`}
+                                Corn Finance
                                 </p>
                             </MultiplierBadge>
                         </ImageWrapper>
                         <LinkContainer>
+                            <CornIcon />
                             {/* <CleanLink to="/"> */}
                                 <NavbarLink href="#">Home</NavbarLink>
                             {/* </CleanLink> */}
