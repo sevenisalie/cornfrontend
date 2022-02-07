@@ -4,7 +4,7 @@ import axios from "axios"
 import {ethers} from "ethers";
 import React, {useEffect, useState, useReducer} from "react";
 import { useWeb3React } from "@web3-react/core";
-
+import useFetchPoolData from "../../hooks/useFetchPoolData"
 
 
 //static confg
@@ -31,6 +31,18 @@ import useFetchBalances from "../../hooks/useFetchBalances";
 
 
 
+const size = {
+    mobileS: '320px',
+    mobileM: '375px',
+    mobileL: '425px',
+    tablet: '768px',
+    laptop: '1024px',
+    laptopL: '1440px',
+    desktop: '2560px'
+  }
+
+
+
 
 const PoolGrid = styled(Container)`
     margin-top: 25px;
@@ -41,14 +53,24 @@ const PoolGrid = styled(Container)`
     align-content: start;
     column-gap: 2px;
     row-gap: 4.20em;
-    margin-bottom: 25px;
 
+  
+    @media (max-width: 315px) {
+        margin-bottom: 6em;
+
+
+    }
+    @media (max-width: 2048px) {
+        margin-bottom: 11em;
+      }
+  
     @media (max-width: 768px) {
+        margin-bottom: 6em;
         flex-direction: column;
         grid-template-columns: auto;
         grid-template-rows: auto;
+   
       }
-  
 `
 const poolReducer = (state, action) => {
     switch (action.type) {
@@ -126,8 +148,7 @@ const Pools = (props) => {
    
     const {active, account, library, connector} = useWeb3React();
     const { fastRefresh } = useRefresh()
-    
-
+    const { state: poolData } = useFetchPoolData(account)
     const [state, dispatch] = useReducer(poolReducer, initialState)
 
     
@@ -224,9 +245,12 @@ const Pools = (props) => {
                 <>
         
                 <PoolPageHeading/>
-                
+
+                    <p>
+                        {JSON.stringify(poolData, null, 2)}
+                    </p>
             
-                    <PoolGrid style={{marginBottom: "6.5em"}}>
+                    <PoolGrid >
                         {mapPoolData}
                     </PoolGrid>
            
@@ -245,7 +269,7 @@ const Pools = (props) => {
             <PoolPageHeading/>
             
       
-                <PoolGrid style={{marginBottom: "6.5em"}}>
+                <PoolGrid>
                     {mapPlaceHolderPoolData}
                 </PoolGrid>
       

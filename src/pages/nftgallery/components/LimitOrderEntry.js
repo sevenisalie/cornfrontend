@@ -33,10 +33,20 @@ const MainContainer = styled.div`
     justify-content: space-around;
 
     @media (max-width: 315px) {
+        margin-bottom: 6em;
+
         flex-direction: column;
         grid-template-columns: auto;
         grid-template-rows: auto;
     }
+    @media (max-width: 2048px) {
+        margin-bottom: 6em;
+      }
+  
+      @media (max-width: 768px) {
+        margin-bottom: 6em;
+   
+      }
 `
 
 const EntryContainer = styled.div`

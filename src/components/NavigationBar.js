@@ -318,14 +318,14 @@ export const NavigationBar = () => {
                                 </GasButtonContainer>
                             </GasContainer>
                         </LinkContainer>
-                        <NetworkContainer>
+                        {/* <NetworkContainer>
                             {active
                                 ? <AiFillCheckCircle style={{color: "green", marginLeft: "5px", marginRight: "5px"}}/>
                                 : <AiFillExclamationCircle style={{color: "red", marginLeft: "5px", marginRight: "5px"}}/>
                             }
                             
                             <NetworkText>Polygon</NetworkText>
-                        </NetworkContainer>
+                        </NetworkContainer> */}
                         <ConnectButton></ConnectButton>
                 </NavContainer>
                 

@@ -10,6 +10,7 @@ import {MasterChefABI, ERC20Abi} from "../../config/abis";
 import {NFTS} from "../../config/nfts"
 import {POOLS} from "../../config/pools"
 
+
 import axios from "axios"
 import {stopLossAbi} from "../../config/abis";
 import {Container, Card, Button} from "react-bootstrap";
@@ -24,6 +25,8 @@ import {NFTCard} from "./components/NFTCard";
 import MarketPageHeading from "./components/MarketPageHeading";
 import LimitOrderEntry from './components/LimitOrderEntry'
 import TokenSelector from "./components/TokenSelector"
+import useFetchPoolData from "../../hooks/useFetchPoolData"
+
 
 const MyNFTContainer = styled(Container)`
     display: flex;
@@ -103,6 +106,7 @@ const NFT = () => {
     const [stopLossContract, setStopLossContract] = useState('');
     const {active, account, library, connector} = useWeb3React();
     const [loading, setLoading] = useState(false);
+    const {state: data} = useFetchPoolData(account)
 
     const [state, dispatch] = useReducer(marketReducer, initialState)
     
@@ -163,6 +167,10 @@ const NFT = () => {
         <Page>
 
             <MarketPageHeading/>
+
+            {/* <pre>
+                {JSON.stringify(data, null, 2)}
+            </pre> */}
 
             <LimitOrderEntry state={state} openTradeWindowToggle={openTradeWindowToggle}/>
 
