@@ -27,7 +27,7 @@ import 'react-toastify/dist/ReactToastify.css';
 //icons
 import {GoVerified} from "react-icons/go"
 import {FaCircle, FaRegCircle, FaRegCheckCircle} from "react-icons/fa"
-import {BiCoinStack} from "react-icons/bi"
+import {BiCoinStack, BiDollarCircle} from "react-icons/bi"
 import {GiLockedChest} from "react-icons/gi"
 import {RiCoinLine} from "react-icons/ri"
 
@@ -128,39 +128,34 @@ const PoolCard = (props, {state}) => {
     const [showDepositModal, setShowDepositModal] = useState(false)
     const [showUnstakeModal, setShowUnstakeModal] = useState(false)
     const [loadingData, setLoadingData] = useState(true)
-    const [poolLoading, setPoolLoading] = useState(true)
     const [masterChef, setMasterChef] = useState('')
-    const [poolState, setPoolState] = useState('')
-    const [poolData, setPoolData] = useState('')
+  
     const [allowance, setAllowance] = useState(false)
     const [pendingCob, setPendingCob] = useState('')
     const [isOpen, setIsOpen] = useState(false)
-    
 
+    //apyv2
     // catch previous reduced state
-  useEffect(() => {
-    if (props.state.userPoolDataLoading == false){
-        setLoadingData(false)
-    } else {
-        setLoadingData(true)
-    }
-      
-  }, [props.state.userPoolDataLoading])
+    const [data, setData] = useState({})
 
-  useEffect(() => {
-    if (props.state.poolDataLoading == false){
-        setPoolLoading(false)
-    } else {
-        setPoolLoading(true)
-    }
-      
-  }, [props.state.userPoolDataLoading])
+    useEffect(() => {
+      setData(props.data.allData[props.pid])
+    }, [])
+    
+    useEffect(() => {
+      setAllowance(props.data.allData[props.pid].USER.allowance)
+    }, [])
 
-  useEffect( () => {
-    if (props.state.poolData[props.pid] !== undefined) {
-      setPoolData(props.state.poolData[props.pid])
-    }
-  }, [props.state.poolData])
+    useEffect(() => {
+      setLoadingData(props.data.loading)
+    }, [])
+
+    
+ 
+
+
+
+
 
   useEffect(() => {
     if (props.state.masterChefLoading == false){
@@ -171,18 +166,7 @@ const PoolCard = (props, {state}) => {
       
   }, [props.state.masterChefLoading])
 
-  useEffect(() => {
-    if (props.state.userPoolData[props.pid] == undefined){
-        setPoolState('')
-    } else {
-        setPoolState(props.state.userPoolData[props.pid])
-
-        const poolData = props.state.userPoolData[props.pid]
-        setAllowance(poolData.USER.allowance)
-        
-    }
-    
-  }, [props.state.userPoolData])
+  
 
   useEffect( async () => {
     if (account && masterChef) {
@@ -346,46 +330,44 @@ const PoolCard = (props, {state}) => {
     }
     const handleDetailsClick = () => setIsOpen(!isOpen)
 
-
-
-
-
-
-
-  if (props.state.poolDataLoading == false) {
-      
+    const LoadingElement = (_length) => {
       return (
+        <Placeholder style={{width: "3.5em"}} as="p" animation="glow" >
+          <Placeholder lg={_length} />
+        </Placeholder>
+      )
+    }
+
+
+    return (
 
         <>
         <DepositModal state={props.state} handleStakeOnClick={handleStakeOnClick} tokenStake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl}  pid={props.pid} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal} />
         <UnstakeModal state={props.state} handleUnstakeOnClick={handleUnstakeOnClick} tokenUnstake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl} pid={props.pid}  showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
 
         <ActualPoolCard isOpen={isOpen}>
+                    
 
           <div style={{ padding: '24px' }}>
+          
               <div style={{ display: 'flex', flexDirection: 'row', flexWrap: "wrap", alignItems: 'center', justifyContent: "space-between"}}>
-                <CoinCard>
-                  {loadingData == true
-                  ?
-                  <LoadingSpinner />
-                  :
+                  
                   <Image style={{ marginRight: "19px" }}src={`/assets/images/CornLogo.png`} width={64} height={64} alt={"COB"} />
-                  }
-                </CoinCard>
+                  
                 <CardTitle >
                   
                  
                   <div style={{display: "flex", flexDirection: 'column', alignContent: "center", justifyContent: "space-between", textAlign: "center", marginBottom: "12px"}}>
-                    {POOLS[props.pid].tokenStakeName} 
+                    {data.tokenStakeName} 
                   </div>
 
                   <MultiplierBadge><GoVerified style={{marginRight: "4px"}}/>
-                  {loadingData == true ? toFixed(props.state.poolData[props.pid].DepositFeePercent, 1) : toFixed(props.state.poolData[props.pid].DepositFeePercent, 1)}
-                  {`% Fees`}
+                  {toFixed(data.depositFee, 1)}
+                  {` Fees`}
                   </MultiplierBadge>
 
                   <MultiplierBadge>
-                  {'1x'}
+                  {data.multiplier}
                   </MultiplierBadge>
 
                 </CardTitle>
@@ -394,19 +376,8 @@ const PoolCard = (props, {state}) => {
 
                 <StyledDetails>
                     <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                      <p>TVL:</p>
+                      
                      
-                      {
-                      props.state.userPoolDataLoading == false
-                      ?
-                      <p><GiLockedChest style={{marginRight: "6px", color: "#fbfbfb"}}/>
-                        {toFixed(props.state.userPoolData[props.pid].USER.poolTVL, 2)}
-                      </p>
-                      :
-                      <Placeholder style={{width: "3.5em", height: "auto"}} as="h2" animation="glow">
-                            <Placeholder lg={12} />
-                      </Placeholder>
-                      }
                     </Container>
             
                 </StyledDetails>
@@ -414,20 +385,12 @@ const PoolCard = (props, {state}) => {
                 <StyledDetails>
                     <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                       <p>APR:</p>
-                      
-                      {
-                      props.state.userPoolDataLoading == false
-                      ?
+                 
                       <p>
-                      {toFixed(props.state.userPoolData[props.pid].USER.APY, 2)} %
+                        {/* {JSON.stringify(data.APY, null, 2)} */}
+                      {data.APY ? toFixed(data.APY.APY, 2) : LoadingElement(12)} %
                       </p>
-                      :
-                      <Placeholder style={{width: "3.5em", height: "auto"}} as="h2" animation="glow">
-                            <Placeholder lg={12} />
-                      </Placeholder>
-                      }
-
-                      
+                     
                     </Container>
             
                 </StyledDetails>
@@ -436,7 +399,7 @@ const PoolCard = (props, {state}) => {
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                       <p>Earn:</p>
                       <p><BiCoinStack style={{marginRight: "6px"}}/>
-                        {props.state.poolData[props.pid].EarnToken.symbol}
+                        {data.tokenEarnName}
                       </p>
                     </Container>
                 </StyledDetails>
@@ -445,7 +408,7 @@ const PoolCard = (props, {state}) => {
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                       <p>Stake:</p>
                       <p><RiCoinLine style={{marginRight: "6px"}}/>
-                      {POOLS[props.pid].tokenStakeName}
+                      {data.tokenStakeName}
                       </p>
                     </Container>
                 </StyledDetails>
@@ -456,17 +419,11 @@ const PoolCard = (props, {state}) => {
                           <p style={{fontSize: "60%", fontWeight: "800"}}>
                               {`COB Earned:`}
                               </p>
-                            {
-                              props.state.userPoolDataLoading == false
-                              ?
+                           
                               <p style={{color: "#fbdb37", fontSize: "110%", fontWeight: "600"}}>
                               {toFixed(pendingCob, 2)}
                               </p>
-                              :
-                              <Placeholder style={{width: "3.5em", height: "auto"}} as="h2" animation="glow">
-                                <Placeholder lg={12} />
-                              </Placeholder>
-                            }
+                              
                            
                       </Container>
                       <ClaimButton state={props.state} onClick={async () => handleClaimClick(props.pid)}>
@@ -491,7 +448,7 @@ const PoolCard = (props, {state}) => {
                         </UnstakeButton>
                     </>
                     ) : (
-                    <ApproveButton onClick={async () => handleApproveClick(props.state.poolData[props.pid].DepositToken.address)}>
+                    <ApproveButton onClick={async () => handleApproveClick(data.tokenStakeAddress)}>
                         {`Approve Contract`}
                     </ApproveButton>
                     )}
@@ -500,27 +457,16 @@ const PoolCard = (props, {state}) => {
                     {allowance == true ? (
                         <MultiplierBadge style={{margin: "0px !important", alignSelf: "end", }}>
 
-                          {props.state.userPoolDataLoading == true 
-                            ?   <Spinner animation="grow" variant="warning" /> 
-                            :   
-                                <>
                                 <FaCircle style={{marginBottom: "5px", fontSize: "240%"}}/>
                                 <p style={{marginBottom: "3px", fontSize: "70%"}}>Approved</p>
-                                </>
-                            }
-
+                            
                         </MultiplierBadge>
                     ) : (
                         <MultiplierBadge style={{padding: "6px", margin: "0px !important", alignSelf: "end", }}>
-                            {props.state.userPoolDataLoading == true 
-                            ?   <Spinner animation="grow" variant="warning" /> 
-                            :   
-                                <>
+                          
                                 <FaRegCircle style={{marginBottom: "0px", fontSize: "300%"}}/>
                                 <p style={{marginBottom: "3px", fontSize: "70%"}}>Unapproved</p>
-                                </>
-                            }
-                            
+                           
                         </MultiplierBadge>
                     )}
 
@@ -534,41 +480,30 @@ const PoolCard = (props, {state}) => {
           </div>
 
 
-      <CardFooter
-        setIsOpen={handleDetailsClick}
-        isOpen={isOpen}
-        state={props.state}
-        projectLink={POOLS[props.pid].poolurl}
-        pid={props.pid}
-        totalStaked={3535}
-        bal={324343}
-        userStaked={34234234}
-        blocksRemaining={"10340233"}
-        isFinished={false}
-        blocksUntilStart={"0"}
-        poolCategory={""}
-        />
+        <CardFooter
+          setIsOpen={handleDetailsClick}
+          isOpen={isOpen}
+          state={props.state}
+          data={data}
+          projectLink={data.poolurl}
+          pid={props.pid}
+          totalStaked={3535}
+          bal={324343}
+          userStaked={34234234}
+          blocksRemaining={"10340233"}
+          isFinished={false}
+          blocksUntilStart={"0"}
+          poolCategory={""}
+          />
+
         </ActualPoolCard> 
             
             
         </>
     
-)
-    } else if (props.state.poolDataLoading == true){
-      return (
-
-        <>
-        <DepositModal state={props.state} tokenStake={POOLS[props.pid].tokenStakeName} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal}/>
-        <UnstakeModal state={props.state} tokenUnstake={POOLS[props.pid].tokenStakeName} showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
-        
-        <PlaceholderPoolCard tokenStake={POOLS[props.pid].tokenStakeName} />
-            
-            
-        </>
-    
-)
-    }
-    
+    )
+     
+                    
 }
 
 export default PoolCard

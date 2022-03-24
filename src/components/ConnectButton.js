@@ -28,7 +28,9 @@ const TheButton = styled(Button)`
     color: #FFFFE0;
     font-size: 1.3em;
     font-weight: 800;
-
+    align-self: center;
+    position: relative;
+    right: 0.2em;
     @media (max-width: 768px) {
         font-size: 0.7em;
         

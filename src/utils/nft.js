@@ -175,23 +175,32 @@ export const toFixed = (num, fixed) => {
 
 
 
-  export const createStopLossTrade = async (to, tokenIn, tokenInDecimals, tokenOut, amountIn, priceOut, _stopLossContract) => {
+  export const createLimitTrade = async (pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract) => {
+    console.log("DICKSDICKSDICKDIDCKS")
     const path = [tokenIn, tokenOut]
     const bigNumAmountIn = ethers.utils.parseUnits(amountIn, tokenInDecimals)
-    const numerator = ethers.utils.parseUnits("1", 8)
-    const denominator = ethers.utils.parseUnits(priceOut, 8)
-    const bigNumPriceOut = numerator.div(denominator)
-    const amounts = [bigNumAmountIn, bigNumPriceOut]
+    const bigNumPrice = ethers.utils.parseUnits(price, 18)
+    const amounts = [bigNumAmountIn, bigNumPrice]
     const times = [0]
+    const maxGas = 1000000000000
     
-    const ctr = _stopLossContract
+    const ctr = _controllerContract
     try {
         const mint = await ctr.createTrade(
-        to,
+        pid,
         path,
         amounts,
-        times
+        times,
+        maxGas
         )
         return mint
+    } catch (err) {console.log(err)}
+}
+
+export const fetchGasBalance = (_controllerContract, _user) => {
+    try {
+        const call = await ctr.userGasAmounts(_user)
+        const amount = ethers.utils.formatUnits(call, 18)
+        return amount
     } catch (err) {console.log(err)}
 }

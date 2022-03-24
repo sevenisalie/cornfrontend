@@ -6,7 +6,7 @@ import {addresses} from "../../../config/addresses"
 import {ERC20Abi} from "../../../config/abis"
 
 
-import {createStopLossTrade} from "../../../utils/nft"
+import {createLimitTrade} from "../../../utils/nft"
 import {getUserTokenBalance} from "../../../utils/fetchUserData"
 
 
@@ -328,25 +328,25 @@ export const CreateVault = ({exitButtonHandler, nftContract, strat}) => {
 
 //  export const createStopLossTrade = async (to, tokenIn, tokenOut, amountIn, priceOut, _stopLossContract) => {
 
-    const handleMintVault = async () => {
-        try {
-            const mint = await createStopLossTrade(
-                account,
-                tokenIn,
-                tokenInDecimals,
-                tokenOut,
-                amount,
-                price,
-                contract
-            )
-        } catch (err) {console.log(err)}
-    }
+    // const handleMintVault = async () => {
+    //     try {
+    //         const mint = await createLimitTrade(
+    //             account,
+    //             tokenIn,
+    //             tokenInDecimals,
+    //             tokenOut,
+    //             amount,
+    //             price,
+    //             contract
+    //         )
+    //     } catch (err) {console.log(err)}
+    // }
 
     let button;
     if (amount == '' && tokenIn == '' && tokenOut == '') {
         button = <SubmitButton disabled size="lg">Enter Vault Info</SubmitButton>;
       } else if (amount !== '' && tokenIn !== '' && tokenOut !== ''){
-        button = <SubmitButton onClick={async () => handleMintVault()} size="lg">Create Vault</SubmitButton>;
+        button = <SubmitButton size="lg">Create Vault</SubmitButton>;
       } else {
         button = <SubmitButton disabled size="lg">Enter Vault Info</SubmitButton>;
       }

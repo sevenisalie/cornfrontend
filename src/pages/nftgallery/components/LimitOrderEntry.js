@@ -3,6 +3,9 @@ import {ethers} from "ethers"
 import React, {useEffect, useState, useReducer} from "react"
 import { useWeb3React } from "@web3-react/core"
 import { addresses } from "../../../config/addresses"
+import ADDRESSES from "../../../config/build/map.json"
+import CONTROLLERCONTRACT from "../../../config/build/contracts/Controller.json"
+
 import { nftURI } from "../../../config/uri"
 import {MasterChefABI, ERC20Abi} from "../../../config/abis"
 import {NFTS} from "../../../config/nfts"
@@ -11,8 +14,10 @@ import {POOLS} from "../../../config/pools"
 import axios from "axios"
 import {stopLossAbi} from "../../../config/abis"
 import {Container, Card, Button} from "react-bootstrap"
-import {writeContract, userMint, toFixed} from "../../../utils/nft"
+import {writeContract, userMint, toFixed, createLimitTrade} from "../../../utils/nft"
 import {getUserTokenBalance} from "../../../utils/fetchUserData"
+
+
 
 import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
 import {BiDownArrow} from "react-icons/bi"
@@ -445,7 +450,7 @@ const SubmitSection = (props) => {
         <>
             <TitleContainer>
       
-                <SubmitButton>{props.state.setSubmitButtonText}</SubmitButton>
+                <SubmitButton onClick={() => props.mintFunction()}>{props.state.setSubmitButtonText}</SubmitButton>
             </TitleContainer>
         </>
     )
@@ -454,6 +459,12 @@ const SubmitSection = (props) => {
 
 const orderReducer = (state, action) => {
     switch (action.type) {
+        case 'setController': {
+            return {
+            ...state,
+            setController: action.payload
+        }   
+        }
         case 'orderType': {
             return {
                 ...state,
@@ -540,6 +551,18 @@ const orderReducer = (state, action) => {
                 setLimitPrice: action.payload
             }
         }
+        case 'setRealLimitPrice': {
+            return {
+                ...state,
+                setRealLimitPrice: action.payload
+            }
+        }
+        case 'setMaxGasPrice': {
+            return {
+                ...state,
+                setMaxGasPrice: action.payload
+            }
+        }
         case 'setAmountPrice': {
             return {
                 ...state,
@@ -577,6 +600,7 @@ const orderReducer = (state, action) => {
 }
 
 const initialState = {
+    setController: "",
     orderType: '',
     orderSelectorToggle: false,
     sell: true,
@@ -593,9 +617,11 @@ const initialState = {
         },
     setTokenOut: '',
     setLimitPrice: '',
+    setRealLimitPrice: '',
     setAmountPrice: '',
     setAmountIn: '',
     setAmountOut: '',
+    setMaxGasPrice: '',
     setBalanceIn: '',
     setBalanceOut: '',
     marketPrice: '',
@@ -609,6 +635,26 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
     const {active, account, library, connector} = useWeb3React()
     const { fastRefresh } = useRefresh()
     const [state, dispatch] = useReducer(orderReducer, initialState)
+
+    useEffect( () => {
+        if (active) {
+            const nftctr = writeContract(
+                active,
+                library.getSigner(),
+                account,
+                ADDRESSES["137"]["Controller"].at(0),
+                CONTROLLERCONTRACT.abi,
+            )
+            .then( value => {
+                dispatch({ type: 'setController', payload: value})
+      
+                
+            })
+            
+        } else {
+            dispatch({ type: 'ERROR', payload: 'poop'})
+        }
+    }, [active, account])
 
     const clearOrderEntry = () => {
         dispatch({ type: 'setLimitPrice', payload: ''})
@@ -704,6 +750,15 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         setSubmitButtonText('Enter Limit Price')
     }
 
+    const setRealLimitPrice = (_price) => {
+        console.log(":LSDKJFIWEJOJFOISDLJDSNVLJNSDL:FJLSDKFJ")
+        const price = parseFloat(_price)
+        console.log(price)
+        const realPrice = (1 / price).toString()
+        console.log(realPrice)
+        dispatch({ type: "setRealLimitPrice", payload: realPrice})
+    }
+
     //get price from router
     useEffect( async () => {
         if (state.setTokenOut !== '' && state.setTokenIn !== '') {
@@ -765,24 +820,43 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
 
     useEffect(() => {
 
-        if (state.sell == true) {
-            if (state.setAmountOut !== '' && state.setAmountIn !== '') {
-                const amountInCalc = parseFloat(state.setAmountOut) / parseFloat(state.setAmountIn)
-                setLimitPrice(amountInCalc.toString())
-            }
-        }
-        else if (state.buy == true ) {
+        // if (state.sell == true) {
+        //     if (state.setAmountOut !== '' && state.setAmountIn !== '') {
+        //         const amountInCalc = parseFloat(state.setAmountOut) / parseFloat(state.setAmountIn)
+        //         setLimitPrice(amountInCalc.toString())
+        //     }
+        // }
+        if (state.buy == true ) {
             if (state.setAmountOut !== '' && state.setAmountIn !== '') {
                 const amountInCalc = parseFloat(state.setAmountIn) / parseFloat(state.setAmountOut)
                 setLimitPrice(amountInCalc.toString())
+                setRealLimitPrice(amountInCalc.toString())
             }
         }
         if (state.setAmountIn == '' && state.setLimitPrice !== '') {
             setLimitPrice('')
+            setRealLimitPrice('')
         }
     }, [state.side, state.setAmountOut])
+    //change price then change amount out
+    useEffect(() => {
+        if (state.setLimitPrice == NaN) {
+            setAmountOut("")
+            setLimitPrice("")
+            setRealLimitPrice("")
+        }
 
-    //top right price displayer
+        if (state.sell == true) {
+            const amountOutCalc = parseFloat(state.setAmountIn) * parseFloat(state.setLimitPrice)
+            setAmountOut(amountOutCalc.toString())
+        }
+        if (state.sell == false) {
+            const amountOutCalc = parseFloat(state.setAmountIn) / parseFloat(state.setLimitPrice)
+            setAmountOut(amountOutCalc.toString())
+        }
+    }, [state.setLimitPrice])
+
+    //top right value displayer
 
     useEffect(() => {
 
@@ -791,6 +865,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                 const amountOutCalc = parseFloat(state.setAmountIn) * parseFloat(state.marketPrice)
                 setAmountPrice(amountOutCalc.toString())
                 setAmountOut(amountOutCalc.toString())
+                dispatch({type: "setMaxGasPrice", payload: "1000000000000"})
             }
         }
         else if (state.buy == true) {
@@ -798,6 +873,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                 const amountOutCalc = parseFloat(state.setAmountIn) / parseFloat(state.marketPrice)
                 setAmountPrice(amountOutCalc.toString())
                 setAmountOut(amountOutCalc.toString())
+                dispatch({type: "setMaxGasPrice", payload: "1000000000000"})
             }
         }
         if (state.setAmountIn == '' && state.marketPrice !== '') {
@@ -806,7 +882,23 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         if (state.setAmountIn == '' && state.marketPrice == '') {
             setAmountPrice('')
         }
-    }, [state.setAmountIn, state.side, state.marketPrice, state.setTokenIn, state.setTokenOut])
+    }, [state.setAmountIn, state.side, state.setTokenIn, state.setTokenOut])
+
+    //create trade pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract
+        const handleMintLimit = async () => {
+            if (account && state.setRealLimitPrice !== "" && state.setAmountIn !== "")
+            try {
+                const mint = await createLimitTrade(
+                    0,
+                    state.setTokenIn.address,
+                    state.setTokenIn.decimals,
+                    state.setTokenOut.address,
+                    state.setAmountIn,
+                    state.setRealLimitPrice,
+                    state.setController
+                )
+            } catch (err) {console.log(err)}
+    }
  
 
     // const setMarketPrice = (_tokenA, _tokenB) => {
@@ -858,7 +950,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                         <FiDivide style={{justifySelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545"}} />
                         }
 
-                        <PriceEntry state={state} setLimitPrice={setLimitPrice} />
+                        <PriceEntry state={state} setLimitPrice={setLimitPrice} setRealLimitPrice={setRealLimitPrice}/>
 
                         <AmountEntry
                          state={state}
@@ -869,7 +961,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                         <PriceDisplay state={state} clearOrderEntry={clearOrderEntry} />
 
 
-                        <SubmitSection state={state} />
+                        <SubmitSection state={state} mintFunction={handleMintLimit} />
 
                     </FormContainer>
                 </CardContentContainer>
@@ -921,6 +1013,7 @@ const PriceEntry = (props) => {
         const enteredAmount = e.target.value
         if (enteredAmount == '' || enteredAmount.match(/^[1-9]\d*\.?\d*$/)) {
             props.setLimitPrice(enteredAmount)
+            props.setRealLimitPrice(enteredAmount)
         }   
         }
     
@@ -984,11 +1077,11 @@ const AmountEntry = (props) => {
         const enteredAmount = e.target.value
 
         if (props.side == 'in') {
-            if (enteredAmount == '' || enteredAmount.match(/^[1-9]\d*\.?\d*$/)) {
+            if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
                 props.setAmountIn(enteredAmount)
             } 
         } else if (props.side == "out") {
-            if (enteredAmount == '' || enteredAmount.match(/^[1-9]\d*\.?\d*$/)) {
+            if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
                 props.setAmountOut(enteredAmount)
             }
         }
@@ -1043,7 +1136,7 @@ const AmountEntry = (props) => {
                                     
                                     
                                     {props.side == 'in' &&
-                                    <TokenPriceContainer>Price: $<TokenValue>{props.state.setAmountPrice !== '' ? props.state.setAmountPrice : '-'}</TokenValue></TokenPriceContainer>
+                                    <TokenPriceContainer>Value: $<TokenValue>{props.state.setAmountPrice !== '' ? props.state.setAmountPrice : '-'}</TokenValue></TokenPriceContainer>
 
                                     }
                                     {props.side == 'out' &&

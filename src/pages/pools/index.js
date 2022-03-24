@@ -15,6 +15,7 @@ import {POOLS} from "../../config/pools";
 import {MasterChefABI, ERC20Abi} from "../../config/abis";
 import {writeContract} from "../../utils/nft";
 import {fetchPendingCob, getUserTokenBalance} from "../../utils/fetchUserData";
+
 //Components
 import {Page} from "../../components/Page"
 import {Container, Card, Button} from "react-bootstrap";
@@ -144,30 +145,16 @@ const initialState = {
     error: '',
 }
 
-const Pools = (props) => {
+ const Pools = (props) => {
    
-    const {active, account, library, connector} = useWeb3React();
-    const { fastRefresh } = useRefresh()
-    const { state: poolData } = useFetchPoolData(account)
-    const [state, dispatch] = useReducer(poolReducer, initialState)
+        const {active, account, library, connector} = useWeb3React();
+        const { fastRefresh } = useRefresh()
+        const { state: POOLDATA } = useFetchPoolData(account)
+        const [state, dispatch] = useReducer(poolReducer, initialState)
 
     
 
-    useEffect( async () => {
-        try {
-            if (account){
-                const data = await axios.get(`https://cornoracleapi.herokuapp.com/chef/userPoolData/${account}`)
-                dispatch({ type: 'userPoolData', payload: data.data })
-                console.log("USERDATA")
-                console.log(state)
-
-            }
-
-        } catch (err) {
-            dispatch({ type: 'ERROR', payload: err })
-        }
-
-    }, [account, active])
+    
 
     useEffect( async () => {
         if (active && library && account) {
@@ -193,16 +180,7 @@ const Pools = (props) => {
         
     }, [account, active, library])
 
-    useEffect( async () => {
-        try {
-            const data = await axios.get(`https://cornoracleapi.herokuapp.com/chef/poolData`)
-            dispatch({ type: `poolData`, payload: data.data})
-            console.log("POOLDATA")
-            console.log(state)
-        } catch (err) {
-            dispatch({ type: 'ERROR', payload: err })
-        }
-    }, [])
+   
 
     useEffect( async () => {
         if (active && library) {
@@ -236,30 +214,26 @@ const Pools = (props) => {
     
 
     //if we do have pooldata then go ahead and populate a card for each pool
-    if (state.poolDataLoading == false && library) {
-        const mapPoolData =  state.poolData.map((pool, index) => (
+    if (POOLDATA.loading == false && library) {
+        const mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
-            <PoolCard  state={state} signer={library.getSigner()} pid={index} pool={pool}/>
+            <PoolCard data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
             ));
-            return (
-                <>
-        
-                <PoolPageHeading/>
+        return (
+            <>
+    
+            <PoolPageHeading/>
 
-                    <p>
-                        {JSON.stringify(poolData, null, 2)}
-                    </p>
-            
-                    <PoolGrid >
-                        {mapPoolData}
-                    </PoolGrid>
-           
-                
                 
         
-                </>
-            )
-    } else if (state.poolDataLoading == true || !library) {
+                <PoolGrid >
+                    {mapPoolData}
+                </PoolGrid>
+        
+            </>
+        )
+
+    } else if (POOLDATA.loading == true || !library) {
         const mapPlaceHolderPoolData = POOLS.map( (pool) => (
             <PlaceholderPoolCard tokenStake={pool.tokenStakeName}/>
         ))
@@ -281,11 +255,6 @@ const Pools = (props) => {
     }
       
 
-
-        
-    
-        
-       
 }
 
 export default Pools

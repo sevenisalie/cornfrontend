@@ -75,7 +75,8 @@ const initialState = {
     allData: {},
     userData: [],
     apyData: [],
-    userDataloading: true,
+    loading: true,
+    userDataLoading: true,
     apyDataLoading: true,
     error: null,
 }

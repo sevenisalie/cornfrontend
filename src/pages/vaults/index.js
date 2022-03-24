@@ -114,6 +114,7 @@ const BackgroundImage = styled.div`
 
 const HeaderButton = styled(Button)`
     border-radius: 15px;
+    border-style: solid;
     height: 50px;
     width: auto;
     background: #fbdb37;
@@ -157,6 +158,7 @@ export const HeaderButtonSecondary = styled(Button)`
     margin-top: 20px;
     align-self: start;
     margin-right: 15px;
+    border-style: solid;
 
     &:hover {
         background: #fbdb37;
@@ -414,9 +416,16 @@ export const Home = () => {
     }, [active])
 
 
-
+    //toastie
+    const ToastStyle = {
+        borderRadius: "50px",
+        backdropFilter: "blur(12px) saturate(149%)",
+        backgroundColor: "rgba(29, 30, 32, 0.57)",
+        border: "1px solid rgba(255, 255, 255, 0.125)",
+      }
     const notify = () => {
         toast.success("hallo world", {
+            style: ToastStyle,
             position: toast.POSITION.BOTTOM_RIGHT
         })
     }
@@ -426,9 +435,9 @@ export const Home = () => {
             <HeaderGridContainer>
                 <HeaderContentContainer>
                     <BigHeading>Beef-up with a Corn-fed portfolio</BigHeading>
-                    <LittleHeading>Buy and Sell Algo-NFTs that can automate your on-chain trading strategies</LittleHeading>
+                    <LittleHeading>Buy and Sell Algo-NFTs that automate your on-chain trading strategies</LittleHeading>
                     <StupidSpan>
-                    <HeaderButtonSecondary>Mint Now <BsArrowUpRight /></HeaderButtonSecondary>
+                    <HeaderButtonSecondary>Trade <BsArrowUpRight /></HeaderButtonSecondary>
                     <HeaderButtonSecondary onClick={notify}>Learn</HeaderButtonSecondary>
                     <ToastContainer></ToastContainer>
                     </StupidSpan>

@@ -206,11 +206,10 @@ const OrderHeaderContainer = styled.div`
 //SCROLL RESULTS
 
 const ScrollEntryContainer = styled.div`
-    display:flex;
+    display: flex;
     flex: 1 1 0%;
     position: relative;
     border-top: 3px solid rgb(64, 68, 79);
-
 `
 const SecretContainer = styled.div`
     overflow: auto;

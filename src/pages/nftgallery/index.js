@@ -106,7 +106,6 @@ const NFT = () => {
     const [stopLossContract, setStopLossContract] = useState('');
     const {active, account, library, connector} = useWeb3React();
     const [loading, setLoading] = useState(false);
-    const {state: data} = useFetchPoolData(account)
 
     const [state, dispatch] = useReducer(marketReducer, initialState)
     
@@ -168,9 +167,6 @@ const NFT = () => {
 
             <MarketPageHeading/>
 
-            {/* <pre>
-                {JSON.stringify(data, null, 2)}
-            </pre> */}
 
             <LimitOrderEntry state={state} openTradeWindowToggle={openTradeWindowToggle}/>
 

@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import {useWeb3React} from "@web3-react/core"
 
 import {ConnectButton} from "./ConnectButton"
 import {MultiplierBadge} from "../pages/pools/components/Badges"
+import DepositModal from "./DepositModal"
 
 import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
-import {GiCorn} from "react-icons/gi"
+import {GiCorn, GiHamburgerMenu} from "react-icons/gi"
 import {FaGasPump} from "react-icons/fa"
 
 
@@ -19,7 +20,7 @@ import useFetchMaticBalance from "../hooks/useFetchMaticBalance";
 
 
 
-const NavContainer = styled(Container)`
+const NavContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -41,56 +42,44 @@ const NavContainer = styled(Container)`
     
 `
 
-const Nav = styled(Navbar)`
+const Nav = styled.div`
     display: flex;
     height: auto;
     width: 100%;
     padding: 3px;
     padding-top: 8px;
     max-width: auto;
+    position: relative;
+    z-index: 1;
     background-color: transparent !important;
     @media (max-width: 375px) {
         padding: 0px;
         margin-left: none;
-        max-width: 370px;
+   
 
       }
       @media (max-width: 768px) {
         padding: 0px;
         margin-left: none;
-        max-width: 370px;
+        
 
 
       }
     
     
 `
-
-const ImageWrapper = styled(Container)`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 2px;
-    margin-left: 1px;
-    height: auto;
-    width: auto;
-    @media (max-width: 768px) {
+const CornBadge = styled(MultiplierBadge)`
+      font-size: 1.2em;
+      border-radius: 19px;
+      @media (max-width: 768px) {
         display: none;
       }
     
-`
-const LogoText = styled.p`
-    font-weight: 600;
-    font-size: 25px;
-    @media (max-width: 768px) {
-        display: none;
-      }
+    @media (max-width: 405px) {
+        display: flex;
+        margin-left: 0px;
 
-`
-
-const NavBrandImageWrapper = styled.img`
-    height: 100px;
-    width: auto;
+    }
 `
 
 const LinkContainer = styled.div`
@@ -102,17 +91,25 @@ const LinkContainer = styled.div`
     padding: 2px;
     margin-right: 30px;
     border-radius: 20px;
+    align-self: center;
     justify-content: space-evenly;
     align-items: center;
     backdrop-filter: blur(12px) saturate(149%);
     -webkit-backdrop-filter: blur(0px) saturate(149%);
     background-color: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.125);
-    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5)
+    box-shadow:
+    1.4px 4.2px 8.2px -50px rgba(0, 0, 0, 0.032),
+    4.7px 14.1px 27.7px -50px rgba(0, 0, 0, 0.048),
+    21px 63px 124px -50px rgba(0, 0, 0, 0.08);
     
-    @media (max-width: 375px) {
+    @media (max-width: 405px) {
+        display: none;
+      }
+      @media (max-width: 700px) {
         margin-left: 5px;
         margin-right: 8px;
+        width: auto;
       }
 
     
@@ -132,8 +129,20 @@ const NavbarLink = styled.a`
     border-radius: 40px;
     text-decoration: none;
 
+    @media (max-width: 1080px) {
+        font-size: 0.9em;
+        margin-left: 3px;
+        margin-right: 3px;
+      }
+
     @media (max-width: 768px) {
         font-size: 0.9em;
+        margin-left: 3px;
+        margin-right: 3px;
+      }
+    @media (max-width: 380px) {
+        font-size: 0.6em;
+        font-weight: 800;
         margin-left: 3px;
         margin-right: 3px;
       }
@@ -166,51 +175,110 @@ const CleanLink = styled(Link)`
     text-decoration: none;
 `
 
-const NetworkContainer = styled.div`
-    display: flex;
-    flex-direction: row;
+const DropDown = styled.button`
+    display: none;
+    
+
+    @media (max-width: 700px) {
+  
+        width: auto;
+      }
+    @media (max-width: 405px) {
+        display: flex !important;
+ 
+        padding: 0.42em;
+        flex-direction: row;
+        width: auto;
+        height: 100%;
+    
+        border-radius: 19px;
+        align-self: flex-start;
+        justify-content: space-evenly;
+        align-items: center;
+        backdrop-filter: blur(12px) saturate(149%);
+        -webkit-backdrop-filter: blur(0px) saturate(149%);
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.125);
+        box-shadow:
+        1.4px 4.2px 8.2px -50px rgba(0, 0, 0, 0.032),
+        4.7px 14.1px 27.7px -50px rgba(0, 0, 0, 0.048),
+        21px 63px 124px -50px rgba(0, 0, 0, 0.08);
+    }
+`
+const HamburgerSymbol = styled(GiHamburgerMenu)`
+    height: 70%;
     width: auto;
-    height: 45px;
-    padding: 2px;
-    margin-right: 30px;
-    border-radius: 8px;
-    background-color: #1D1E20;
+    justify-self: center;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    color: #fbdb37;
+`
+const NavMenuOverlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+const Menu = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-top: 2em;
+    height: 100vh;
+    width: 100%; 
+    positon: relative;
+    z-index: 3;
     justify-content: space-evenly;
     align-items: center;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-    @media (max-width: 768px) {
-        display: none;
-      }
+    align-content: center;
+    place-items: center;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(0, 0, 0, 0.2);
+    
+`
+const MenuLink = styled.a`
+
+    font-size: 4.2em;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    text-decoration: none;
+
+    &:hover {
+        color: #fbdb37;
+    }
+
+    &:select {
+        color: #fbdb37;
+    }
+
+    
 `
 
-const NetworkImage = styled.img`
-    height: 30px;
-    width: auto;
-`
-const NetworkText = styled.div`
-    font-size: 14px;
-    font-weight: 600;
-    align-self: center;
-    margin-right: 4px
-`
+
 const CornIcon = styled(GiCorn)`
     display: none;
     @media (max-width: 768px) {
-        display: flex !important;
+        display: block !important;
         margin-left: 0.1em;
         margin-right: 0.1em;
         font-size: 1.8em;
         color: #fbdb37;
 
-
       }
 
     @media (max-width: 375px) {
-        display: flex !important;
+        display: block !important;
         margin-left: 0.3em;
         margin-right: 0.1em;
         font-size: 1.8em;
-        color: #fbdb37
+        color: #fbdb37;
 
       }
 `
@@ -219,18 +287,19 @@ const CornIcon = styled(GiCorn)`
 
 
 
-const GasContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    height: 100%;
-    width: auto;
+const GasContainer = styled(LinkContainer)`
+    max-width: 11em;
+
+    padding: 0px;
+    justify-content: space-between;
+    @media (max-width: 690px) {
+        display: none;
+
+      }
 `
 const GasTextContainer = styled.div`
     display: flex;
-    width: auto;
+    width: 100%;
     height: 100%;
     padding: 0.4em;
     margin-left: 0.4em;
@@ -273,20 +342,101 @@ const GasButton = styled.button`
     `
 
 
+export const MobileDropDown = (props) => {
+    return (
+        <>
+           <DropDown onClick={props.toggle}>  
+                {props.isOpen ?
+                <HamburgerSymbol/>
+                :
+                <HamburgerSymbol style={{color: "#fbfbfb"}}/>
+                }
+            </DropDown>
+        
+        </>
+    )
+}
+
+const ModalCard = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border-radius: 12px;
+    position: relative;
+    max-width: 480px;
+    height: auto;
+    width: 100%;
+    backdrop-filter: blur(12px) saturate(189%);
+    -webkit-backdrop-filter: blur(12px) saturate(189%);
+    background-color: rgba(29, 30, 32, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.225);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+    border-radius: 24px;
+    margin-top: 1rem;
+`
+export const GasForm = () => {
+    return (
+        <>
+           <DepositModal />
+        </>
+    )
+}
+
+
 export const NavigationBar = () => {
     const {active, account, library, connector} = useWeb3React();
     const { data } = useFetchMaticBalance()
+    const [toggleNav, setToggleNav] = useState(false)
+    const [toggleGas, setToggleGas] = useState(false)
+
+
+    const toggle = () => {
+        setToggleNav( prev => !prev)
+    }
+
+    const gasToggle = () => {
+        setToggleGas( prev => !prev)
+    }
 
     return (
         <>
+
+           
+
+
+
+            {toggleNav &&
+                
+            <NavMenuOverlay>
+                <Menu>
+                <CornIcon/>
+                    <CleanLink onClick={toggle} to="/">
+                        <MenuLink href="#">Home</MenuLink>
+                    </CleanLink>
+                    <CleanLink onClick={toggle} to="/vaults">
+                        <MenuLink href="#">Vaults</MenuLink>
+                    </CleanLink>
+                    <CleanLink onClick={toggle} to="/pools">
+                        <MenuLink href="#">Pools</MenuLink>
+                    </CleanLink>
+                    <CleanLink onClick={toggle} to="/nfts">
+                        <MenuLink href="#">Trade</MenuLink>
+                    </CleanLink>
+                </Menu>                
+            </NavMenuOverlay>
+                
+            }
+
             <Nav>
                 <NavContainer>
-                        <ImageWrapper>
-                            <MultiplierBadge style={{borderRadius: "20px", fontSize: "1.8em", fontWeight: "600"}}>
-                                <p style={{marginBottom: "0px", fontWeight: "800", fontStyle: "oblique 10deg"}}>Corn Finance</p>
-                            </MultiplierBadge>
-                        </ImageWrapper>
 
+                        <MobileDropDown isOpen={toggleNav} toggle={toggle}/>
+
+                   
+                            <CornBadge >
+                                <p style={{marginBottom: "0px", fontWeight: "800", fontStyle: "oblique 10deg"}}>Corn Finance</p>
+                            </CornBadge>
+                        
 
                         <LinkContainer>
                             <CornIcon />
@@ -305,32 +455,24 @@ export const NavigationBar = () => {
                             </CleanLink>
                         </LinkContainer>
 
-                        <LinkContainer>
+                
                             <GasContainer>
                                 <GasTextContainer>
                                     <GasText>{data}</GasText>
                                    
                                 </GasTextContainer>
                                 <GasButtonContainer>
-                                    <GasButton>
+                                    <GasButton onClick={gasToggle}>
                                         <FaGasPump style={{color: "#fbdb37", fontSize: "1.2em"}} />
                                     </GasButton>
                                 </GasButtonContainer>
                             </GasContainer>
-                        </LinkContainer>
-                        {/* <NetworkContainer>
-                            {active
-                                ? <AiFillCheckCircle style={{color: "green", marginLeft: "5px", marginRight: "5px"}}/>
-                                : <AiFillExclamationCircle style={{color: "red", marginLeft: "5px", marginRight: "5px"}}/>
-                            }
-                            
-                            <NetworkText>Polygon</NetworkText>
-                        </NetworkContainer> */}
-                        <ConnectButton></ConnectButton>
+                     
+                        <ConnectButton ></ConnectButton>
                 </NavContainer>
-                
             </Nav>
-
+            
+            <DepositModal showDepositModal={toggleGas} setShowDepositModal={gasToggle} />
         </>
     )
 }
