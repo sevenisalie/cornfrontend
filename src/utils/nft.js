@@ -197,10 +197,12 @@ export const toFixed = (num, fixed) => {
     } catch (err) {console.log(err)}
 }
 
-export const fetchGasBalance = (_controllerContract, _user) => {
+export const fetchGasBalance = async (_controllerContract, _user) => {
     try {
-        const call = await ctr.userGasAmounts(_user)
+        const call = await _controllerContract.userGasAmounts(_user)
         const amount = ethers.utils.formatUnits(call, 18)
+        console.log("GAS AMOUNT")
+        console.log(amount)
         return amount
     } catch (err) {console.log(err)}
 }

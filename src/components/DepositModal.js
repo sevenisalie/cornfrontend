@@ -9,14 +9,16 @@ import { addresses } from "../config/addresses";
 import { POOLS } from '../config/pools';
 import TOKENLIST from "../config/TOKENLIST.json"
 
-import {writeContract, userStake, toFixed} from "../utils/nft";
 import {TokenButton} from "../pages/nftgallery/components/TokenSelector"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {Container, Card, Modal} from "react-bootstrap"
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
+import {FaGasPump} from "react-icons/fa"
 
 import useFetchGasBalance from '../hooks/useFetchGasBalance';
+import useFetchMaticBalance from "../hooks/useFetchMaticBalance"
+import {writeContract, userStake, toFixed} from "../utils/nft";
 
 
 const EntryContainer = styled.div`
@@ -51,6 +53,10 @@ const TitleText = styled.h3`
     font-size: 1.3em;
     color: #fbdb37 !important;
     align-self: center;
+
+    @media (max-width: 439px) {
+        display: none;
+    }
 `
 
 
@@ -112,29 +118,20 @@ const HeaderButtonSecondary = styled.button`
 `
 
 const ModalContainer = styled(Container)`
-    display: grid;
-    z-index: 9999;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    position: relative;
-    height: auto;
-    width: 100%;
-    padding: 0;
-    max-width: 480px;
-
+   
 `
 const ModalCard = styled(Card)`
     display: flex;
     flex-direction: column;
-    padding: 0;
+    padding: 0.3em;
     border-radius: 12px;
     position: relative;
     max-width: 480px;
     height: auto;
     width: 100%;
-    backdrop-filter: blur(12px) saturate(189%);
-    -webkit-backdrop-filter: blur(12px) saturate(189%);
-    background-color: rgba(29, 30, 32, 0.88);
+    backdrop-filter: blur(2px) saturate(189%);
+    -webkit-backdrop-filter: blur(2px) saturate(189%);
+    background-color: rgba(29, 30, 32, 0.99);
     border: 1px solid rgba(255, 255, 255, 0.225);
     box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
     border-radius: 24px;
@@ -155,6 +152,9 @@ const TokenLink = styled.a`
       cursor: pointer;
       text-decoration: none;
     }
+`
+const MaticButton = styled(TokenButton)`
+ 
 `
 const TokenInput = styled.input`
   
@@ -200,12 +200,86 @@ const DepositButton = styled(HeaderButtonSecondary)`
 
     &:disabled {
         background: transparent;
-        border-color: #ffc67a;
+        border-color: rgba(251, 219, 55, 0.3);
         border-width: 3px;
-        color: #ffc67a;
+        color: rgba(251, 219, 55, 0.3);
         font-size: 20px;
         font-weight: 800;
     }
+`
+const WalletIcon = styled(FaWallet)`
+    @media (max-width: 400px) {
+        font-size: 0.8em !important;
+    }
+`
+const GasIcon = styled(FaGasPump)`
+    @media (max-width: 400px) {
+        font-size: 0.8em !important;
+    }
+`
+const WalletText = styled.p`
+    font-size: 1.1em;
+    align-self: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    @media (max-width: 400px) {
+        font-size: 0.8em !important;
+    }
+`
+const MaxButton = styled(DepositButton)`
+    @media (max-width: 400px) {
+        font-size: 0.42em !important;
+        margin-left: 1.3em !important;
+        margin-right: none !important;
+
+    }
+`
+const WalletButton = styled.button`
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    transition: transform 450ms ease 0s;
+    transform: perspective(1px) translateZ(0px);
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+
+    color: rgb(255, 255, 255);
+    border-radius: 16px;
+
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    height: 2.8rem;
+    width: initial;
+    padding: 0px 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-right: 3px;
+
+
+    &:hover {
+        background-color: rgb(44, 47, 54);
+    }
+    &:focus {
+        background-color: rgb(33, 35, 40);
+    }
+`
+const WalletButtonContentContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
 `
 
 const DepositModal = (props) => {
@@ -213,6 +287,8 @@ const DepositModal = (props) => {
     // const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
     const {data: balanceData} = useFetchGasBalance()
+    const {data: maticBalanceData} = useFetchMaticBalance()
+
     //props
     // const bal = props.walletBalance;
     // console.log("pooooop")
@@ -247,9 +323,9 @@ const DepositModal = (props) => {
     let button;
 
     if (amount == '') {
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Deposit</DepositButton>;
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Gas Amount</DepositButton>;
       } else if (amount !== ''){
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => props.handleStakeOnClick(props.pid, amount)}>Deposit</DepositButton>;
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => props.handleStakeOnClick(props.pid, amount)}>Deposit Gas</DepositButton>;
       } else {
         button = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Deposit</DepositButton>;
       }
@@ -259,6 +335,8 @@ const DepositModal = (props) => {
         const enteredAmount = e.target.value
         if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
             setAmount(enteredAmount)
+            console.log("SLDKFJLSDKJF")
+            console.log(balanceData)
         }   
     }
     
@@ -267,33 +345,57 @@ const DepositModal = (props) => {
         <>
         { props.showDepositModal == true ? (
         <FakeBackground>
-
+         
         <ModalContainer>
             <ModalCard>
                 <ModalCardContentContainer>
                     <TitleContainer>
                     <TitleText>Deposit</TitleText>
+                    <MaticButton
+                            style={{alignSelf: "center"}}
+                            side="in" data={"0"} symbol={"MATIC"} imageurl={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"} setTokenOut={() => console.log('dud')} setTokenIn={() => console.log('dud')}>
+                            <TokenLink href={"https://polygonscan.com/"} target="_blank">
+                            </TokenLink>
+
+                            </MaticButton>
                     <ExitButton onClick={() => props.setShowDepositModal()}><FaTimesCircle/></ExitButton>
                     </TitleContainer>
 
                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+                        <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "baseline", height: "100%", width: "100%"}}>
+                            
 
-                        <TokenLink href={"https://polygonscan.com/"} target="_blank">
-                        <TokenButton
-                        style={{alignSelf: "center"}}
-                        side="in" data={"0"} symbol={"MATIC"} imageurl={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"} setTokenOut={() => console.log('dud')} setTokenIn={() => console.log('dud')}>
-                        </TokenButton>
-                        </TokenLink>
+                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}}> 
+                            <WalletButtonContentContainer>
+                            <GasIcon style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
 
-                        <p style={{fontSize: "1.4em", marginTop: "1.0em"}}>
-                        <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
-                        {balanceData.loading !== true  ? toFixed(balanceData, 6) : 'loading...' }
-                        <DepositButton
-                            style={{fontSize: "0.6em", fontWeight: "800", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
-                            onClick={() => setAmount(balanceData.string)}>Max
-                        </DepositButton>
+                                <WalletText >
+                                    {balanceData.loading !== true  ? toFixed(balanceData.gasBalance, 4) : 'loading...' }
+                                </WalletText>
 
-                        </p>
+                            </WalletButtonContentContainer>
+                            
+                        </WalletButton>
+                        </div>
+                        
+
+                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}}> 
+                            <WalletButtonContentContainer>
+                            <WalletIcon style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
+
+                                <WalletText >
+                                    {balanceData.loading !== true  ? toFixed(maticBalanceData, 4) : 'loading...' }
+                                </WalletText>
+                                <MaxButton
+                                        style={{fontSize: "0.6em", fontWeight: "800", alignSelf: "center", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
+                                        onClick={() => setAmount(maticBalanceData)}>Max
+                                </MaxButton>
+                            </WalletButtonContentContainer>
+                            
+                        </WalletButton>
+
+                        
+                        
                     </div>
                     <TokenInput 
                         placeholder = "0.00"

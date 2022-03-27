@@ -132,6 +132,7 @@ const poolReducer = (state, action) => {
 }
 
 const initialState = {
+    preLaunch: true,
     loading: true,
     masterChefLoading: true,
     poolDataLoading: true,
@@ -214,7 +215,7 @@ const initialState = {
     
 
     //if we do have pooldata then go ahead and populate a card for each pool
-    if (POOLDATA.loading == false && library) {
+    if (POOLDATA.loading == false && library ) {
         const mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
             <PoolCard data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
@@ -233,7 +234,13 @@ const initialState = {
             </>
         )
 
-    } else if (POOLDATA.loading == true || !library) {
+    //DEV NOTE:
+    // replace with 
+    // } else if (POOLDATA.loading == true || !library) {
+    //
+    //we broke this intentionally for pre-release site launch
+
+    } else if (POOLDATA.loading ==true && state.preLaunch == true ) {
         const mapPlaceHolderPoolData = POOLS.map( (pool) => (
             <PlaceholderPoolCard tokenStake={pool.tokenStakeName}/>
         ))

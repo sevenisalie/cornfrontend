@@ -7,6 +7,7 @@ import {ConnectButton} from "./ConnectButton"
 import {MultiplierBadge} from "../pages/pools/components/Badges"
 import DepositModal from "./DepositModal"
 
+
 import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
 import {GiCorn, GiHamburgerMenu} from "react-icons/gi"
 import {FaGasPump} from "react-icons/fa"
@@ -75,7 +76,7 @@ const CornBadge = styled(MultiplierBadge)`
         display: none;
       }
     
-    @media (max-width: 405px) {
+    @media (max-width: 518px) {
         display: flex;
         margin-left: 0px;
 
@@ -103,7 +104,7 @@ const LinkContainer = styled.div`
     4.7px 14.1px 27.7px -50px rgba(0, 0, 0, 0.048),
     21px 63px 124px -50px rgba(0, 0, 0, 0.08);
     
-    @media (max-width: 405px) {
+    @media (max-width: 518px) {
         display: none;
       }
       @media (max-width: 700px) {
@@ -173,6 +174,8 @@ const NavbarLink = styled.a`
 `
 const CleanLink = styled(Link)`
     text-decoration: none;
+    align-self: center;
+    
 `
 
 const DropDown = styled.button`
@@ -183,7 +186,7 @@ const DropDown = styled.button`
   
         width: auto;
       }
-    @media (max-width: 405px) {
+    @media (max-width: 518px) {
         display: flex !important;
  
         padding: 0.42em;
@@ -229,11 +232,12 @@ const Menu = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 2em;
+    row-gap: 2em;
     height: 100vh;
     width: 100%; 
     positon: relative;
     z-index: 3;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
     align-content: center;
     place-items: center;
@@ -242,11 +246,37 @@ const Menu = styled.div`
     background-color: rgba(0, 0, 0, 0.2);
     
 `
+const MobileMenuRow = styled.div`
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    width: 100%;
+    align-items: space-evenly;
+    justify-content: center;
+    align-content: baseline;
+    margin-top: 0.8em;
+`
+const MobileMenuLinkContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 80%;
+    align-items: space-evenly;
+    justify-items: center;
+    align-content: center;
+    margin-bottom: 1.4em;
+    padding: 0.8em;
+    backdrop-filter: saturate(149%);
+    -webkit-backdrop-filter:  saturate(149%);
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    border-radius: 12px;
+  
+`
 const MenuLink = styled.a`
 
-    font-size: 4.2em;
-    width: 100%;
-    height: auto;
+    font-size: 2.2em;
+    align-self: center;
     text-align: center;
     text-decoration: none;
 
@@ -260,10 +290,44 @@ const MenuLink = styled.a`
 
     
 `
+export const HeaderButtonSecondary = styled.button`
+    border-radius: 15px;
+    height: auto;
+    width: auto;
+    background: none;
+    border-color: #fce984;
+    border-width: 3px;
+    color: #FFFFE0;
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 20px;
+    align-self: start;
+    margin-right: 15px;
+    border-style: solid;
+
+    &:hover {
+        background: #fbdb37;
+        border-color: #dfbb05;
+        border-width: 3px;
+        color: #dfbb05;
+        font-size: 20px;
+        font-weight: 800;
+    }
+
+    &:focus {
+        background: #fbdb37;
+        border-color: #dfbb05;
+        border-width: 3px;
+        color: #dfbb05;
+        font-size: 20px;
+        font-weight: 800;
+    }
+`
 
 
 const CornIcon = styled(GiCorn)`
     display: none;
+    align-self: center;
     @media (max-width: 768px) {
         display: block !important;
         margin-left: 0.1em;
@@ -277,9 +341,9 @@ const CornIcon = styled(GiCorn)`
         display: block !important;
         margin-left: 0.3em;
         margin-right: 0.1em;
-        font-size: 1.8em;
+        font-size: 2.1em;
         color: #fbdb37;
-
+        margin-top: 0.35em;
       }
 `
 
@@ -289,12 +353,15 @@ const CornIcon = styled(GiCorn)`
 
 const GasContainer = styled(LinkContainer)`
     max-width: 11em;
-
     padding: 0px;
     justify-content: space-between;
-    @media (max-width: 690px) {
-        display: none;
 
+`
+const MobileGasContainer = styled(GasContainer)`
+      display: flex;
+      margin-top: 0.9em;
+      @media (min-width: 500px) {
+          display: none;
       }
 `
 const GasTextContainer = styled.div`
@@ -357,23 +424,7 @@ export const MobileDropDown = (props) => {
     )
 }
 
-const ModalCard = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    border-radius: 12px;
-    position: relative;
-    max-width: 480px;
-    height: auto;
-    width: 100%;
-    backdrop-filter: blur(12px) saturate(189%);
-    -webkit-backdrop-filter: blur(12px) saturate(189%);
-    background-color: rgba(29, 30, 32, 0.88);
-    border: 1px solid rgba(255, 255, 255, 0.225);
-    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
-    border-radius: 24px;
-    margin-top: 1rem;
-`
+
 export const GasForm = () => {
     return (
         <>
@@ -383,23 +434,78 @@ export const GasForm = () => {
 }
 
 
+const GasTank = (props) => {
+    const { data } = useFetchMaticBalance()
+    const [toggleGas, setToggleGas] = useState(false)
+
+    const gasToggle = () => {
+        setToggleGas( prev => !prev)
+    }
+
+
+
+    return (
+        <>
+        <GasContainer style={props.breakpoint}>
+            <GasTextContainer>
+                <GasText>{data}</GasText>
+                
+            </GasTextContainer>
+            <GasButtonContainer>
+                <GasButton onClick={gasToggle}>
+                    <FaGasPump style={{color: "#fbdb37", fontSize: "1.2em"}} />
+                </GasButton>
+            </GasButtonContainer>
+        </GasContainer> 
+        <DepositModal showDepositModal={toggleGas} setShowDepositModal={gasToggle} />
+           
+        </>
+    )
+}
+
+const MobileGasTank = (props) => {
+    const { data } = useFetchMaticBalance()
+    const [toggleGas, setToggleGas] = useState(false)
+
+    const gasToggle = () => {
+        setToggleGas( prev => !prev)
+    }
+
+
+
+    return (
+        <>
+        <MobileGasContainer style={props.breakpoint}>
+            <GasTextContainer>
+                <GasText>{data}</GasText>
+                
+            </GasTextContainer>
+            <GasButtonContainer>
+                <GasButton onClick={gasToggle}>
+                    <FaGasPump style={{color: "#fbdb37", fontSize: "1.2em"}} />
+                </GasButton>
+            </GasButtonContainer>
+        </MobileGasContainer> 
+        <DepositModal showDepositModal={toggleGas} setShowDepositModal={gasToggle} />
+           
+        </>
+    )
+}
+
+
 export const NavigationBar = () => {
     const {active, account, library, connector} = useWeb3React();
-    const { data } = useFetchMaticBalance()
     const [toggleNav, setToggleNav] = useState(false)
-    const [toggleGas, setToggleGas] = useState(false)
 
 
     const toggle = () => {
         setToggleNav( prev => !prev)
     }
 
-    const gasToggle = () => {
-        setToggleGas( prev => !prev)
-    }
 
     return (
         <>
+        
 
            
 
@@ -409,19 +515,31 @@ export const NavigationBar = () => {
                 
             <NavMenuOverlay>
                 <Menu>
-                <CornIcon/>
+                    <MobileMenuRow>
+                        <CornIcon/>
+                        <MobileGasTank />
+                    </MobileMenuRow>
+
+                    <MobileMenuLinkContainer>
                     <CleanLink onClick={toggle} to="/">
-                        <MenuLink href="#">Home</MenuLink>
-                    </CleanLink>
-                    <CleanLink onClick={toggle} to="/vaults">
-                        <MenuLink href="#">Vaults</MenuLink>
-                    </CleanLink>
-                    <CleanLink onClick={toggle} to="/pools">
-                        <MenuLink href="#">Pools</MenuLink>
-                    </CleanLink>
-                    <CleanLink onClick={toggle} to="/nfts">
-                        <MenuLink href="#">Trade</MenuLink>
-                    </CleanLink>
+                            <MenuLink href="#">Home</MenuLink>
+                        </CleanLink>
+                        <CleanLink onClick={toggle} to="/vaults">
+                            <MenuLink href="#">Vaults</MenuLink>
+                        </CleanLink>
+                        <CleanLink onClick={toggle} to="/pools">
+                            <MenuLink href="#">Pools</MenuLink>
+                        </CleanLink>
+                        <CleanLink onClick={toggle} to="/nfts">
+                            <MenuLink href="#">Trade</MenuLink>
+                        </CleanLink>
+                    </MobileMenuLinkContainer>
+
+                    <MobileMenuRow>
+                    <HeaderButtonSecondary>Medium</HeaderButtonSecondary>
+                    <HeaderButtonSecondary>Twitter</HeaderButtonSecondary>
+                    <HeaderButtonSecondary>Github</HeaderButtonSecondary>
+                    </MobileMenuRow>
                 </Menu>                
             </NavMenuOverlay>
                 
@@ -456,23 +574,11 @@ export const NavigationBar = () => {
                         </LinkContainer>
 
                 
-                            <GasContainer>
-                                <GasTextContainer>
-                                    <GasText>{data}</GasText>
-                                   
-                                </GasTextContainer>
-                                <GasButtonContainer>
-                                    <GasButton onClick={gasToggle}>
-                                        <FaGasPump style={{color: "#fbdb37", fontSize: "1.2em"}} />
-                                    </GasButton>
-                                </GasButtonContainer>
-                            </GasContainer>
-                     
+                        <GasTank />
                         <ConnectButton ></ConnectButton>
                 </NavContainer>
             </Nav>
             
-            <DepositModal showDepositModal={toggleGas} setShowDepositModal={gasToggle} />
         </>
     )
 }

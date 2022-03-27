@@ -1,6 +1,5 @@
 import React, {useEffect, useState, useReducer} from 'react'
 import { useWeb3React } from "@web3-react/core";
-CONTROLLERCONTRACT
 //non hook shit
 import { getUserTokenBalance } from '../utils/fetchUserData';
 import { POOLS } from '../config/pools';
@@ -23,6 +22,13 @@ const balanceReducer = (state, action) => {
                 loading: false
             }
         }
+        case 'gasBalance': {
+            return {
+                ...state,
+                gasBalance: action.payload,
+                loading: false
+            }
+        }
         case 'loading': {
             return {
                 ...state,
@@ -39,7 +45,8 @@ const balanceReducer = (state, action) => {
         case 'setController': {
             return {
                 ...state,
-                setController: action.payload
+                setController: action.payload,
+               
             }
         }
 
@@ -78,6 +85,7 @@ const useFetchBalances = () => {
                 CONTROLLERCONTRACT.abi,
             )
             .then( value => {
+
                 dispatch({ type: 'setController', payload: value})
       
                 
@@ -89,17 +97,14 @@ const useFetchBalances = () => {
     }, [active, account])
 
 
-    useEffect( () => {
+    useEffect( async () => {
         if (account && state.setController !== '') {
-            const gasAmount = fetchGasBalance(
+            const gasAmount = await fetchGasBalance(
                 state.setController,
                 account
             )
-            .then( value => {
-                dispatch({ type: 'gasBalance', payload: value})
-      
-                
-            })
+            dispatch({ type: 'gasBalance', payload: gasAmount})
+
             
         } else {
             console.log("setting gas failed, who knows why. check if contract loaded")
@@ -107,8 +112,8 @@ const useFetchBalances = () => {
     }, [active, account, state.setController])
 
 
-    
-
+    // console.log("GAS STATE")
+    // console.log(state)
 
     return {
         data: state,
