@@ -2,15 +2,17 @@ import React, {useState} from "react";
 import styled from "styled-components";
 import {Link, NavLink} from 'react-router-dom';
 import {useWeb3React} from "@web3-react/core"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {ConnectButton} from "./ConnectButton"
 import {MultiplierBadge} from "../pages/pools/components/Badges"
 import DepositModal from "./DepositModal"
 
 
-import {AiFillExclamationCircle, AiFillCheckCircle} from "react-icons/ai"
+import {AiOutlineSwap} from "react-icons/ai"
 import {GiCorn, GiHamburgerMenu} from "react-icons/gi"
-import {FaGasPump} from "react-icons/fa"
+import {FaGasPump, FaHome, FaTicketAlt, FaHandHoldingWater} from "react-icons/fa"
 
 
 
@@ -249,12 +251,12 @@ const Menu = styled.div`
 const MobileMenuRow = styled.div`
     display: flex;
     flex-direction: row;
-    height: auto;
+    height: 100%;
     width: 100%;
-    align-items: space-evenly;
-    justify-content: center;
-    align-content: baseline;
-    margin-top: 0.8em;
+    align-items: center;
+    justify-content: space-evenly;
+    align-content: center;
+   
 `
 const MobileMenuLinkContainer = styled.div`
     display: flex;
@@ -273,9 +275,25 @@ const MobileMenuLinkContainer = styled.div`
     border-radius: 12px;
   
 `
+const MobileMenuGasContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 0.8em;
+    backdrop-filter: saturate(149%);
+    -webkit-backdrop-filter:  saturate(149%);
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    border-radius: 12px;
+`
 const MenuLink = styled.a`
 
-    font-size: 2.2em;
+    font-size: 1.4em;
     align-self: center;
     text-align: center;
     text-decoration: none;
@@ -360,7 +378,7 @@ const GasContainer = styled(LinkContainer)`
 const MobileGasContainer = styled(GasContainer)`
       display: flex;
       margin-top: 0.9em;
-      @media (min-width: 500px) {
+      @media (min-width: 520px) {
           display: none;
       }
 `
@@ -502,6 +520,38 @@ export const NavigationBar = () => {
         setToggleNav( prev => !prev)
     }
 
+    const goodToast = (msg) => {
+        const ToastStyle = {
+            borderRadius: "50px",
+            backdropFilter: "blur(12px) saturate(149%)",
+            backgroundColor: "rgba(29, 30, 32, 0.57)",
+            border: "2px solid rgba(251, 219, 55, 0.95)",
+            padding: "0.42em",
+            
+        }
+
+        const id = toast(`${msg}`, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            style: ToastStyle
+        })
+        toast.update(id, { render: `${msg}`, hideProgressBar: true, closeOnClick: true, position: "bottom-right", autoClose: 5000, className: 'rotateY animated', draggable: true})
+    }
+
+    const badToast = (msg) => {
+        const ToastStyle = {
+            borderRadius: "50px",
+            backdropFilter: "blur(12px) saturate(149%)",
+            backgroundColor: "rgba(29, 30, 32, 0.57)",
+            border: "2px solid rgba(251, 219, 55, 0.95)",
+            padding: "0.42em",
+        }
+
+        const id = toast(`${msg}`, {
+            style: ToastStyle,
+            position: toast.POSITION.BOTTOM_RIGHT,
+        })
+        toast.update(id, { render: `${msg}`, closeOnClick: true, hideProgressBar: true, position: "bottom-right", autoClose: 5000, className: 'rotateY animated', draggable: true })
+    }
 
     return (
         <>
@@ -516,23 +566,39 @@ export const NavigationBar = () => {
             <NavMenuOverlay>
                 <Menu>
                     <MobileMenuRow>
-                        <CornIcon/>
-                        <MobileGasTank />
+                        <MobileMenuGasContainer>
+                            <CornIcon/>
+                            <MobileGasTank />
+                        </MobileMenuGasContainer>
+
                     </MobileMenuRow>
 
                     <MobileMenuLinkContainer>
-                    <CleanLink onClick={toggle} to="/">
-                            <MenuLink href="#">Home</MenuLink>
-                        </CleanLink>
-                        <CleanLink onClick={toggle} to="/vaults">
-                            <MenuLink href="#">Vaults</MenuLink>
-                        </CleanLink>
-                        <CleanLink onClick={toggle} to="/pools">
-                            <MenuLink href="#">Pools</MenuLink>
-                        </CleanLink>
-                        <CleanLink onClick={toggle} to="/nfts">
-                            <MenuLink href="#">Trade</MenuLink>
-                        </CleanLink>
+                        <MobileMenuRow style={{borderBottom: "1px solid rgba(244, 244, 244, 0.32", margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
+                            <FaHome style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}}/>
+                            <CleanLink onClick={toggle} to="/">
+                                <MenuLink href="#">Home</MenuLink>
+                            </CleanLink>
+                        </MobileMenuRow>
+                        <MobileMenuRow style={{borderBottom: "1px solid rgba(244, 244, 244, 0.32", margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
+                            <FaTicketAlt style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}} />
+                            <CleanLink to="#">
+                                <MenuLink  onClick={() => goodToast("Coming Soon")} href="#">Orders</MenuLink>
+                            </CleanLink>
+                        </MobileMenuRow>
+                        <MobileMenuRow style={{borderBottom: "1px solid rgba(244, 244, 244, 0.32", margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
+                            <FaHandHoldingWater style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em", marginBottom: "0.1em"}} />
+                            <CleanLink onClick={toggle} to="/pools">
+                                <MenuLink href="#">Pools</MenuLink>
+                            </CleanLink>
+                        </MobileMenuRow>
+                        <MobileMenuRow style={{margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
+                            <AiOutlineSwap style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}} />
+                            <CleanLink onClick={toggle} to="/nfts">
+                                <MenuLink href="#">Trade</MenuLink>
+                            </CleanLink>
+                        </MobileMenuRow>
+
                     </MobileMenuLinkContainer>
 
                     <MobileMenuRow>
@@ -562,8 +628,8 @@ export const NavigationBar = () => {
                             <CleanLink to="/">
                                 <NavbarLink href="#">Home</NavbarLink>
                             </CleanLink>
-                            <CleanLink to="/vaults">
-                                <NavbarLink href="#">Vaults</NavbarLink>
+                            <CleanLink to="#">
+                                <NavbarLink href="#">Orders</NavbarLink>
                             </CleanLink>
                             <CleanLink to="/pools">
                                 <NavbarLink href="#">Pools</NavbarLink>

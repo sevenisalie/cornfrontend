@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import {styled} from "styled-components";
 import GlobalStyle from "./theme/GlobalStyle";
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //pages
 import Home from "./pages/vaults";
 import Vaults from "./pages/myvaults";
@@ -33,6 +34,8 @@ function App() {
       
     </Router>
     <Footer />
+ 
+
     </>
   );
 }

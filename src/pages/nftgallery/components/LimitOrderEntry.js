@@ -450,7 +450,9 @@ const SubmitSection = (props) => {
         <>
             <TitleContainer>
       
-                <SubmitButton onClick={() => props.mintFunction()}>{props.state.setSubmitButtonText}</SubmitButton>
+                {/* <SubmitButton onClick={() => props.mintFunction()}>{props.state.setSubmitButtonText}</SubmitButton> */}
+                <SubmitButton >{props.state.setSubmitButtonText}</SubmitButton>
+
             </TitleContainer>
         </>
     )
@@ -626,7 +628,7 @@ const initialState = {
     setBalanceOut: '',
     marketPrice: '',
     bothMarketPrices: '',
-    setSubmitButtonText: 'Select a Token',
+    setSubmitButtonText: 'Paused for Development',
 }
 
 
@@ -747,7 +749,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
 
     const setAmountPrice = (_price) => {
         dispatch({ type: 'setAmountPrice', payload: _price })
-        setSubmitButtonText('Enter Limit Price')
+        setSubmitButtonText('Paused for Development')
     }
 
     const setRealLimitPrice = (_price) => {
@@ -758,6 +760,8 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         console.log(realPrice)
         dispatch({ type: "setRealLimitPrice", payload: realPrice})
     }
+
+
 
     //get price from router
     useEffect( async () => {
@@ -814,6 +818,10 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         if (state.setAmountIn == '' && state.setLimitPrice !== '') {
             setAmountOut('')
         }
+        if (state.setAmountOut == "NaN") {
+            setAmountOut('')
+        }
+
     }, [state.side])
 
     //then the reverse
@@ -837,6 +845,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
             setLimitPrice('')
             setRealLimitPrice('')
         }
+
     }, [state.side, state.setAmountOut])
     //change price then change amount out
     useEffect(() => {
@@ -853,6 +862,9 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         if (state.sell == false) {
             const amountOutCalc = parseFloat(state.setAmountIn) / parseFloat(state.setLimitPrice)
             setAmountOut(amountOutCalc.toString())
+        }
+        if (state.setAmountOut == "NaN") {
+            setAmountOut('')
         }
     }, [state.setLimitPrice])
 
@@ -882,7 +894,16 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         if (state.setAmountIn == '' && state.marketPrice == '') {
             setAmountPrice('')
         }
+        if (state.setAmountOut == "NaN") {
+            setAmountOut('')
+        }
+
     }, [state.setAmountIn, state.side, state.setTokenIn, state.setTokenOut])
+
+    useEffect(() => {
+            setAmountOut('')
+     
+    }, [])
 
     //create trade pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract
         const handleMintLimit = async () => {
@@ -920,7 +941,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                                             ?
                                             state.orderType.name
                                             :
-                                            `Select Order Type`
+                                            `Order Type`
                                             }
                                             <BiDownArrow  style={{marginLeft: "0.2em"}}/>
                                         </OrderSelectorButton>
@@ -961,8 +982,9 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                         <PriceDisplay state={state} clearOrderEntry={clearOrderEntry} />
 
 
-                        <SubmitSection state={state} mintFunction={handleMintLimit} />
-
+                        {/* <SubmitSection state={state} mintFunction={handleMintLimit} /> */}
+                        <SubmitSection state={state}  />
+                        
                     </FormContainer>
                 </CardContentContainer>
             </EntryContainer>
@@ -1075,6 +1097,10 @@ const AmountEntry = (props) => {
         e.preventDefault()
 
         const enteredAmount = e.target.value
+
+        if (enteredAmount == "NaN") {
+            props.setAmountOut('')
+        }
 
         if (props.side == 'in') {
             if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {

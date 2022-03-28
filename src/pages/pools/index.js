@@ -213,9 +213,12 @@ const initialState = {
     
 
     
-
-    //if we do have pooldata then go ahead and populate a card for each pool
-    if (POOLDATA.loading == false && library ) {
+    //DEV NOTE:
+    // replace with 
+    // if (POOLDATA.loading == false && library ) {
+    //
+    //we broke this intentionally for pre-release site launch
+    if (state.preLaunch == false ) {
         const mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
             <PoolCard data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
@@ -240,9 +243,9 @@ const initialState = {
     //
     //we broke this intentionally for pre-release site launch
 
-    } else if (POOLDATA.loading ==true && state.preLaunch == true ) {
+    } else if (state.preLaunch == true ) {
         const mapPlaceHolderPoolData = POOLS.map( (pool) => (
-            <PlaceholderPoolCard tokenStake={pool.tokenStakeName}/>
+            <PlaceholderPoolCard data={pool} tokenStake={pool.tokenStakeName}/>
         ))
         return (
             <>

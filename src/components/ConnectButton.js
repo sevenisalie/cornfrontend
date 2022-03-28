@@ -64,15 +64,36 @@ export const ConnectButton = () => {
     const shortie = TruncateAddress(account);
 
     const goodToast = (msg) => {
-        toast.success(`${msg}`, {
-            position: toast.POSITION.BOTTOM_RIGHT
+        const ToastStyle = {
+            borderRadius: "50px",
+            backdropFilter: "blur(12px) saturate(149%)",
+            backgroundColor: "rgba(29, 30, 32, 0.57)",
+            border: "2px solid rgba(251, 219, 55, 0.95)",
+            padding: "0.42em",
+            
+        }
+
+        const id = toast(`${msg}`, {
+            position: toast.POSITION.BOTTOM_RIGHT,
+            style: ToastStyle
         })
+        toast.update(id, { render: `${msg}`, hideProgressBar: true, closeOnClick: true, position: "bottom-right", autoClose: 5000, className: 'rotateY animated', draggable: true})
     }
 
     const badToast = (msg) => {
-        toast.warning(`${msg}`, {
-            position: toast.POSITION.BOTTOM_RIGHT
+        const ToastStyle = {
+            borderRadius: "50px",
+            backdropFilter: "blur(12px) saturate(149%)",
+            backgroundColor: "rgba(29, 30, 32, 0.57)",
+            border: "2px solid rgba(251, 219, 55, 0.95)",
+            padding: "0.42em",
+        }
+
+        const id = toast(`${msg}`, {
+            style: ToastStyle,
+            position: toast.POSITION.BOTTOM_RIGHT,
         })
+        toast.update(id, { render: `${msg}`, closeOnClick: true, hideProgressBar: true, position: "bottom-right", autoClose: 5000, className: 'rotateY animated', draggable: true })
     }
 
     useEffect( async () => {
@@ -100,6 +121,9 @@ export const ConnectButton = () => {
             badToast(`Disconnected from ${leavingAccount}`)
         } catch (err) {console.log(err)}
     }
+
+
+
     return (
         <>
         
@@ -107,12 +131,10 @@ export const ConnectButton = () => {
         { !active ? 
         <>
         <TheButton onClick={() => handleConnect(injected)} >Connect</TheButton>
-        <ToastContainer></ToastContainer>
         </>
         :
         <>
         <TheButton library={library} onClick={() => handleDisconnect()} >{shortie}</TheButton>
-        <ToastContainer></ToastContainer>
         </>
         }
         </>
