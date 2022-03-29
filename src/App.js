@@ -18,7 +18,7 @@ function App() {
   return (
     <>
     <Router>
-      <NavigationBar/>
+      <NavigationBar basename="/" />
 
         <Routes>
 
