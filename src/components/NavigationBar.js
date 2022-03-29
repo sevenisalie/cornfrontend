@@ -261,11 +261,14 @@ const MobileMenuRow = styled.div`
 const MobileMenuLinkContainer = styled.div`
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 90;
     height: auto;
     width: 80%;
     align-items: space-evenly;
     justify-items: center;
     align-content: center;
+    align-self: center;
     margin-bottom: 1.4em;
     padding: 0.8em;
     backdrop-filter: saturate(149%);
@@ -282,6 +285,8 @@ const MobileMenuGasContainer = styled.div`
     justify-items: center;
     align-content: center;
     justify-content: center;
+    position: relative;
+    z-index: 999;
     width: auto;
     height: auto;
     padding: 0.8em;
@@ -464,6 +469,8 @@ const GasTank = (props) => {
 
     return (
         <>
+        <DepositModal showDepositModal={toggleGas} setShowDepositModal={gasToggle} />
+
         <GasContainer style={props.breakpoint}>
             <GasTextContainer>
                 <GasText>{data}</GasText>
@@ -474,8 +481,8 @@ const GasTank = (props) => {
                     <FaGasPump style={{color: "#fbdb37", fontSize: "1.2em"}} />
                 </GasButton>
             </GasButtonContainer>
+
         </GasContainer> 
-        <DepositModal showDepositModal={toggleGas} setShowDepositModal={gasToggle} />
            
         </>
     )
@@ -594,7 +601,7 @@ export const NavigationBar = () => {
                         </MobileMenuRow>
                         <MobileMenuRow style={{margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
                             <AiOutlineSwap style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}} />
-                            <CleanLink onClick={toggle} to="/nfts">
+                            <CleanLink onClick={toggle} to="/trade">
                                 <MenuLink href="#">Trade</MenuLink>
                             </CleanLink>
                         </MobileMenuRow>
@@ -602,9 +609,9 @@ export const NavigationBar = () => {
                     </MobileMenuLinkContainer>
 
                     <MobileMenuRow>
-                    <HeaderButtonSecondary>Medium</HeaderButtonSecondary>
-                    <HeaderButtonSecondary>Twitter</HeaderButtonSecondary>
-                    <HeaderButtonSecondary>Github</HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://medium.com/@cornfinance" target="_blank">Medium</HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank">Twitter</HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank">Github</HeaderButtonSecondary>
                     </MobileMenuRow>
                 </Menu>                
             </NavMenuOverlay>
@@ -634,7 +641,7 @@ export const NavigationBar = () => {
                             <CleanLink to="/pools">
                                 <NavbarLink href="#">Pools</NavbarLink>
                             </CleanLink>
-                            <CleanLink to="/nfts">
+                            <CleanLink to="/trade">
                                 <NavbarLink href="#">Trade</NavbarLink>
                             </CleanLink>
                         </LinkContainer>

@@ -25,6 +25,7 @@ const EntryContainer = styled.div`
     position: relative;
     max-width: 480px;
     width: 100%;
+
     backdrop-filter: blur(12px) saturate(149%);
     -webkit-backdrop-filter: blur(0px) saturate(149%);
     background-color: rgba(29, 30, 32, 0.57);
@@ -75,7 +76,7 @@ const ExitButton = styled.button`
 const FakeBackground = styled.div`
     width: 100vw;
     height: 100vh;
-    z-index: 9998;
+    z-index: 9999;
     backdrop-filter: blur(12px);
     background: #transparent !important;
     position: fixed;
@@ -118,7 +119,13 @@ const HeaderButtonSecondary = styled.button`
 `
 
 const ModalContainer = styled(Container)`
-   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    justify-content: flex-start;
+    align-content: center;
 `
 const ModalCard = styled(Card)`
     display: flex;
@@ -136,6 +143,7 @@ const ModalCard = styled(Card)`
     box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
     border-radius: 24px;
     margin-top: 1rem;
+    align-self: center;
 `
 const ModalCardContentContainer = styled(Container)`
     display: flex;
@@ -143,6 +151,7 @@ const ModalCardContentContainer = styled(Container)`
     margin-top: 1em;
     justify-content: center;
     align-items: center;
+    align-self: center;
 `
 const TokenLink = styled.a`
     text-decoration: none;

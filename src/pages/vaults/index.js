@@ -457,7 +457,7 @@ export const Home = () => {
                     <BigHeading>We Need a Bigger Ship Where We're Going. </BigHeading>
                     <LittleHeading>Next Generation DeFi Trading Protocol. Automate ERC20 Trading with Algo-NFTs</LittleHeading>
                     <StupidSpan>
-                    <HeaderButtonSecondary href="/nfts">Trade <BsArrowUpRight /></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="/trade">Trade <BsArrowUpRight /></HeaderButtonSecondary>
                     <HeaderButtonSecondary href="https://medium.com/@cornfinance" target="_blank" >Learn</HeaderButtonSecondary>
                     </StupidSpan>
                 </HeaderContentContainer>

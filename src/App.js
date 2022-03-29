@@ -28,7 +28,7 @@ function App() {
 
           <Route path="/pools" element={<Pools/>} />
 
-          <Route path="/nfts" element={<NFT/>} />
+          <Route path="/trade" element={<NFT/>} />
 
         </Routes>
       
