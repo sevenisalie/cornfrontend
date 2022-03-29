@@ -21,8 +21,6 @@ const getLibrary = (provider, connector)  => {
 
 ReactDOM.render(
   <React.StrictMode>
-      <ToastContainer></ToastContainer>
-
     <Web3ReactProvider getLibrary={getLibrary}>
     <GlobalStyle />
     <RefreshContextProvider>
