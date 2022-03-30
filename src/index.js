@@ -23,9 +23,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
     <GlobalStyle />
-    <RefreshContextProvider>
-    <App />
-    </RefreshContextProvider>
+      <RefreshContextProvider>
+        <App />
+      </RefreshContextProvider>
     </Web3ReactProvider>
   </React.StrictMode>,
   document.getElementById('root')
