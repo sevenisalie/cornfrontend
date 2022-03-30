@@ -589,7 +589,7 @@ export const NavigationBar = () => {
                         </MobileMenuRow>
                         <MobileMenuRow style={{borderBottom: "1px solid rgba(244, 244, 244, 0.32", margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
                             <FaTicketAlt style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}} />
-                            <CleanLink to="#">
+                            <CleanLink to="/">
                                 <MenuLink  onClick={() => goodToast("Coming Soon")} href="#">Orders</MenuLink>
                             </CleanLink>
                         </MobileMenuRow>

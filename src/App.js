@@ -17,8 +17,8 @@ import {Footer} from "./components/Footer"
 function App() {
   return (
     <>
-    <Router>
-      <NavigationBar  />
+    <Router  basename="/" >
+      <NavigationBar />
 
         <Routes>
 
