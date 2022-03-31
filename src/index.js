@@ -24,6 +24,7 @@ ReactDOM.render(
     <Web3ReactProvider getLibrary={getLibrary}>
     <GlobalStyle />
       <RefreshContextProvider>
+        <ToastContainer></ToastContainer>
         <App />
       </RefreshContextProvider>
     </Web3ReactProvider>

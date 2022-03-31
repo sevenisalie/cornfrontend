@@ -243,9 +243,12 @@ const Menu = styled.div`
     align-items: center;
     align-content: center;
     place-items: center;
-    backdrop-filter: blur(12px) saturate(149%);
-    -webkit-backdrop-filter: blur(0px) saturate(149%);
-    background-color: rgba(0, 0, 0, 0.2);
+        @media (max-width: 768px) {
+        background: linear-gradient(232deg, rgba(22,19,21,1) 17%, rgba(29,30,32,1) 82%) no-repeat !important; 
+    }
+    // backdrop-filter: blur(12px) saturate(149%);
+    // -webkit-backdrop-filter: blur(0px) saturate(149%);
+    // background-color: rgba(0, 0, 0, 0.2);
     
 `
 const MobileMenuRow = styled.div`
@@ -290,11 +293,12 @@ const MobileMenuGasContainer = styled.div`
     width: auto;
     height: auto;
     padding: 0.8em;
+    margin-top: 1.4em;
     backdrop-filter: saturate(149%);
     -webkit-backdrop-filter:  saturate(149%);
     background-color: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.125);
-    border-radius: 12px;
+    border-radius: 16px;
 `
 const MenuLink = styled.a`
 
@@ -625,7 +629,7 @@ export const NavigationBar = () => {
 
                    
                             <CornBadge >
-                                <p style={{marginBottom: "0px", fontWeight: "800", fontStyle: "oblique 10deg"}}>Corn Finance</p>
+                                <p style={{marginBottom: "0px", fontWeight: "800", fontStyle: "italic"}}>Corn Finance</p>
                             </CornBadge>
                         
 

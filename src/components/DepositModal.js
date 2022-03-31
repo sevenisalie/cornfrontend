@@ -78,11 +78,16 @@ const FakeBackground = styled.div`
     height: 100vh;
     z-index: 9999;
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     background: #transparent !important;
     position: fixed;
     display: flex;
     top: -1px;
     padding: 60px;
+
+    @media (max-width: 768px) {
+        background: linear-gradient(232deg, rgba(57,60,63,1) 17%, rgba(29,30,32,1) 82%) no-repeat !important; 
+    }
 `
 const HeaderButtonSecondary = styled.button`
     border-radius: 15px;
