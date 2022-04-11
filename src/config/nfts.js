@@ -1,27 +1,32 @@
 import {addresses} from "./addresses"
 
-import stopcard from "../assets/images/stopcard.png"
+import PopcornPuke from "../assets/images/PopcornPuke.png"
 
 export const NFTS = [
     {
-        name: "Stop",
-        address: addresses.vaults.stopVault,
-        commissions: "0.2%",
-        image: stopcard,
-        id: 1
-    },
-    {
-        name: "Limit",
-        address: addresses.vaults.limitVault,
-        commissions: "0.2%",
-        image: stopcard,
+        name: "Popcorn Puke",
+        address: addresses.nfts[0].address,
+        fee: "42%",
+        price: "1.00",
+        imageurl: `assets/images/PopcornPuke.png`,
         id: 0
     },
     {
-        name: "Accumulator/Distributor",
-        address: addresses.vaults.accDistVault,
-        commissions: "0.2%",
-        image: stopcard,
+        name: "I Want to Believe ",
+        address: addresses.nfts[1].address,
+        fee: "42%",
+        price: "1.00",
+        imageurl: `assets/images/IWantToBelieve.png`,
+        id: 1
+    },
+    {
+        name: "Enjoy the Show",
+        address: addresses.nfts[2].address,
+        fee: "42%",
+        price: "1.00",
+        imageurl: `assets/images/EnjoyTheShow.png`,
         id: 2
     },
 ]
+
+export default NFTS

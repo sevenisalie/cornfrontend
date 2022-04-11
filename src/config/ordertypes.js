@@ -1,6 +1,6 @@
 import {ERC20Abi} from "./abis"
 import {addresses} from "./addresses"
-import ADDRESSES from "../config/build/map.json"
+import ADDRESSES from "../config/build/deployments/map.json"
 
 export const ORDERTYPES = [
     {   

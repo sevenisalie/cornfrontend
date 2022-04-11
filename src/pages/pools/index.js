@@ -23,6 +23,7 @@ import PoolCard from "./components/PoolCard";
 import PlaceholderPoolCard from "./components/PlaceholderPoolCard"
 import PoolPageHeading from "./components/PoolPageHeading"
 import BackdropFilter from "react-backdrop-filter";
+import PoolFilter from "./components/PoolFilter"
 
 
 
@@ -115,6 +116,24 @@ const poolReducer = (state, action) => {
                 userBalances: action.payload
             }
         }
+        case 'sortAPY': {
+            return {
+                ...state,
+                sortAPY: action.payload
+            }
+        }
+        case 'sortTVL': {
+            return {
+                ...state,
+                sortTVL: action.payload
+            }
+        }
+        case 'sortStaked': {
+            return {
+                ...state,
+                sortStaked: action.payload
+            }
+        }
         case 'ERROR': {
             return {
                 ...state,
@@ -142,6 +161,9 @@ const initialState = {
     userBalances: [],
     allowances: [],
     masterChefContract: {},
+    sortAPY: false,
+    sortTVL: false,
+    sortStaked: false,
     signer: {},
     error: '',
 }
@@ -154,8 +176,25 @@ const initialState = {
         const [state, dispatch] = useReducer(poolReducer, initialState)
 
     
-
+    const setSortAPY = () => {
+        dispatch({ type: "sortAPY", payload: true})
+        dispatch({ type: "sortTVL", payload: false})
+        dispatch({ type: "sortStaked", payload: false})
+    }
+    const setSortTVL = () => {
+        dispatch({ type: "sortTVL", payload: true})
+        dispatch({ type: "sortAPY", payload: false})
+        dispatch({ type: "sortStaked", payload: false})
+    }
+    const setSortStaked = () => {
+        dispatch({ type: "sortStaked", payload: true})
+        dispatch({ type: "sortAPY", payload: false})
+        dispatch({ type: "sortTVL", payload: false})
+    }
     
+    useEffect(() => {
+        console.log("TESTING THIS SHIT")
+    }, [state.sortAPY, state.sortTVL, state.sortStaked])
 
     useEffect( async () => {
         if (active && library && account) {
@@ -211,22 +250,72 @@ const initialState = {
 
 
     
+    const mapPoolDataApy = () => {
+        const apyDescending = POOLDATA.allData.sort( (a, b) => 
+            
 
-    
+            parseFloat(b.APY.APY) - parseFloat(a.APY.APY)
+          
+        )
+        return apyDescending
+    }
+    const mapPoolDataTvl = () => {
+        const tvlDescending = POOLDATA.allData.sort( (a, b) => 
+            
+
+            parseFloat(b.APY.poolTVL) - parseFloat(a.APY.poolTVL)
+          
+        )
+        return tvlDescending
+    }
+    const mapPoolDataStaked = () => {
+        const stakedDescending = POOLDATA.allData.sort( (a, b) => 
+            
+
+            parseFloat(b.USER.stakedAmount) - parseFloat(a.USER.stakedAmount)
+          
+        )
+        return stakedDescending
+    }
 
     //if we do have pooldata then go ahead and populate a card for each pool
     if (POOLDATA.loading == false && library ) {
-        const mapPoolData =  POOLDATA.allData.map((pool, index) => (
+
+
+
+        let mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
             <PoolCard data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
             ));
+        if (state.sortAPY == true) {
+            const byAPY = mapPoolDataApy()
+            mapPoolData =  byAPY.map((pool, index) => (
+
+            <PoolCard data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+            ));
+        }
+        if (state.sortTVL == true) {
+            mapPoolData =  POOLDATA.allData.map((pool, index) => (
+
+            <PoolCard data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+            ));
+        }
+        if (state.sortStaked == true) {
+            mapPoolData =  POOLDATA.allData.map((pool, index) => (
+
+            <PoolCard data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+            ));
+        }
+
+
         return (
             <>
     
             <PoolPageHeading/>
 
                 
-        
+            <PoolFilter state={state} setSortAPY={setSortAPY} setSortTVL={setSortTVL} setSortStaked={setSortStaked} />
+
                 <PoolGrid >
                     {mapPoolData}
                 </PoolGrid>

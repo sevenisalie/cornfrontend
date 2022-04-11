@@ -8,6 +8,8 @@ import Home from "./pages/vaults";
 import Vaults from "./pages/myvaults";
 import NFT from "./pages/nftgallery";
 import Pools from "./pages/pools";
+import Swap from "./pages/swap"
+import NFTs from "./pages/nfts"
 import {NavigationBar} from "./components/NavigationBar";
 import {Footer} from "./components/Footer"
 
@@ -28,6 +30,10 @@ function App() {
           <Route path="/pools" element={<Pools/>} />
 
           <Route path="/nfts" element={<NFT/>} />
+
+          <Route path="/swap" element={<Swap/>} />
+
+          <Route path="/collections" element={<NFTs />} />
 
         </Routes>
       

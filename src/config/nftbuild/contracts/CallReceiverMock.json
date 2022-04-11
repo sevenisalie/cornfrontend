@@ -1,0 +1,7015 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [],
+      "name": "MockFunctionCalled",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "a",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "b",
+          "type": "uint256"
+        }
+      ],
+      "name": "MockFunctionCalledWithArgs",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "mockFunction",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mockFunctionNonPayable",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mockFunctionOutOfGas",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mockFunctionRevertsNoReason",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mockFunctionRevertsReason",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mockFunctionThrows",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "a",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "b",
+          "type": "uint256"
+        }
+      ],
+      "name": "mockFunctionWithArgs",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mockFunctionWritesStorage",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "mockStaticFunction",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "sharedAnswer",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "59": "contracts/openzeppelin/contracts/mocks/CallReceiverMock.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/openzeppelin/contracts/mocks/CallReceiverMock.sol",
+    "exportedSymbols": {
+      "CallReceiverMock": [
+        7600
+      ]
+    },
+    "id": 7601,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 7485,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:59"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "CallReceiverMock",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 7600,
+        "linearizedBaseContracts": [
+          7600
+        ],
+        "name": "CallReceiverMock",
+        "nameLocation": "67:16:59",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "functionSelector": "fc40cf73",
+            "id": 7487,
+            "mutability": "mutable",
+            "name": "sharedAnswer",
+            "nameLocation": "104:12:59",
+            "nodeType": "VariableDeclaration",
+            "scope": 7600,
+            "src": "90:26:59",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_string_storage",
+              "typeString": "string"
+            },
+            "typeName": {
+              "id": 7486,
+              "name": "string",
+              "nodeType": "ElementaryTypeName",
+              "src": "90:6:59",
+              "typeDescriptions": {
+                "typeIdentifier": "t_string_storage_ptr",
+                "typeString": "string"
+              }
+            },
+            "visibility": "public"
+          },
+          {
+            "anonymous": false,
+            "id": 7489,
+            "name": "MockFunctionCalled",
+            "nameLocation": "129:18:59",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 7488,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "147:2:59"
+            },
+            "src": "123:27:59"
+          },
+          {
+            "anonymous": false,
+            "id": 7495,
+            "name": "MockFunctionCalledWithArgs",
+            "nameLocation": "161:26:59",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 7494,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7491,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "a",
+                  "nameLocation": "196:1:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7495,
+                  "src": "188:9:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7490,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "188:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7493,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "b",
+                  "nameLocation": "207:1:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7495,
+                  "src": "199:9:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7492,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "199:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "187:22:59"
+            },
+            "src": "155:55:59"
+          },
+          {
+            "constant": false,
+            "id": 7498,
+            "mutability": "mutable",
+            "name": "_array",
+            "nameLocation": "234:6:59",
+            "nodeType": "VariableDeclaration",
+            "scope": 7600,
+            "src": "216:24:59",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+              "typeString": "uint256[]"
+            },
+            "typeName": {
+              "baseType": {
+                "id": 7496,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "216:7:59",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              },
+              "id": 7497,
+              "nodeType": "ArrayTypeName",
+              "src": "216:9:59",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                "typeString": "uint256[]"
+              }
+            },
+            "visibility": "private"
+          },
+          {
+            "body": {
+              "id": 7508,
+              "nodeType": "Block",
+              "src": "310:68:59",
+              "statements": [
+                {
+                  "eventCall": {
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "id": 7503,
+                      "name": "MockFunctionCalled",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 7489,
+                      "src": "325:18:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$__$returns$__$",
+                        "typeString": "function ()"
+                      }
+                    },
+                    "id": 7504,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "325:20:59",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 7505,
+                  "nodeType": "EmitStatement",
+                  "src": "320:25:59"
+                },
+                {
+                  "expression": {
+                    "hexValue": "307831323334",
+                    "id": 7506,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "string",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "363:8:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_stringliteral_1ac7d1b81b7ba1025b36ccb86723da6ee5a87259f1c2fd5abe69d3200b512ec8",
+                      "typeString": "literal_string \"0x1234\""
+                    },
+                    "value": "0x1234"
+                  },
+                  "functionReturnParameters": 7502,
+                  "id": 7507,
+                  "nodeType": "Return",
+                  "src": "356:15:59"
+                }
+              ]
+            },
+            "functionSelector": "3e6fec04",
+            "id": 7509,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockFunction",
+            "nameLocation": "256:12:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7499,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "268:2:59"
+            },
+            "returnParameters": {
+              "id": 7502,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7501,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7509,
+                  "src": "295:13:59",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 7500,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "295:6:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "294:15:59"
+            },
+            "scope": 7600,
+            "src": "247:131:59",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7525,
+              "nodeType": "Block",
+              "src": "475:80:59",
+              "statements": [
+                {
+                  "eventCall": {
+                    "arguments": [
+                      {
+                        "id": 7519,
+                        "name": "a",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 7511,
+                        "src": "517:1:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 7520,
+                        "name": "b",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 7513,
+                        "src": "520:1:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 7518,
+                      "name": "MockFunctionCalledWithArgs",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 7495,
+                      "src": "490:26:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_uint256_$returns$__$",
+                        "typeString": "function (uint256,uint256)"
+                      }
+                    },
+                    "id": 7521,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "490:32:59",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 7522,
+                  "nodeType": "EmitStatement",
+                  "src": "485:37:59"
+                },
+                {
+                  "expression": {
+                    "hexValue": "307831323334",
+                    "id": 7523,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "string",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "540:8:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_stringliteral_1ac7d1b81b7ba1025b36ccb86723da6ee5a87259f1c2fd5abe69d3200b512ec8",
+                      "typeString": "literal_string \"0x1234\""
+                    },
+                    "value": "0x1234"
+                  },
+                  "functionReturnParameters": 7517,
+                  "id": 7524,
+                  "nodeType": "Return",
+                  "src": "533:15:59"
+                }
+              ]
+            },
+            "functionSelector": "fdb27325",
+            "id": 7526,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockFunctionWithArgs",
+            "nameLocation": "393:20:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7514,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7511,
+                  "mutability": "mutable",
+                  "name": "a",
+                  "nameLocation": "422:1:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7526,
+                  "src": "414:9:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7510,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "414:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 7513,
+                  "mutability": "mutable",
+                  "name": "b",
+                  "nameLocation": "433:1:59",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7526,
+                  "src": "425:9:59",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 7512,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "425:7:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "413:22:59"
+            },
+            "returnParameters": {
+              "id": 7517,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7516,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7526,
+                  "src": "460:13:59",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 7515,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "460:6:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "459:15:59"
+            },
+            "scope": 7600,
+            "src": "384:171:59",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7536,
+              "nodeType": "Block",
+              "src": "626:68:59",
+              "statements": [
+                {
+                  "eventCall": {
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "id": 7531,
+                      "name": "MockFunctionCalled",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 7489,
+                      "src": "641:18:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_event_nonpayable$__$returns$__$",
+                        "typeString": "function ()"
+                      }
+                    },
+                    "id": 7532,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "641:20:59",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 7533,
+                  "nodeType": "EmitStatement",
+                  "src": "636:25:59"
+                },
+                {
+                  "expression": {
+                    "hexValue": "307831323334",
+                    "id": 7534,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "string",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "679:8:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_stringliteral_1ac7d1b81b7ba1025b36ccb86723da6ee5a87259f1c2fd5abe69d3200b512ec8",
+                      "typeString": "literal_string \"0x1234\""
+                    },
+                    "value": "0x1234"
+                  },
+                  "functionReturnParameters": 7530,
+                  "id": 7535,
+                  "nodeType": "Return",
+                  "src": "672:15:59"
+                }
+              ]
+            },
+            "functionSelector": "0f63e42c",
+            "id": 7537,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockFunctionNonPayable",
+            "nameLocation": "570:22:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7527,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "592:2:59"
+            },
+            "returnParameters": {
+              "id": 7530,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7529,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7537,
+                  "src": "611:13:59",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 7528,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "611:6:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "610:15:59"
+            },
+            "scope": 7600,
+            "src": "561:133:59",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7544,
+              "nodeType": "Block",
+              "src": "766:32:59",
+              "statements": [
+                {
+                  "expression": {
+                    "hexValue": "307831323334",
+                    "id": 7542,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "string",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "783:8:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_stringliteral_1ac7d1b81b7ba1025b36ccb86723da6ee5a87259f1c2fd5abe69d3200b512ec8",
+                      "typeString": "literal_string \"0x1234\""
+                    },
+                    "value": "0x1234"
+                  },
+                  "functionReturnParameters": 7541,
+                  "id": 7543,
+                  "nodeType": "Return",
+                  "src": "776:15:59"
+                }
+              ]
+            },
+            "functionSelector": "c8fc7696",
+            "id": 7545,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockStaticFunction",
+            "nameLocation": "709:18:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7538,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "727:2:59"
+            },
+            "returnParameters": {
+              "id": 7541,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7540,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7545,
+                  "src": "751:13:59",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 7539,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "751:6:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "750:15:59"
+            },
+            "scope": 7600,
+            "src": "700:98:59",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7551,
+              "nodeType": "Block",
+              "src": "858:25:59",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [],
+                    "expression": {
+                      "argumentTypes": [],
+                      "id": 7548,
+                      "name": "revert",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -19,
+                        -19
+                      ],
+                      "referencedDeclaration": -19,
+                      "src": "868:6:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_revert_pure$__$returns$__$",
+                        "typeString": "function () pure"
+                      }
+                    },
+                    "id": 7549,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "868:8:59",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 7550,
+                  "nodeType": "ExpressionStatement",
+                  "src": "868:8:59"
+                }
+              ]
+            },
+            "functionSelector": "2c81d638",
+            "id": 7552,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockFunctionRevertsNoReason",
+            "nameLocation": "813:27:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7546,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "840:2:59"
+            },
+            "returnParameters": {
+              "id": 7547,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "858:0:59"
+            },
+            "scope": 7600,
+            "src": "804:79:59",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7559,
+              "nodeType": "Block",
+              "src": "941:54:59",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "hexValue": "43616c6c52656365697665724d6f636b3a20726576657274696e67",
+                        "id": 7556,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "958:29:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_1fa67ffa712c128062681134b4f6fcc189b02b2cec4822b38d0f01b87c9ef80f",
+                          "typeString": "literal_string \"CallReceiverMock: reverting\""
+                        },
+                        "value": "CallReceiverMock: reverting"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_stringliteral_1fa67ffa712c128062681134b4f6fcc189b02b2cec4822b38d0f01b87c9ef80f",
+                          "typeString": "literal_string \"CallReceiverMock: reverting\""
+                        }
+                      ],
+                      "id": 7555,
+                      "name": "revert",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -19,
+                        -19
+                      ],
+                      "referencedDeclaration": -19,
+                      "src": "951:6:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_revert_pure$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (string memory) pure"
+                      }
+                    },
+                    "id": 7557,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "951:37:59",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 7558,
+                  "nodeType": "ExpressionStatement",
+                  "src": "951:37:59"
+                }
+              ]
+            },
+            "functionSelector": "0c034968",
+            "id": 7560,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockFunctionRevertsReason",
+            "nameLocation": "898:25:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7553,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "923:2:59"
+            },
+            "returnParameters": {
+              "id": 7554,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "941:0:59"
+            },
+            "scope": 7600,
+            "src": "889:106:59",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7567,
+              "nodeType": "Block",
+              "src": "1046:30:59",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "hexValue": "66616c7365",
+                        "id": 7564,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "bool",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1063:5:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        "value": "false"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      ],
+                      "id": 7563,
+                      "name": "assert",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": -3,
+                      "src": "1056:6:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_assert_pure$_t_bool_$returns$__$",
+                        "typeString": "function (bool) pure"
+                      }
+                    },
+                    "id": 7565,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1056:13:59",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 7566,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1056:13:59"
+                }
+              ]
+            },
+            "functionSelector": "3bcfaa14",
+            "id": 7568,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockFunctionThrows",
+            "nameLocation": "1010:18:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7561,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1028:2:59"
+            },
+            "returnParameters": {
+              "id": 7562,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1046:0:59"
+            },
+            "scope": 7600,
+            "src": "1001:75:59",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7586,
+              "nodeType": "Block",
+              "src": "1129:82:59",
+              "statements": [
+                {
+                  "body": {
+                    "id": 7584,
+                    "nodeType": "Block",
+                    "src": "1166:39:59",
+                    "statements": [
+                      {
+                        "expression": {
+                          "arguments": [
+                            {
+                              "id": 7581,
+                              "name": "i",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 7572,
+                              "src": "1192:1:59",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            ],
+                            "expression": {
+                              "id": 7578,
+                              "name": "_array",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 7498,
+                              "src": "1180:6:59",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+                                "typeString": "uint256[] storage ref"
+                              }
+                            },
+                            "id": 7580,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "push",
+                            "nodeType": "MemberAccess",
+                            "src": "1180:11:59",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_arraypush_nonpayable$_t_array$_t_uint256_$dyn_storage_ptr_$_t_uint256_$returns$__$bound_to$_t_array$_t_uint256_$dyn_storage_ptr_$",
+                              "typeString": "function (uint256[] storage pointer,uint256)"
+                            }
+                          },
+                          "id": 7582,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1180:14:59",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 7583,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1180:14:59"
+                      }
+                    ]
+                  },
+                  "id": 7585,
+                  "initializationExpression": {
+                    "assignments": [
+                      7572
+                    ],
+                    "declarations": [
+                      {
+                        "constant": false,
+                        "id": 7572,
+                        "mutability": "mutable",
+                        "name": "i",
+                        "nameLocation": "1152:1:59",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 7585,
+                        "src": "1144:9:59",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 7571,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "1144:7:59",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "id": 7574,
+                    "initialValue": {
+                      "hexValue": "30",
+                      "id": 7573,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1156:1:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "nodeType": "VariableDeclarationStatement",
+                    "src": "1144:13:59"
+                  },
+                  "loopExpression": {
+                    "expression": {
+                      "id": 7576,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": true,
+                      "src": "1161:3:59",
+                      "subExpression": {
+                        "id": 7575,
+                        "name": "i",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 7572,
+                        "src": "1163:1:59",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 7577,
+                    "nodeType": "ExpressionStatement",
+                    "src": "1161:3:59"
+                  },
+                  "nodeType": "ForStatement",
+                  "src": "1139:66:59"
+                }
+              ]
+            },
+            "functionSelector": "a793ab47",
+            "id": 7587,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockFunctionOutOfGas",
+            "nameLocation": "1091:20:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7569,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1111:2:59"
+            },
+            "returnParameters": {
+              "id": 7570,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1129:0:59"
+            },
+            "scope": 7600,
+            "src": "1082:129:59",
+            "stateMutability": "payable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 7598,
+              "nodeType": "Block",
+              "src": "1285:61:59",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 7594,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "id": 7592,
+                      "name": "sharedAnswer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 7487,
+                      "src": "1295:12:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "hexValue": "3432",
+                      "id": 7593,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "string",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1310:4:59",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_stringliteral_ccb1f717aa77602faf03a594761a36956b1c4cf44c6b336d1db57da799b331b8",
+                        "typeString": "literal_string \"42\""
+                      },
+                      "value": "42"
+                    },
+                    "src": "1295:19:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 7595,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1295:19:59"
+                },
+                {
+                  "expression": {
+                    "hexValue": "307831323334",
+                    "id": 7596,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "string",
+                    "lValueRequested": false,
+                    "nodeType": "Literal",
+                    "src": "1331:8:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_stringliteral_1ac7d1b81b7ba1025b36ccb86723da6ee5a87259f1c2fd5abe69d3200b512ec8",
+                      "typeString": "literal_string \"0x1234\""
+                    },
+                    "value": "0x1234"
+                  },
+                  "functionReturnParameters": 7591,
+                  "id": 7597,
+                  "nodeType": "Return",
+                  "src": "1324:15:59"
+                }
+              ]
+            },
+            "functionSelector": "aa04f77e",
+            "id": 7599,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "mockFunctionWritesStorage",
+            "nameLocation": "1226:25:59",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 7588,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1251:2:59"
+            },
+            "returnParameters": {
+              "id": 7591,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 7590,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 7599,
+                  "src": "1270:13:59",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 7589,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1270:6:59",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1269:15:59"
+            },
+            "scope": 7600,
+            "src": "1217:129:59",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 7601,
+        "src": "58:1290:59",
+        "usedErrors": []
+      }
+    ],
+    "src": "33:1316:59"
+  },
+  "bytecode": "608060405234801561001057600080fd5b5061053e806100206000396000f3fe6080604052600436106100915760003560e01c8063a793ab4711610059578063a793ab47146100e3578063aa04f77e146100eb578063c8fc769614610100578063fc40cf731461012f578063fdb273251461014457600080fd5b80630c034968146100965780630f63e42c146100a05780632c81d638146100cb5780633bcfaa14146100d35780633e6fec04146100db575b600080fd5b61009e610157565b005b3480156100ac57600080fd5b506100b56101a3565b6040516100c29190610417565b60405180910390f35b61009e600080fd5b61009e6101f0565b6100b56101a3565b61009e6101fa565b3480156100f757600080fd5b506100b5610241565b34801561010c57600080fd5b506040805180820190915260068152650c1e0c4c8ccd60d21b60208201526100b5565b34801561013b57600080fd5b506100b5610290565b6100b561015236600461046c565b61031e565b60405162461bcd60e51b815260206004820152601b60248201527f43616c6c52656365697665724d6f636b3a20726576657274696e670000000000604482015260640160405180910390fd5b6040516060907f52c66ed6ec9ca819cba26fe2b2650059270d8981b295af300187a964f54a8c2390600090a1506040805180820190915260068152650c1e0c4c8ccd60d21b602082015290565b6101f861048e565b565b60005b6001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60181905561023a816104a4565b90506101fd565b604080518082019091526002808252611a1960f11b602090920191825260609161026e916000919061037e565b50506040805180820190915260068152650c1e0c4c8ccd60d21b602082015290565b6000805461029d906104cd565b80601f01602080910402602001604051908101604052809291908181526020018280546102c9906104cd565b80156103165780601f106102eb57610100808354040283529160200191610316565b820191906000526020600020905b8154815290600101906020018083116102f957829003601f168201915b505050505081565b60408051838152602081018390526060917f2b42b3c9af4187c86225f201736204c7597312c830cb5c2537dff6ef24b946ae910160405180910390a1506040805180820190915260068152650c1e0c4c8ccd60d21b602082015292915050565b82805461038a906104cd565b90600052602060002090601f0160209004810192826103ac57600085556103f2565b82601f106103c557805160ff19168380011785556103f2565b828001600101855582156103f2579182015b828111156103f25782518255916020019190600101906103d7565b506103fe929150610402565b5090565b5b808211156103fe5760008155600101610403565b600060208083528351808285015260005b8181101561044457858101830151858201604001528201610428565b81811115610456576000604083870101525b50601f01601f1916929092016040019392505050565b6000806040838503121561047f57600080fd5b50508035926020909101359150565b634e487b7160e01b600052600160045260246000fd5b60006000198214156104c657634e487b7160e01b600052601160045260246000fd5b5060010190565b600181811c908216806104e157607f821691505b6020821081141561050257634e487b7160e01b600052602260045260246000fd5b5091905056fea264697066735822122060aa96a8d8c39da1ca9605ab8bb619ea02aa3183d0d660db41f2695f92df47a164736f6c634300080c0033",
+  "bytecodeSha1": "18f2aac9734ad00af128c5bc71a230e8df7be125",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.12+commit.f00d7308"
+  },
+  "contractName": "CallReceiverMock",
+  "coverageMap": {
+    "branches": {
+      "59": {}
+    },
+    "statements": {
+      "59": {
+        "CallReceiverMock.mockFunctionNonPayable": {
+          "2": [
+            636,
+            661
+          ],
+          "3": [
+            672,
+            687
+          ]
+        },
+        "CallReceiverMock.mockFunctionOutOfGas": {
+          "5": [
+            1180,
+            1194
+          ],
+          "6": [
+            1161,
+            1164
+          ]
+        },
+        "CallReceiverMock.mockFunctionRevertsReason": {
+          "1": [
+            951,
+            988
+          ]
+        },
+        "CallReceiverMock.mockFunctionThrows": {
+          "4": [
+            1056,
+            1069
+          ]
+        },
+        "CallReceiverMock.mockFunctionWithArgs": {
+          "9": [
+            485,
+            522
+          ],
+          "10": [
+            533,
+            548
+          ]
+        },
+        "CallReceiverMock.mockFunctionWritesStorage": {
+          "7": [
+            1295,
+            1314
+          ],
+          "8": [
+            1324,
+            1339
+          ]
+        },
+        "CallReceiverMock.mockStaticFunction": {
+          "0": [
+            776,
+            791
+          ]
+        }
+      }
+    }
+  },
+  "dependencies": [],
+  "deployedBytecode": "6080604052600436106100915760003560e01c8063a793ab4711610059578063a793ab47146100e3578063aa04f77e146100eb578063c8fc769614610100578063fc40cf731461012f578063fdb273251461014457600080fd5b80630c034968146100965780630f63e42c146100a05780632c81d638146100cb5780633bcfaa14146100d35780633e6fec04146100db575b600080fd5b61009e610157565b005b3480156100ac57600080fd5b506100b56101a3565b6040516100c29190610417565b60405180910390f35b61009e600080fd5b61009e6101f0565b6100b56101a3565b61009e6101fa565b3480156100f757600080fd5b506100b5610241565b34801561010c57600080fd5b506040805180820190915260068152650c1e0c4c8ccd60d21b60208201526100b5565b34801561013b57600080fd5b506100b5610290565b6100b561015236600461046c565b61031e565b60405162461bcd60e51b815260206004820152601b60248201527f43616c6c52656365697665724d6f636b3a20726576657274696e670000000000604482015260640160405180910390fd5b6040516060907f52c66ed6ec9ca819cba26fe2b2650059270d8981b295af300187a964f54a8c2390600090a1506040805180820190915260068152650c1e0c4c8ccd60d21b602082015290565b6101f861048e565b565b60005b6001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60181905561023a816104a4565b90506101fd565b604080518082019091526002808252611a1960f11b602090920191825260609161026e916000919061037e565b50506040805180820190915260068152650c1e0c4c8ccd60d21b602082015290565b6000805461029d906104cd565b80601f01602080910402602001604051908101604052809291908181526020018280546102c9906104cd565b80156103165780601f106102eb57610100808354040283529160200191610316565b820191906000526020600020905b8154815290600101906020018083116102f957829003601f168201915b505050505081565b60408051838152602081018390526060917f2b42b3c9af4187c86225f201736204c7597312c830cb5c2537dff6ef24b946ae910160405180910390a1506040805180820190915260068152650c1e0c4c8ccd60d21b602082015292915050565b82805461038a906104cd565b90600052602060002090601f0160209004810192826103ac57600085556103f2565b82601f106103c557805160ff19168380011785556103f2565b828001600101855582156103f2579182015b828111156103f25782518255916020019190600101906103d7565b506103fe929150610402565b5090565b5b808211156103fe5760008155600101610403565b600060208083528351808285015260005b8181101561044457858101830151858201604001528201610428565b81811115610456576000604083870101525b50601f01601f1916929092016040019392505050565b6000806040838503121561047f57600080fd5b50508035926020909101359150565b634e487b7160e01b600052600160045260246000fd5b60006000198214156104c657634e487b7160e01b600052601160045260246000fd5b5060010190565b600181811c908216806104e157607f821691505b6020821081141561050257634e487b7160e01b600052602260045260246000fd5b5091905056fea264697066735822122060aa96a8d8c39da1ca9605ab8bb619ea02aa3183d0d660db41f2695f92df47a164736f6c634300080c0033",
+  "deployedSourceMap": "58:1290:59:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;889:106;;;:::i;:::-;;561:133;;;;;;;;;;;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;804:79;;58:1290;;;1001:75;;;:::i;247:131::-;;;:::i;1082:129::-;;;:::i;1217:::-;;;;;;;;;;;;;:::i;700:98::-;;;;;;;;;;-1:-1:-1;776:15:59;;;;;;;;;;;;-1:-1:-1;;;776:15:59;;;;700:98;;90:26;;;;;;;;;;;;;:::i;384:171::-;;;;;;:::i;:::-;;:::i;889:106::-;951:37;;-1:-1:-1;;;951:37:59;;1071:2:239;951:37:59;;;1053:21:239;1110:2;1090:18;;;1083:30;1149:29;1129:18;;;1122:57;1196:18;;951:37:59;;;;;;;561:133;641:20;;611:13;;641:20;;;;;-1:-1:-1;672:15:59;;;;;;;;;;;;-1:-1:-1;;;672:15:59;;;;;561:133::o;1001:75::-;1056:13;;:::i;:::-;1001:75::o;1082:129::-;1144:9;1139:66;1180:6;:14;;;;;;;-1:-1:-1;1180:14:59;;;;;;;;;1161:3;1192:1;1161:3;:::i;:::-;;;1139:66;;1217:129;1295:19;;;;;;;;;;;;;-1:-1:-1;;;1295:19:59;;;;;;;1270:13;;1295:19;;-1:-1:-1;;1295:19:59;;:::i;:::-;-1:-1:-1;;1324:15:59;;;;;;;;;;;;-1:-1:-1;;;1324:15:59;;;;;1217:129::o;90:26::-;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;384:171::-;490:32;;;2153:25:239;;;2209:2;2194:18;;2187:34;;;460:13:59;;490:32;;2126:18:239;490:32:59;;;;;;;-1:-1:-1;533:15:59;;;;;;;;;;;;-1:-1:-1;;;533:15:59;;;;384:171;;;;:::o;-1:-1:-1:-;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;14:597:239;126:4;155:2;184;173:9;166:21;216:6;210:13;259:6;254:2;243:9;239:18;232:34;284:1;294:140;308:6;305:1;302:13;294:140;;;403:14;;;399:23;;393:30;369:17;;;388:2;365:26;358:66;323:10;;294:140;;;452:6;449:1;446:13;443:91;;;522:1;517:2;508:6;497:9;493:22;489:31;482:42;443:91;-1:-1:-1;595:2:239;574:15;-1:-1:-1;;570:29:239;555:45;;;;602:2;551:54;;14:597;-1:-1:-1;;;14:597:239:o;616:248::-;684:6;692;745:2;733:9;724:7;720:23;716:32;713:52;;;761:1;758;751:12;713:52;-1:-1:-1;;784:23:239;;;854:2;839:18;;;826:32;;-1:-1:-1;616:248:239:o;1225:127::-;1286:10;1281:3;1277:20;1274:1;1267:31;1317:4;1314:1;1307:15;1341:4;1338:1;1331:15;1357:232;1396:3;-1:-1:-1;;1417:17:239;;1414:140;;;1476:10;1471:3;1467:20;1464:1;1457:31;1511:4;1508:1;1501:15;1539:4;1536:1;1529:15;1414:140;-1:-1:-1;1581:1:239;1570:13;;1357:232::o;1594:380::-;1673:1;1669:12;;;;1716;;;1737:61;;1791:4;1783:6;1779:17;1769:27;;1737:61;1844:2;1836:6;1833:14;1813:18;1810:38;1807:161;;;1890:10;1885:3;1881:20;1878:1;1871:31;1925:4;1922:1;1915:15;1953:4;1950:1;1943:15;1807:161;;1594:380;;;:::o",
+  "language": "Solidity",
+  "natspec": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "offset": [
+    58,
+    1348
+  ],
+  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH1 0x4 CALLDATASIZE LT PUSH2 0x91 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0xA793AB47 GT PUSH2 0x59 JUMPI DUP1 PUSH4 0xA793AB47 EQ PUSH2 0xE3 JUMPI DUP1 PUSH4 0xAA04F77E EQ PUSH2 0xEB JUMPI DUP1 PUSH4 0xC8FC7696 EQ PUSH2 0x100 JUMPI DUP1 PUSH4 0xFC40CF73 EQ PUSH2 0x12F JUMPI DUP1 PUSH4 0xFDB27325 EQ PUSH2 0x144 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP1 PUSH4 0xC034968 EQ PUSH2 0x96 JUMPI DUP1 PUSH4 0xF63E42C EQ PUSH2 0xA0 JUMPI DUP1 PUSH4 0x2C81D638 EQ PUSH2 0xCB JUMPI DUP1 PUSH4 0x3BCFAA14 EQ PUSH2 0xD3 JUMPI DUP1 PUSH4 0x3E6FEC04 EQ PUSH2 0xDB JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x9E PUSH2 0x157 JUMP JUMPDEST STOP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xAC JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0xB5 PUSH2 0x1A3 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH2 0xC2 SWAP2 SWAP1 PUSH2 0x417 JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x9E PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x9E PUSH2 0x1F0 JUMP JUMPDEST PUSH2 0xB5 PUSH2 0x1A3 JUMP JUMPDEST PUSH2 0x9E PUSH2 0x1FA JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0xF7 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0xB5 PUSH2 0x241 JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x10C JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH1 0x6 DUP2 MSTORE PUSH6 0xC1E0C4C8CCD PUSH1 0xD2 SHL PUSH1 0x20 DUP3 ADD MSTORE PUSH2 0xB5 JUMP JUMPDEST CALLVALUE DUP1 ISZERO PUSH2 0x13B JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0xB5 PUSH2 0x290 JUMP JUMPDEST PUSH2 0xB5 PUSH2 0x152 CALLDATASIZE PUSH1 0x4 PUSH2 0x46C JUMP JUMPDEST PUSH2 0x31E JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x1B PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x43616C6C52656365697665724D6F636B3A20726576657274696E670000000000 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x60 SWAP1 PUSH32 0x52C66ED6EC9CA819CBA26FE2B2650059270D8981B295AF300187A964F54A8C23 SWAP1 PUSH1 0x0 SWAP1 LOG1 POP PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH1 0x6 DUP2 MSTORE PUSH6 0xC1E0C4C8CCD PUSH1 0xD2 SHL PUSH1 0x20 DUP3 ADD MSTORE SWAP1 JUMP JUMPDEST PUSH2 0x1F8 PUSH2 0x48E JUMP JUMPDEST JUMP JUMPDEST PUSH1 0x0 JUMPDEST PUSH1 0x1 DUP1 SLOAD DUP1 DUP3 ADD DUP3 SSTORE PUSH1 0x0 SWAP2 SWAP1 SWAP2 MSTORE PUSH32 0xB10E2D527612073B26EECDFD717E6A320CF44B4AFAC2B0732D9FCBE2B7FA0CF6 ADD DUP2 SWAP1 SSTORE PUSH2 0x23A DUP2 PUSH2 0x4A4 JUMP JUMPDEST SWAP1 POP PUSH2 0x1FD JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH1 0x2 DUP1 DUP3 MSTORE PUSH2 0x1A19 PUSH1 0xF1 SHL PUSH1 0x20 SWAP1 SWAP3 ADD SWAP2 DUP3 MSTORE PUSH1 0x60 SWAP2 PUSH2 0x26E SWAP2 PUSH1 0x0 SWAP2 SWAP1 PUSH2 0x37E JUMP JUMPDEST POP POP PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH1 0x6 DUP2 MSTORE PUSH6 0xC1E0C4C8CCD PUSH1 0xD2 SHL PUSH1 0x20 DUP3 ADD MSTORE SWAP1 JUMP JUMPDEST PUSH1 0x0 DUP1 SLOAD PUSH2 0x29D SWAP1 PUSH2 0x4CD JUMP JUMPDEST DUP1 PUSH1 0x1F ADD PUSH1 0x20 DUP1 SWAP2 DIV MUL PUSH1 0x20 ADD PUSH1 0x40 MLOAD SWAP1 DUP2 ADD PUSH1 0x40 MSTORE DUP1 SWAP3 SWAP2 SWAP1 DUP2 DUP2 MSTORE PUSH1 0x20 ADD DUP3 DUP1 SLOAD PUSH2 0x2C9 SWAP1 PUSH2 0x4CD JUMP JUMPDEST DUP1 ISZERO PUSH2 0x316 JUMPI DUP1 PUSH1 0x1F LT PUSH2 0x2EB JUMPI PUSH2 0x100 DUP1 DUP4 SLOAD DIV MUL DUP4 MSTORE SWAP2 PUSH1 0x20 ADD SWAP2 PUSH2 0x316 JUMP JUMPDEST DUP3 ADD SWAP2 SWAP1 PUSH1 0x0 MSTORE PUSH1 0x20 PUSH1 0x0 KECCAK256 SWAP1 JUMPDEST DUP2 SLOAD DUP2 MSTORE SWAP1 PUSH1 0x1 ADD SWAP1 PUSH1 0x20 ADD DUP1 DUP4 GT PUSH2 0x2F9 JUMPI DUP3 SWAP1 SUB PUSH1 0x1F AND DUP3 ADD SWAP2 JUMPDEST POP POP POP POP POP DUP2 JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD DUP4 DUP2 MSTORE PUSH1 0x20 DUP2 ADD DUP4 SWAP1 MSTORE PUSH1 0x60 SWAP2 PUSH32 0x2B42B3C9AF4187C86225F201736204C7597312C830CB5C2537DFF6EF24B946AE SWAP2 ADD PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 LOG1 POP PUSH1 0x40 DUP1 MLOAD DUP1 DUP3 ADD SWAP1 SWAP2 MSTORE PUSH1 0x6 DUP2 MSTORE PUSH6 0xC1E0C4C8CCD PUSH1 0xD2 SHL PUSH1 0x20 DUP3 ADD MSTORE SWAP3 SWAP2 POP POP JUMP JUMPDEST DUP3 DUP1 SLOAD PUSH2 0x38A SWAP1 PUSH2 0x4CD JUMP JUMPDEST SWAP1 PUSH1 0x0 MSTORE PUSH1 0x20 PUSH1 0x0 KECCAK256 SWAP1 PUSH1 0x1F ADD PUSH1 0x20 SWAP1 DIV DUP2 ADD SWAP3 DUP3 PUSH2 0x3AC JUMPI PUSH1 0x0 DUP6 SSTORE PUSH2 0x3F2 JUMP JUMPDEST DUP3 PUSH1 0x1F LT PUSH2 0x3C5 JUMPI DUP1 MLOAD PUSH1 0xFF NOT AND DUP4 DUP1 ADD OR DUP6 SSTORE PUSH2 0x3F2 JUMP JUMPDEST DUP3 DUP1 ADD PUSH1 0x1 ADD DUP6 SSTORE DUP3 ISZERO PUSH2 0x3F2 JUMPI SWAP2 DUP3 ADD JUMPDEST DUP3 DUP2 GT ISZERO PUSH2 0x3F2 JUMPI DUP3 MLOAD DUP3 SSTORE SWAP2 PUSH1 0x20 ADD SWAP2 SWAP1 PUSH1 0x1 ADD SWAP1 PUSH2 0x3D7 JUMP JUMPDEST POP PUSH2 0x3FE SWAP3 SWAP2 POP PUSH2 0x402 JUMP JUMPDEST POP SWAP1 JUMP JUMPDEST JUMPDEST DUP1 DUP3 GT ISZERO PUSH2 0x3FE JUMPI PUSH1 0x0 DUP2 SSTORE PUSH1 0x1 ADD PUSH2 0x403 JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP1 DUP4 MSTORE DUP4 MLOAD DUP1 DUP3 DUP6 ADD MSTORE PUSH1 0x0 JUMPDEST DUP2 DUP2 LT ISZERO PUSH2 0x444 JUMPI DUP6 DUP2 ADD DUP4 ADD MLOAD DUP6 DUP3 ADD PUSH1 0x40 ADD MSTORE DUP3 ADD PUSH2 0x428 JUMP JUMPDEST DUP2 DUP2 GT ISZERO PUSH2 0x456 JUMPI PUSH1 0x0 PUSH1 0x40 DUP4 DUP8 ADD ADD MSTORE JUMPDEST POP PUSH1 0x1F ADD PUSH1 0x1F NOT AND SWAP3 SWAP1 SWAP3 ADD PUSH1 0x40 ADD SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x40 DUP4 DUP6 SUB SLT ISZERO PUSH2 0x47F JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP POP DUP1 CALLDATALOAD SWAP3 PUSH1 0x20 SWAP1 SWAP2 ADD CALLDATALOAD SWAP2 POP JUMP JUMPDEST PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x1 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST PUSH1 0x0 PUSH1 0x0 NOT DUP3 EQ ISZERO PUSH2 0x4C6 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x11 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST POP PUSH1 0x1 ADD SWAP1 JUMP JUMPDEST PUSH1 0x1 DUP2 DUP2 SHR SWAP1 DUP3 AND DUP1 PUSH2 0x4E1 JUMPI PUSH1 0x7F DUP3 AND SWAP2 POP JUMPDEST PUSH1 0x20 DUP3 LT DUP2 EQ ISZERO PUSH2 0x502 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x22 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST POP SWAP2 SWAP1 POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 PUSH1 0xAA SWAP7 0xA8 0xD8 0xC3 SWAP14 LOG1 0xCA SWAP7 SDIV 0xAB DUP12 0xB6 NOT 0xEA MUL 0xAA BALANCE DUP4 0xD0 0xD6 PUSH1 0xDB COINBASE CALLCODE PUSH10 0x5F92DF47A164736F6C63 NUMBER STOP ADDMOD 0xC STOP CALLER ",
+  "pcMap": {
+    "0": {
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x80"
+    },
+    "2": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x40"
+    },
+    "4": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "5": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x4"
+    },
+    "7": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "CALLDATASIZE",
+      "path": "59"
+    },
+    "8": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "LT",
+      "path": "59"
+    },
+    "9": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x91"
+    },
+    "12": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "13": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "15": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "CALLDATALOAD",
+      "path": "59"
+    },
+    "16": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0xE0"
+    },
+    "18": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "SHR",
+      "path": "59"
+    },
+    "19": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "20": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0xA793AB47"
+    },
+    "25": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "GT",
+      "path": "59"
+    },
+    "26": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x59"
+    },
+    "29": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "30": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "31": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0xA793AB47"
+    },
+    "36": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "37": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xE3"
+    },
+    "40": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "41": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "42": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0xAA04F77E"
+    },
+    "47": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "48": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xEB"
+    },
+    "51": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "52": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "53": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0xC8FC7696"
+    },
+    "58": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "59": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x100"
+    },
+    "62": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "63": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "64": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0xFC40CF73"
+    },
+    "69": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "70": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x12F"
+    },
+    "73": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "74": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "75": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0xFDB27325"
+    },
+    "80": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "81": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x144"
+    },
+    "84": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "85": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "87": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "88": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "REVERT",
+      "path": "59"
+    },
+    "89": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "90": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "91": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0xC034968"
+    },
+    "96": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "97": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x96"
+    },
+    "100": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "101": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "102": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0xF63E42C"
+    },
+    "107": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "108": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xA0"
+    },
+    "111": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "112": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "113": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0x2C81D638"
+    },
+    "118": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "119": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xCB"
+    },
+    "122": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "123": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "124": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0x3BCFAA14"
+    },
+    "129": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "130": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xD3"
+    },
+    "133": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "134": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "135": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH4",
+      "path": "59",
+      "value": "0x3E6FEC04"
+    },
+    "140": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "EQ",
+      "path": "59"
+    },
+    "141": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xDB"
+    },
+    "144": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "145": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "146": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "148": {
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "149": {
+      "first_revert": true,
+      "fn": null,
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "REVERT",
+      "path": "59"
+    },
+    "150": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        889,
+        995
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "151": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        889,
+        995
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x9E"
+    },
+    "154": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        889,
+        995
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x157"
+    },
+    "157": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "jump": "i",
+      "offset": [
+        889,
+        995
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "158": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        889,
+        995
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "159": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        889,
+        995
+      ],
+      "op": "STOP",
+      "path": "59"
+    },
+    "160": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "161": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "CALLVALUE",
+      "path": "59"
+    },
+    "162": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "163": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "ISZERO",
+      "path": "59"
+    },
+    "164": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xAC"
+    },
+    "167": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "168": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "170": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "171": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "REVERT",
+      "path": "59"
+    },
+    "172": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "173": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "174": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xB5"
+    },
+    "177": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x1A3"
+    },
+    "180": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "jump": "i",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "181": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "182": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x40"
+    },
+    "184": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "185": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xC2"
+    },
+    "188": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "189": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "190": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x417"
+    },
+    "193": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "jump": "i",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "194": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "195": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x40"
+    },
+    "197": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "198": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "199": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "200": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "SUB",
+      "path": "59"
+    },
+    "201": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "202": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "RETURN",
+      "path": "59"
+    },
+    "203": {
+      "fn": "CallReceiverMock.mockFunctionRevertsNoReason",
+      "offset": [
+        804,
+        883
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "204": {
+      "fn": "CallReceiverMock.mockFunctionRevertsNoReason",
+      "offset": [
+        804,
+        883
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x9E"
+    },
+    "207": {
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "209": {
+      "fn": "CallReceiverMock.mockFunctionRevertsNoReason",
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "210": {
+      "fn": "CallReceiverMock.mockFunctionRevertsNoReason",
+      "offset": [
+        58,
+        1348
+      ],
+      "op": "REVERT",
+      "path": "59"
+    },
+    "211": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "offset": [
+        1001,
+        1076
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "212": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "offset": [
+        1001,
+        1076
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x9E"
+    },
+    "215": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "offset": [
+        1001,
+        1076
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x1F0"
+    },
+    "218": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "jump": "i",
+      "offset": [
+        1001,
+        1076
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "219": {
+      "fn": "CallReceiverMock.mockFunction",
+      "offset": [
+        247,
+        378
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "220": {
+      "fn": "CallReceiverMock.mockFunction",
+      "offset": [
+        247,
+        378
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xB5"
+    },
+    "223": {
+      "fn": "CallReceiverMock.mockFunction",
+      "offset": [
+        247,
+        378
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x1A3"
+    },
+    "226": {
+      "fn": "CallReceiverMock.mockFunction",
+      "jump": "i",
+      "offset": [
+        247,
+        378
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "227": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1082,
+        1211
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "228": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1082,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x9E"
+    },
+    "231": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1082,
+        1211
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x1FA"
+    },
+    "234": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "jump": "i",
+      "offset": [
+        1082,
+        1211
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "235": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "236": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "CALLVALUE",
+      "path": "59"
+    },
+    "237": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "238": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "ISZERO",
+      "path": "59"
+    },
+    "239": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xF7"
+    },
+    "242": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "243": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "245": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "246": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "REVERT",
+      "path": "59"
+    },
+    "247": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "248": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "249": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xB5"
+    },
+    "252": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x241"
+    },
+    "255": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "jump": "i",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "256": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "257": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "CALLVALUE",
+      "path": "59"
+    },
+    "258": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "259": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "ISZERO",
+      "path": "59"
+    },
+    "260": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x10C"
+    },
+    "263": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "264": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "266": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "267": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "REVERT",
+      "path": "59"
+    },
+    "268": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "269": {
+      "op": "POP"
+    },
+    "270": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 0,
+      "value": "0x40"
+    },
+    "272": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "273": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "274": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "275": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "276": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "277": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "278": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "279": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "280": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x6"
+    },
+    "282": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "283": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "284": {
+      "op": "PUSH6",
+      "value": "0xC1E0C4C8CCD"
+    },
+    "291": {
+      "op": "PUSH1",
+      "value": "0xD2"
+    },
+    "293": {
+      "op": "SHL"
+    },
+    "294": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "296": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "297": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "298": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        776,
+        791
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "299": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xB5"
+    },
+    "302": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        700,
+        798
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "303": {
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "304": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "CALLVALUE",
+      "path": "59"
+    },
+    "305": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "306": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ISZERO",
+      "path": "59"
+    },
+    "307": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x13B"
+    },
+    "310": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "311": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "313": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "314": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "REVERT",
+      "path": "59"
+    },
+    "315": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "316": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "317": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xB5"
+    },
+    "320": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x290"
+    },
+    "323": {
+      "fn": "CallReceiverMock.mockStaticFunction",
+      "jump": "i",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "324": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "325": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0xB5"
+    },
+    "328": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x152"
+    },
+    "331": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "CALLDATASIZE",
+      "path": "59"
+    },
+    "332": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x4"
+    },
+    "334": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x46C"
+    },
+    "337": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "jump": "i",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "338": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "339": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x31E"
+    },
+    "342": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "jump": "i",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "343": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        889,
+        995
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "344": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 1,
+      "value": "0x40"
+    },
+    "346": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "347": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "351": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "353": {
+      "op": "SHL"
+    },
+    "354": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "355": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "356": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "358": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x4"
+    },
+    "360": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "361": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "362": {
+      "op": "MSTORE"
+    },
+    "363": {
+      "op": "PUSH1",
+      "value": "0x1B"
+    },
+    "365": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "367": {
+      "op": "DUP3"
+    },
+    "368": {
+      "op": "ADD"
+    },
+    "369": {
+      "op": "MSTORE"
+    },
+    "370": {
+      "op": "PUSH32",
+      "value": "0x43616C6C52656365697665724D6F636B3A20726576657274696E670000000000"
+    },
+    "403": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "405": {
+      "op": "DUP3"
+    },
+    "406": {
+      "op": "ADD"
+    },
+    "407": {
+      "op": "MSTORE"
+    },
+    "408": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "410": {
+      "op": "ADD"
+    },
+    "411": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x40"
+    },
+    "413": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "414": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "415": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "416": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "SUB",
+      "path": "59"
+    },
+    "417": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "418": {
+      "fn": "CallReceiverMock.mockFunctionRevertsReason",
+      "offset": [
+        951,
+        988
+      ],
+      "op": "REVERT",
+      "optimizer_revert": true,
+      "path": "59"
+    },
+    "419": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "420": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        641,
+        661
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 2,
+      "value": "0x40"
+    },
+    "422": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        641,
+        661
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "423": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        611,
+        624
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x60"
+    },
+    "425": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        611,
+        624
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "426": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        641,
+        661
+      ],
+      "op": "PUSH32",
+      "path": "59",
+      "value": "0x52C66ED6EC9CA819CBA26FE2B2650059270D8981B295AF300187A964F54A8C23"
+    },
+    "459": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        641,
+        661
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "460": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        641,
+        661
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "462": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        641,
+        661
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "463": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        641,
+        661
+      ],
+      "op": "LOG1",
+      "path": "59"
+    },
+    "464": {
+      "op": "POP"
+    },
+    "465": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 3,
+      "value": "0x40"
+    },
+    "467": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "468": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "469": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "470": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "471": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "472": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "473": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "474": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "475": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x6"
+    },
+    "477": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "478": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "479": {
+      "op": "PUSH6",
+      "value": "0xC1E0C4C8CCD"
+    },
+    "486": {
+      "op": "PUSH1",
+      "value": "0xD2"
+    },
+    "488": {
+      "op": "SHL"
+    },
+    "489": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "491": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "492": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "493": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "494": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "offset": [
+        672,
+        687
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "495": {
+      "fn": "CallReceiverMock.mockFunctionNonPayable",
+      "jump": "o",
+      "offset": [
+        561,
+        694
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "496": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "offset": [
+        1001,
+        1076
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "497": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "offset": [
+        1056,
+        1069
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "statement": 4,
+      "value": "0x1F8"
+    },
+    "500": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "offset": [
+        1056,
+        1069
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x48E"
+    },
+    "503": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "jump": "i",
+      "offset": [
+        1056,
+        1069
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "504": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "offset": [
+        1056,
+        1069
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "505": {
+      "fn": "CallReceiverMock.mockFunctionThrows",
+      "jump": "o",
+      "offset": [
+        1001,
+        1076
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "506": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1082,
+        1211
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "507": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1144,
+        1153
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "509": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1139,
+        1205
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "510": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1186
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 5,
+      "value": "0x1"
+    },
+    "512": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "513": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "SLOAD",
+      "path": "59"
+    },
+    "514": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "515": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "516": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "517": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "518": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "SSTORE",
+      "path": "59"
+    },
+    "519": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "521": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "522": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "523": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "524": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "525": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "PUSH32",
+      "path": "59",
+      "value": "0xB10E2D527612073B26EECDFD717E6A320CF44B4AFAC2B0732D9FCBE2B7FA0CF6"
+    },
+    "558": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "559": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "560": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "561": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1180,
+        1194
+      ],
+      "op": "SSTORE",
+      "path": "59"
+    },
+    "562": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1161,
+        1164
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "statement": 6,
+      "value": "0x23A"
+    },
+    "565": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1192,
+        1193
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "566": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1161,
+        1164
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x4A4"
+    },
+    "569": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "jump": "i",
+      "offset": [
+        1161,
+        1164
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "570": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1161,
+        1164
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "571": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1161,
+        1164
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "572": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1161,
+        1164
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "573": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1139,
+        1205
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x1FD"
+    },
+    "576": {
+      "fn": "CallReceiverMock.mockFunctionOutOfGas",
+      "offset": [
+        1139,
+        1205
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "577": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "578": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 7,
+      "value": "0x40"
+    },
+    "580": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "581": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "582": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "583": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "584": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "585": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "586": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "587": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "588": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x2"
+    },
+    "590": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "591": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "592": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "593": {
+      "op": "PUSH2",
+      "value": "0x1A19"
+    },
+    "596": {
+      "op": "PUSH1",
+      "value": "0xF1"
+    },
+    "598": {
+      "op": "SHL"
+    },
+    "599": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "601": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "602": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "SWAP3",
+      "path": "59"
+    },
+    "603": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "604": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "605": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "606": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "607": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1270,
+        1283
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x60"
+    },
+    "609": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1270,
+        1283
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "610": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x26E"
+    },
+    "613": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "614": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "616": {
+      "op": "SWAP2"
+    },
+    "617": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "618": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x37E"
+    },
+    "621": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "jump": "i",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "622": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1295,
+        1314
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "623": {
+      "op": "POP"
+    },
+    "624": {
+      "op": "POP"
+    },
+    "625": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 8,
+      "value": "0x40"
+    },
+    "627": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "628": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "629": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "630": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "631": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "632": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "633": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "634": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "635": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x6"
+    },
+    "637": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "638": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "639": {
+      "op": "PUSH6",
+      "value": "0xC1E0C4C8CCD"
+    },
+    "646": {
+      "op": "PUSH1",
+      "value": "0xD2"
+    },
+    "648": {
+      "op": "SHL"
+    },
+    "649": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "651": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "652": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "653": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "654": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        1324,
+        1339
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "655": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "jump": "o",
+      "offset": [
+        1217,
+        1346
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "656": {
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "657": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "659": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "660": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SLOAD",
+      "path": "59"
+    },
+    "661": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x29D"
+    },
+    "664": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "665": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x4CD"
+    },
+    "668": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "jump": "i",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "669": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "670": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "671": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x1F"
+    },
+    "673": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "674": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "676": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "677": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "678": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DIV",
+      "path": "59"
+    },
+    "679": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "MUL",
+      "path": "59"
+    },
+    "680": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "682": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "683": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x40"
+    },
+    "685": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "686": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "687": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "688": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "689": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x40"
+    },
+    "691": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "692": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "693": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP3",
+      "path": "59"
+    },
+    "694": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "695": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "696": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "697": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "698": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "699": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "701": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "702": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "703": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "704": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SLOAD",
+      "path": "59"
+    },
+    "705": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x2C9"
+    },
+    "708": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "709": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x4CD"
+    },
+    "712": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "jump": "i",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "713": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "714": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "715": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ISZERO",
+      "path": "59"
+    },
+    "716": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x316"
+    },
+    "719": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "720": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "721": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x1F"
+    },
+    "723": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "LT",
+      "path": "59"
+    },
+    "724": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x2EB"
+    },
+    "727": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "728": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x100"
+    },
+    "731": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "732": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP4",
+      "path": "59"
+    },
+    "733": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SLOAD",
+      "path": "59"
+    },
+    "734": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DIV",
+      "path": "59"
+    },
+    "735": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "MUL",
+      "path": "59"
+    },
+    "736": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP4",
+      "path": "59"
+    },
+    "737": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "738": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "739": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "741": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "742": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "743": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x316"
+    },
+    "746": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "747": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "748": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "749": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "750": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "751": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "752": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "754": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "755": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "757": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x0"
+    },
+    "759": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "KECCAK256",
+      "path": "59"
+    },
+    "760": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "761": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "762": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "763": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SLOAD",
+      "path": "59"
+    },
+    "764": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "765": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "766": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "767": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x1"
+    },
+    "769": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "770": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "771": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "773": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "774": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "775": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP4",
+      "path": "59"
+    },
+    "776": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "GT",
+      "path": "59"
+    },
+    "777": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH2",
+      "path": "59",
+      "value": "0x2F9"
+    },
+    "780": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPI",
+      "path": "59"
+    },
+    "781": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "782": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "783": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SUB",
+      "path": "59"
+    },
+    "784": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x1F"
+    },
+    "786": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "AND",
+      "path": "59"
+    },
+    "787": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "788": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "789": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "790": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "791": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "792": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "793": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "794": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "795": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "796": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "797": {
+      "fn": "CallReceiverMock.mockFunctionWritesStorage",
+      "jump": "o",
+      "offset": [
+        90,
+        116
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "798": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "JUMPDEST",
+      "path": "59"
+    },
+    "799": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 9,
+      "value": "0x40"
+    },
+    "801": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "802": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "803": {
+      "op": "DUP4"
+    },
+    "804": {
+      "op": "DUP2"
+    },
+    "805": {
+      "op": "MSTORE"
+    },
+    "806": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "808": {
+      "op": "DUP2"
+    },
+    "809": {
+      "op": "ADD"
+    },
+    "810": {
+      "op": "DUP4"
+    },
+    "811": {
+      "op": "SWAP1"
+    },
+    "812": {
+      "op": "MSTORE"
+    },
+    "813": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        460,
+        473
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x60"
+    },
+    "815": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        460,
+        473
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "816": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "PUSH32",
+      "path": "59",
+      "value": "0x2B42B3C9AF4187C86225F201736204C7597312C830CB5C2537DFF6EF24B946AE"
+    },
+    "849": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "850": {
+      "op": "ADD"
+    },
+    "851": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x40"
+    },
+    "853": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "854": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "855": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "856": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "SUB",
+      "path": "59"
+    },
+    "857": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "858": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        490,
+        522
+      ],
+      "op": "LOG1",
+      "path": "59"
+    },
+    "859": {
+      "op": "POP"
+    },
+    "860": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "statement": 10,
+      "value": "0x40"
+    },
+    "862": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "863": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "MLOAD",
+      "path": "59"
+    },
+    "864": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "DUP1",
+      "path": "59"
+    },
+    "865": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "866": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "867": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "SWAP1",
+      "path": "59"
+    },
+    "868": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "869": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "870": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x6"
+    },
+    "872": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "DUP2",
+      "path": "59"
+    },
+    "873": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "874": {
+      "op": "PUSH6",
+      "value": "0xC1E0C4C8CCD"
+    },
+    "881": {
+      "op": "PUSH1",
+      "value": "0xD2"
+    },
+    "883": {
+      "op": "SHL"
+    },
+    "884": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "PUSH1",
+      "path": "59",
+      "value": "0x20"
+    },
+    "886": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "DUP3",
+      "path": "59"
+    },
+    "887": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "ADD",
+      "path": "59"
+    },
+    "888": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        533,
+        548
+      ],
+      "op": "MSTORE",
+      "path": "59"
+    },
+    "889": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "SWAP3",
+      "path": "59"
+    },
+    "890": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "SWAP2",
+      "path": "59"
+    },
+    "891": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "892": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "POP",
+      "path": "59"
+    },
+    "893": {
+      "fn": "CallReceiverMock.mockFunctionWithArgs",
+      "jump": "o",
+      "offset": [
+        384,
+        555
+      ],
+      "op": "JUMP",
+      "path": "59"
+    },
+    "894": {
+      "op": "JUMPDEST"
+    },
+    "895": {
+      "op": "DUP3"
+    },
+    "896": {
+      "op": "DUP1"
+    },
+    "897": {
+      "op": "SLOAD"
+    },
+    "898": {
+      "op": "PUSH2",
+      "value": "0x38A"
+    },
+    "901": {
+      "op": "SWAP1"
+    },
+    "902": {
+      "op": "PUSH2",
+      "value": "0x4CD"
+    },
+    "905": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "906": {
+      "op": "JUMPDEST"
+    },
+    "907": {
+      "op": "SWAP1"
+    },
+    "908": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "910": {
+      "op": "MSTORE"
+    },
+    "911": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "913": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "915": {
+      "op": "KECCAK256"
+    },
+    "916": {
+      "op": "SWAP1"
+    },
+    "917": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "919": {
+      "op": "ADD"
+    },
+    "920": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "922": {
+      "op": "SWAP1"
+    },
+    "923": {
+      "op": "DIV"
+    },
+    "924": {
+      "op": "DUP2"
+    },
+    "925": {
+      "op": "ADD"
+    },
+    "926": {
+      "op": "SWAP3"
+    },
+    "927": {
+      "op": "DUP3"
+    },
+    "928": {
+      "op": "PUSH2",
+      "value": "0x3AC"
+    },
+    "931": {
+      "op": "JUMPI"
+    },
+    "932": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "934": {
+      "op": "DUP6"
+    },
+    "935": {
+      "op": "SSTORE"
+    },
+    "936": {
+      "op": "PUSH2",
+      "value": "0x3F2"
+    },
+    "939": {
+      "op": "JUMP"
+    },
+    "940": {
+      "op": "JUMPDEST"
+    },
+    "941": {
+      "op": "DUP3"
+    },
+    "942": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "944": {
+      "op": "LT"
+    },
+    "945": {
+      "op": "PUSH2",
+      "value": "0x3C5"
+    },
+    "948": {
+      "op": "JUMPI"
+    },
+    "949": {
+      "op": "DUP1"
+    },
+    "950": {
+      "op": "MLOAD"
+    },
+    "951": {
+      "op": "PUSH1",
+      "value": "0xFF"
+    },
+    "953": {
+      "op": "NOT"
+    },
+    "954": {
+      "op": "AND"
+    },
+    "955": {
+      "op": "DUP4"
+    },
+    "956": {
+      "op": "DUP1"
+    },
+    "957": {
+      "op": "ADD"
+    },
+    "958": {
+      "op": "OR"
+    },
+    "959": {
+      "op": "DUP6"
+    },
+    "960": {
+      "op": "SSTORE"
+    },
+    "961": {
+      "op": "PUSH2",
+      "value": "0x3F2"
+    },
+    "964": {
+      "op": "JUMP"
+    },
+    "965": {
+      "op": "JUMPDEST"
+    },
+    "966": {
+      "op": "DUP3"
+    },
+    "967": {
+      "op": "DUP1"
+    },
+    "968": {
+      "op": "ADD"
+    },
+    "969": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "971": {
+      "op": "ADD"
+    },
+    "972": {
+      "op": "DUP6"
+    },
+    "973": {
+      "op": "SSTORE"
+    },
+    "974": {
+      "op": "DUP3"
+    },
+    "975": {
+      "op": "ISZERO"
+    },
+    "976": {
+      "op": "PUSH2",
+      "value": "0x3F2"
+    },
+    "979": {
+      "op": "JUMPI"
+    },
+    "980": {
+      "op": "SWAP2"
+    },
+    "981": {
+      "op": "DUP3"
+    },
+    "982": {
+      "op": "ADD"
+    },
+    "983": {
+      "op": "JUMPDEST"
+    },
+    "984": {
+      "op": "DUP3"
+    },
+    "985": {
+      "op": "DUP2"
+    },
+    "986": {
+      "op": "GT"
+    },
+    "987": {
+      "op": "ISZERO"
+    },
+    "988": {
+      "op": "PUSH2",
+      "value": "0x3F2"
+    },
+    "991": {
+      "op": "JUMPI"
+    },
+    "992": {
+      "op": "DUP3"
+    },
+    "993": {
+      "op": "MLOAD"
+    },
+    "994": {
+      "op": "DUP3"
+    },
+    "995": {
+      "op": "SSTORE"
+    },
+    "996": {
+      "op": "SWAP2"
+    },
+    "997": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "999": {
+      "op": "ADD"
+    },
+    "1000": {
+      "op": "SWAP2"
+    },
+    "1001": {
+      "op": "SWAP1"
+    },
+    "1002": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1004": {
+      "op": "ADD"
+    },
+    "1005": {
+      "op": "SWAP1"
+    },
+    "1006": {
+      "op": "PUSH2",
+      "value": "0x3D7"
+    },
+    "1009": {
+      "op": "JUMP"
+    },
+    "1010": {
+      "op": "JUMPDEST"
+    },
+    "1011": {
+      "op": "POP"
+    },
+    "1012": {
+      "op": "PUSH2",
+      "value": "0x3FE"
+    },
+    "1015": {
+      "op": "SWAP3"
+    },
+    "1016": {
+      "op": "SWAP2"
+    },
+    "1017": {
+      "op": "POP"
+    },
+    "1018": {
+      "op": "PUSH2",
+      "value": "0x402"
+    },
+    "1021": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "1022": {
+      "op": "JUMPDEST"
+    },
+    "1023": {
+      "op": "POP"
+    },
+    "1024": {
+      "op": "SWAP1"
+    },
+    "1025": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "1026": {
+      "op": "JUMPDEST"
+    },
+    "1027": {
+      "op": "JUMPDEST"
+    },
+    "1028": {
+      "op": "DUP1"
+    },
+    "1029": {
+      "op": "DUP3"
+    },
+    "1030": {
+      "op": "GT"
+    },
+    "1031": {
+      "op": "ISZERO"
+    },
+    "1032": {
+      "op": "PUSH2",
+      "value": "0x3FE"
+    },
+    "1035": {
+      "op": "JUMPI"
+    },
+    "1036": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1038": {
+      "op": "DUP2"
+    },
+    "1039": {
+      "op": "SSTORE"
+    },
+    "1040": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1042": {
+      "op": "ADD"
+    },
+    "1043": {
+      "op": "PUSH2",
+      "value": "0x403"
+    },
+    "1046": {
+      "op": "JUMP"
+    },
+    "1047": {
+      "op": "JUMPDEST"
+    },
+    "1048": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1050": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1052": {
+      "op": "DUP1"
+    },
+    "1053": {
+      "op": "DUP4"
+    },
+    "1054": {
+      "op": "MSTORE"
+    },
+    "1055": {
+      "op": "DUP4"
+    },
+    "1056": {
+      "op": "MLOAD"
+    },
+    "1057": {
+      "op": "DUP1"
+    },
+    "1058": {
+      "op": "DUP3"
+    },
+    "1059": {
+      "op": "DUP6"
+    },
+    "1060": {
+      "op": "ADD"
+    },
+    "1061": {
+      "op": "MSTORE"
+    },
+    "1062": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1064": {
+      "op": "JUMPDEST"
+    },
+    "1065": {
+      "op": "DUP2"
+    },
+    "1066": {
+      "op": "DUP2"
+    },
+    "1067": {
+      "op": "LT"
+    },
+    "1068": {
+      "op": "ISZERO"
+    },
+    "1069": {
+      "op": "PUSH2",
+      "value": "0x444"
+    },
+    "1072": {
+      "op": "JUMPI"
+    },
+    "1073": {
+      "op": "DUP6"
+    },
+    "1074": {
+      "op": "DUP2"
+    },
+    "1075": {
+      "op": "ADD"
+    },
+    "1076": {
+      "op": "DUP4"
+    },
+    "1077": {
+      "op": "ADD"
+    },
+    "1078": {
+      "op": "MLOAD"
+    },
+    "1079": {
+      "op": "DUP6"
+    },
+    "1080": {
+      "op": "DUP3"
+    },
+    "1081": {
+      "op": "ADD"
+    },
+    "1082": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "1084": {
+      "op": "ADD"
+    },
+    "1085": {
+      "op": "MSTORE"
+    },
+    "1086": {
+      "op": "DUP3"
+    },
+    "1087": {
+      "op": "ADD"
+    },
+    "1088": {
+      "op": "PUSH2",
+      "value": "0x428"
+    },
+    "1091": {
+      "op": "JUMP"
+    },
+    "1092": {
+      "op": "JUMPDEST"
+    },
+    "1093": {
+      "op": "DUP2"
+    },
+    "1094": {
+      "op": "DUP2"
+    },
+    "1095": {
+      "op": "GT"
+    },
+    "1096": {
+      "op": "ISZERO"
+    },
+    "1097": {
+      "op": "PUSH2",
+      "value": "0x456"
+    },
+    "1100": {
+      "op": "JUMPI"
+    },
+    "1101": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1103": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "1105": {
+      "op": "DUP4"
+    },
+    "1106": {
+      "op": "DUP8"
+    },
+    "1107": {
+      "op": "ADD"
+    },
+    "1108": {
+      "op": "ADD"
+    },
+    "1109": {
+      "op": "MSTORE"
+    },
+    "1110": {
+      "op": "JUMPDEST"
+    },
+    "1111": {
+      "op": "POP"
+    },
+    "1112": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "1114": {
+      "op": "ADD"
+    },
+    "1115": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "1117": {
+      "op": "NOT"
+    },
+    "1118": {
+      "op": "AND"
+    },
+    "1119": {
+      "op": "SWAP3"
+    },
+    "1120": {
+      "op": "SWAP1"
+    },
+    "1121": {
+      "op": "SWAP3"
+    },
+    "1122": {
+      "op": "ADD"
+    },
+    "1123": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "1125": {
+      "op": "ADD"
+    },
+    "1126": {
+      "op": "SWAP4"
+    },
+    "1127": {
+      "op": "SWAP3"
+    },
+    "1128": {
+      "op": "POP"
+    },
+    "1129": {
+      "op": "POP"
+    },
+    "1130": {
+      "op": "POP"
+    },
+    "1131": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "1132": {
+      "op": "JUMPDEST"
+    },
+    "1133": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1135": {
+      "op": "DUP1"
+    },
+    "1136": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "1138": {
+      "op": "DUP4"
+    },
+    "1139": {
+      "op": "DUP6"
+    },
+    "1140": {
+      "op": "SUB"
+    },
+    "1141": {
+      "op": "SLT"
+    },
+    "1142": {
+      "op": "ISZERO"
+    },
+    "1143": {
+      "op": "PUSH2",
+      "value": "0x47F"
+    },
+    "1146": {
+      "op": "JUMPI"
+    },
+    "1147": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1149": {
+      "op": "DUP1"
+    },
+    "1150": {
+      "op": "REVERT"
+    },
+    "1151": {
+      "op": "JUMPDEST"
+    },
+    "1152": {
+      "op": "POP"
+    },
+    "1153": {
+      "op": "POP"
+    },
+    "1154": {
+      "op": "DUP1"
+    },
+    "1155": {
+      "op": "CALLDATALOAD"
+    },
+    "1156": {
+      "op": "SWAP3"
+    },
+    "1157": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1159": {
+      "op": "SWAP1"
+    },
+    "1160": {
+      "op": "SWAP2"
+    },
+    "1161": {
+      "op": "ADD"
+    },
+    "1162": {
+      "op": "CALLDATALOAD"
+    },
+    "1163": {
+      "op": "SWAP2"
+    },
+    "1164": {
+      "op": "POP"
+    },
+    "1165": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "1166": {
+      "op": "JUMPDEST"
+    },
+    "1167": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "1172": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "1174": {
+      "op": "SHL"
+    },
+    "1175": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1177": {
+      "op": "MSTORE"
+    },
+    "1178": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1180": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "1182": {
+      "op": "MSTORE"
+    },
+    "1183": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "1185": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1187": {
+      "op": "REVERT"
+    },
+    "1188": {
+      "op": "JUMPDEST"
+    },
+    "1189": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1191": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1193": {
+      "op": "NOT"
+    },
+    "1194": {
+      "op": "DUP3"
+    },
+    "1195": {
+      "op": "EQ"
+    },
+    "1196": {
+      "op": "ISZERO"
+    },
+    "1197": {
+      "op": "PUSH2",
+      "value": "0x4C6"
+    },
+    "1200": {
+      "op": "JUMPI"
+    },
+    "1201": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "1206": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "1208": {
+      "op": "SHL"
+    },
+    "1209": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1211": {
+      "op": "MSTORE"
+    },
+    "1212": {
+      "op": "PUSH1",
+      "value": "0x11"
+    },
+    "1214": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "1216": {
+      "op": "MSTORE"
+    },
+    "1217": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "1219": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1221": {
+      "op": "REVERT"
+    },
+    "1222": {
+      "op": "JUMPDEST"
+    },
+    "1223": {
+      "op": "POP"
+    },
+    "1224": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1226": {
+      "op": "ADD"
+    },
+    "1227": {
+      "op": "SWAP1"
+    },
+    "1228": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "1229": {
+      "op": "JUMPDEST"
+    },
+    "1230": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1232": {
+      "op": "DUP2"
+    },
+    "1233": {
+      "op": "DUP2"
+    },
+    "1234": {
+      "op": "SHR"
+    },
+    "1235": {
+      "op": "SWAP1"
+    },
+    "1236": {
+      "op": "DUP3"
+    },
+    "1237": {
+      "op": "AND"
+    },
+    "1238": {
+      "op": "DUP1"
+    },
+    "1239": {
+      "op": "PUSH2",
+      "value": "0x4E1"
+    },
+    "1242": {
+      "op": "JUMPI"
+    },
+    "1243": {
+      "op": "PUSH1",
+      "value": "0x7F"
+    },
+    "1245": {
+      "op": "DUP3"
+    },
+    "1246": {
+      "op": "AND"
+    },
+    "1247": {
+      "op": "SWAP2"
+    },
+    "1248": {
+      "op": "POP"
+    },
+    "1249": {
+      "op": "JUMPDEST"
+    },
+    "1250": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1252": {
+      "op": "DUP3"
+    },
+    "1253": {
+      "op": "LT"
+    },
+    "1254": {
+      "op": "DUP2"
+    },
+    "1255": {
+      "op": "EQ"
+    },
+    "1256": {
+      "op": "ISZERO"
+    },
+    "1257": {
+      "op": "PUSH2",
+      "value": "0x502"
+    },
+    "1260": {
+      "op": "JUMPI"
+    },
+    "1261": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "1266": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "1268": {
+      "op": "SHL"
+    },
+    "1269": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1271": {
+      "op": "MSTORE"
+    },
+    "1272": {
+      "op": "PUSH1",
+      "value": "0x22"
+    },
+    "1274": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "1276": {
+      "op": "MSTORE"
+    },
+    "1277": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "1279": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1281": {
+      "op": "REVERT"
+    },
+    "1282": {
+      "op": "JUMPDEST"
+    },
+    "1283": {
+      "op": "POP"
+    },
+    "1284": {
+      "op": "SWAP2"
+    },
+    "1285": {
+      "op": "SWAP1"
+    },
+    "1286": {
+      "op": "POP"
+    },
+    "1287": {
+      "jump": "o",
+      "op": "JUMP"
+    }
+  },
+  "sha1": "dbda72ea751f759067cf60cc2d224021b61eb789",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\ncontract CallReceiverMock {\n    string public sharedAnswer;\n\n    event MockFunctionCalled();\n    event MockFunctionCalledWithArgs(uint256 a, uint256 b);\n\n    uint256[] private _array;\n\n    function mockFunction() public payable returns (string memory) {\n        emit MockFunctionCalled();\n\n        return \"0x1234\";\n    }\n\n    function mockFunctionWithArgs(uint256 a, uint256 b) public payable returns (string memory) {\n        emit MockFunctionCalledWithArgs(a, b);\n\n        return \"0x1234\";\n    }\n\n    function mockFunctionNonPayable() public returns (string memory) {\n        emit MockFunctionCalled();\n\n        return \"0x1234\";\n    }\n\n    function mockStaticFunction() public pure returns (string memory) {\n        return \"0x1234\";\n    }\n\n    function mockFunctionRevertsNoReason() public payable {\n        revert();\n    }\n\n    function mockFunctionRevertsReason() public payable {\n        revert(\"CallReceiverMock: reverting\");\n    }\n\n    function mockFunctionThrows() public payable {\n        assert(false);\n    }\n\n    function mockFunctionOutOfGas() public payable {\n        for (uint256 i = 0; ; ++i) {\n            _array.push(i);\n        }\n    }\n\n    function mockFunctionWritesStorage() public returns (string memory) {\n        sharedAnswer = \"42\";\n        return \"0x1234\";\n    }\n}\n",
+  "sourceMap": "58:1290:59:-:0;;;;;;;;;;;;;;;;;;;",
+  "sourcePath": "contracts/openzeppelin/contracts/mocks/CallReceiverMock.sol",
+  "type": "contract"
+}

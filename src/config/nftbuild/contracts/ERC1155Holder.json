@@ -1,0 +1,3553 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "onERC1155BatchReceived",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "onERC1155Received",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "162": "contracts/openzeppelin/contracts/token/ERC1155/IERC1155Receiver.sol",
+    "168": "contracts/openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol",
+    "169": "contracts/openzeppelin/contracts/token/ERC1155/utils/ERC1155Receiver.sol",
+    "224": "contracts/openzeppelin/contracts/utils/introspection/ERC165.sol",
+    "228": "contracts/openzeppelin/contracts/utils/introspection/IERC165.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol",
+    "exportedSymbols": {
+      "ERC1155Holder": [
+        19721
+      ],
+      "ERC1155Receiver": [
+        19755
+      ],
+      "ERC165": [
+        28500
+      ],
+      "IERC1155Receiver": [
+        19183
+      ],
+      "IERC165": [
+        28824
+      ]
+    },
+    "id": 19722,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 19672,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "121:23:168"
+      },
+      {
+        "absolutePath": "contracts/openzeppelin/contracts/token/ERC1155/utils/ERC1155Receiver.sol",
+        "file": "./ERC1155Receiver.sol",
+        "id": 19673,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 19722,
+        "sourceUnit": 19756,
+        "src": "146:31:168",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 19675,
+              "name": "ERC1155Receiver",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 19755,
+              "src": "477:15:168"
+            },
+            "id": 19676,
+            "nodeType": "InheritanceSpecifier",
+            "src": "477:15:168"
+          }
+        ],
+        "canonicalName": "ERC1155Holder",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 19674,
+          "nodeType": "StructuredDocumentation",
+          "src": "179:271:168",
+          "text": " Simple implementation of `ERC1155Receiver` that will allow a contract to hold ERC1155 tokens.\n IMPORTANT: When inheriting this contract, you must include a way to use the received tokens, otherwise they will be\n stuck.\n @dev _Available since v3.1._"
+        },
+        "fullyImplemented": true,
+        "id": 19721,
+        "linearizedBaseContracts": [
+          19721,
+          19755,
+          19183,
+          28500,
+          28824
+        ],
+        "name": "ERC1155Holder",
+        "nameLocation": "460:13:168",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "baseFunctions": [
+              19164
+            ],
+            "body": {
+              "id": 19696,
+              "nodeType": "Block",
+              "src": "663:55:168",
+              "statements": [
+                {
+                  "expression": {
+                    "expression": {
+                      "expression": {
+                        "id": 19692,
+                        "name": "this",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -28,
+                        "src": "680:4:168",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ERC1155Holder_$19721",
+                          "typeString": "contract ERC1155Holder"
+                        }
+                      },
+                      "id": 19693,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "onERC1155Received",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 19697,
+                      "src": "680:22:168",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_uint256_$_t_uint256_$_t_bytes_memory_ptr_$returns$_t_bytes4_$",
+                        "typeString": "function (address,address,uint256,uint256,bytes memory) external returns (bytes4)"
+                      }
+                    },
+                    "id": 19694,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "lValueRequested": false,
+                    "memberName": "selector",
+                    "nodeType": "MemberAccess",
+                    "src": "680:31:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "functionReturnParameters": 19691,
+                  "id": 19695,
+                  "nodeType": "Return",
+                  "src": "673:38:168"
+                }
+              ]
+            },
+            "functionSelector": "f23a6e61",
+            "id": 19697,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "onERC1155Received",
+            "nameLocation": "508:17:168",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 19688,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "637:8:168"
+            },
+            "parameters": {
+              "id": 19687,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 19678,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19697,
+                  "src": "535:7:168",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 19677,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "535:7:168",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19680,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19697,
+                  "src": "552:7:168",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 19679,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "552:7:168",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19682,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19697,
+                  "src": "569:7:168",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 19681,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "569:7:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19684,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19697,
+                  "src": "586:7:168",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 19683,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "586:7:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19686,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19697,
+                  "src": "603:12:168",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 19685,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "603:5:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "525:96:168"
+            },
+            "returnParameters": {
+              "id": 19691,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 19690,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19697,
+                  "src": "655:6:168",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 19689,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "655:6:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "654:8:168"
+            },
+            "scope": 19721,
+            "src": "499:219:168",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "public"
+          },
+          {
+            "baseFunctions": [
+              19182
+            ],
+            "body": {
+              "id": 19719,
+              "nodeType": "Block",
+              "src": "911:60:168",
+              "statements": [
+                {
+                  "expression": {
+                    "expression": {
+                      "expression": {
+                        "id": 19715,
+                        "name": "this",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -28,
+                        "src": "928:4:168",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ERC1155Holder_$19721",
+                          "typeString": "contract ERC1155Holder"
+                        }
+                      },
+                      "id": 19716,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "onERC1155BatchReceived",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 19720,
+                      "src": "928:27:168",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_address_$_t_array$_t_uint256_$dyn_memory_ptr_$_t_array$_t_uint256_$dyn_memory_ptr_$_t_bytes_memory_ptr_$returns$_t_bytes4_$",
+                        "typeString": "function (address,address,uint256[] memory,uint256[] memory,bytes memory) external returns (bytes4)"
+                      }
+                    },
+                    "id": 19717,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "lValueRequested": false,
+                    "memberName": "selector",
+                    "nodeType": "MemberAccess",
+                    "src": "928:36:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "functionReturnParameters": 19714,
+                  "id": 19718,
+                  "nodeType": "Return",
+                  "src": "921:43:168"
+                }
+              ]
+            },
+            "functionSelector": "bc197c81",
+            "id": 19720,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "onERC1155BatchReceived",
+            "nameLocation": "733:22:168",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 19711,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "885:8:168"
+            },
+            "parameters": {
+              "id": 19710,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 19699,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19720,
+                  "src": "765:7:168",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 19698,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "765:7:168",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19701,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19720,
+                  "src": "782:7:168",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 19700,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "782:7:168",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19704,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19720,
+                  "src": "799:16:168",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 19702,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "799:7:168",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 19703,
+                    "nodeType": "ArrayTypeName",
+                    "src": "799:9:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19707,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19720,
+                  "src": "825:16:168",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 19705,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "825:7:168",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 19706,
+                    "nodeType": "ArrayTypeName",
+                    "src": "825:9:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 19709,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19720,
+                  "src": "851:12:168",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 19708,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "851:5:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "755:114:168"
+            },
+            "returnParameters": {
+              "id": 19714,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 19713,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 19720,
+                  "src": "903:6:168",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 19712,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "903:6:168",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "902:8:168"
+            },
+            "scope": 19721,
+            "src": "724:247:168",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "public"
+          }
+        ],
+        "scope": 19722,
+        "src": "451:522:168",
+        "usedErrors": []
+      }
+    ],
+    "src": "121:853:168"
+  },
+  "bytecode": "608060405234801561001057600080fd5b506103c5806100206000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c806301ffc9a714610046578063bc197c811461006e578063f23a6e61146100a6575b600080fd5b6100596100543660046100fc565b6100c5565b60405190151581526020015b60405180910390f35b61008d61007c366004610280565b63bc197c8160e01b95945050505050565b6040516001600160e01b03199091168152602001610065565b61008d6100b436600461032a565b63f23a6e6160e01b95945050505050565b60006001600160e01b03198216630271189760e51b14806100f657506301ffc9a760e01b6001600160e01b03198316145b92915050565b60006020828403121561010e57600080fd5b81356001600160e01b03198116811461012657600080fd5b9392505050565b80356001600160a01b038116811461014457600080fd5b919050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff8111828210171561018857610188610149565b604052919050565b600082601f8301126101a157600080fd5b8135602067ffffffffffffffff8211156101bd576101bd610149565b8160051b6101cc82820161015f565b92835284810182019282810190878511156101e657600080fd5b83870192505b84831015610205578235825291830191908301906101ec565b979650505050505050565b600082601f83011261022157600080fd5b813567ffffffffffffffff81111561023b5761023b610149565b61024e601f8201601f191660200161015f565b81815284602083860101111561026357600080fd5b816020850160208301376000918101602001919091529392505050565b600080600080600060a0868803121561029857600080fd5b6102a18661012d565b94506102af6020870161012d565b9350604086013567ffffffffffffffff808211156102cc57600080fd5b6102d889838a01610190565b945060608801359150808211156102ee57600080fd5b6102fa89838a01610190565b9350608088013591508082111561031057600080fd5b5061031d88828901610210565b9150509295509295909350565b600080600080600060a0868803121561034257600080fd5b61034b8661012d565b94506103596020870161012d565b93506040860135925060608601359150608086013567ffffffffffffffff81111561038357600080fd5b61031d8882890161021056fea2646970667358221220fb75267f6dab14bfa2c2cc3ed3044245e4583ba27e50ef8af0ef3af5115d5b7f64736f6c634300080c0033",
+  "bytecodeSha1": "640b273ac99f9a455551731de16bd093109b1371",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.12+commit.f00d7308"
+  },
+  "contractName": "ERC1155Holder",
+  "coverageMap": {
+    "branches": {
+      "162": {},
+      "168": {},
+      "169": {},
+      "224": {},
+      "228": {}
+    },
+    "statements": {
+      "162": {},
+      "168": {},
+      "169": {
+        "ERC1155Receiver.supportsInterface": {
+          "0": [
+            505,
+            601
+          ]
+        }
+      },
+      "224": {
+        "ERC165.supportsInterface": {
+          "1": [
+            930,
+            977
+          ]
+        }
+      },
+      "228": {}
+    }
+  },
+  "dependencies": [
+    "ERC1155Receiver",
+    "ERC165",
+    "IERC1155Receiver",
+    "IERC165"
+  ],
+  "deployedBytecode": "608060405234801561001057600080fd5b50600436106100415760003560e01c806301ffc9a714610046578063bc197c811461006e578063f23a6e61146100a6575b600080fd5b6100596100543660046100fc565b6100c5565b60405190151581526020015b60405180910390f35b61008d61007c366004610280565b63bc197c8160e01b95945050505050565b6040516001600160e01b03199091168152602001610065565b61008d6100b436600461032a565b63f23a6e6160e01b95945050505050565b60006001600160e01b03198216630271189760e51b14806100f657506301ffc9a760e01b6001600160e01b03198316145b92915050565b60006020828403121561010e57600080fd5b81356001600160e01b03198116811461012657600080fd5b9392505050565b80356001600160a01b038116811461014457600080fd5b919050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff8111828210171561018857610188610149565b604052919050565b600082601f8301126101a157600080fd5b8135602067ffffffffffffffff8211156101bd576101bd610149565b8160051b6101cc82820161015f565b92835284810182019282810190878511156101e657600080fd5b83870192505b84831015610205578235825291830191908301906101ec565b979650505050505050565b600082601f83011261022157600080fd5b813567ffffffffffffffff81111561023b5761023b610149565b61024e601f8201601f191660200161015f565b81815284602083860101111561026357600080fd5b816020850160208301376000918101602001919091529392505050565b600080600080600060a0868803121561029857600080fd5b6102a18661012d565b94506102af6020870161012d565b9350604086013567ffffffffffffffff808211156102cc57600080fd5b6102d889838a01610190565b945060608801359150808211156102ee57600080fd5b6102fa89838a01610190565b9350608088013591508082111561031057600080fd5b5061031d88828901610210565b9150509295509295909350565b600080600080600060a0868803121561034257600080fd5b61034b8661012d565b94506103596020870161012d565b93506040860135925060608601359150608086013567ffffffffffffffff81111561038357600080fd5b61031d8882890161021056fea2646970667358221220fb75267f6dab14bfa2c2cc3ed3044245e4583ba27e50ef8af0ef3af5115d5b7f64736f6c634300080c0033",
+  "deployedSourceMap": "451:522:168:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;387:221:169;;;;;;:::i;:::-;;:::i;:::-;;;470:14:239;;463:22;445:41;;433:2;418:18;387:221:169;;;;;;;;724:247:168;;;;;;:::i;:::-;-1:-1:-1;;;724:247:168;;;;;;;;;;;-1:-1:-1;;;;;;3449:33:239;;;3431:52;;3419:2;3404:18;724:247:168;3287:202:239;499:219:168;;;;;;:::i;:::-;-1:-1:-1;;;499:219:168;;;;;;;;387:221:169;489:4;-1:-1:-1;;;;;;512:49:169;;-1:-1:-1;;;512:49:169;;:89;;-1:-1:-1;;;;;;;;;;937:40:224;;;565:36:169;505:96;387:221;-1:-1:-1;;387:221:169:o;14:286:239:-;72:6;125:2;113:9;104:7;100:23;96:32;93:52;;;141:1;138;131:12;93:52;167:23;;-1:-1:-1;;;;;;219:32:239;;209:43;;199:71;;266:1;263;256:12;199:71;289:5;14:286;-1:-1:-1;;;14:286:239:o;497:173::-;565:20;;-1:-1:-1;;;;;614:31:239;;604:42;;594:70;;660:1;657;650:12;594:70;497:173;;;:::o;675:127::-;736:10;731:3;727:20;724:1;717:31;767:4;764:1;757:15;791:4;788:1;781:15;807:275;878:2;872:9;943:2;924:13;;-1:-1:-1;;920:27:239;908:40;;978:18;963:34;;999:22;;;960:62;957:88;;;1025:18;;:::i;:::-;1061:2;1054:22;807:275;;-1:-1:-1;807:275:239:o;1087:712::-;1141:5;1194:3;1187:4;1179:6;1175:17;1171:27;1161:55;;1212:1;1209;1202:12;1161:55;1248:6;1235:20;1274:4;1297:18;1293:2;1290:26;1287:52;;;1319:18;;:::i;:::-;1365:2;1362:1;1358:10;1388:28;1412:2;1408;1404:11;1388:28;:::i;:::-;1450:15;;;1520;;;1516:24;;;1481:12;;;;1552:15;;;1549:35;;;1580:1;1577;1570:12;1549:35;1616:2;1608:6;1604:15;1593:26;;1628:142;1644:6;1639:3;1636:15;1628:142;;;1710:17;;1698:30;;1661:12;;;;1748;;;;1628:142;;;1788:5;1087:712;-1:-1:-1;;;;;;;1087:712:239:o;1804:530::-;1846:5;1899:3;1892:4;1884:6;1880:17;1876:27;1866:55;;1917:1;1914;1907:12;1866:55;1953:6;1940:20;1979:18;1975:2;1972:26;1969:52;;;2001:18;;:::i;:::-;2045:55;2088:2;2069:13;;-1:-1:-1;;2065:27:239;2094:4;2061:38;2045:55;:::i;:::-;2125:2;2116:7;2109:19;2171:3;2164:4;2159:2;2151:6;2147:15;2143:26;2140:35;2137:55;;;2188:1;2185;2178:12;2137:55;2253:2;2246:4;2238:6;2234:17;2227:4;2218:7;2214:18;2201:55;2301:1;2276:16;;;2294:4;2272:27;2265:38;;;;2280:7;1804:530;-1:-1:-1;;;1804:530:239:o;2339:943::-;2493:6;2501;2509;2517;2525;2578:3;2566:9;2557:7;2553:23;2549:33;2546:53;;;2595:1;2592;2585:12;2546:53;2618:29;2637:9;2618:29;:::i;:::-;2608:39;;2666:38;2700:2;2689:9;2685:18;2666:38;:::i;:::-;2656:48;;2755:2;2744:9;2740:18;2727:32;2778:18;2819:2;2811:6;2808:14;2805:34;;;2835:1;2832;2825:12;2805:34;2858:61;2911:7;2902:6;2891:9;2887:22;2858:61;:::i;:::-;2848:71;;2972:2;2961:9;2957:18;2944:32;2928:48;;3001:2;2991:8;2988:16;2985:36;;;3017:1;3014;3007:12;2985:36;3040:63;3095:7;3084:8;3073:9;3069:24;3040:63;:::i;:::-;3030:73;;3156:3;3145:9;3141:19;3128:33;3112:49;;3186:2;3176:8;3173:16;3170:36;;;3202:1;3199;3192:12;3170:36;;3225:51;3268:7;3257:8;3246:9;3242:24;3225:51;:::i;:::-;3215:61;;;2339:943;;;;;;;;:::o;3494:606::-;3598:6;3606;3614;3622;3630;3683:3;3671:9;3662:7;3658:23;3654:33;3651:53;;;3700:1;3697;3690:12;3651:53;3723:29;3742:9;3723:29;:::i;:::-;3713:39;;3771:38;3805:2;3794:9;3790:18;3771:38;:::i;:::-;3761:48;;3856:2;3845:9;3841:18;3828:32;3818:42;;3907:2;3896:9;3892:18;3879:32;3869:42;;3962:3;3951:9;3947:19;3934:33;3990:18;3982:6;3979:30;3976:50;;;4022:1;4019;4012:12;3976:50;4045:49;4086:7;4077:6;4066:9;4062:22;4045:49;:::i",
+  "language": "Solidity",
+  "natspec": {
+    "details": "_Available since v3.1._",
+    "kind": "dev",
+    "methods": {
+      "supportsInterface(bytes4)": {
+        "details": "See {IERC165-supportsInterface}."
+      }
+    },
+    "notice": "Simple implementation of `ERC1155Receiver` that will allow a contract to hold ERC1155 tokens. IMPORTANT: When inheriting this contract, you must include a way to use the received tokens, otherwise they will be stuck.",
+    "version": 1
+  },
+  "offset": [
+    451,
+    973
+  ],
+  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x41 JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x1FFC9A7 EQ PUSH2 0x46 JUMPI DUP1 PUSH4 0xBC197C81 EQ PUSH2 0x6E JUMPI DUP1 PUSH4 0xF23A6E61 EQ PUSH2 0xA6 JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x59 PUSH2 0x54 CALLDATASIZE PUSH1 0x4 PUSH2 0xFC JUMP JUMPDEST PUSH2 0xC5 JUMP JUMPDEST PUSH1 0x40 MLOAD SWAP1 ISZERO ISZERO DUP2 MSTORE PUSH1 0x20 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x8D PUSH2 0x7C CALLDATASIZE PUSH1 0x4 PUSH2 0x280 JUMP JUMPDEST PUSH4 0xBC197C81 PUSH1 0xE0 SHL SWAP6 SWAP5 POP POP POP POP POP JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xE0 SHL SUB NOT SWAP1 SWAP2 AND DUP2 MSTORE PUSH1 0x20 ADD PUSH2 0x65 JUMP JUMPDEST PUSH2 0x8D PUSH2 0xB4 CALLDATASIZE PUSH1 0x4 PUSH2 0x32A JUMP JUMPDEST PUSH4 0xF23A6E61 PUSH1 0xE0 SHL SWAP6 SWAP5 POP POP POP POP POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x1 PUSH1 0x1 PUSH1 0xE0 SHL SUB NOT DUP3 AND PUSH4 0x2711897 PUSH1 0xE5 SHL EQ DUP1 PUSH2 0xF6 JUMPI POP PUSH4 0x1FFC9A7 PUSH1 0xE0 SHL PUSH1 0x1 PUSH1 0x1 PUSH1 0xE0 SHL SUB NOT DUP4 AND EQ JUMPDEST SWAP3 SWAP2 POP POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x10E JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 CALLDATALOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xE0 SHL SUB NOT DUP2 AND DUP2 EQ PUSH2 0x126 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST SWAP4 SWAP3 POP POP POP JUMP JUMPDEST DUP1 CALLDATALOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP2 AND DUP2 EQ PUSH2 0x144 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST SWAP2 SWAP1 POP JUMP JUMPDEST PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x41 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x1F DUP3 ADD PUSH1 0x1F NOT AND DUP2 ADD PUSH8 0xFFFFFFFFFFFFFFFF DUP2 GT DUP3 DUP3 LT OR ISZERO PUSH2 0x188 JUMPI PUSH2 0x188 PUSH2 0x149 JUMP JUMPDEST PUSH1 0x40 MSTORE SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 DUP3 PUSH1 0x1F DUP4 ADD SLT PUSH2 0x1A1 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 CALLDATALOAD PUSH1 0x20 PUSH8 0xFFFFFFFFFFFFFFFF DUP3 GT ISZERO PUSH2 0x1BD JUMPI PUSH2 0x1BD PUSH2 0x149 JUMP JUMPDEST DUP2 PUSH1 0x5 SHL PUSH2 0x1CC DUP3 DUP3 ADD PUSH2 0x15F JUMP JUMPDEST SWAP3 DUP4 MSTORE DUP5 DUP2 ADD DUP3 ADD SWAP3 DUP3 DUP2 ADD SWAP1 DUP8 DUP6 GT ISZERO PUSH2 0x1E6 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP4 DUP8 ADD SWAP3 POP JUMPDEST DUP5 DUP4 LT ISZERO PUSH2 0x205 JUMPI DUP3 CALLDATALOAD DUP3 MSTORE SWAP2 DUP4 ADD SWAP2 SWAP1 DUP4 ADD SWAP1 PUSH2 0x1EC JUMP JUMPDEST SWAP8 SWAP7 POP POP POP POP POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP3 PUSH1 0x1F DUP4 ADD SLT PUSH2 0x221 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 CALLDATALOAD PUSH8 0xFFFFFFFFFFFFFFFF DUP2 GT ISZERO PUSH2 0x23B JUMPI PUSH2 0x23B PUSH2 0x149 JUMP JUMPDEST PUSH2 0x24E PUSH1 0x1F DUP3 ADD PUSH1 0x1F NOT AND PUSH1 0x20 ADD PUSH2 0x15F JUMP JUMPDEST DUP2 DUP2 MSTORE DUP5 PUSH1 0x20 DUP4 DUP7 ADD ADD GT ISZERO PUSH2 0x263 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 PUSH1 0x20 DUP6 ADD PUSH1 0x20 DUP4 ADD CALLDATACOPY PUSH1 0x0 SWAP2 DUP2 ADD PUSH1 0x20 ADD SWAP2 SWAP1 SWAP2 MSTORE SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x0 DUP1 PUSH1 0x0 PUSH1 0xA0 DUP7 DUP9 SUB SLT ISZERO PUSH2 0x298 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x2A1 DUP7 PUSH2 0x12D JUMP JUMPDEST SWAP5 POP PUSH2 0x2AF PUSH1 0x20 DUP8 ADD PUSH2 0x12D JUMP JUMPDEST SWAP4 POP PUSH1 0x40 DUP7 ADD CALLDATALOAD PUSH8 0xFFFFFFFFFFFFFFFF DUP1 DUP3 GT ISZERO PUSH2 0x2CC JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x2D8 DUP10 DUP4 DUP11 ADD PUSH2 0x190 JUMP JUMPDEST SWAP5 POP PUSH1 0x60 DUP9 ADD CALLDATALOAD SWAP2 POP DUP1 DUP3 GT ISZERO PUSH2 0x2EE JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x2FA DUP10 DUP4 DUP11 ADD PUSH2 0x190 JUMP JUMPDEST SWAP4 POP PUSH1 0x80 DUP9 ADD CALLDATALOAD SWAP2 POP DUP1 DUP3 GT ISZERO PUSH2 0x310 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH2 0x31D DUP9 DUP3 DUP10 ADD PUSH2 0x210 JUMP JUMPDEST SWAP2 POP POP SWAP3 SWAP6 POP SWAP3 SWAP6 SWAP1 SWAP4 POP JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x0 DUP1 PUSH1 0x0 PUSH1 0xA0 DUP7 DUP9 SUB SLT ISZERO PUSH2 0x342 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x34B DUP7 PUSH2 0x12D JUMP JUMPDEST SWAP5 POP PUSH2 0x359 PUSH1 0x20 DUP8 ADD PUSH2 0x12D JUMP JUMPDEST SWAP4 POP PUSH1 0x40 DUP7 ADD CALLDATALOAD SWAP3 POP PUSH1 0x60 DUP7 ADD CALLDATALOAD SWAP2 POP PUSH1 0x80 DUP7 ADD CALLDATALOAD PUSH8 0xFFFFFFFFFFFFFFFF DUP2 GT ISZERO PUSH2 0x383 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x31D DUP9 DUP3 DUP10 ADD PUSH2 0x210 JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xFB PUSH22 0x267F6DAB14BFA2C2CC3ED3044245E4583BA27E50EF8A CREATE 0xEF GASPRICE CREATE2 GT 0x5D JUMPDEST PUSH32 0x64736F6C634300080C0033000000000000000000000000000000000000000000 ",
+  "pcMap": {
+    "0": {
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x80"
+    },
+    "2": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x40"
+    },
+    "4": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "MSTORE",
+      "path": "168"
+    },
+    "5": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "CALLVALUE",
+      "path": "168"
+    },
+    "6": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "DUP1",
+      "path": "168"
+    },
+    "7": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "ISZERO",
+      "path": "168"
+    },
+    "8": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x10"
+    },
+    "11": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "JUMPI",
+      "path": "168"
+    },
+    "12": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x0"
+    },
+    "14": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "DUP1",
+      "path": "168"
+    },
+    "15": {
+      "dev": "Cannot send ether to nonpayable function",
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "REVERT",
+      "path": "168"
+    },
+    "16": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "JUMPDEST",
+      "path": "168"
+    },
+    "17": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "18": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x4"
+    },
+    "20": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "CALLDATASIZE",
+      "path": "168"
+    },
+    "21": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "LT",
+      "path": "168"
+    },
+    "22": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x41"
+    },
+    "25": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "JUMPI",
+      "path": "168"
+    },
+    "26": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x0"
+    },
+    "28": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "CALLDATALOAD",
+      "path": "168"
+    },
+    "29": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0xE0"
+    },
+    "31": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "SHR",
+      "path": "168"
+    },
+    "32": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "DUP1",
+      "path": "168"
+    },
+    "33": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH4",
+      "path": "168",
+      "value": "0x1FFC9A7"
+    },
+    "38": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "EQ",
+      "path": "168"
+    },
+    "39": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x46"
+    },
+    "42": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "JUMPI",
+      "path": "168"
+    },
+    "43": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "DUP1",
+      "path": "168"
+    },
+    "44": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH4",
+      "path": "168",
+      "value": "0xBC197C81"
+    },
+    "49": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "EQ",
+      "path": "168"
+    },
+    "50": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x6E"
+    },
+    "53": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "JUMPI",
+      "path": "168"
+    },
+    "54": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "DUP1",
+      "path": "168"
+    },
+    "55": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH4",
+      "path": "168",
+      "value": "0xF23A6E61"
+    },
+    "60": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "EQ",
+      "path": "168"
+    },
+    "61": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0xA6"
+    },
+    "64": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "JUMPI",
+      "path": "168"
+    },
+    "65": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "JUMPDEST",
+      "path": "168"
+    },
+    "66": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x0"
+    },
+    "68": {
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "DUP1",
+      "path": "168"
+    },
+    "69": {
+      "first_revert": true,
+      "fn": null,
+      "offset": [
+        451,
+        973
+      ],
+      "op": "REVERT",
+      "path": "168"
+    },
+    "70": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "JUMPDEST",
+      "path": "169"
+    },
+    "71": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "PUSH2",
+      "path": "169",
+      "value": "0x59"
+    },
+    "74": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "PUSH2",
+      "path": "169",
+      "value": "0x54"
+    },
+    "77": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "CALLDATASIZE",
+      "path": "169"
+    },
+    "78": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "PUSH1",
+      "path": "169",
+      "value": "0x4"
+    },
+    "80": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "PUSH2",
+      "path": "169",
+      "value": "0xFC"
+    },
+    "83": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "jump": "i",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "JUMP",
+      "path": "169"
+    },
+    "84": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "JUMPDEST",
+      "path": "169"
+    },
+    "85": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "PUSH2",
+      "path": "169",
+      "value": "0xC5"
+    },
+    "88": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "jump": "i",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "JUMP",
+      "path": "169"
+    },
+    "89": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "JUMPDEST",
+      "path": "169"
+    },
+    "90": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "PUSH1",
+      "path": "169",
+      "value": "0x40"
+    },
+    "92": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "MLOAD",
+      "path": "169"
+    },
+    "93": {
+      "op": "SWAP1"
+    },
+    "94": {
+      "op": "ISZERO"
+    },
+    "95": {
+      "op": "ISZERO"
+    },
+    "96": {
+      "op": "DUP2"
+    },
+    "97": {
+      "op": "MSTORE"
+    },
+    "98": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "100": {
+      "op": "ADD"
+    },
+    "101": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "JUMPDEST",
+      "path": "169"
+    },
+    "102": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "PUSH1",
+      "path": "169",
+      "value": "0x40"
+    },
+    "104": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "MLOAD",
+      "path": "169"
+    },
+    "105": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "DUP1",
+      "path": "169"
+    },
+    "106": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "SWAP2",
+      "path": "169"
+    },
+    "107": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "SUB",
+      "path": "169"
+    },
+    "108": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "SWAP1",
+      "path": "169"
+    },
+    "109": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "RETURN",
+      "path": "169"
+    },
+    "110": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "JUMPDEST",
+      "path": "168"
+    },
+    "111": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x8D"
+    },
+    "114": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x7C"
+    },
+    "117": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "CALLDATASIZE",
+      "path": "168"
+    },
+    "118": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x4"
+    },
+    "120": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x280"
+    },
+    "123": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "jump": "i",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "JUMP",
+      "path": "168"
+    },
+    "124": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "JUMPDEST",
+      "path": "168"
+    },
+    "125": {
+      "op": "PUSH4",
+      "value": "0xBC197C81"
+    },
+    "130": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "132": {
+      "op": "SHL"
+    },
+    "133": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "SWAP6",
+      "path": "168"
+    },
+    "134": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "SWAP5",
+      "path": "168"
+    },
+    "135": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "136": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "137": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "138": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "139": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "140": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "JUMP",
+      "path": "168"
+    },
+    "141": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "JUMPDEST",
+      "path": "168"
+    },
+    "142": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x40"
+    },
+    "144": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "MLOAD",
+      "path": "168"
+    },
+    "145": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "147": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "149": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "151": {
+      "op": "SHL"
+    },
+    "152": {
+      "op": "SUB"
+    },
+    "153": {
+      "op": "NOT"
+    },
+    "154": {
+      "op": "SWAP1"
+    },
+    "155": {
+      "op": "SWAP2"
+    },
+    "156": {
+      "op": "AND"
+    },
+    "157": {
+      "op": "DUP2"
+    },
+    "158": {
+      "op": "MSTORE"
+    },
+    "159": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "161": {
+      "op": "ADD"
+    },
+    "162": {
+      "fn": "ERC1155Holder.onERC1155BatchReceived",
+      "offset": [
+        724,
+        971
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x65"
+    },
+    "165": {
+      "op": "JUMP"
+    },
+    "166": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "JUMPDEST",
+      "path": "168"
+    },
+    "167": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x8D"
+    },
+    "170": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0xB4"
+    },
+    "173": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "CALLDATASIZE",
+      "path": "168"
+    },
+    "174": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "PUSH1",
+      "path": "168",
+      "value": "0x4"
+    },
+    "176": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "PUSH2",
+      "path": "168",
+      "value": "0x32A"
+    },
+    "179": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "jump": "i",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "JUMP",
+      "path": "168"
+    },
+    "180": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "JUMPDEST",
+      "path": "168"
+    },
+    "181": {
+      "op": "PUSH4",
+      "value": "0xF23A6E61"
+    },
+    "186": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "188": {
+      "op": "SHL"
+    },
+    "189": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "SWAP6",
+      "path": "168"
+    },
+    "190": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "SWAP5",
+      "path": "168"
+    },
+    "191": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "192": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "193": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "194": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "195": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "POP",
+      "path": "168"
+    },
+    "196": {
+      "fn": "ERC1155Holder.onERC1155Received",
+      "offset": [
+        499,
+        718
+      ],
+      "op": "JUMP",
+      "path": "168"
+    },
+    "197": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "JUMPDEST",
+      "path": "169"
+    },
+    "198": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        489,
+        493
+      ],
+      "op": "PUSH1",
+      "path": "169",
+      "value": "0x0"
+    },
+    "200": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "202": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "204": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "206": {
+      "op": "SHL"
+    },
+    "207": {
+      "op": "SUB"
+    },
+    "208": {
+      "op": "NOT"
+    },
+    "209": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        512,
+        561
+      ],
+      "op": "DUP3",
+      "path": "169",
+      "statement": 0
+    },
+    "210": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        512,
+        561
+      ],
+      "op": "AND",
+      "path": "169"
+    },
+    "211": {
+      "op": "PUSH4",
+      "value": "0x2711897"
+    },
+    "216": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "218": {
+      "op": "SHL"
+    },
+    "219": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        512,
+        561
+      ],
+      "op": "EQ",
+      "path": "169"
+    },
+    "220": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        512,
+        561
+      ],
+      "op": "DUP1",
+      "path": "169"
+    },
+    "221": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        512,
+        601
+      ],
+      "op": "PUSH2",
+      "path": "169",
+      "value": "0xF6"
+    },
+    "224": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        512,
+        601
+      ],
+      "op": "JUMPI",
+      "path": "169"
+    },
+    "225": {
+      "op": "POP"
+    },
+    "226": {
+      "op": "PUSH4",
+      "value": "0x1FFC9A7"
+    },
+    "231": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "233": {
+      "op": "SHL"
+    },
+    "234": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "236": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "238": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "240": {
+      "op": "SHL"
+    },
+    "241": {
+      "op": "SUB"
+    },
+    "242": {
+      "op": "NOT"
+    },
+    "243": {
+      "fn": "ERC165.supportsInterface",
+      "offset": [
+        937,
+        977
+      ],
+      "op": "DUP4",
+      "path": "224",
+      "statement": 1
+    },
+    "244": {
+      "fn": "ERC165.supportsInterface",
+      "offset": [
+        937,
+        977
+      ],
+      "op": "AND",
+      "path": "224"
+    },
+    "245": {
+      "fn": "ERC165.supportsInterface",
+      "offset": [
+        937,
+        977
+      ],
+      "op": "EQ",
+      "path": "224"
+    },
+    "246": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        565,
+        601
+      ],
+      "op": "JUMPDEST",
+      "path": "169"
+    },
+    "247": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        505,
+        601
+      ],
+      "op": "SWAP3",
+      "path": "169"
+    },
+    "248": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "SWAP2",
+      "path": "169"
+    },
+    "249": {
+      "op": "POP"
+    },
+    "250": {
+      "op": "POP"
+    },
+    "251": {
+      "fn": "ERC1155Receiver.supportsInterface",
+      "jump": "o",
+      "offset": [
+        387,
+        608
+      ],
+      "op": "JUMP",
+      "path": "169"
+    },
+    "252": {
+      "op": "JUMPDEST"
+    },
+    "253": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "255": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "257": {
+      "op": "DUP3"
+    },
+    "258": {
+      "op": "DUP5"
+    },
+    "259": {
+      "op": "SUB"
+    },
+    "260": {
+      "op": "SLT"
+    },
+    "261": {
+      "op": "ISZERO"
+    },
+    "262": {
+      "op": "PUSH2",
+      "value": "0x10E"
+    },
+    "265": {
+      "op": "JUMPI"
+    },
+    "266": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "268": {
+      "op": "DUP1"
+    },
+    "269": {
+      "op": "REVERT"
+    },
+    "270": {
+      "op": "JUMPDEST"
+    },
+    "271": {
+      "op": "DUP2"
+    },
+    "272": {
+      "op": "CALLDATALOAD"
+    },
+    "273": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "275": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "277": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "279": {
+      "op": "SHL"
+    },
+    "280": {
+      "op": "SUB"
+    },
+    "281": {
+      "op": "NOT"
+    },
+    "282": {
+      "op": "DUP2"
+    },
+    "283": {
+      "op": "AND"
+    },
+    "284": {
+      "op": "DUP2"
+    },
+    "285": {
+      "op": "EQ"
+    },
+    "286": {
+      "op": "PUSH2",
+      "value": "0x126"
+    },
+    "289": {
+      "op": "JUMPI"
+    },
+    "290": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "292": {
+      "op": "DUP1"
+    },
+    "293": {
+      "op": "REVERT"
+    },
+    "294": {
+      "op": "JUMPDEST"
+    },
+    "295": {
+      "op": "SWAP4"
+    },
+    "296": {
+      "op": "SWAP3"
+    },
+    "297": {
+      "op": "POP"
+    },
+    "298": {
+      "op": "POP"
+    },
+    "299": {
+      "op": "POP"
+    },
+    "300": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "301": {
+      "op": "JUMPDEST"
+    },
+    "302": {
+      "op": "DUP1"
+    },
+    "303": {
+      "op": "CALLDATALOAD"
+    },
+    "304": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "306": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "308": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "310": {
+      "op": "SHL"
+    },
+    "311": {
+      "op": "SUB"
+    },
+    "312": {
+      "op": "DUP2"
+    },
+    "313": {
+      "op": "AND"
+    },
+    "314": {
+      "op": "DUP2"
+    },
+    "315": {
+      "op": "EQ"
+    },
+    "316": {
+      "op": "PUSH2",
+      "value": "0x144"
+    },
+    "319": {
+      "op": "JUMPI"
+    },
+    "320": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "322": {
+      "op": "DUP1"
+    },
+    "323": {
+      "op": "REVERT"
+    },
+    "324": {
+      "op": "JUMPDEST"
+    },
+    "325": {
+      "op": "SWAP2"
+    },
+    "326": {
+      "op": "SWAP1"
+    },
+    "327": {
+      "op": "POP"
+    },
+    "328": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "329": {
+      "op": "JUMPDEST"
+    },
+    "330": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "335": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "337": {
+      "op": "SHL"
+    },
+    "338": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "340": {
+      "op": "MSTORE"
+    },
+    "341": {
+      "op": "PUSH1",
+      "value": "0x41"
+    },
+    "343": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "345": {
+      "op": "MSTORE"
+    },
+    "346": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "348": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "350": {
+      "op": "REVERT"
+    },
+    "351": {
+      "op": "JUMPDEST"
+    },
+    "352": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "354": {
+      "op": "MLOAD"
+    },
+    "355": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "357": {
+      "op": "DUP3"
+    },
+    "358": {
+      "op": "ADD"
+    },
+    "359": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "361": {
+      "op": "NOT"
+    },
+    "362": {
+      "op": "AND"
+    },
+    "363": {
+      "op": "DUP2"
+    },
+    "364": {
+      "op": "ADD"
+    },
+    "365": {
+      "op": "PUSH8",
+      "value": "0xFFFFFFFFFFFFFFFF"
+    },
+    "374": {
+      "op": "DUP2"
+    },
+    "375": {
+      "op": "GT"
+    },
+    "376": {
+      "op": "DUP3"
+    },
+    "377": {
+      "op": "DUP3"
+    },
+    "378": {
+      "op": "LT"
+    },
+    "379": {
+      "op": "OR"
+    },
+    "380": {
+      "op": "ISZERO"
+    },
+    "381": {
+      "op": "PUSH2",
+      "value": "0x188"
+    },
+    "384": {
+      "op": "JUMPI"
+    },
+    "385": {
+      "op": "PUSH2",
+      "value": "0x188"
+    },
+    "388": {
+      "op": "PUSH2",
+      "value": "0x149"
+    },
+    "391": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "392": {
+      "op": "JUMPDEST"
+    },
+    "393": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "395": {
+      "op": "MSTORE"
+    },
+    "396": {
+      "op": "SWAP2"
+    },
+    "397": {
+      "op": "SWAP1"
+    },
+    "398": {
+      "op": "POP"
+    },
+    "399": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "400": {
+      "op": "JUMPDEST"
+    },
+    "401": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "403": {
+      "op": "DUP3"
+    },
+    "404": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "406": {
+      "op": "DUP4"
+    },
+    "407": {
+      "op": "ADD"
+    },
+    "408": {
+      "op": "SLT"
+    },
+    "409": {
+      "op": "PUSH2",
+      "value": "0x1A1"
+    },
+    "412": {
+      "op": "JUMPI"
+    },
+    "413": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "415": {
+      "op": "DUP1"
+    },
+    "416": {
+      "op": "REVERT"
+    },
+    "417": {
+      "op": "JUMPDEST"
+    },
+    "418": {
+      "op": "DUP2"
+    },
+    "419": {
+      "op": "CALLDATALOAD"
+    },
+    "420": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "422": {
+      "op": "PUSH8",
+      "value": "0xFFFFFFFFFFFFFFFF"
+    },
+    "431": {
+      "op": "DUP3"
+    },
+    "432": {
+      "op": "GT"
+    },
+    "433": {
+      "op": "ISZERO"
+    },
+    "434": {
+      "op": "PUSH2",
+      "value": "0x1BD"
+    },
+    "437": {
+      "op": "JUMPI"
+    },
+    "438": {
+      "op": "PUSH2",
+      "value": "0x1BD"
+    },
+    "441": {
+      "op": "PUSH2",
+      "value": "0x149"
+    },
+    "444": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "445": {
+      "op": "JUMPDEST"
+    },
+    "446": {
+      "op": "DUP2"
+    },
+    "447": {
+      "op": "PUSH1",
+      "value": "0x5"
+    },
+    "449": {
+      "op": "SHL"
+    },
+    "450": {
+      "op": "PUSH2",
+      "value": "0x1CC"
+    },
+    "453": {
+      "op": "DUP3"
+    },
+    "454": {
+      "op": "DUP3"
+    },
+    "455": {
+      "op": "ADD"
+    },
+    "456": {
+      "op": "PUSH2",
+      "value": "0x15F"
+    },
+    "459": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "460": {
+      "op": "JUMPDEST"
+    },
+    "461": {
+      "op": "SWAP3"
+    },
+    "462": {
+      "op": "DUP4"
+    },
+    "463": {
+      "op": "MSTORE"
+    },
+    "464": {
+      "op": "DUP5"
+    },
+    "465": {
+      "op": "DUP2"
+    },
+    "466": {
+      "op": "ADD"
+    },
+    "467": {
+      "op": "DUP3"
+    },
+    "468": {
+      "op": "ADD"
+    },
+    "469": {
+      "op": "SWAP3"
+    },
+    "470": {
+      "op": "DUP3"
+    },
+    "471": {
+      "op": "DUP2"
+    },
+    "472": {
+      "op": "ADD"
+    },
+    "473": {
+      "op": "SWAP1"
+    },
+    "474": {
+      "op": "DUP8"
+    },
+    "475": {
+      "op": "DUP6"
+    },
+    "476": {
+      "op": "GT"
+    },
+    "477": {
+      "op": "ISZERO"
+    },
+    "478": {
+      "op": "PUSH2",
+      "value": "0x1E6"
+    },
+    "481": {
+      "op": "JUMPI"
+    },
+    "482": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "484": {
+      "op": "DUP1"
+    },
+    "485": {
+      "op": "REVERT"
+    },
+    "486": {
+      "op": "JUMPDEST"
+    },
+    "487": {
+      "op": "DUP4"
+    },
+    "488": {
+      "op": "DUP8"
+    },
+    "489": {
+      "op": "ADD"
+    },
+    "490": {
+      "op": "SWAP3"
+    },
+    "491": {
+      "op": "POP"
+    },
+    "492": {
+      "op": "JUMPDEST"
+    },
+    "493": {
+      "op": "DUP5"
+    },
+    "494": {
+      "op": "DUP4"
+    },
+    "495": {
+      "op": "LT"
+    },
+    "496": {
+      "op": "ISZERO"
+    },
+    "497": {
+      "op": "PUSH2",
+      "value": "0x205"
+    },
+    "500": {
+      "op": "JUMPI"
+    },
+    "501": {
+      "op": "DUP3"
+    },
+    "502": {
+      "op": "CALLDATALOAD"
+    },
+    "503": {
+      "op": "DUP3"
+    },
+    "504": {
+      "op": "MSTORE"
+    },
+    "505": {
+      "op": "SWAP2"
+    },
+    "506": {
+      "op": "DUP4"
+    },
+    "507": {
+      "op": "ADD"
+    },
+    "508": {
+      "op": "SWAP2"
+    },
+    "509": {
+      "op": "SWAP1"
+    },
+    "510": {
+      "op": "DUP4"
+    },
+    "511": {
+      "op": "ADD"
+    },
+    "512": {
+      "op": "SWAP1"
+    },
+    "513": {
+      "op": "PUSH2",
+      "value": "0x1EC"
+    },
+    "516": {
+      "op": "JUMP"
+    },
+    "517": {
+      "op": "JUMPDEST"
+    },
+    "518": {
+      "op": "SWAP8"
+    },
+    "519": {
+      "op": "SWAP7"
+    },
+    "520": {
+      "op": "POP"
+    },
+    "521": {
+      "op": "POP"
+    },
+    "522": {
+      "op": "POP"
+    },
+    "523": {
+      "op": "POP"
+    },
+    "524": {
+      "op": "POP"
+    },
+    "525": {
+      "op": "POP"
+    },
+    "526": {
+      "op": "POP"
+    },
+    "527": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "528": {
+      "op": "JUMPDEST"
+    },
+    "529": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "531": {
+      "op": "DUP3"
+    },
+    "532": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "534": {
+      "op": "DUP4"
+    },
+    "535": {
+      "op": "ADD"
+    },
+    "536": {
+      "op": "SLT"
+    },
+    "537": {
+      "op": "PUSH2",
+      "value": "0x221"
+    },
+    "540": {
+      "op": "JUMPI"
+    },
+    "541": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "543": {
+      "op": "DUP1"
+    },
+    "544": {
+      "op": "REVERT"
+    },
+    "545": {
+      "op": "JUMPDEST"
+    },
+    "546": {
+      "op": "DUP2"
+    },
+    "547": {
+      "op": "CALLDATALOAD"
+    },
+    "548": {
+      "op": "PUSH8",
+      "value": "0xFFFFFFFFFFFFFFFF"
+    },
+    "557": {
+      "op": "DUP2"
+    },
+    "558": {
+      "op": "GT"
+    },
+    "559": {
+      "op": "ISZERO"
+    },
+    "560": {
+      "op": "PUSH2",
+      "value": "0x23B"
+    },
+    "563": {
+      "op": "JUMPI"
+    },
+    "564": {
+      "op": "PUSH2",
+      "value": "0x23B"
+    },
+    "567": {
+      "op": "PUSH2",
+      "value": "0x149"
+    },
+    "570": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "571": {
+      "op": "JUMPDEST"
+    },
+    "572": {
+      "op": "PUSH2",
+      "value": "0x24E"
+    },
+    "575": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "577": {
+      "op": "DUP3"
+    },
+    "578": {
+      "op": "ADD"
+    },
+    "579": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "581": {
+      "op": "NOT"
+    },
+    "582": {
+      "op": "AND"
+    },
+    "583": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "585": {
+      "op": "ADD"
+    },
+    "586": {
+      "op": "PUSH2",
+      "value": "0x15F"
+    },
+    "589": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "590": {
+      "op": "JUMPDEST"
+    },
+    "591": {
+      "op": "DUP2"
+    },
+    "592": {
+      "op": "DUP2"
+    },
+    "593": {
+      "op": "MSTORE"
+    },
+    "594": {
+      "op": "DUP5"
+    },
+    "595": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "597": {
+      "op": "DUP4"
+    },
+    "598": {
+      "op": "DUP7"
+    },
+    "599": {
+      "op": "ADD"
+    },
+    "600": {
+      "op": "ADD"
+    },
+    "601": {
+      "op": "GT"
+    },
+    "602": {
+      "op": "ISZERO"
+    },
+    "603": {
+      "op": "PUSH2",
+      "value": "0x263"
+    },
+    "606": {
+      "op": "JUMPI"
+    },
+    "607": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "609": {
+      "op": "DUP1"
+    },
+    "610": {
+      "op": "REVERT"
+    },
+    "611": {
+      "op": "JUMPDEST"
+    },
+    "612": {
+      "op": "DUP2"
+    },
+    "613": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "615": {
+      "op": "DUP6"
+    },
+    "616": {
+      "op": "ADD"
+    },
+    "617": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "619": {
+      "op": "DUP4"
+    },
+    "620": {
+      "op": "ADD"
+    },
+    "621": {
+      "op": "CALLDATACOPY"
+    },
+    "622": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "624": {
+      "op": "SWAP2"
+    },
+    "625": {
+      "op": "DUP2"
+    },
+    "626": {
+      "op": "ADD"
+    },
+    "627": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "629": {
+      "op": "ADD"
+    },
+    "630": {
+      "op": "SWAP2"
+    },
+    "631": {
+      "op": "SWAP1"
+    },
+    "632": {
+      "op": "SWAP2"
+    },
+    "633": {
+      "op": "MSTORE"
+    },
+    "634": {
+      "op": "SWAP4"
+    },
+    "635": {
+      "op": "SWAP3"
+    },
+    "636": {
+      "op": "POP"
+    },
+    "637": {
+      "op": "POP"
+    },
+    "638": {
+      "op": "POP"
+    },
+    "639": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "640": {
+      "op": "JUMPDEST"
+    },
+    "641": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "643": {
+      "op": "DUP1"
+    },
+    "644": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "646": {
+      "op": "DUP1"
+    },
+    "647": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "649": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "651": {
+      "op": "DUP7"
+    },
+    "652": {
+      "op": "DUP9"
+    },
+    "653": {
+      "op": "SUB"
+    },
+    "654": {
+      "op": "SLT"
+    },
+    "655": {
+      "op": "ISZERO"
+    },
+    "656": {
+      "op": "PUSH2",
+      "value": "0x298"
+    },
+    "659": {
+      "op": "JUMPI"
+    },
+    "660": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "662": {
+      "op": "DUP1"
+    },
+    "663": {
+      "op": "REVERT"
+    },
+    "664": {
+      "op": "JUMPDEST"
+    },
+    "665": {
+      "op": "PUSH2",
+      "value": "0x2A1"
+    },
+    "668": {
+      "op": "DUP7"
+    },
+    "669": {
+      "op": "PUSH2",
+      "value": "0x12D"
+    },
+    "672": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "673": {
+      "op": "JUMPDEST"
+    },
+    "674": {
+      "op": "SWAP5"
+    },
+    "675": {
+      "op": "POP"
+    },
+    "676": {
+      "op": "PUSH2",
+      "value": "0x2AF"
+    },
+    "679": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "681": {
+      "op": "DUP8"
+    },
+    "682": {
+      "op": "ADD"
+    },
+    "683": {
+      "op": "PUSH2",
+      "value": "0x12D"
+    },
+    "686": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "687": {
+      "op": "JUMPDEST"
+    },
+    "688": {
+      "op": "SWAP4"
+    },
+    "689": {
+      "op": "POP"
+    },
+    "690": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "692": {
+      "op": "DUP7"
+    },
+    "693": {
+      "op": "ADD"
+    },
+    "694": {
+      "op": "CALLDATALOAD"
+    },
+    "695": {
+      "op": "PUSH8",
+      "value": "0xFFFFFFFFFFFFFFFF"
+    },
+    "704": {
+      "op": "DUP1"
+    },
+    "705": {
+      "op": "DUP3"
+    },
+    "706": {
+      "op": "GT"
+    },
+    "707": {
+      "op": "ISZERO"
+    },
+    "708": {
+      "op": "PUSH2",
+      "value": "0x2CC"
+    },
+    "711": {
+      "op": "JUMPI"
+    },
+    "712": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "714": {
+      "op": "DUP1"
+    },
+    "715": {
+      "op": "REVERT"
+    },
+    "716": {
+      "op": "JUMPDEST"
+    },
+    "717": {
+      "op": "PUSH2",
+      "value": "0x2D8"
+    },
+    "720": {
+      "op": "DUP10"
+    },
+    "721": {
+      "op": "DUP4"
+    },
+    "722": {
+      "op": "DUP11"
+    },
+    "723": {
+      "op": "ADD"
+    },
+    "724": {
+      "op": "PUSH2",
+      "value": "0x190"
+    },
+    "727": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "728": {
+      "op": "JUMPDEST"
+    },
+    "729": {
+      "op": "SWAP5"
+    },
+    "730": {
+      "op": "POP"
+    },
+    "731": {
+      "op": "PUSH1",
+      "value": "0x60"
+    },
+    "733": {
+      "op": "DUP9"
+    },
+    "734": {
+      "op": "ADD"
+    },
+    "735": {
+      "op": "CALLDATALOAD"
+    },
+    "736": {
+      "op": "SWAP2"
+    },
+    "737": {
+      "op": "POP"
+    },
+    "738": {
+      "op": "DUP1"
+    },
+    "739": {
+      "op": "DUP3"
+    },
+    "740": {
+      "op": "GT"
+    },
+    "741": {
+      "op": "ISZERO"
+    },
+    "742": {
+      "op": "PUSH2",
+      "value": "0x2EE"
+    },
+    "745": {
+      "op": "JUMPI"
+    },
+    "746": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "748": {
+      "op": "DUP1"
+    },
+    "749": {
+      "op": "REVERT"
+    },
+    "750": {
+      "op": "JUMPDEST"
+    },
+    "751": {
+      "op": "PUSH2",
+      "value": "0x2FA"
+    },
+    "754": {
+      "op": "DUP10"
+    },
+    "755": {
+      "op": "DUP4"
+    },
+    "756": {
+      "op": "DUP11"
+    },
+    "757": {
+      "op": "ADD"
+    },
+    "758": {
+      "op": "PUSH2",
+      "value": "0x190"
+    },
+    "761": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "762": {
+      "op": "JUMPDEST"
+    },
+    "763": {
+      "op": "SWAP4"
+    },
+    "764": {
+      "op": "POP"
+    },
+    "765": {
+      "op": "PUSH1",
+      "value": "0x80"
+    },
+    "767": {
+      "op": "DUP9"
+    },
+    "768": {
+      "op": "ADD"
+    },
+    "769": {
+      "op": "CALLDATALOAD"
+    },
+    "770": {
+      "op": "SWAP2"
+    },
+    "771": {
+      "op": "POP"
+    },
+    "772": {
+      "op": "DUP1"
+    },
+    "773": {
+      "op": "DUP3"
+    },
+    "774": {
+      "op": "GT"
+    },
+    "775": {
+      "op": "ISZERO"
+    },
+    "776": {
+      "op": "PUSH2",
+      "value": "0x310"
+    },
+    "779": {
+      "op": "JUMPI"
+    },
+    "780": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "782": {
+      "op": "DUP1"
+    },
+    "783": {
+      "op": "REVERT"
+    },
+    "784": {
+      "op": "JUMPDEST"
+    },
+    "785": {
+      "op": "POP"
+    },
+    "786": {
+      "op": "PUSH2",
+      "value": "0x31D"
+    },
+    "789": {
+      "op": "DUP9"
+    },
+    "790": {
+      "op": "DUP3"
+    },
+    "791": {
+      "op": "DUP10"
+    },
+    "792": {
+      "op": "ADD"
+    },
+    "793": {
+      "op": "PUSH2",
+      "value": "0x210"
+    },
+    "796": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "797": {
+      "op": "JUMPDEST"
+    },
+    "798": {
+      "op": "SWAP2"
+    },
+    "799": {
+      "op": "POP"
+    },
+    "800": {
+      "op": "POP"
+    },
+    "801": {
+      "op": "SWAP3"
+    },
+    "802": {
+      "op": "SWAP6"
+    },
+    "803": {
+      "op": "POP"
+    },
+    "804": {
+      "op": "SWAP3"
+    },
+    "805": {
+      "op": "SWAP6"
+    },
+    "806": {
+      "op": "SWAP1"
+    },
+    "807": {
+      "op": "SWAP4"
+    },
+    "808": {
+      "op": "POP"
+    },
+    "809": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "810": {
+      "op": "JUMPDEST"
+    },
+    "811": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "813": {
+      "op": "DUP1"
+    },
+    "814": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "816": {
+      "op": "DUP1"
+    },
+    "817": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "819": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "821": {
+      "op": "DUP7"
+    },
+    "822": {
+      "op": "DUP9"
+    },
+    "823": {
+      "op": "SUB"
+    },
+    "824": {
+      "op": "SLT"
+    },
+    "825": {
+      "op": "ISZERO"
+    },
+    "826": {
+      "op": "PUSH2",
+      "value": "0x342"
+    },
+    "829": {
+      "op": "JUMPI"
+    },
+    "830": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "832": {
+      "op": "DUP1"
+    },
+    "833": {
+      "op": "REVERT"
+    },
+    "834": {
+      "op": "JUMPDEST"
+    },
+    "835": {
+      "op": "PUSH2",
+      "value": "0x34B"
+    },
+    "838": {
+      "op": "DUP7"
+    },
+    "839": {
+      "op": "PUSH2",
+      "value": "0x12D"
+    },
+    "842": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "843": {
+      "op": "JUMPDEST"
+    },
+    "844": {
+      "op": "SWAP5"
+    },
+    "845": {
+      "op": "POP"
+    },
+    "846": {
+      "op": "PUSH2",
+      "value": "0x359"
+    },
+    "849": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "851": {
+      "op": "DUP8"
+    },
+    "852": {
+      "op": "ADD"
+    },
+    "853": {
+      "op": "PUSH2",
+      "value": "0x12D"
+    },
+    "856": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "857": {
+      "op": "JUMPDEST"
+    },
+    "858": {
+      "op": "SWAP4"
+    },
+    "859": {
+      "op": "POP"
+    },
+    "860": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "862": {
+      "op": "DUP7"
+    },
+    "863": {
+      "op": "ADD"
+    },
+    "864": {
+      "op": "CALLDATALOAD"
+    },
+    "865": {
+      "op": "SWAP3"
+    },
+    "866": {
+      "op": "POP"
+    },
+    "867": {
+      "op": "PUSH1",
+      "value": "0x60"
+    },
+    "869": {
+      "op": "DUP7"
+    },
+    "870": {
+      "op": "ADD"
+    },
+    "871": {
+      "op": "CALLDATALOAD"
+    },
+    "872": {
+      "op": "SWAP2"
+    },
+    "873": {
+      "op": "POP"
+    },
+    "874": {
+      "op": "PUSH1",
+      "value": "0x80"
+    },
+    "876": {
+      "op": "DUP7"
+    },
+    "877": {
+      "op": "ADD"
+    },
+    "878": {
+      "op": "CALLDATALOAD"
+    },
+    "879": {
+      "op": "PUSH8",
+      "value": "0xFFFFFFFFFFFFFFFF"
+    },
+    "888": {
+      "op": "DUP2"
+    },
+    "889": {
+      "op": "GT"
+    },
+    "890": {
+      "op": "ISZERO"
+    },
+    "891": {
+      "op": "PUSH2",
+      "value": "0x383"
+    },
+    "894": {
+      "op": "JUMPI"
+    },
+    "895": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "897": {
+      "op": "DUP1"
+    },
+    "898": {
+      "op": "REVERT"
+    },
+    "899": {
+      "op": "JUMPDEST"
+    },
+    "900": {
+      "op": "PUSH2",
+      "value": "0x31D"
+    },
+    "903": {
+      "op": "DUP9"
+    },
+    "904": {
+      "op": "DUP3"
+    },
+    "905": {
+      "op": "DUP10"
+    },
+    "906": {
+      "op": "ADD"
+    },
+    "907": {
+      "op": "PUSH2",
+      "value": "0x210"
+    },
+    "910": {
+      "jump": "i",
+      "op": "JUMP"
+    }
+  },
+  "sha1": "b76ffce720acb8b91e217cb4956f5ddbb7868932",
+  "source": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts (last updated v4.5.0) (token/ERC1155/utils/ERC1155Holder.sol)\n\npragma solidity ^0.8.0;\n\nimport \"./ERC1155Receiver.sol\";\n\n/**\n * Simple implementation of `ERC1155Receiver` that will allow a contract to hold ERC1155 tokens.\n *\n * IMPORTANT: When inheriting this contract, you must include a way to use the received tokens, otherwise they will be\n * stuck.\n *\n * @dev _Available since v3.1._\n */\ncontract ERC1155Holder is ERC1155Receiver {\n    function onERC1155Received(\n        address,\n        address,\n        uint256,\n        uint256,\n        bytes memory\n    ) public virtual override returns (bytes4) {\n        return this.onERC1155Received.selector;\n    }\n\n    function onERC1155BatchReceived(\n        address,\n        address,\n        uint256[] memory,\n        uint256[] memory,\n        bytes memory\n    ) public virtual override returns (bytes4) {\n        return this.onERC1155BatchReceived.selector;\n    }\n}\n",
+  "sourceMap": "451:522:168:-:0;;;;;;;;;;;;;;;;;;;",
+  "sourcePath": "contracts/openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol",
+  "type": "contract"
+}

@@ -11,29 +11,20 @@ import { nftURI } from "../../config/uri";
 import BackdropFilter from "react-backdrop-filter";
 //abis
 
-import axios from "axios"
-import {nftABI, stopLossAbi} from "../../config/abis";
+
 import {Container, Card, Button} from "react-bootstrap";
-import {writeContract, userMint} from "../../utils/nft";
-import {VaultNFTCard} from "./components/VaultNFTCard";
 import VaultsPageHeading from "./components/VaultsPageHeading"
-import {OracleBar} from "../../components/OracleBar";
-import {VaultNFTFooter} from "./components/VaultNFTFooter";
-import VaultSelector from "./components/VaultSelector"
 import {Chart} from "./components/Chart";
 import TokenSelector from "../nftgallery/components/TokenSelector"
-import {OrderTypeButton} from "../nftgallery/components/OrderSelector"
 import OrderSelector from "../nftgallery/components/OrderSelector"
 
-import Marquee from "react-fast-marquee";
 import {MultiplierBadge} from "../pools/components/Badges"
 import {FaCircle, FaRegCircle, FaTicketAlt} from "react-icons/fa"
 import {BiDownArrow} from "react-icons/bi"
 
 
 import {EthIcon, BitcoinIcon, DollarIcon} from "../nftgallery/components/CreateVault"
-
-
+import useFetchRouteInfo from "../../hooks/useFetchRouteInfo"
 
 const MyVaultContainer = styled(Container)`
     display: flex;
@@ -215,6 +206,24 @@ const OrdersCard = (props) => {
         )
 }
 
+    
+const PriceTag = () => {
+    const {state: routerData} =  useFetchRouteInfo(
+        "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
+        "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
+        10000000000000
+    )
+    useEffect(() => {
+        console.log("EFFECT FIRED FOR ROUTER DATA")
+        console.log(routerData)
+    }, [])
+    return (
+        <>
+           <p>{JSON.stringify(routerData)}</p> 
+        </>
+    )
+}
+
 
 const openOrderReducer = (state, action) => {
     switch (action.type) {
@@ -278,7 +287,6 @@ const Vaults = () => {
     const setToggleOrderSelector = () => {
         dispatch({ type: 'toggleOrderSelector' })
         console.log(state)
-
     }
 
     //VAULTS
@@ -301,7 +309,9 @@ const Vaults = () => {
     
                 <VaultsPageHeading />
 
-                
+ 
+                <PriceTag />
+
                 
                 <OrdersCard toggleTokenSelector={toggleTokenSelector} toggleOrderSelector={setToggleOrderSelector} state={state}/>
                 

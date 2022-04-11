@@ -25,6 +25,24 @@ export const addresses = {
         aaveStrategy: "0x905eD8C3A3EF813490D2DAAdDf36E57a3AFC2D2F"
     },
 
+    nfts: [
+        {
+            name: "Popcorn Puke",
+            address: "0x6b841d90afd2a08ab1f0bc1af4d372173a412b4f",
+            metadata: "https://gateway.pinata.cloud/ipfs/QmfAkVdm6Sd2nEKZhZGSNh566vbNBKNjvF3iurYGPGrtx7"
+        },
+        {
+            name: "I Want to Believe",
+            address: "0x988840afc4b94c9517dea907a9cd132bffad0e07",
+            metadataUrl: "https://gateway.pinata.cloud/ipfs/QmXuTW4GY5QWNa7eiViW3LvTNjCmdyGtgz9JhtsoigYsuT"
+        },
+        {
+            name: "Enjoy the Show",
+            address: "0xc8f4641b13ebf0280e8a5ee8adc4a0f65d86d1a6",
+            metadataUrl: "https://gateway.pinata.cloud/ipfs/QmWrqBrt86bhoyR7NznT1HHzTvUhv4Q9E9dXgPK3y4mbTf"
+        }
+    ],
+
     oracles: [
         {
             address: "0x7E7B45b08F68EC69A99AAb12e42FcCB078e10094",

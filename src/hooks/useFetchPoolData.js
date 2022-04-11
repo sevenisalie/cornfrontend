@@ -144,7 +144,7 @@ const useFetchPoolData = (_user) => {
             try {
             
                 const data = fetchBoth(account)
-                
+
                
 
             } catch (err) {
@@ -156,7 +156,8 @@ const useFetchPoolData = (_user) => {
     }, [_user, verySlowRefresh])
 
  
-    
+    console.log("THIS IS THE DATA UR LOOKING FOR")
+    console.log(state)
     return {
         state: state
     }

@@ -7,7 +7,7 @@ import { ERC20Abi } from '../config/abis';
 import { fastRefresh } from "../contexts/RefreshContext"
 import useRefresh from '../utils/useRefresh';
 import { fetchGasBalance, writeContract } from '../utils/nft';
-import ADDRESSES from "../config/build/map.json"
+import ADDRESSES from "../config/build/deployments/map.json"
 import CONTROLLERCONTRACT from "../config/build/contracts/Controller.json"
 
 

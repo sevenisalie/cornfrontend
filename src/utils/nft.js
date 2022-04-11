@@ -6,6 +6,10 @@ import {nftABI} from "../config/abis";
 import {nftURI} from "../config/uri";
 import axios from "axios"
 
+//stupid shit please make me a better programmer one day for the love of christ
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 //ABIs
 import {ERC20Abi} from "../config/abis"
 
@@ -23,14 +27,33 @@ export const writeContract = async (active, _signer, _account, _address, _abi) =
     }
 }
 
+const goodToast = (msg) => {
+    const ToastStyle = {
+        borderRadius: "50px",
+        backdropFilter: "blur(12px) saturate(149%)",
+        backgroundColor: "rgba(29, 30, 32, 0.57)",
+        border: "2px solid rgba(251, 219, 55, 0.95)",
+        padding: "0.42em",
+        
+    }
+
+    const id = toast(`${msg}`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        style: ToastStyle
+    })
+    toast.update(id, { render: `${msg}`, hideProgressBar: true, closeOnClick: true, position: "bottom-right", autoClose: 5000, className: 'rotateY animated', draggable: true})
+}
 
 
-export const userMint = async (_nftContract, recipient, _tokenURI) => {
+export const userMint = async (_nftContract) => {
     const ctr = _nftContract;
     try {
-        const mint = await ctr.mintNFT(recipient, _tokenURI)
+        const mint = await ctr.mint()
         return mint
-    } catch (err) {console.log(err)}
+    } catch (err) {
+        console.log(err)
+        goodToast(`${err.data.message}`)
+    }
 }
 
 
@@ -206,3 +229,6 @@ export const fetchGasBalance = async (_controllerContract, _user) => {
         return amount
     } catch (err) {console.log(err)}
 }
+
+
+// router

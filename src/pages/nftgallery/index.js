@@ -15,8 +15,7 @@ import axios from "axios"
 import {stopLossAbi} from "../../config/abis";
 import {Container, Card, Button} from "react-bootstrap";
 import {writeContract, userMint} from "../../utils/nft";
-import { StyledDetailsButton } from "../../pages/pools/components/PoolCard"
-import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
+
 
 import {EthIcon, BitcoinIcon, DollarIcon} from "./components/CreateVault"
 
@@ -24,8 +23,7 @@ import {NFTFooter} from "./components/NFTFooter";
 import {NFTCard} from "./components/NFTCard";
 import MarketPageHeading from "./components/MarketPageHeading";
 import LimitOrderEntry from './components/LimitOrderEntry'
-import TokenSelector from "./components/TokenSelector"
-import useFetchPoolData from "../../hooks/useFetchPoolData"
+
 
 
 const MyNFTContainer = styled(Container)`

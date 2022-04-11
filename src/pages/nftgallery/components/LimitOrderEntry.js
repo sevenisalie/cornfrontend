@@ -3,7 +3,7 @@ import {ethers} from "ethers"
 import React, {useEffect, useState, useReducer} from "react"
 import { useWeb3React } from "@web3-react/core"
 import { addresses } from "../../../config/addresses"
-import ADDRESSES from "../../../config/build/map.json"
+import ADDRESSES from "../../../config/build/deployments/map.json"
 import CONTROLLERCONTRACT from "../../../config/build/contracts/Controller.json"
 
 import { nftURI } from "../../../config/uri"
