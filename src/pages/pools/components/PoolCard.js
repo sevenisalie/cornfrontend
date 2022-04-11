@@ -41,7 +41,7 @@ const ActualPoolCard = styled.div`
     -webkit-backdrop-filter: blur(0px) saturate(149%);
     background-color: rgba(29, 30, 32, 0.57);
     border: 1px solid rgba(255, 255, 255, 0.125);
-    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5)
 
 
 

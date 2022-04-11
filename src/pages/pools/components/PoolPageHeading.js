@@ -68,8 +68,8 @@ const PoolPageHeading = () => {
                     <HeadingBackground>  
                         
                 
-                        <BigHeading>Staking Pools</BigHeading>
-                        <LittleHeading>Stake Assets to Earn COB</LittleHeading>
+                        <BigHeading>COB Pools</BigHeading>
+                        <LittleHeading>Single Token Farming</LittleHeading>
                         
                     </HeadingBackground>
                 </StyledBackDrop>

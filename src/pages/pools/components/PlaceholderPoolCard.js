@@ -122,8 +122,13 @@ const PlaceholderPoolCard = (props) => {
                 <CardTitle >
               
               <div style={{display: "flex", flexDirection: 'column', alignContent: "center", justifyContent: "space-between", textAlign: "center", marginBottom: "12px"}}>
+              <p>
+              {props.tokenStake} 
+              <Image style={{ marginLeft: "0.3em", marginRight: "0.5em" }}src={`${props.data.imageurl}`} width={49} height={49} alt={"COB"} />
 
-                {props.tokenStake} 
+              </p>
+                
+
               </div>
 
               
@@ -199,7 +204,7 @@ const PlaceholderPoolCard = (props) => {
 
                 
                     <ApproveButton>
-                        {`Connecting...`}
+                        {`Paused`}
                     </ApproveButton>
               
 
