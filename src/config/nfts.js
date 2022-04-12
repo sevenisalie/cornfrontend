@@ -8,7 +8,7 @@ export const NFTS = [
         address: addresses.nfts[0].address,
         fee: ethers.utils.parseUnits("100", 16),
         price: "1.00",
-        imageurl: `assets/images/PopcornPuke.png`,
+        imageurl: `assets/images/PopCornPuke.png`,
         id: 0
     },
     {
