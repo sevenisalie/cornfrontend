@@ -28,18 +28,18 @@ export const addresses = {
     nfts: [
         {
             name: "Popcorn Puke",
-            address: "0x6b841d90afd2a08ab1f0bc1af4d372173a412b4f",
-            metadata: "https://gateway.pinata.cloud/ipfs/QmfAkVdm6Sd2nEKZhZGSNh566vbNBKNjvF3iurYGPGrtx7"
+            address: "0xc62266726b25c8a79100419a3850ca3856ddd0e9",
+            metadata: "https://gateway.pinata.cloud/ipfs/Qma9Wr96ztP4owdsUAgAWdHU4wsxmaGny8pPubD7psAWKm"
         },
         {
             name: "I Want to Believe",
-            address: "0x988840afc4b94c9517dea907a9cd132bffad0e07",
-            metadataUrl: "https://gateway.pinata.cloud/ipfs/QmXuTW4GY5QWNa7eiViW3LvTNjCmdyGtgz9JhtsoigYsuT"
+            address: "0x1b7eab9fcb005e8b751d72fd6dbe7284e178c9f4",
+            metadataUrl: "https://gateway.pinata.cloud/ipfs/QmcL3VtkFgvhvpXXSnbq2rgSZnq5czmdTY3SbXQpd1DZSz"
         },
         {
             name: "Enjoy the Show",
-            address: "0xc8f4641b13ebf0280e8a5ee8adc4a0f65d86d1a6",
-            metadataUrl: "https://gateway.pinata.cloud/ipfs/QmWrqBrt86bhoyR7NznT1HHzTvUhv4Q9E9dXgPK3y4mbTf"
+            address: "0x448a6f5bc3a4074908474083e90a8dad9bbe579a",
+            metadataUrl: "https://gateway.pinata.cloud/ipfs/QmcRrU5a4n1CkjiQzoW8fmT9wSTnPWepqiZ462BmgqwxNW"
         }
     ],
 

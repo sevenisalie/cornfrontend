@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import {Container, Card, Button} from "react-bootstrap";
 import styled from "styled-components";
-
+import {ethers} from "ethers"
+import { useWeb3React } from '@web3-react/core';
+import NFTS from "../../../config/nfts"
+import CFNFT from "../../../config/nftbuild/contracts/CFNFT.json"
 
 
 import {MultiplierBadge} from "../../pools/components/Badges"
-import {userMint} from "../../../utils/nft";
+import {userMint, writeContract} from "../../../utils/nft";
 import {NFTFooter} from "./NFTFooter"
 import {GiCorn} from "react-icons/gi"
 import { HeaderButtonSecondary } from '../../../components/NavigationBar';
+
+const NFTABI = CFNFT.abi
 
 
 export const MyNFTCard = styled(Card)`
@@ -120,31 +125,47 @@ export const NFTCard = (props) => {
 
     // const [showStopModal, setShowStopModal] = useState(false)
     // const [chosenStrategy, setChosenStrategy] = useState(props.title)
-    // const [masterChef, setMasterChef] = useState('')
+    const {active, account, library, connector} = useWeb3React();
 
-    // useEffect(() => {
-    //     if (props.state.masterChefLoading == false){
-    //         setMasterChef(props.state.masterChefContract)
-    //     } else {
-    //         setMasterChef('')
-    //     }
-        
-    // }, [props.state])
+    const [nftContract, setNftContract] = useState({})
+    const [nftCount, setNftCount] = useState(0)
 
-   
+    const getNFTCount = async (_nftContract) => {
+        try {
+            const count = await _nftContract.totalSupply()
+            const max = await _nftContract.MAX_SUPPLY()
+            console.log("NFT COUNT")
+            const cleanCount = ethers.utils.formatUnits(count, 0)
+            const cleanMax = ethers.utils.formatUnits(max, 0)
+            const remaining = (parseInt(cleanMax) - parseInt(cleanCount)).toString()
+            console.log(remaining)
+            setNftCount(remaining)
+        } catch (err) {
+            console.log("nft count err")
+            console.log(err)
+        }
+    }
 
+    useEffect( () => {
+        if (active) {
+            const nftctr = writeContract(
+                active,
+                library.getSigner(),
+                account,
+                props.data.address,
+                NFTABI,
+            )
+            .then( value => {
+                setNftContract(value)
+                console.log("This is your fuckin data")
+                console.log(nftContract)
+                getNFTCount(value)
+            })
 
-    
-    // const handleStopModal = () => {
-    //     setShowStopModal( prev => !prev)
-    // }
-
-    // const handleMint = async () => {
-    //     userMint(
-    //         props.mintData.nftContract, 
-    //         props.mintData.account, 
-    //         )
-    // }
+        } else {
+            console.log("something happened and it wasnt good")
+        }
+    }, [active, account])
 
     return (
         <>
@@ -155,7 +176,7 @@ export const NFTCard = (props) => {
                 <NFTTitle>{props.data.name}</NFTTitle>
                 <NFTLineBreak size="8"/>
                 <PriceRow>
-                    <ButtonWrapper style={{justifyContent: "flex-start"}}><HeaderButtonSecondary onClick={async () => props.mintFunction(props.contract)} >MINT</HeaderButtonSecondary></ButtonWrapper>
+                    <ButtonWrapper style={{justifyContent: "flex-start"}}><HeaderButtonSecondary onClick={async () => props.mintFunction(nftContract, props.data.fee)} >MINT</HeaderButtonSecondary></ButtonWrapper>
                     <MultiplierBadge style={{padding: "0.8em"}}>
                         <p style={{fontSize: "1.6em", fontWeight: "800", marginBottom: "0px"}}>{props.data.price} <MaticImageWrapper src={"assets/images/MATIC.png"} /> </p>
                     </MultiplierBadge>
@@ -166,7 +187,7 @@ export const NFTCard = (props) => {
                 </PriceRow>
 
 
-                <NFTFooter data={props.data} id={props.id}></NFTFooter>  
+                <NFTFooter count={nftCount} data={props.data} id={props.id}></NFTFooter>  
                 </MyNFTCardContainer>
             </MyNFTCard> 
         </>

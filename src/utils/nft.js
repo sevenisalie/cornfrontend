@@ -30,8 +30,9 @@ export const writeContract = async (active, _signer, _account, _address, _abi) =
 const goodToast = (msg) => {
     const ToastStyle = {
         borderRadius: "50px",
+        color: "rgba(242, 242, 242, 0.87)",
         backdropFilter: "blur(12px) saturate(149%)",
-        backgroundColor: "rgba(29, 30, 32, 0.57)",
+        backgroundColor: "rgba(29, 30, 32, 0.87)",
         border: "2px solid rgba(251, 219, 55, 0.95)",
         padding: "0.42em",
         
@@ -45,10 +46,10 @@ const goodToast = (msg) => {
 }
 
 
-export const userMint = async (_nftContract) => {
+export const userMint = async (_nftContract, fee) => {
     const ctr = _nftContract;
     try {
-        const mint = await ctr.mint()
+        const mint = await ctr.mint({value: fee})
         return mint
     } catch (err) {
         console.log(err)

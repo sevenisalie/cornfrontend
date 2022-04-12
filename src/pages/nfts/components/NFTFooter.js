@@ -63,6 +63,8 @@ const DetailsDropDownGrid = styled(Container)`
 export const NFTFooter = (props) => {
     const [isOpen, setIsOpen] = useState(false)
 
+
+
     const handleDetailsOnClick = () => {
         setIsOpen( prev => !prev)
     }
@@ -84,9 +86,9 @@ export const NFTFooter = (props) => {
           
             
                 <DetailsGrid>
-                    <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0px"}}>{props.data.fee} Reinvestment</p></NFTFooterBadge>
+                    <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0px"}}>{`42%`} Reinvestment</p></NFTFooterBadge>
                     <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0px"}}>artist: sevenisalie</p></NFTFooterBadge>
-                    <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0px"}}>Remaining: {`8`}/42</p></NFTFooterBadge>
+                    <NFTFooterBadge><p style={{fontSize: "1.2em", marginBottom: "0px"}}>Remaining: {props.count}/42</p></NFTFooterBadge>
                 </DetailsGrid>
 
             

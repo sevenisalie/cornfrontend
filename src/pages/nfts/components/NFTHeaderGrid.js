@@ -113,8 +113,8 @@ const NFTHeaderGrid = (props) => {
                     <InstructionText style={{fontSize: "1.1em", color: "#fbdb37"}}>
                         Cool Things to Know:
                     </InstructionText>
-                    <InstructionListItem>NFTs are priced in Matic</InstructionListItem>
-                        <InstructionListItem>15% is sent to the Corn Treasury for dividends to COB stakers. </InstructionListItem>
+                    <InstructionListItem>NFTs are priced in MATIC</InstructionListItem>
+                        <InstructionListItem>42% is sent to the Corn Treasury for dividends to future COB stakers. </InstructionListItem>
                         <InstructionListItem>Opensea, Rarible, and Twitter compatible </InstructionListItem>
                     </InstructionList>
                 </InstructionCard>
