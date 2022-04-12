@@ -1,6 +1,5 @@
 import {addresses} from "./addresses"
 import {ethers} from "ethers"
-import PopcornPuke from "../assets/images/PopCornPuke.png"
 
 export const NFTS = [
     {
