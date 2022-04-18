@@ -158,27 +158,40 @@ const PoolCard = (props, {state}) => {
 
 
   useEffect(() => {
-    if (props.state.masterChefLoading == false){
-        setMasterChef(props.state.masterChefContract)
-    } else {
-        setMasterChef('')
-    }
+    
+      setMasterChef(props.master)
+      console.log("PROOOOP")
+      console.log(props.master)
+
+    
       
-  }, [props.state.masterChefLoading])
+  }, [props.master])
 
   
+  const fetchPending = async () => {
 
-  useEffect( async () => {
-    if (account && masterChef) {
-      try {
-        const pendingCob = await fetchPendingCob(POOLS, masterChef, account)
-        setPendingCob(pendingCob[props.pid])
-        console.log(props.state)
-      } catch (err) {
-        console.log(err)
-      }
-      
+    try {
+
+      const pendingCob = await masterChef.pendingCob(props.pid, account)
+      setPendingCob(ethers.utils.formatUnits(pendingCob, 18))
+    } catch (err) {
+      console.log(err)
     }
+  }
+  
+  useEffect(  () => {
+    if (masterChef !== '') {
+      if (account) {
+        try {
+          fetchPending()
+          console.log(props.state)
+        } catch (err) {
+          console.log(err)
+        }
+        
+      }
+    }
+
   }, [account, masterChef, fastRefresh])
 
 
@@ -351,8 +364,8 @@ const PoolCard = (props, {state}) => {
           <div style={{ padding: '24px' }}>
           
               <div style={{ display: 'flex', flexDirection: 'row', flexWrap: "wrap", alignItems: 'center', justifyContent: "space-between"}}>
-                  
-                  <Image style={{ marginRight: "19px" }}src={`/assets/images/CornLogo.png`} width={64} height={64} alt={"COB"} />
+              
+                  <Image style={{ marginRight: "19px" }}src={data.imageurl} width={64} height={64} alt={"COB"} />
                   
                 <CardTitle >
                   

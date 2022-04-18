@@ -219,7 +219,7 @@ export const fetchPendingCob = async (_pools, _masterChef, _accountAddress) => {
     const pLength = _pools.length
     const userPoolDataPromises = [];
     for (let pid = 0; pid < pLength; pid++) {
-        const poolData = _masterChef.pendingCob(pid, _accountAddress);
+        const poolData = await _masterChef.pendingCob(pid, _accountAddress);
         userPoolDataPromises.push(poolData);
     };
 

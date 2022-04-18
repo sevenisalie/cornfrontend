@@ -61,7 +61,7 @@ const useFetchNFTCollections = () => {
     useEffect( () => {
         if (active) {
             const contracts = NFTS.map( (nft) => {
-                writeContract(nft.address)
+                fetchContract(nft.address)
             }) 
             console.log("This is your fuckin data")
             console.log(state)

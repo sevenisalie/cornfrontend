@@ -574,7 +574,7 @@ export const Home = () => {
         </Container>
 
         <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "25px", marginBottom: "50px"}}>
-            <HeaderButtonSecondary href="https://medium.com/@cornfinance" target="_blank">Medium</HeaderButtonSecondary>
+            <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
             <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank">Twitter</HeaderButtonSecondary>
             <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank">Github</HeaderButtonSecondary>
         </Container>

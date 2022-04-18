@@ -8,8 +8,7 @@ import useFetchPoolData from "../../hooks/useFetchPoolData"
 
 
 //static confg
-
-
+import MASTERCHEF from "../../config/build/contracts/MasterChefV2.json";
 import { addresses } from "../../config/addresses";
 import {POOLS} from "../../config/pools";
 import {MasterChefABI, ERC20Abi} from "../../config/abis";
@@ -29,6 +28,7 @@ import BackdropFilter from "react-backdrop-filter";
 //hooks
 import {useRefresh} from "../../utils/useRefresh";
 import useFetchBalances from "../../hooks/useFetchBalances";
+import useFetchContractWrite from '../../hooks/useFetchContractWrite';
 
 
 
@@ -152,6 +152,7 @@ const initialState = {
         const { fastRefresh } = useRefresh()
         const { state: POOLDATA } = useFetchPoolData(account)
         const [state, dispatch] = useReducer(poolReducer, initialState)
+        const [contract, query] = useFetchContractWrite(addresses.masterChef, MASTERCHEF["abi"])
 
     
 
@@ -183,30 +184,6 @@ const initialState = {
 
    
 
-    useEffect( async () => {
-        if (active && library) {
-            try {
-            
-                const master = await writeContract(
-                    active, 
-                    library.getSigner(), 
-                    account,
-                    addresses.masterChef,
-                    MasterChefABI,
-                    )
-                
-                dispatch({ type: "masterChefContract", payload: master})
-                dispatch({type: 'signer', payload: library.getSigner()})
-                console.log("MASETERRR")
-                console.log(state)
-            } catch (err) {
-                console.log(err)
-                dispatch({type: 'ERROR', payload: err})
-            }
-        }
-
-      }, [active, library])
-
       
 
 
@@ -218,10 +195,10 @@ const initialState = {
     // if (POOLDATA.loading == false && library ) {
     //
     //we broke this intentionally for pre-release site launch
-    if (state.preLaunch == false ) {
+    if (state.preLaunch === false ) {
         const mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
-            <PoolCard data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+            <PoolCard master={contract} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
             ));
         return (
             <>
@@ -243,7 +220,7 @@ const initialState = {
     //
     //we broke this intentionally for pre-release site launch
 
-    } else if (state.preLaunch == true ) {
+    } else if (state.preLaunch === true ) {
         const mapPlaceHolderPoolData = POOLS.map( (pool) => (
             <PlaceholderPoolCard data={pool} tokenStake={pool.tokenStakeName}/>
         ))

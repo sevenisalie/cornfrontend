@@ -243,7 +243,7 @@ const UnstakeModal = (props) => {
       const amountFilter = (e) => {
         e.preventDefault()
         const enteredAmount = e.target.value
-        if (enteredAmount == '' || enteredAmount.match(/^[1-9]\d*\.?\d*$/)) {
+        if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
             setAmount(enteredAmount)
         }   
     }
