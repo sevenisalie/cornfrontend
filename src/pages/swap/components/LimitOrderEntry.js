@@ -742,9 +742,7 @@ const LimitOrderEntry = (props) => {
 
     return (
         <>
-        <pre>
-            {JSON.stringify(results, null, 2)}
-        </pre>
+
         <MainContainer>
             <EntryContainer>
                 <CardContentContainer>
@@ -773,7 +771,7 @@ const LimitOrderEntry = (props) => {
 
                         <SubmitSection state={state} mintFunction={handleMintLimit} />
 
-                        <TokenPath path={results}/>
+                        <TokenPath path={results} tokenOut={state.tokenOut} state={state}/>
                         
                     </FormContainer>
                     
@@ -800,6 +798,9 @@ const LimitOrderEntry = (props) => {
             
 
         </MainContainer>
+        <pre>
+            {JSON.stringify(results, null, 2)}
+        </pre>
         </>
     )
 }

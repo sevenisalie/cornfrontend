@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 
 import {GiCorn} from "react-icons/gi"
 import { FaArrowAltCircleRight } from 'react-icons/fa'
 
 const EntryContainer = styled.div`
-    display: flex;
+    display: ${props => props.loading ? `none` : `flex`};
     flex-direction: row;
     width: 100%;
     height: auto;
@@ -48,6 +48,7 @@ const RouteBadge = styled.div`
     border: 2px solid rgba(251, 219, 55, 0.86);
     border-radius: 17px;
     padding: 0.82em;
+    margin-bottom: 0.42em;
 `
 const RouteSymbolText = styled.div`
     font-size: 1.1em;
@@ -86,16 +87,38 @@ const RouteHR = styled.hr`
 `
 
 const TokenPath = (props) => {
+    const [loading, setLoading] = useState(true)
+    const [router, setRouter] = useState('')
+    const [paths, setPaths] = useState('')
+    const [price, setPrice] = useState('')
+   
 
-    const paths = props.path.path
-    console.log("PATH PATH PATH PATH PATH")
-    console.log(props.path)
-    const isLoading = Object.keys(props.path).length === 0
+
+
+    useEffect(() => {
+        const PATHS = props.path.path
+        const ROUTER = props.path.router
+        const PRICE = props.path.amountOut
+        const isLoading = Object.keys(props.path).length === 0
+
+
+
+        setPaths(PATHS)
+        setRouter(ROUTER)
+        setPrice(PRICE)
+        setLoading(isLoading)
+        console.log("POOOOPIEE PEE PEE")
+        console.log(props.state)
+        if (props.state.setAmountIn === "") {
+            setPrice('')
+            setRouter('')
+            setLoading(true)
+        }
+    }, [props.path, props.state.setAmountIn])
     
 
-    console.log(isLoading)
     let path;
-    if (!isLoading) {
+    if (!loading) {
         path = paths.map( (route, index, arr) => {
             const isLast = arr.length - 1 === index 
             return (
@@ -114,7 +137,7 @@ const TokenPath = (props) => {
 
     return (
         <>
-            <EntryContainer>
+            <EntryContainer loading={loading}>
                 <RouteCard>
 
                     <CardRow style={{marginTop: "1.02em"}}>
@@ -124,7 +147,9 @@ const TokenPath = (props) => {
                             <GiCorn style={{marginLeft: "0.3em"}}/>
                         </RouteText>
                         <RouteText>
-                            {"1.41013 MATIC"}
+                        {loading ? null : price }
+                   
+
                         </RouteText>
                     </CardRow>
 
@@ -138,16 +163,22 @@ const TokenPath = (props) => {
                         </RouteText>
                     </CardRow>
 
+                    <CardRow>
+                        {/* RouTe */}
+                        <RouteText>
+                            {`Best Route`}
+                        </RouteText>
+                        <RouteText>
+                            {loading ? null : router.name}
+                        </RouteText>
+                    </CardRow>
+
                     <RouteHR></RouteHR>
                     <CardRow>
                         {/* ROUTE */}
-                        <RouteText style={{alignSelf: "flex-start", marginBottom: "0.9em"}}>
-                            {`Route: `}
-                        </RouteText>
-                  
                     </CardRow>
                     <RouteBadge>
-                        {isLoading ? <p>hi</p> : path }
+                        {loading ? null : path }
                     </RouteBadge>
                 </RouteCard>
             </EntryContainer>
