@@ -1,7 +1,9 @@
 export const addresses = {
     nft: "0x50139530985928873a5530780B71C51179F4B02f",
-    masterChef: "0xC71EbC899BCC111F39B2715B5d2D397E671B5bd2",
-    CobToken: "0x793AcF39c3d605d3aD042Ae01fd290a6fE489164",
+    masterChef: "0x8b586f42fAa06e09Ffe324fE1D3E5EAA4A0F055C",
+    masterChefTest: "0x8b586f42fAa06e09Ffe324fE1D3E5EAA4A0F055C",
+    CobToken: "0x78229c16A0913Da0CC2C33eEC7E76461d96269Fa",
+    TestCob: "0x78229c16A0913Da0CC2C33eEC7E76461d96269Fa",
     mockToken1: "0x7DBaFf79d13A0c842777742A86aE3aCAc9817250",
     mockToken2: "0xCCd1660797fe05dAe3439568aD39D2a4DacEab0e",
     mockLP: "0xea718C7dd15C6E1F98de3ED10f50d812e39E66D2",
@@ -13,16 +15,33 @@ export const addresses = {
     ROUTER: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff",
     COB: "0x793acf39c3d605d3ad042ae01fd290a6fe489164",
 
-
     vaults: {
-        controller: "0xfeD1424aF43D162B421EabB162d8678c46bD3E03",
-        settings: "0x35d83d9D76bC186d5bA22C2017D6Aa17FE9DAe46",
-        limitVault: "0xC6b218f51dEC3ce84c961782246d0789327933A3",
-        stopVault: "0xA28566E92E524Acf840B71dDC15Ee8877896947d",
-        accDistVault: "0xba1E89fdAB23f1097566f69F986dC0BFC49BF6CE",
-        simpleStrategy: "0xA541AC8CC374781f9D29b6E1d5a5F9C9b8256d9F",
-        aaveStrategy: "0xe92364f6F04416bdfbD7cdEd4a2F78e1bbF1b3C8"
+        controller: "0x07f53502db0e721e47BE3F01d2B8aC3D86ED9B22",
+        resolver: "0x3dfcB8a33D0733A8b1222B178B163aa3F1F1091B",
+        limitVault: "0xD7c32710Ff3d2Ea038f56DA7Fd019A157263F412",
+        stopVault: "0xF48b4223b968d33A951169B22B7a9B25A8FaCe09",
+        accDistVault: "0x54819ec7F50250d8D2A05861265FD05f4c9C801E",
+        simpleStrategy: "0xF609fa22367268553F44cB4E9802c8Bb057D55F5",
+        aaveStrategy: "0x905eD8C3A3EF813490D2DAAdDf36E57a3AFC2D2F"
     },
+
+    nfts: [
+        {
+            name: "Popcorn Puke",
+            address: "0xc62266726b25c8a79100419a3850ca3856ddd0e9",
+            metadata: "https://gateway.pinata.cloud/ipfs/Qma9Wr96ztP4owdsUAgAWdHU4wsxmaGny8pPubD7psAWKm"
+        },
+        {
+            name: "I Want to Believe",
+            address: "0x1b7eab9fcb005e8b751d72fd6dbe7284e178c9f4",
+            metadataUrl: "https://gateway.pinata.cloud/ipfs/QmcL3VtkFgvhvpXXSnbq2rgSZnq5czmdTY3SbXQpd1DZSz"
+        },
+        {
+            name: "Enjoy the Show",
+            address: "0x448a6f5bc3a4074908474083e90a8dad9bbe579a",
+            metadataUrl: "https://gateway.pinata.cloud/ipfs/QmcRrU5a4n1CkjiQzoW8fmT9wSTnPWepqiZ462BmgqwxNW"
+        }
+    ],
 
     oracles: [
         {
@@ -70,7 +89,7 @@ export const addresses = {
         MATIC: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
         MiMATIC: "0xa3Fa99A148fA48D14Ed51d610c367C61876997F1",
         DAI: "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
-        COB: "0x793acf39c3d605d3ad042ae01fd290a6fe489164",
+        COB: "0x78229c16A0913Da0CC2C33eEC7E76461d96269Fa",
         DINO: "0xAa9654BECca45B5BDFA5ac646c939C62b527D394",
         LINK: "0x53e0bca35ec356bd5dddfebbd1fc0fd03fabad39",
         SUSHI: "0x0b3f868e0be5597d5db7feb59e1cadbb0fdda50a",
@@ -90,37 +109,45 @@ export const addresses = {
         {
             symbol: "BTC",
             address: "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6",
-            decimals: 8
+            decimals: 8,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png",
+            
         },
         {
             symbol: "USDC",
             address: "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
-            decimals: 6
+            decimals: 6,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
         },
         {
             symbol: "USDT",
             address: "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
-            decimals: 6
+            decimals: 6,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
         },
         {
             symbol: "ETH",
             address: "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
-            decimals: 18
+            decimals: 18,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
         },
         {
             symbol: "MATIC",
             address: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
-            decimals: 18
+            decimals: 18,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png",
         },
         {
             symbol: "DAI",
             address: "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
-            decimals: 18
+            decimals: 18,
+            logoURI: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
         },
         {
             symbol: "AAVE",
             address: "0xd6df932a45c0f255f85145f286ea0b292b21c90b",
-            decimals: 18
+            decimals: 18,
+            logoURI: "https://etherscan.io/token/images/aave_32.png"
         }
     ]
 }

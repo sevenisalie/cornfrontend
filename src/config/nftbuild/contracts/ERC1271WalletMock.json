@@ -1,0 +1,8128 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "originalOwner",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "hash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "signature",
+          "type": "bytes"
+        }
+      ],
+      "name": "isValidSignature",
+      "outputs": [
+        {
+          "internalType": "bytes4",
+          "name": "magicValue",
+          "type": "bytes4"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "18": "contracts/openzeppelin/contracts/access/Ownable.sol",
+    "210": "contracts/openzeppelin/contracts/utils/Context.sol",
+    "215": "contracts/openzeppelin/contracts/utils/Strings.sol",
+    "217": "contracts/openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+    "38": "contracts/openzeppelin/contracts/interfaces/IERC1271.sol",
+    "75": "contracts/openzeppelin/contracts/mocks/ERC1271WalletMock.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/openzeppelin/contracts/mocks/ERC1271WalletMock.sol",
+    "exportedSymbols": {
+      "Context": [
+        26715
+      ],
+      "ECDSA": [
+        27839
+      ],
+      "ERC1271WalletMock": [
+        8733
+      ],
+      "IERC1271": [
+        6674
+      ],
+      "Ownable": [
+        785
+      ],
+      "Strings": [
+        27218
+      ]
+    },
+    "id": 8734,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 8687,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "33:23:75"
+      },
+      {
+        "absolutePath": "contracts/openzeppelin/contracts/access/Ownable.sol",
+        "file": "../access/Ownable.sol",
+        "id": 8688,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 8734,
+        "sourceUnit": 786,
+        "src": "58:31:75",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "contracts/openzeppelin/contracts/interfaces/IERC1271.sol",
+        "file": "../interfaces/IERC1271.sol",
+        "id": 8689,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 8734,
+        "sourceUnit": 6675,
+        "src": "90:36:75",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "contracts/openzeppelin/contracts/utils/cryptography/ECDSA.sol",
+        "file": "../utils/cryptography/ECDSA.sol",
+        "id": 8690,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 8734,
+        "sourceUnit": 27840,
+        "src": "127:41:75",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 8691,
+              "name": "Ownable",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 785,
+              "src": "200:7:75"
+            },
+            "id": 8692,
+            "nodeType": "InheritanceSpecifier",
+            "src": "200:7:75"
+          },
+          {
+            "baseName": {
+              "id": 8693,
+              "name": "IERC1271",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 6674,
+              "src": "209:8:75"
+            },
+            "id": 8694,
+            "nodeType": "InheritanceSpecifier",
+            "src": "209:8:75"
+          }
+        ],
+        "canonicalName": "ERC1271WalletMock",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 8733,
+        "linearizedBaseContracts": [
+          8733,
+          6674,
+          785,
+          26715
+        ],
+        "name": "ERC1271WalletMock",
+        "nameLocation": "179:17:75",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 8703,
+              "nodeType": "Block",
+              "src": "259:49:75",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 8700,
+                        "name": "originalOwner",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 8696,
+                        "src": "287:13:75",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 8699,
+                      "name": "transferOwnership",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 764,
+                      "src": "269:17:75",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_address_$returns$__$",
+                        "typeString": "function (address)"
+                      }
+                    },
+                    "id": 8701,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "269:32:75",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 8702,
+                  "nodeType": "ExpressionStatement",
+                  "src": "269:32:75"
+                }
+              ]
+            },
+            "id": 8704,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nameLocation": "-1:-1:-1",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 8697,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8696,
+                  "mutability": "mutable",
+                  "name": "originalOwner",
+                  "nameLocation": "244:13:75",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8704,
+                  "src": "236:21:75",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 8695,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "236:7:75",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "235:23:75"
+            },
+            "returnParameters": {
+              "id": 8698,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "259:0:75"
+            },
+            "scope": 8733,
+            "src": "224:84:75",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "public"
+          },
+          {
+            "baseFunctions": [
+              6673
+            ],
+            "body": {
+              "id": 8731,
+              "nodeType": "Block",
+              "src": "427:110:75",
+              "statements": [
+                {
+                  "expression": {
+                    "condition": {
+                      "commonType": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      },
+                      "id": 8721,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "leftExpression": {
+                        "arguments": [
+                          {
+                            "id": 8716,
+                            "name": "hash",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 8706,
+                            "src": "458:4:75",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          },
+                          {
+                            "id": 8717,
+                            "name": "signature",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 8708,
+                            "src": "464:9:75",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            },
+                            {
+                              "typeIdentifier": "t_bytes_memory_ptr",
+                              "typeString": "bytes memory"
+                            }
+                          ],
+                          "expression": {
+                            "id": 8714,
+                            "name": "ECDSA",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 27839,
+                            "src": "444:5:75",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_contract$_ECDSA_$27839_$",
+                              "typeString": "type(library ECDSA)"
+                            }
+                          },
+                          "id": 8715,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "recover",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 27588,
+                          "src": "444:13:75",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$_t_bytes32_$_t_bytes_memory_ptr_$returns$_t_address_$",
+                            "typeString": "function (bytes32,bytes memory) pure returns (address)"
+                          }
+                        },
+                        "id": 8718,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "444:30:75",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "nodeType": "BinaryOperation",
+                      "operator": "==",
+                      "rightExpression": {
+                        "arguments": [],
+                        "expression": {
+                          "argumentTypes": [],
+                          "id": 8719,
+                          "name": "owner",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 713,
+                          "src": "478:5:75",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_view$__$returns$_t_address_$",
+                            "typeString": "function () view returns (address)"
+                          }
+                        },
+                        "id": 8720,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "478:7:75",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "src": "444:41:75",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "falseExpression": {
+                      "arguments": [
+                        {
+                          "hexValue": "30",
+                          "id": 8727,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "528:1:75",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_0_by_1",
+                            "typeString": "int_const 0"
+                          },
+                          "value": "0"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_rational_0_by_1",
+                            "typeString": "int_const 0"
+                          }
+                        ],
+                        "id": 8726,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "lValueRequested": false,
+                        "nodeType": "ElementaryTypeNameExpression",
+                        "src": "521:6:75",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_bytes4_$",
+                          "typeString": "type(bytes4)"
+                        },
+                        "typeName": {
+                          "id": 8725,
+                          "name": "bytes4",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "521:6:75",
+                          "typeDescriptions": {}
+                        }
+                      },
+                      "id": 8728,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "521:9:75",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes4",
+                        "typeString": "bytes4"
+                      }
+                    },
+                    "id": 8729,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "Conditional",
+                    "src": "444:86:75",
+                    "trueExpression": {
+                      "expression": {
+                        "expression": {
+                          "id": 8722,
+                          "name": "this",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": -28,
+                          "src": "488:4:75",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_contract$_ERC1271WalletMock_$8733",
+                            "typeString": "contract ERC1271WalletMock"
+                          }
+                        },
+                        "id": 8723,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "isValidSignature",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 8732,
+                        "src": "488:21:75",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_function_external_view$_t_bytes32_$_t_bytes_memory_ptr_$returns$_t_bytes4_$",
+                          "typeString": "function (bytes32,bytes memory) view external returns (bytes4)"
+                        }
+                      },
+                      "id": 8724,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "selector",
+                      "nodeType": "MemberAccess",
+                      "src": "488:30:75",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes4",
+                        "typeString": "bytes4"
+                      }
+                    },
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "functionReturnParameters": 8713,
+                  "id": 8730,
+                  "nodeType": "Return",
+                  "src": "437:93:75"
+                }
+              ]
+            },
+            "functionSelector": "1626ba7e",
+            "id": 8732,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isValidSignature",
+            "nameLocation": "323:16:75",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 8710,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "390:8:75"
+            },
+            "parameters": {
+              "id": 8709,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8706,
+                  "mutability": "mutable",
+                  "name": "hash",
+                  "nameLocation": "348:4:75",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8732,
+                  "src": "340:12:75",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 8705,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "340:7:75",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 8708,
+                  "mutability": "mutable",
+                  "name": "signature",
+                  "nameLocation": "367:9:75",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8732,
+                  "src": "354:22:75",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 8707,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "354:5:75",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "339:38:75"
+            },
+            "returnParameters": {
+              "id": 8713,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 8712,
+                  "mutability": "mutable",
+                  "name": "magicValue",
+                  "nameLocation": "415:10:75",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 8732,
+                  "src": "408:17:75",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes4",
+                    "typeString": "bytes4"
+                  },
+                  "typeName": {
+                    "id": 8711,
+                    "name": "bytes4",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "408:6:75",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes4",
+                      "typeString": "bytes4"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "407:19:75"
+            },
+            "scope": 8733,
+            "src": "314:223:75",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "public"
+          }
+        ],
+        "scope": 8734,
+        "src": "170:369:75",
+        "usedErrors": []
+      }
+    ],
+    "src": "33:507:75"
+  },
+  "bytecode": "608060405234801561001057600080fd5b5060405161090338038061090383398101604081905261002f91610167565b61003833610047565b61004181610097565b50610197565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6000546001600160a01b031633146100f65760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b6001600160a01b03811661015b5760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b60648201526084016100ed565b61016481610047565b50565b60006020828403121561017957600080fd5b81516001600160a01b038116811461019057600080fd5b9392505050565b61075d806101a66000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80631626ba7e14610051578063715018a6146100825780638da5cb5b1461008c578063f2fde38b146100a7575b600080fd5b61006461005f366004610607565b6100ba565b6040516001600160e01b031990911681526020015b60405180910390f35b61008a6100f6565b005b6000546040516001600160a01b039091168152602001610079565b61008a6100b53660046106c2565b610161565b600080546001600160a01b03166100d1848461022c565b6001600160a01b0316146100e65760006100ef565b630b135d3f60e11b5b9392505050565b6000546001600160a01b031633146101555760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b61015f6000610250565b565b6000546001600160a01b031633146101bb5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604482015260640161014c565b6001600160a01b0381166102205760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b606482015260840161014c565b61022981610250565b50565b600080600061023b85856102a0565b9150915061024881610310565b509392505050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6000808251604114156102d75760208301516040840151606085015160001a6102cb878285856104cb565b94509450505050610309565b82516040141561030157602083015160408401516102f68683836105b8565b935093505050610309565b506000905060025b9250929050565b6000816004811115610324576103246106eb565b141561032d5750565b6001816004811115610341576103416106eb565b141561038f5760405162461bcd60e51b815260206004820152601860248201527f45434453413a20696e76616c6964207369676e61747572650000000000000000604482015260640161014c565b60028160048111156103a3576103a36106eb565b14156103f15760405162461bcd60e51b815260206004820152601f60248201527f45434453413a20696e76616c6964207369676e6174757265206c656e67746800604482015260640161014c565b6003816004811115610405576104056106eb565b141561045e5760405162461bcd60e51b815260206004820152602260248201527f45434453413a20696e76616c6964207369676e6174757265202773272076616c604482015261756560f01b606482015260840161014c565b6004816004811115610472576104726106eb565b14156102295760405162461bcd60e51b815260206004820152602260248201527f45434453413a20696e76616c6964207369676e6174757265202776272076616c604482015261756560f01b606482015260840161014c565b6000807f7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a083111561050257506000905060036105af565b8460ff16601b1415801561051a57508460ff16601c14155b1561052b57506000905060046105af565b6040805160008082526020820180845289905260ff881692820192909252606081018690526080810185905260019060a0016020604051602081039080840390855afa15801561057f573d6000803e3d6000fd5b5050604051601f1901519150506001600160a01b0381166105a8576000600192509250506105af565b9150600090505b94509492505050565b6000806001600160ff1b038316816105d560ff86901c601b610701565b90506105e3878288856104cb565b935093505050935093915050565b634e487b7160e01b600052604160045260246000fd5b6000806040838503121561061a57600080fd5b82359150602083013567ffffffffffffffff8082111561063957600080fd5b818501915085601f83011261064d57600080fd5b81358181111561065f5761065f6105f1565b604051601f8201601f19908116603f01168101908382118183101715610687576106876105f1565b816040528281528860208487010111156106a057600080fd5b8260208601602083013760006020848301015280955050505050509250929050565b6000602082840312156106d457600080fd5b81356001600160a01b03811681146100ef57600080fd5b634e487b7160e01b600052602160045260246000fd5b6000821982111561072257634e487b7160e01b600052601160045260246000fd5b50019056fea2646970667358221220af5c56d8dcd55cf4c171cc6301403ebe47c94125cf259eef66874e2501f8840764736f6c634300080c0033",
+  "bytecodeSha1": "30d6af7d714898c7cb1313232322edb727184a99",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.12+commit.f00d7308"
+  },
+  "contractName": "ERC1271WalletMock",
+  "coverageMap": {
+    "branches": {
+      "18": {
+        "Ownable.transferOwnership": {
+          "34": [
+            2006,
+            2028,
+            true
+          ]
+        }
+      },
+      "210": {},
+      "215": {},
+      "217": {
+        "ECDSA._throwError": {
+          "25": [
+            616,
+            645,
+            false
+          ],
+          "26": [
+            712,
+            750,
+            false
+          ],
+          "27": [
+            821,
+            865,
+            false
+          ],
+          "28": [
+            943,
+            982,
+            false
+          ],
+          "29": [
+            1063,
+            1102,
+            false
+          ]
+        },
+        "ECDSA.tryRecover": {
+          "23": [
+            2554,
+            2576,
+            false
+          ],
+          "24": [
+            3036,
+            3058,
+            false
+          ],
+          "30": [
+            6753,
+            6832,
+            false
+          ],
+          "31": [
+            6923,
+            6930,
+            false
+          ],
+          "32": [
+            6934,
+            6941,
+            false
+          ],
+          "33": [
+            7168,
+            7188,
+            false
+          ]
+        }
+      },
+      "38": {},
+      "75": {
+        "ERC1271WalletMock.isValidSignature": {
+          "22": [
+            444,
+            485,
+            true
+          ]
+        }
+      }
+    },
+    "statements": {
+      "18": {
+        "Ownable._transferOwnership": {
+          "8": [
+            2378,
+            2395
+          ],
+          "9": [
+            2405,
+            2450
+          ]
+        },
+        "Ownable.owner": {
+          "0": [
+            1101,
+            1114
+          ]
+        },
+        "Ownable.renounceOwnership": {
+          "3": [
+            1732,
+            1762
+          ]
+        },
+        "Ownable.transferOwnership": {
+          "4": [
+            1998,
+            2071
+          ],
+          "5": [
+            2081,
+            2109
+          ]
+        }
+      },
+      "210": {
+        "Context._msgSender": {
+          "2": [
+            712,
+            729
+          ]
+        }
+      },
+      "215": {},
+      "217": {
+        "ECDSA._throwError": {
+          "13": [
+            766,
+            800
+          ],
+          "14": [
+            881,
+            922
+          ],
+          "15": [
+            998,
+            1042
+          ],
+          "16": [
+            1118,
+            1162
+          ]
+        },
+        "ECDSA.recover": {
+          "6": [
+            4484,
+            4502
+          ],
+          "7": [
+            4512,
+            4528
+          ]
+        },
+        "ECDSA.tryRecover": {
+          "10": [
+            2983,
+            3015
+          ],
+          "11": [
+            3388,
+            3418
+          ],
+          "12": [
+            3449,
+            3505
+          ],
+          "17": [
+            6848,
+            6899
+          ],
+          "18": [
+            6957,
+            7008
+          ],
+          "19": [
+            7204,
+            7254
+          ],
+          "20": [
+            7275,
+            7312
+          ],
+          "21": [
+            5086,
+            5118
+          ]
+        }
+      },
+      "38": {},
+      "75": {
+        "ERC1271WalletMock.isValidSignature": {
+          "1": [
+            437,
+            530
+          ]
+        }
+      }
+    }
+  },
+  "dependencies": [
+    "Context",
+    "ECDSA",
+    "IERC1271",
+    "Ownable",
+    "Strings"
+  ],
+  "deployedBytecode": "608060405234801561001057600080fd5b506004361061004c5760003560e01c80631626ba7e14610051578063715018a6146100825780638da5cb5b1461008c578063f2fde38b146100a7575b600080fd5b61006461005f366004610607565b6100ba565b6040516001600160e01b031990911681526020015b60405180910390f35b61008a6100f6565b005b6000546040516001600160a01b039091168152602001610079565b61008a6100b53660046106c2565b610161565b600080546001600160a01b03166100d1848461022c565b6001600160a01b0316146100e65760006100ef565b630b135d3f60e11b5b9392505050565b6000546001600160a01b031633146101555760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b61015f6000610250565b565b6000546001600160a01b031633146101bb5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572604482015260640161014c565b6001600160a01b0381166102205760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b606482015260840161014c565b61022981610250565b50565b600080600061023b85856102a0565b9150915061024881610310565b509392505050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6000808251604114156102d75760208301516040840151606085015160001a6102cb878285856104cb565b94509450505050610309565b82516040141561030157602083015160408401516102f68683836105b8565b935093505050610309565b506000905060025b9250929050565b6000816004811115610324576103246106eb565b141561032d5750565b6001816004811115610341576103416106eb565b141561038f5760405162461bcd60e51b815260206004820152601860248201527f45434453413a20696e76616c6964207369676e61747572650000000000000000604482015260640161014c565b60028160048111156103a3576103a36106eb565b14156103f15760405162461bcd60e51b815260206004820152601f60248201527f45434453413a20696e76616c6964207369676e6174757265206c656e67746800604482015260640161014c565b6003816004811115610405576104056106eb565b141561045e5760405162461bcd60e51b815260206004820152602260248201527f45434453413a20696e76616c6964207369676e6174757265202773272076616c604482015261756560f01b606482015260840161014c565b6004816004811115610472576104726106eb565b14156102295760405162461bcd60e51b815260206004820152602260248201527f45434453413a20696e76616c6964207369676e6174757265202776272076616c604482015261756560f01b606482015260840161014c565b6000807f7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a083111561050257506000905060036105af565b8460ff16601b1415801561051a57508460ff16601c14155b1561052b57506000905060046105af565b6040805160008082526020820180845289905260ff881692820192909252606081018690526080810185905260019060a0016020604051602081039080840390855afa15801561057f573d6000803e3d6000fd5b5050604051601f1901519150506001600160a01b0381166105a8576000600192509250506105af565b9150600090505b94509492505050565b6000806001600160ff1b038316816105d560ff86901c601b610701565b90506105e3878288856104cb565b935093505050935093915050565b634e487b7160e01b600052604160045260246000fd5b6000806040838503121561061a57600080fd5b82359150602083013567ffffffffffffffff8082111561063957600080fd5b818501915085601f83011261064d57600080fd5b81358181111561065f5761065f6105f1565b604051601f8201601f19908116603f01168101908382118183101715610687576106876105f1565b816040528281528860208487010111156106a057600080fd5b8260208601602083013760006020848301015280955050505050509250929050565b6000602082840312156106d457600080fd5b81356001600160a01b03811681146100ef57600080fd5b634e487b7160e01b600052602160045260246000fd5b6000821982111561072257634e487b7160e01b600052601160045260246000fd5b50019056fea2646970667358221220af5c56d8dcd55cf4c171cc6301403ebe47c94125cf259eef66874e2501f8840764736f6c634300080c0033",
+  "deployedSourceMap": "170:369:75:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;314:223;;;;;;:::i;:::-;;:::i;:::-;;;-1:-1:-1;;;;;;1302:33:239;;;1284:52;;1272:2;1257:18;314:223:75;;;;;;;;1668:101:18;;;:::i;:::-;;1036:85;1082:7;1108:6;1036:85;;-1:-1:-1;;;;;1108:6:18;;;1493:51:239;;1481:2;1466:18;1036:85:18;1347:203:239;1918:198:18;;;;;;:::i;:::-;;:::i;314:223:75:-;408:17;1108:6:18;;-1:-1:-1;;;;;1108:6:18;444:30:75;458:4;464:9;444:13;:30::i;:::-;-1:-1:-1;;;;;444:41:75;;:86;;528:1;444:86;;;-1:-1:-1;;;444:86:75;437:93;314:223;-1:-1:-1;;;314:223:75:o;1668:101:18:-;1082:7;1108:6;-1:-1:-1;;;;;1108:6:18;719:10:210;1248:23:18;1240:68;;;;-1:-1:-1;;;1240:68:18;;2048:2:239;1240:68:18;;;2030:21:239;;;2067:18;;;2060:30;2126:34;2106:18;;;2099:62;2178:18;;1240:68:18;;;;;;;;;1732:30:::1;1759:1;1732:18;:30::i;:::-;1668:101::o:0;1918:198::-;1082:7;1108:6;-1:-1:-1;;;;;1108:6:18;719:10:210;1248:23:18;1240:68;;;;-1:-1:-1;;;1240:68:18;;2048:2:239;1240:68:18;;;2030:21:239;;;2067:18;;;2060:30;2126:34;2106:18;;;2099:62;2178:18;;1240:68:18;1846:356:239;1240:68:18;-1:-1:-1;;;;;2006:22:18;::::1;1998:73;;;::::0;-1:-1:-1;;;1998:73:18;;2409:2:239;1998:73:18::1;::::0;::::1;2391:21:239::0;2448:2;2428:18;;;2421:30;2487:34;2467:18;;;2460:62;-1:-1:-1;;;2538:18:239;;;2531:36;2584:19;;1998:73:18::1;2207:402:239::0;1998:73:18::1;2081:28;2100:8;2081:18;:28::i;:::-;1918:198:::0;:::o;4308:227:217:-;4386:7;4406:17;4425:18;4447:27;4458:4;4464:9;4447:10;:27::i;:::-;4405:69;;;;4484:18;4496:5;4484:11;:18::i;:::-;-1:-1:-1;4519:9:217;4308:227;-1:-1:-1;;;4308:227:217:o;2270:187:18:-;2343:16;2362:6;;-1:-1:-1;;;;;2378:17:18;;;-1:-1:-1;;;;;;2378:17:18;;;;;;2410:40;;2362:6;;;;;;;2410:40;;2343:16;2410:40;2333:124;2270:187;:::o;2243:1279:217:-;2324:7;2333:12;2554:9;:16;2574:2;2554:22;2550:966;;;2843:4;2828:20;;2822:27;2892:4;2877:20;;2871:27;2949:4;2934:20;;2928:27;2592:9;2920:36;2990:25;3001:4;2920:36;2822:27;2871;2990:10;:25::i;:::-;2983:32;;;;;;;;;2550:966;3036:9;:16;3056:2;3036:22;3032:484;;;3305:4;3290:20;;3284:27;3355:4;3340:20;;3334:27;3395:23;3406:4;3284:27;3334;3395:10;:23::i;:::-;3388:30;;;;;;;;3032:484;-1:-1:-1;3465:1:217;;-1:-1:-1;3469:35:217;3032:484;2243:1279;;;;;:::o;548:631::-;625:20;616:5;:29;;;;;;;;:::i;:::-;;612:561;;;548:631;:::o;612:561::-;721:29;712:5;:38;;;;;;;;:::i;:::-;;708:465;;;766:34;;-1:-1:-1;;;766:34:217;;2948:2:239;766:34:217;;;2930:21:239;2987:2;2967:18;;;2960:30;3026:26;3006:18;;;2999:54;3070:18;;766:34:217;2746:348:239;708:465:217;830:35;821:5;:44;;;;;;;;:::i;:::-;;817:356;;;881:41;;-1:-1:-1;;;881:41:217;;3301:2:239;881:41:217;;;3283:21:239;3340:2;3320:18;;;3313:30;3379:33;3359:18;;;3352:61;3430:18;;881:41:217;3099:355:239;817:356:217;952:30;943:5;:39;;;;;;;;:::i;:::-;;939:234;;;998:44;;-1:-1:-1;;;998:44:217;;3661:2:239;998:44:217;;;3643:21:239;3700:2;3680:18;;;3673:30;3739:34;3719:18;;;3712:62;-1:-1:-1;;;3790:18:239;;;3783:32;3832:19;;998:44:217;3459:398:239;939:234:217;1072:30;1063:5;:39;;;;;;;;:::i;:::-;;1059:114;;;1118:44;;-1:-1:-1;;;1118:44:217;;4064:2:239;1118:44:217;;;4046:21:239;4103:2;4083:18;;;4076:30;4142:34;4122:18;;;4115:62;-1:-1:-1;;;4193:18:239;;;4186:32;4235:19;;1118:44:217;3862:398:239;5716:1603:217;5842:7;;6766:66;6753:79;;6749:161;;;-1:-1:-1;6864:1:217;;-1:-1:-1;6868:30:217;6848:51;;6749:161;6923:1;:7;;6928:2;6923:7;;:18;;;;;6934:1;:7;;6939:2;6934:7;;6923:18;6919:100;;;-1:-1:-1;6973:1:217;;-1:-1:-1;6977:30:217;6957:51;;6919:100;7130:24;;;7113:14;7130:24;;;;;;;;;4492:25:239;;;4565:4;4553:17;;4533:18;;;4526:45;;;;4587:18;;;4580:34;;;4630:18;;;4623:34;;;7130:24:217;;4464:19:239;;7130:24:217;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;7130:24:217;;-1:-1:-1;;7130:24:217;;;-1:-1:-1;;;;;;;7168:20:217;;7164:101;;7220:1;7224:29;7204:50;;;;;;;7164:101;7283:6;-1:-1:-1;7291:20:217;;-1:-1:-1;5716:1603:217;;;;;;;;:::o;4789:336::-;4899:7;;-1:-1:-1;;;;;4944:80:217;;4899:7;5050:25;5066:3;5051:18;;;5073:2;5050:25;:::i;:::-;5034:42;;5093:25;5104:4;5110:1;5113;5116;5093:10;:25::i;:::-;5086:32;;;;;;4789:336;;;;;;:::o;14:127:239:-;75:10;70:3;66:20;63:1;56:31;106:4;103:1;96:15;130:4;127:1;120:15;146:989;223:6;231;284:2;272:9;263:7;259:23;255:32;252:52;;;300:1;297;290:12;252:52;336:9;323:23;313:33;;397:2;386:9;382:18;369:32;420:18;461:2;453:6;450:14;447:34;;;477:1;474;467:12;447:34;515:6;504:9;500:22;490:32;;560:7;553:4;549:2;545:13;541:27;531:55;;582:1;579;572:12;531:55;618:2;605:16;640:2;636;633:10;630:36;;;646:18;;:::i;:::-;721:2;715:9;689:2;775:13;;-1:-1:-1;;771:22:239;;;795:2;767:31;763:40;751:53;;;819:18;;;839:22;;;816:46;813:72;;;865:18;;:::i;:::-;905:10;901:2;894:22;940:2;932:6;925:18;980:7;975:2;970;966;962:11;958:20;955:33;952:53;;;1001:1;998;991:12;952:53;1057:2;1052;1048;1044:11;1039:2;1031:6;1027:15;1014:46;1102:1;1097:2;1092;1084:6;1080:15;1076:24;1069:35;1123:6;1113:16;;;;;;;146:989;;;;;:::o;1555:286::-;1614:6;1667:2;1655:9;1646:7;1642:23;1638:32;1635:52;;;1683:1;1680;1673:12;1635:52;1709:23;;-1:-1:-1;;;;;1761:31:239;;1751:42;;1741:70;;1807:1;1804;1797:12;2614:127;2675:10;2670:3;2666:20;2663:1;2656:31;2706:4;2703:1;2696:15;2730:4;2727:1;2720:15;4668:225;4708:3;4739:1;4735:6;4732:1;4729:13;4726:136;;;4784:10;4779:3;4775:20;4772:1;4765:31;4819:4;4816:1;4809:15;4847:4;4844:1;4837:15;4726:136;-1:-1:-1;4878:9:239;;4668:225::o",
+  "language": "Solidity",
+  "natspec": {
+    "kind": "dev",
+    "methods": {
+      "isValidSignature(bytes32,bytes)": {
+        "details": "Should return whether the signature provided is valid for the provided data",
+        "params": {
+          "hash": "Hash of the data to be signed",
+          "signature": "Signature byte array associated with _data"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "version": 1
+  },
+  "offset": [
+    170,
+    539
+  ],
+  "opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH2 0x10 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH2 0x4C JUMPI PUSH1 0x0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x1626BA7E EQ PUSH2 0x51 JUMPI DUP1 PUSH4 0x715018A6 EQ PUSH2 0x82 JUMPI DUP1 PUSH4 0x8DA5CB5B EQ PUSH2 0x8C JUMPI DUP1 PUSH4 0xF2FDE38B EQ PUSH2 0xA7 JUMPI JUMPDEST PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH2 0x64 PUSH2 0x5F CALLDATASIZE PUSH1 0x4 PUSH2 0x607 JUMP JUMPDEST PUSH2 0xBA JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xE0 SHL SUB NOT SWAP1 SWAP2 AND DUP2 MSTORE PUSH1 0x20 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH2 0x8A PUSH2 0xF6 JUMP JUMPDEST STOP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x40 MLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB SWAP1 SWAP2 AND DUP2 MSTORE PUSH1 0x20 ADD PUSH2 0x79 JUMP JUMPDEST PUSH2 0x8A PUSH2 0xB5 CALLDATASIZE PUSH1 0x4 PUSH2 0x6C2 JUMP JUMPDEST PUSH2 0x161 JUMP JUMPDEST PUSH1 0x0 DUP1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND PUSH2 0xD1 DUP5 DUP5 PUSH2 0x22C JUMP JUMPDEST PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND EQ PUSH2 0xE6 JUMPI PUSH1 0x0 PUSH2 0xEF JUMP JUMPDEST PUSH4 0xB135D3F PUSH1 0xE1 SHL JUMPDEST SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x155 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD DUP2 SWAP1 MSTORE PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x4F776E61626C653A2063616C6C6572206973206E6F7420746865206F776E6572 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 REVERT JUMPDEST PUSH2 0x15F PUSH1 0x0 PUSH2 0x250 JUMP JUMPDEST JUMP JUMPDEST PUSH1 0x0 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB AND CALLER EQ PUSH2 0x1BB JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD DUP2 SWAP1 MSTORE PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x4F776E61626C653A2063616C6C6572206973206E6F7420746865206F776E6572 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x14C JUMP JUMPDEST PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP2 AND PUSH2 0x220 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x26 PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x4F776E61626C653A206E6577206F776E657220697320746865207A65726F2061 PUSH1 0x44 DUP3 ADD MSTORE PUSH6 0x646472657373 PUSH1 0xD0 SHL PUSH1 0x64 DUP3 ADD MSTORE PUSH1 0x84 ADD PUSH2 0x14C JUMP JUMPDEST PUSH2 0x229 DUP2 PUSH2 0x250 JUMP JUMPDEST POP JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x0 PUSH2 0x23B DUP6 DUP6 PUSH2 0x2A0 JUMP JUMPDEST SWAP2 POP SWAP2 POP PUSH2 0x248 DUP2 PUSH2 0x310 JUMP JUMPDEST POP SWAP4 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 SLOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP4 DUP2 AND PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB NOT DUP4 AND DUP2 OR DUP5 SSTORE PUSH1 0x40 MLOAD SWAP2 SWAP1 SWAP3 AND SWAP3 DUP4 SWAP2 PUSH32 0x8BE0079C531659141344CD1FD0A4F28419497F9722A3DAAFE3B4186F6B6457E0 SWAP2 SWAP1 LOG3 POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 DUP3 MLOAD PUSH1 0x41 EQ ISZERO PUSH2 0x2D7 JUMPI PUSH1 0x20 DUP4 ADD MLOAD PUSH1 0x40 DUP5 ADD MLOAD PUSH1 0x60 DUP6 ADD MLOAD PUSH1 0x0 BYTE PUSH2 0x2CB DUP8 DUP3 DUP6 DUP6 PUSH2 0x4CB JUMP JUMPDEST SWAP5 POP SWAP5 POP POP POP POP PUSH2 0x309 JUMP JUMPDEST DUP3 MLOAD PUSH1 0x40 EQ ISZERO PUSH2 0x301 JUMPI PUSH1 0x20 DUP4 ADD MLOAD PUSH1 0x40 DUP5 ADD MLOAD PUSH2 0x2F6 DUP7 DUP4 DUP4 PUSH2 0x5B8 JUMP JUMPDEST SWAP4 POP SWAP4 POP POP POP PUSH2 0x309 JUMP JUMPDEST POP PUSH1 0x0 SWAP1 POP PUSH1 0x2 JUMPDEST SWAP3 POP SWAP3 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 DUP2 PUSH1 0x4 DUP2 GT ISZERO PUSH2 0x324 JUMPI PUSH2 0x324 PUSH2 0x6EB JUMP JUMPDEST EQ ISZERO PUSH2 0x32D JUMPI POP JUMP JUMPDEST PUSH1 0x1 DUP2 PUSH1 0x4 DUP2 GT ISZERO PUSH2 0x341 JUMPI PUSH2 0x341 PUSH2 0x6EB JUMP JUMPDEST EQ ISZERO PUSH2 0x38F JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x18 PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x45434453413A20696E76616C6964207369676E61747572650000000000000000 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x14C JUMP JUMPDEST PUSH1 0x2 DUP2 PUSH1 0x4 DUP2 GT ISZERO PUSH2 0x3A3 JUMPI PUSH2 0x3A3 PUSH2 0x6EB JUMP JUMPDEST EQ ISZERO PUSH2 0x3F1 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x1F PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x45434453413A20696E76616C6964207369676E6174757265206C656E67746800 PUSH1 0x44 DUP3 ADD MSTORE PUSH1 0x64 ADD PUSH2 0x14C JUMP JUMPDEST PUSH1 0x3 DUP2 PUSH1 0x4 DUP2 GT ISZERO PUSH2 0x405 JUMPI PUSH2 0x405 PUSH2 0x6EB JUMP JUMPDEST EQ ISZERO PUSH2 0x45E JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x22 PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x45434453413A20696E76616C6964207369676E6174757265202773272076616C PUSH1 0x44 DUP3 ADD MSTORE PUSH2 0x7565 PUSH1 0xF0 SHL PUSH1 0x64 DUP3 ADD MSTORE PUSH1 0x84 ADD PUSH2 0x14C JUMP JUMPDEST PUSH1 0x4 DUP2 PUSH1 0x4 DUP2 GT ISZERO PUSH2 0x472 JUMPI PUSH2 0x472 PUSH2 0x6EB JUMP JUMPDEST EQ ISZERO PUSH2 0x229 JUMPI PUSH1 0x40 MLOAD PUSH3 0x461BCD PUSH1 0xE5 SHL DUP2 MSTORE PUSH1 0x20 PUSH1 0x4 DUP3 ADD MSTORE PUSH1 0x22 PUSH1 0x24 DUP3 ADD MSTORE PUSH32 0x45434453413A20696E76616C6964207369676E6174757265202776272076616C PUSH1 0x44 DUP3 ADD MSTORE PUSH2 0x7565 PUSH1 0xF0 SHL PUSH1 0x64 DUP3 ADD MSTORE PUSH1 0x84 ADD PUSH2 0x14C JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH32 0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0 DUP4 GT ISZERO PUSH2 0x502 JUMPI POP PUSH1 0x0 SWAP1 POP PUSH1 0x3 PUSH2 0x5AF JUMP JUMPDEST DUP5 PUSH1 0xFF AND PUSH1 0x1B EQ ISZERO DUP1 ISZERO PUSH2 0x51A JUMPI POP DUP5 PUSH1 0xFF AND PUSH1 0x1C EQ ISZERO JUMPDEST ISZERO PUSH2 0x52B JUMPI POP PUSH1 0x0 SWAP1 POP PUSH1 0x4 PUSH2 0x5AF JUMP JUMPDEST PUSH1 0x40 DUP1 MLOAD PUSH1 0x0 DUP1 DUP3 MSTORE PUSH1 0x20 DUP3 ADD DUP1 DUP5 MSTORE DUP10 SWAP1 MSTORE PUSH1 0xFF DUP9 AND SWAP3 DUP3 ADD SWAP3 SWAP1 SWAP3 MSTORE PUSH1 0x60 DUP2 ADD DUP7 SWAP1 MSTORE PUSH1 0x80 DUP2 ADD DUP6 SWAP1 MSTORE PUSH1 0x1 SWAP1 PUSH1 0xA0 ADD PUSH1 0x20 PUSH1 0x40 MLOAD PUSH1 0x20 DUP2 SUB SWAP1 DUP1 DUP5 SUB SWAP1 DUP6 GAS STATICCALL ISZERO DUP1 ISZERO PUSH2 0x57F JUMPI RETURNDATASIZE PUSH1 0x0 DUP1 RETURNDATACOPY RETURNDATASIZE PUSH1 0x0 REVERT JUMPDEST POP POP PUSH1 0x40 MLOAD PUSH1 0x1F NOT ADD MLOAD SWAP2 POP POP PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP2 AND PUSH2 0x5A8 JUMPI PUSH1 0x0 PUSH1 0x1 SWAP3 POP SWAP3 POP POP PUSH2 0x5AF JUMP JUMPDEST SWAP2 POP PUSH1 0x0 SWAP1 POP JUMPDEST SWAP5 POP SWAP5 SWAP3 POP POP POP JUMP JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x1 PUSH1 0x1 PUSH1 0xFF SHL SUB DUP4 AND DUP2 PUSH2 0x5D5 PUSH1 0xFF DUP7 SWAP1 SHR PUSH1 0x1B PUSH2 0x701 JUMP JUMPDEST SWAP1 POP PUSH2 0x5E3 DUP8 DUP3 DUP9 DUP6 PUSH2 0x4CB JUMP JUMPDEST SWAP4 POP SWAP4 POP POP POP SWAP4 POP SWAP4 SWAP2 POP POP JUMP JUMPDEST PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x41 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST PUSH1 0x0 DUP1 PUSH1 0x40 DUP4 DUP6 SUB SLT ISZERO PUSH2 0x61A JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP3 CALLDATALOAD SWAP2 POP PUSH1 0x20 DUP4 ADD CALLDATALOAD PUSH8 0xFFFFFFFFFFFFFFFF DUP1 DUP3 GT ISZERO PUSH2 0x639 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 DUP6 ADD SWAP2 POP DUP6 PUSH1 0x1F DUP4 ADD SLT PUSH2 0x64D JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 CALLDATALOAD DUP2 DUP2 GT ISZERO PUSH2 0x65F JUMPI PUSH2 0x65F PUSH2 0x5F1 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x1F DUP3 ADD PUSH1 0x1F NOT SWAP1 DUP2 AND PUSH1 0x3F ADD AND DUP2 ADD SWAP1 DUP4 DUP3 GT DUP2 DUP4 LT OR ISZERO PUSH2 0x687 JUMPI PUSH2 0x687 PUSH2 0x5F1 JUMP JUMPDEST DUP2 PUSH1 0x40 MSTORE DUP3 DUP2 MSTORE DUP9 PUSH1 0x20 DUP5 DUP8 ADD ADD GT ISZERO PUSH2 0x6A0 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP3 PUSH1 0x20 DUP7 ADD PUSH1 0x20 DUP4 ADD CALLDATACOPY PUSH1 0x0 PUSH1 0x20 DUP5 DUP4 ADD ADD MSTORE DUP1 SWAP6 POP POP POP POP POP POP SWAP3 POP SWAP3 SWAP1 POP JUMP JUMPDEST PUSH1 0x0 PUSH1 0x20 DUP3 DUP5 SUB SLT ISZERO PUSH2 0x6D4 JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST DUP2 CALLDATALOAD PUSH1 0x1 PUSH1 0x1 PUSH1 0xA0 SHL SUB DUP2 AND DUP2 EQ PUSH2 0xEF JUMPI PUSH1 0x0 DUP1 REVERT JUMPDEST PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x21 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST PUSH1 0x0 DUP3 NOT DUP3 GT ISZERO PUSH2 0x722 JUMPI PUSH4 0x4E487B71 PUSH1 0xE0 SHL PUSH1 0x0 MSTORE PUSH1 0x11 PUSH1 0x4 MSTORE PUSH1 0x24 PUSH1 0x0 REVERT JUMPDEST POP ADD SWAP1 JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xAF 0x5C JUMP 0xD8 0xDC 0xD5 0x5C DELEGATECALL 0xC1 PUSH18 0xCC6301403EBE47C94125CF259EEF66874E25 ADD 0xF8 DUP5 SMOD PUSH5 0x736F6C6343 STOP ADDMOD 0xC STOP CALLER ",
+  "pcMap": {
+    "0": {
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x80"
+    },
+    "2": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x40"
+    },
+    "4": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "MSTORE",
+      "path": "75"
+    },
+    "5": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "CALLVALUE",
+      "path": "75"
+    },
+    "6": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "DUP1",
+      "path": "75"
+    },
+    "7": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "ISZERO",
+      "path": "75"
+    },
+    "8": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x10"
+    },
+    "11": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "JUMPI",
+      "path": "75"
+    },
+    "12": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x0"
+    },
+    "14": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "DUP1",
+      "path": "75"
+    },
+    "15": {
+      "dev": "Cannot send ether to nonpayable function",
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "REVERT",
+      "path": "75"
+    },
+    "16": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "17": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "POP",
+      "path": "75"
+    },
+    "18": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x4"
+    },
+    "20": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "CALLDATASIZE",
+      "path": "75"
+    },
+    "21": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "LT",
+      "path": "75"
+    },
+    "22": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x4C"
+    },
+    "25": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "JUMPI",
+      "path": "75"
+    },
+    "26": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x0"
+    },
+    "28": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "CALLDATALOAD",
+      "path": "75"
+    },
+    "29": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0xE0"
+    },
+    "31": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "SHR",
+      "path": "75"
+    },
+    "32": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "DUP1",
+      "path": "75"
+    },
+    "33": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH4",
+      "path": "75",
+      "value": "0x1626BA7E"
+    },
+    "38": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "EQ",
+      "path": "75"
+    },
+    "39": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x51"
+    },
+    "42": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "JUMPI",
+      "path": "75"
+    },
+    "43": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "DUP1",
+      "path": "75"
+    },
+    "44": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH4",
+      "path": "75",
+      "value": "0x715018A6"
+    },
+    "49": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "EQ",
+      "path": "75"
+    },
+    "50": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x82"
+    },
+    "53": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "JUMPI",
+      "path": "75"
+    },
+    "54": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "DUP1",
+      "path": "75"
+    },
+    "55": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH4",
+      "path": "75",
+      "value": "0x8DA5CB5B"
+    },
+    "60": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "EQ",
+      "path": "75"
+    },
+    "61": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x8C"
+    },
+    "64": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "JUMPI",
+      "path": "75"
+    },
+    "65": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "DUP1",
+      "path": "75"
+    },
+    "66": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH4",
+      "path": "75",
+      "value": "0xF2FDE38B"
+    },
+    "71": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "EQ",
+      "path": "75"
+    },
+    "72": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0xA7"
+    },
+    "75": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "JUMPI",
+      "path": "75"
+    },
+    "76": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "77": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x0"
+    },
+    "79": {
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "DUP1",
+      "path": "75"
+    },
+    "80": {
+      "first_revert": true,
+      "fn": null,
+      "offset": [
+        170,
+        539
+      ],
+      "op": "REVERT",
+      "path": "75"
+    },
+    "81": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "82": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x64"
+    },
+    "85": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x5F"
+    },
+    "88": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "CALLDATASIZE",
+      "path": "75"
+    },
+    "89": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x4"
+    },
+    "91": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x607"
+    },
+    "94": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "jump": "i",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "JUMP",
+      "path": "75"
+    },
+    "95": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "96": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0xBA"
+    },
+    "99": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "jump": "i",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "JUMP",
+      "path": "75"
+    },
+    "100": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "101": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x40"
+    },
+    "103": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "MLOAD",
+      "path": "75"
+    },
+    "104": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "106": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "108": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "110": {
+      "op": "SHL"
+    },
+    "111": {
+      "op": "SUB"
+    },
+    "112": {
+      "op": "NOT"
+    },
+    "113": {
+      "op": "SWAP1"
+    },
+    "114": {
+      "op": "SWAP2"
+    },
+    "115": {
+      "op": "AND"
+    },
+    "116": {
+      "op": "DUP2"
+    },
+    "117": {
+      "op": "MSTORE"
+    },
+    "118": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "120": {
+      "op": "ADD"
+    },
+    "121": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "122": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x40"
+    },
+    "124": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "MLOAD",
+      "path": "75"
+    },
+    "125": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "DUP1",
+      "path": "75"
+    },
+    "126": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "SWAP2",
+      "path": "75"
+    },
+    "127": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "SUB",
+      "path": "75"
+    },
+    "128": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "SWAP1",
+      "path": "75"
+    },
+    "129": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "RETURN",
+      "path": "75"
+    },
+    "130": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1668,
+        1769
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "131": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1668,
+        1769
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x8A"
+    },
+    "134": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1668,
+        1769
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0xF6"
+    },
+    "137": {
+      "fn": "Ownable.renounceOwnership",
+      "jump": "i",
+      "offset": [
+        1668,
+        1769
+      ],
+      "op": "JUMP",
+      "path": "18"
+    },
+    "138": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1668,
+        1769
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "139": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1668,
+        1769
+      ],
+      "op": "STOP",
+      "path": "18"
+    },
+    "140": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1036,
+        1121
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "141": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1082,
+        1089
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x0"
+    },
+    "143": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "SLOAD",
+      "path": "18",
+      "statement": 0
+    },
+    "144": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1036,
+        1121
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x40"
+    },
+    "146": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1036,
+        1121
+      ],
+      "op": "MLOAD",
+      "path": "18"
+    },
+    "147": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "149": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "151": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "153": {
+      "op": "SHL"
+    },
+    "154": {
+      "op": "SUB"
+    },
+    "155": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "SWAP1",
+      "path": "18"
+    },
+    "156": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "SWAP2",
+      "path": "18"
+    },
+    "157": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "AND",
+      "path": "18"
+    },
+    "158": {
+      "op": "DUP2"
+    },
+    "159": {
+      "op": "MSTORE"
+    },
+    "160": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "162": {
+      "op": "ADD"
+    },
+    "163": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1036,
+        1121
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x79"
+    },
+    "166": {
+      "op": "JUMP"
+    },
+    "167": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "168": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x8A"
+    },
+    "171": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0xB5"
+    },
+    "174": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "CALLDATASIZE",
+      "path": "18"
+    },
+    "175": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x4"
+    },
+    "177": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x6C2"
+    },
+    "180": {
+      "fn": "Ownable.transferOwnership",
+      "jump": "i",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "JUMP",
+      "path": "18"
+    },
+    "181": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "182": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x161"
+    },
+    "185": {
+      "fn": "Ownable.transferOwnership",
+      "jump": "i",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "JUMP",
+      "path": "18"
+    },
+    "186": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "187": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        408,
+        425
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x0"
+    },
+    "189": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "DUP1",
+      "path": "18"
+    },
+    "190": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "SLOAD",
+      "path": "18"
+    },
+    "191": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "193": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "195": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "197": {
+      "op": "SHL"
+    },
+    "198": {
+      "op": "SUB"
+    },
+    "199": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "AND",
+      "path": "18"
+    },
+    "200": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        474
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "statement": 1,
+      "value": "0xD1"
+    },
+    "203": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        458,
+        462
+      ],
+      "op": "DUP5",
+      "path": "75"
+    },
+    "204": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        464,
+        473
+      ],
+      "op": "DUP5",
+      "path": "75"
+    },
+    "205": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        457
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0x22C"
+    },
+    "208": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "jump": "i",
+      "offset": [
+        444,
+        474
+      ],
+      "op": "JUMP",
+      "path": "75"
+    },
+    "209": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        474
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "210": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "212": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "214": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "216": {
+      "op": "SHL"
+    },
+    "217": {
+      "op": "SUB"
+    },
+    "218": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        485
+      ],
+      "op": "AND",
+      "path": "75"
+    },
+    "219": {
+      "branch": 22,
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        485
+      ],
+      "op": "EQ",
+      "path": "75"
+    },
+    "220": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        530
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0xE6"
+    },
+    "223": {
+      "branch": 22,
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        530
+      ],
+      "op": "JUMPI",
+      "path": "75"
+    },
+    "224": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        528,
+        529
+      ],
+      "op": "PUSH1",
+      "path": "75",
+      "value": "0x0"
+    },
+    "226": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        530
+      ],
+      "op": "PUSH2",
+      "path": "75",
+      "value": "0xEF"
+    },
+    "229": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        530
+      ],
+      "op": "JUMP",
+      "path": "75"
+    },
+    "230": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        530
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "231": {
+      "op": "PUSH4",
+      "value": "0xB135D3F"
+    },
+    "236": {
+      "op": "PUSH1",
+      "value": "0xE1"
+    },
+    "238": {
+      "op": "SHL"
+    },
+    "239": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        444,
+        530
+      ],
+      "op": "JUMPDEST",
+      "path": "75"
+    },
+    "240": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        437,
+        530
+      ],
+      "op": "SWAP4",
+      "path": "75"
+    },
+    "241": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "SWAP3",
+      "path": "75"
+    },
+    "242": {
+      "op": "POP"
+    },
+    "243": {
+      "op": "POP"
+    },
+    "244": {
+      "op": "POP"
+    },
+    "245": {
+      "fn": "ERC1271WalletMock.isValidSignature",
+      "jump": "o",
+      "offset": [
+        314,
+        537
+      ],
+      "op": "JUMP",
+      "path": "75"
+    },
+    "246": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1668,
+        1769
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "247": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1082,
+        1089
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x0"
+    },
+    "249": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "SLOAD",
+      "path": "18"
+    },
+    "250": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "252": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "254": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "256": {
+      "op": "SHL"
+    },
+    "257": {
+      "op": "SUB"
+    },
+    "258": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "AND",
+      "path": "18"
+    },
+    "259": {
+      "fn": "Context._msgSender",
+      "offset": [
+        719,
+        729
+      ],
+      "op": "CALLER",
+      "path": "210",
+      "statement": 2
+    },
+    "260": {
+      "offset": [
+        1248,
+        1271
+      ],
+      "op": "EQ",
+      "path": "18"
+    },
+    "261": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x155"
+    },
+    "264": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "JUMPI",
+      "path": "18"
+    },
+    "265": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x40"
+    },
+    "267": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "MLOAD",
+      "path": "18"
+    },
+    "268": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "272": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "274": {
+      "op": "SHL"
+    },
+    "275": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "DUP2",
+      "path": "18"
+    },
+    "276": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "MSTORE",
+      "path": "18"
+    },
+    "277": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "279": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x4"
+    },
+    "281": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "DUP3",
+      "path": "18"
+    },
+    "282": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "ADD",
+      "path": "18"
+    },
+    "283": {
+      "op": "DUP2"
+    },
+    "284": {
+      "op": "SWAP1"
+    },
+    "285": {
+      "op": "MSTORE"
+    },
+    "286": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "288": {
+      "op": "DUP3"
+    },
+    "289": {
+      "op": "ADD"
+    },
+    "290": {
+      "op": "MSTORE"
+    },
+    "291": {
+      "op": "PUSH32",
+      "value": "0x4F776E61626C653A2063616C6C6572206973206E6F7420746865206F776E6572"
+    },
+    "324": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "326": {
+      "op": "DUP3"
+    },
+    "327": {
+      "op": "ADD"
+    },
+    "328": {
+      "op": "MSTORE"
+    },
+    "329": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "331": {
+      "op": "ADD"
+    },
+    "332": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "333": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x40"
+    },
+    "335": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "MLOAD",
+      "path": "18"
+    },
+    "336": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "DUP1",
+      "path": "18"
+    },
+    "337": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "SWAP2",
+      "path": "18"
+    },
+    "338": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "SUB",
+      "path": "18"
+    },
+    "339": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "SWAP1",
+      "path": "18"
+    },
+    "340": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "REVERT",
+      "optimizer_revert": true,
+      "path": "18"
+    },
+    "341": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "342": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1732,
+        1762
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "statement": 3,
+      "value": "0x15F"
+    },
+    "345": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1759,
+        1760
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x0"
+    },
+    "347": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1732,
+        1750
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x250"
+    },
+    "350": {
+      "fn": "Ownable.renounceOwnership",
+      "jump": "i",
+      "offset": [
+        1732,
+        1762
+      ],
+      "op": "JUMP",
+      "path": "18"
+    },
+    "351": {
+      "fn": "Ownable.renounceOwnership",
+      "offset": [
+        1732,
+        1762
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "352": {
+      "fn": "Ownable.renounceOwnership",
+      "jump": "o",
+      "offset": [
+        1668,
+        1769
+      ],
+      "op": "JUMP",
+      "path": "18"
+    },
+    "353": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "354": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1082,
+        1089
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x0"
+    },
+    "356": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "SLOAD",
+      "path": "18"
+    },
+    "357": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "359": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "361": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "363": {
+      "op": "SHL"
+    },
+    "364": {
+      "op": "SUB"
+    },
+    "365": {
+      "fn": "Ownable.owner",
+      "offset": [
+        1108,
+        1114
+      ],
+      "op": "AND",
+      "path": "18"
+    },
+    "366": {
+      "fn": "Context._msgSender",
+      "offset": [
+        719,
+        729
+      ],
+      "op": "CALLER",
+      "path": "210"
+    },
+    "367": {
+      "offset": [
+        1248,
+        1271
+      ],
+      "op": "EQ",
+      "path": "18"
+    },
+    "368": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x1BB"
+    },
+    "371": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "JUMPI",
+      "path": "18"
+    },
+    "372": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x40"
+    },
+    "374": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "MLOAD",
+      "path": "18"
+    },
+    "375": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "379": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "381": {
+      "op": "SHL"
+    },
+    "382": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "DUP2",
+      "path": "18"
+    },
+    "383": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "MSTORE",
+      "path": "18"
+    },
+    "384": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "386": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x4"
+    },
+    "388": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "DUP3",
+      "path": "18"
+    },
+    "389": {
+      "fn": "Context._msgSender",
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "ADD",
+      "path": "18"
+    },
+    "390": {
+      "op": "DUP2"
+    },
+    "391": {
+      "op": "SWAP1"
+    },
+    "392": {
+      "op": "MSTORE"
+    },
+    "393": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "395": {
+      "op": "DUP3"
+    },
+    "396": {
+      "op": "ADD"
+    },
+    "397": {
+      "op": "MSTORE"
+    },
+    "398": {
+      "op": "PUSH32",
+      "value": "0x4F776E61626C653A2063616C6C6572206973206E6F7420746865206F776E6572"
+    },
+    "431": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "433": {
+      "op": "DUP3"
+    },
+    "434": {
+      "op": "ADD"
+    },
+    "435": {
+      "op": "MSTORE"
+    },
+    "436": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "438": {
+      "op": "ADD"
+    },
+    "439": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x14C"
+    },
+    "442": {
+      "op": "JUMP"
+    },
+    "443": {
+      "offset": [
+        1240,
+        1308
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "444": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "446": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "448": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "450": {
+      "op": "SHL"
+    },
+    "451": {
+      "op": "SUB"
+    },
+    "452": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        2006,
+        2028
+      ],
+      "op": "DUP2",
+      "path": "18",
+      "statement": 4
+    },
+    "453": {
+      "branch": 34,
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        2006,
+        2028
+      ],
+      "op": "AND",
+      "path": "18"
+    },
+    "454": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x220"
+    },
+    "457": {
+      "branch": 34,
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "JUMPI",
+      "path": "18"
+    },
+    "458": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x40"
+    },
+    "460": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "MLOAD",
+      "path": "18"
+    },
+    "461": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "465": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "467": {
+      "op": "SHL"
+    },
+    "468": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "DUP2",
+      "path": "18"
+    },
+    "469": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "MSTORE",
+      "path": "18"
+    },
+    "470": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "472": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x4"
+    },
+    "474": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "DUP3",
+      "path": "18"
+    },
+    "475": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "ADD",
+      "path": "18"
+    },
+    "476": {
+      "op": "MSTORE"
+    },
+    "477": {
+      "op": "PUSH1",
+      "value": "0x26"
+    },
+    "479": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "481": {
+      "op": "DUP3"
+    },
+    "482": {
+      "op": "ADD"
+    },
+    "483": {
+      "op": "MSTORE"
+    },
+    "484": {
+      "op": "PUSH32",
+      "value": "0x4F776E61626C653A206E6577206F776E657220697320746865207A65726F2061"
+    },
+    "517": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "519": {
+      "op": "DUP3"
+    },
+    "520": {
+      "op": "ADD"
+    },
+    "521": {
+      "op": "MSTORE"
+    },
+    "522": {
+      "op": "PUSH6",
+      "value": "0x646472657373"
+    },
+    "529": {
+      "op": "PUSH1",
+      "value": "0xD0"
+    },
+    "531": {
+      "op": "SHL"
+    },
+    "532": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "534": {
+      "op": "DUP3"
+    },
+    "535": {
+      "op": "ADD"
+    },
+    "536": {
+      "op": "MSTORE"
+    },
+    "537": {
+      "op": "PUSH1",
+      "value": "0x84"
+    },
+    "539": {
+      "op": "ADD"
+    },
+    "540": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x14C"
+    },
+    "543": {
+      "op": "JUMP"
+    },
+    "544": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1998,
+        2071
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "545": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        2081,
+        2109
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "statement": 5,
+      "value": "0x229"
+    },
+    "548": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        2100,
+        2108
+      ],
+      "op": "DUP2",
+      "path": "18"
+    },
+    "549": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        2081,
+        2099
+      ],
+      "op": "PUSH2",
+      "path": "18",
+      "value": "0x250"
+    },
+    "552": {
+      "fn": "Ownable.transferOwnership",
+      "jump": "i",
+      "offset": [
+        2081,
+        2109
+      ],
+      "op": "JUMP",
+      "path": "18"
+    },
+    "553": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        2081,
+        2109
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "554": {
+      "fn": "Ownable.transferOwnership",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "POP",
+      "path": "18"
+    },
+    "555": {
+      "fn": "Ownable.transferOwnership",
+      "jump": "o",
+      "offset": [
+        1918,
+        2116
+      ],
+      "op": "JUMP",
+      "path": "18"
+    },
+    "556": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4308,
+        4535
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "557": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4386,
+        4393
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "559": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4406,
+        4423
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "560": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4425,
+        4443
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "562": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4447,
+        4474
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x23B"
+    },
+    "565": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4458,
+        4462
+      ],
+      "op": "DUP6",
+      "path": "217"
+    },
+    "566": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4464,
+        4473
+      ],
+      "op": "DUP6",
+      "path": "217"
+    },
+    "567": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4447,
+        4457
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x2A0"
+    },
+    "570": {
+      "fn": "ECDSA.recover",
+      "jump": "i",
+      "offset": [
+        4447,
+        4474
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "571": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4447,
+        4474
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "572": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4405,
+        4474
+      ],
+      "op": "SWAP2",
+      "path": "217"
+    },
+    "573": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4405,
+        4474
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "574": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4405,
+        4474
+      ],
+      "op": "SWAP2",
+      "path": "217"
+    },
+    "575": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4405,
+        4474
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "576": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4484,
+        4502
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "statement": 6,
+      "value": "0x248"
+    },
+    "579": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4496,
+        4501
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "580": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4484,
+        4495
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x310"
+    },
+    "583": {
+      "fn": "ECDSA.recover",
+      "jump": "i",
+      "offset": [
+        4484,
+        4502
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "584": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4484,
+        4502
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "585": {
+      "op": "POP"
+    },
+    "586": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4519,
+        4528
+      ],
+      "op": "SWAP4",
+      "path": "217",
+      "statement": 7
+    },
+    "587": {
+      "fn": "ECDSA.recover",
+      "offset": [
+        4308,
+        4535
+      ],
+      "op": "SWAP3",
+      "path": "217"
+    },
+    "588": {
+      "op": "POP"
+    },
+    "589": {
+      "op": "POP"
+    },
+    "590": {
+      "op": "POP"
+    },
+    "591": {
+      "fn": "ECDSA.recover",
+      "jump": "o",
+      "offset": [
+        4308,
+        4535
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "592": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2270,
+        2457
+      ],
+      "op": "JUMPDEST",
+      "path": "18"
+    },
+    "593": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2343,
+        2359
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "value": "0x0"
+    },
+    "595": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "DUP1",
+      "path": "18"
+    },
+    "596": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "SLOAD",
+      "path": "18"
+    },
+    "597": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "599": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "601": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "603": {
+      "op": "SHL"
+    },
+    "604": {
+      "op": "SUB"
+    },
+    "605": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "DUP4",
+      "path": "18",
+      "statement": 8
+    },
+    "606": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "DUP2",
+      "path": "18"
+    },
+    "607": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "AND",
+      "path": "18"
+    },
+    "608": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "610": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "612": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "614": {
+      "op": "SHL"
+    },
+    "615": {
+      "op": "SUB"
+    },
+    "616": {
+      "op": "NOT"
+    },
+    "617": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "DUP4",
+      "path": "18"
+    },
+    "618": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "AND",
+      "path": "18"
+    },
+    "619": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "DUP2",
+      "path": "18"
+    },
+    "620": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "OR",
+      "path": "18"
+    },
+    "621": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "DUP5",
+      "path": "18"
+    },
+    "622": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2378,
+        2395
+      ],
+      "op": "SSTORE",
+      "path": "18"
+    },
+    "623": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2410,
+        2450
+      ],
+      "op": "PUSH1",
+      "path": "18",
+      "statement": 9,
+      "value": "0x40"
+    },
+    "625": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2410,
+        2450
+      ],
+      "op": "MLOAD",
+      "path": "18"
+    },
+    "626": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "SWAP2",
+      "path": "18"
+    },
+    "627": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "SWAP1",
+      "path": "18"
+    },
+    "628": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "SWAP3",
+      "path": "18"
+    },
+    "629": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "AND",
+      "path": "18"
+    },
+    "630": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "SWAP3",
+      "path": "18"
+    },
+    "631": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "DUP4",
+      "path": "18"
+    },
+    "632": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2362,
+        2368
+      ],
+      "op": "SWAP2",
+      "path": "18"
+    },
+    "633": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2410,
+        2450
+      ],
+      "op": "PUSH32",
+      "path": "18",
+      "value": "0x8BE0079C531659141344CD1FD0A4F28419497F9722A3DAAFE3B4186F6B6457E0"
+    },
+    "666": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2410,
+        2450
+      ],
+      "op": "SWAP2",
+      "path": "18"
+    },
+    "667": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2343,
+        2359
+      ],
+      "op": "SWAP1",
+      "path": "18"
+    },
+    "668": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2410,
+        2450
+      ],
+      "op": "LOG3",
+      "path": "18"
+    },
+    "669": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2333,
+        2457
+      ],
+      "op": "POP",
+      "path": "18"
+    },
+    "670": {
+      "fn": "Ownable._transferOwnership",
+      "offset": [
+        2270,
+        2457
+      ],
+      "op": "POP",
+      "path": "18"
+    },
+    "671": {
+      "fn": "Ownable._transferOwnership",
+      "jump": "o",
+      "offset": [
+        2270,
+        2457
+      ],
+      "op": "JUMP",
+      "path": "18"
+    },
+    "672": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2243,
+        3522
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "673": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2324,
+        2331
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "675": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2333,
+        2345
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "676": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2554,
+        2563
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "677": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2554,
+        2570
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "678": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2574,
+        2576
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x41"
+    },
+    "680": {
+      "branch": 23,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2554,
+        2576
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "681": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2550,
+        3516
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "682": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2550,
+        3516
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x2D7"
+    },
+    "685": {
+      "branch": 23,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2550,
+        3516
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "686": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2843,
+        2847
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x20"
+    },
+    "688": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2828,
+        2848
+      ],
+      "op": "DUP4",
+      "path": "217"
+    },
+    "689": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2828,
+        2848
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "690": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2822,
+        2849
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "691": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2892,
+        2896
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x40"
+    },
+    "693": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2877,
+        2897
+      ],
+      "op": "DUP5",
+      "path": "217"
+    },
+    "694": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2877,
+        2897
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "695": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2871,
+        2898
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "696": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2949,
+        2953
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x60"
+    },
+    "698": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2934,
+        2954
+      ],
+      "op": "DUP6",
+      "path": "217"
+    },
+    "699": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2934,
+        2954
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "700": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2928,
+        2955
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "701": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2592,
+        2601
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "703": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2920,
+        2956
+      ],
+      "op": "BYTE",
+      "path": "217"
+    },
+    "704": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2990,
+        3015
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "statement": 10,
+      "value": "0x2CB"
+    },
+    "707": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3001,
+        3005
+      ],
+      "op": "DUP8",
+      "path": "217"
+    },
+    "708": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2920,
+        2956
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "709": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2822,
+        2849
+      ],
+      "op": "DUP6",
+      "path": "217"
+    },
+    "710": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2871,
+        2898
+      ],
+      "op": "DUP6",
+      "path": "217"
+    },
+    "711": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2990,
+        3000
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x4CB"
+    },
+    "714": {
+      "fn": "ECDSA.tryRecover",
+      "jump": "i",
+      "offset": [
+        2990,
+        3015
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "715": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2990,
+        3015
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "716": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "SWAP5",
+      "path": "217"
+    },
+    "717": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "718": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "SWAP5",
+      "path": "217"
+    },
+    "719": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "720": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "721": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "722": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "723": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x309"
+    },
+    "726": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2983,
+        3015
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "727": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2550,
+        3516
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "728": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3036,
+        3045
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "729": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3036,
+        3052
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "730": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3056,
+        3058
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x40"
+    },
+    "732": {
+      "branch": 24,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3036,
+        3058
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "733": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3032,
+        3516
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "734": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3032,
+        3516
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x301"
+    },
+    "737": {
+      "branch": 24,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3032,
+        3516
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "738": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3305,
+        3309
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x20"
+    },
+    "740": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3290,
+        3310
+      ],
+      "op": "DUP4",
+      "path": "217"
+    },
+    "741": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3290,
+        3310
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "742": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3284,
+        3311
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "743": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3355,
+        3359
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x40"
+    },
+    "745": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3340,
+        3360
+      ],
+      "op": "DUP5",
+      "path": "217"
+    },
+    "746": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3340,
+        3360
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "747": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3334,
+        3361
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "748": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3395,
+        3418
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "statement": 11,
+      "value": "0x2F6"
+    },
+    "751": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3406,
+        3410
+      ],
+      "op": "DUP7",
+      "path": "217"
+    },
+    "752": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3284,
+        3311
+      ],
+      "op": "DUP4",
+      "path": "217"
+    },
+    "753": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3334,
+        3361
+      ],
+      "op": "DUP4",
+      "path": "217"
+    },
+    "754": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3395,
+        3405
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x5B8"
+    },
+    "757": {
+      "fn": "ECDSA.tryRecover",
+      "jump": "i",
+      "offset": [
+        3395,
+        3418
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "758": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3395,
+        3418
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "759": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3388,
+        3418
+      ],
+      "op": "SWAP4",
+      "path": "217"
+    },
+    "760": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3388,
+        3418
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "761": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3388,
+        3418
+      ],
+      "op": "SWAP4",
+      "path": "217"
+    },
+    "762": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3388,
+        3418
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "763": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3388,
+        3418
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "764": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3388,
+        3418
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "765": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3388,
+        3418
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x309"
+    },
+    "768": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3388,
+        3418
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "769": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3032,
+        3516
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "770": {
+      "op": "POP"
+    },
+    "771": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3465,
+        3466
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "statement": 12,
+      "value": "0x0"
+    },
+    "773": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3465,
+        3466
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "774": {
+      "op": "POP"
+    },
+    "775": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3469,
+        3504
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x2"
+    },
+    "777": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        3032,
+        3516
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "778": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2243,
+        3522
+      ],
+      "op": "SWAP3",
+      "path": "217"
+    },
+    "779": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2243,
+        3522
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "780": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2243,
+        3522
+      ],
+      "op": "SWAP3",
+      "path": "217"
+    },
+    "781": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2243,
+        3522
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "782": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        2243,
+        3522
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "783": {
+      "fn": "ECDSA.tryRecover",
+      "jump": "o",
+      "offset": [
+        2243,
+        3522
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "784": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        548,
+        1179
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "785": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        625,
+        645
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "787": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        621
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "788": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "790": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "791": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "GT",
+      "path": "217"
+    },
+    "792": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "793": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x324"
+    },
+    "796": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "797": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x324"
+    },
+    "800": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x6EB"
+    },
+    "803": {
+      "fn": "ECDSA._throwError",
+      "jump": "i",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "804": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "805": {
+      "branch": 25,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        616,
+        645
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "806": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        612,
+        1173
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "807": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        612,
+        1173
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x32D"
+    },
+    "810": {
+      "branch": 25,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        612,
+        1173
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "811": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        548,
+        1179
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "812": {
+      "fn": "ECDSA._throwError",
+      "jump": "o",
+      "offset": [
+        548,
+        1179
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "813": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        612,
+        1173
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "814": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        721,
+        750
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x1"
+    },
+    "816": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        717
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "817": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "819": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "820": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "GT",
+      "path": "217"
+    },
+    "821": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "822": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x341"
+    },
+    "825": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "826": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x341"
+    },
+    "829": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x6EB"
+    },
+    "832": {
+      "fn": "ECDSA._throwError",
+      "jump": "i",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "833": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "834": {
+      "branch": 26,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        712,
+        750
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "835": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        708,
+        1173
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "836": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        708,
+        1173
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x38F"
+    },
+    "839": {
+      "branch": 26,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        708,
+        1173
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "840": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        766,
+        800
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "statement": 13,
+      "value": "0x40"
+    },
+    "842": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        766,
+        800
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "843": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "847": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "849": {
+      "op": "SHL"
+    },
+    "850": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        766,
+        800
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "851": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        766,
+        800
+      ],
+      "op": "MSTORE",
+      "path": "217"
+    },
+    "852": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "854": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        766,
+        800
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "856": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        766,
+        800
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "857": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        766,
+        800
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "858": {
+      "op": "MSTORE"
+    },
+    "859": {
+      "op": "PUSH1",
+      "value": "0x18"
+    },
+    "861": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "863": {
+      "op": "DUP3"
+    },
+    "864": {
+      "op": "ADD"
+    },
+    "865": {
+      "op": "MSTORE"
+    },
+    "866": {
+      "op": "PUSH32",
+      "value": "0x45434453413A20696E76616C6964207369676E61747572650000000000000000"
+    },
+    "899": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "901": {
+      "op": "DUP3"
+    },
+    "902": {
+      "op": "ADD"
+    },
+    "903": {
+      "op": "MSTORE"
+    },
+    "904": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "906": {
+      "op": "ADD"
+    },
+    "907": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        766,
+        800
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x14C"
+    },
+    "910": {
+      "op": "JUMP"
+    },
+    "911": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        708,
+        1173
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "912": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        830,
+        865
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x2"
+    },
+    "914": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        826
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "915": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "917": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "918": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "GT",
+      "path": "217"
+    },
+    "919": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "920": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x3A3"
+    },
+    "923": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "924": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x3A3"
+    },
+    "927": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x6EB"
+    },
+    "930": {
+      "fn": "ECDSA._throwError",
+      "jump": "i",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "931": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "932": {
+      "branch": 27,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        821,
+        865
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "933": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        817,
+        1173
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "934": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        817,
+        1173
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x3F1"
+    },
+    "937": {
+      "branch": 27,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        817,
+        1173
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "938": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        881,
+        922
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "statement": 14,
+      "value": "0x40"
+    },
+    "940": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        881,
+        922
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "941": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "945": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "947": {
+      "op": "SHL"
+    },
+    "948": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        881,
+        922
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "949": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        881,
+        922
+      ],
+      "op": "MSTORE",
+      "path": "217"
+    },
+    "950": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "952": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        881,
+        922
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "954": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        881,
+        922
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "955": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        881,
+        922
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "956": {
+      "op": "MSTORE"
+    },
+    "957": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "959": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "961": {
+      "op": "DUP3"
+    },
+    "962": {
+      "op": "ADD"
+    },
+    "963": {
+      "op": "MSTORE"
+    },
+    "964": {
+      "op": "PUSH32",
+      "value": "0x45434453413A20696E76616C6964207369676E6174757265206C656E67746800"
+    },
+    "997": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "999": {
+      "op": "DUP3"
+    },
+    "1000": {
+      "op": "ADD"
+    },
+    "1001": {
+      "op": "MSTORE"
+    },
+    "1002": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "1004": {
+      "op": "ADD"
+    },
+    "1005": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        881,
+        922
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x14C"
+    },
+    "1008": {
+      "op": "JUMP"
+    },
+    "1009": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        817,
+        1173
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1010": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        952,
+        982
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x3"
+    },
+    "1012": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        948
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1013": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "1015": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1016": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "GT",
+      "path": "217"
+    },
+    "1017": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1018": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x405"
+    },
+    "1021": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1022": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x405"
+    },
+    "1025": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x6EB"
+    },
+    "1028": {
+      "fn": "ECDSA._throwError",
+      "jump": "i",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1029": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1030": {
+      "branch": 28,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        943,
+        982
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "1031": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        939,
+        1173
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1032": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        939,
+        1173
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x45E"
+    },
+    "1035": {
+      "branch": 28,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        939,
+        1173
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1036": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        998,
+        1042
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "statement": 15,
+      "value": "0x40"
+    },
+    "1038": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        998,
+        1042
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "1039": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "1043": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "1045": {
+      "op": "SHL"
+    },
+    "1046": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        998,
+        1042
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1047": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        998,
+        1042
+      ],
+      "op": "MSTORE",
+      "path": "217"
+    },
+    "1048": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1050": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        998,
+        1042
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "1052": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        998,
+        1042
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "1053": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        998,
+        1042
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "1054": {
+      "op": "MSTORE"
+    },
+    "1055": {
+      "op": "PUSH1",
+      "value": "0x22"
+    },
+    "1057": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "1059": {
+      "op": "DUP3"
+    },
+    "1060": {
+      "op": "ADD"
+    },
+    "1061": {
+      "op": "MSTORE"
+    },
+    "1062": {
+      "op": "PUSH32",
+      "value": "0x45434453413A20696E76616C6964207369676E6174757265202773272076616C"
+    },
+    "1095": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "1097": {
+      "op": "DUP3"
+    },
+    "1098": {
+      "op": "ADD"
+    },
+    "1099": {
+      "op": "MSTORE"
+    },
+    "1100": {
+      "op": "PUSH2",
+      "value": "0x7565"
+    },
+    "1103": {
+      "op": "PUSH1",
+      "value": "0xF0"
+    },
+    "1105": {
+      "op": "SHL"
+    },
+    "1106": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "1108": {
+      "op": "DUP3"
+    },
+    "1109": {
+      "op": "ADD"
+    },
+    "1110": {
+      "op": "MSTORE"
+    },
+    "1111": {
+      "op": "PUSH1",
+      "value": "0x84"
+    },
+    "1113": {
+      "op": "ADD"
+    },
+    "1114": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        998,
+        1042
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x14C"
+    },
+    "1117": {
+      "op": "JUMP"
+    },
+    "1118": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        939,
+        1173
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1119": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1072,
+        1102
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "1121": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1068
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1122": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "1124": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1125": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "GT",
+      "path": "217"
+    },
+    "1126": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1127": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x472"
+    },
+    "1130": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1131": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x472"
+    },
+    "1134": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x6EB"
+    },
+    "1137": {
+      "fn": "ECDSA._throwError",
+      "jump": "i",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1138": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1139": {
+      "branch": 29,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1063,
+        1102
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "1140": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1059,
+        1173
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1141": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1059,
+        1173
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x229"
+    },
+    "1144": {
+      "branch": 29,
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1059,
+        1173
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1145": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1118,
+        1162
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "statement": 16,
+      "value": "0x40"
+    },
+    "1147": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1118,
+        1162
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "1148": {
+      "op": "PUSH3",
+      "value": "0x461BCD"
+    },
+    "1152": {
+      "op": "PUSH1",
+      "value": "0xE5"
+    },
+    "1154": {
+      "op": "SHL"
+    },
+    "1155": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1118,
+        1162
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1156": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1118,
+        1162
+      ],
+      "op": "MSTORE",
+      "path": "217"
+    },
+    "1157": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1159": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1118,
+        1162
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "1161": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1118,
+        1162
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "1162": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1118,
+        1162
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "1163": {
+      "op": "MSTORE"
+    },
+    "1164": {
+      "op": "PUSH1",
+      "value": "0x22"
+    },
+    "1166": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "1168": {
+      "op": "DUP3"
+    },
+    "1169": {
+      "op": "ADD"
+    },
+    "1170": {
+      "op": "MSTORE"
+    },
+    "1171": {
+      "op": "PUSH32",
+      "value": "0x45434453413A20696E76616C6964207369676E6174757265202776272076616C"
+    },
+    "1204": {
+      "op": "PUSH1",
+      "value": "0x44"
+    },
+    "1206": {
+      "op": "DUP3"
+    },
+    "1207": {
+      "op": "ADD"
+    },
+    "1208": {
+      "op": "MSTORE"
+    },
+    "1209": {
+      "op": "PUSH2",
+      "value": "0x7565"
+    },
+    "1212": {
+      "op": "PUSH1",
+      "value": "0xF0"
+    },
+    "1214": {
+      "op": "SHL"
+    },
+    "1215": {
+      "op": "PUSH1",
+      "value": "0x64"
+    },
+    "1217": {
+      "op": "DUP3"
+    },
+    "1218": {
+      "op": "ADD"
+    },
+    "1219": {
+      "op": "MSTORE"
+    },
+    "1220": {
+      "op": "PUSH1",
+      "value": "0x84"
+    },
+    "1222": {
+      "op": "ADD"
+    },
+    "1223": {
+      "fn": "ECDSA._throwError",
+      "offset": [
+        1118,
+        1162
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x14C"
+    },
+    "1226": {
+      "op": "JUMP"
+    },
+    "1227": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1228": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5842,
+        5849
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "1230": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5842,
+        5849
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1231": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6766,
+        6832
+      ],
+      "op": "PUSH32",
+      "path": "217",
+      "value": "0x7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF5D576E7357A4501DDFE92F46681B20A0"
+    },
+    "1264": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6753,
+        6832
+      ],
+      "op": "DUP4",
+      "path": "217"
+    },
+    "1265": {
+      "branch": 30,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6753,
+        6832
+      ],
+      "op": "GT",
+      "path": "217"
+    },
+    "1266": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6749,
+        6910
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1267": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6749,
+        6910
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x502"
+    },
+    "1270": {
+      "branch": 30,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6749,
+        6910
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1271": {
+      "op": "POP"
+    },
+    "1272": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6864,
+        6865
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "statement": 17,
+      "value": "0x0"
+    },
+    "1274": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6864,
+        6865
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "1275": {
+      "op": "POP"
+    },
+    "1276": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6868,
+        6898
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x3"
+    },
+    "1278": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6848,
+        6899
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x5AF"
+    },
+    "1281": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6848,
+        6899
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1282": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6749,
+        6910
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1283": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6924
+      ],
+      "op": "DUP5",
+      "path": "217"
+    },
+    "1284": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6930
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0xFF"
+    },
+    "1286": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6930
+      ],
+      "op": "AND",
+      "path": "217"
+    },
+    "1287": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6928,
+        6930
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x1B"
+    },
+    "1289": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6930
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "1290": {
+      "branch": 31,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6930
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1291": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6941
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1292": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6941
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1293": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6941
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x51A"
+    },
+    "1296": {
+      "branch": 31,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6941
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1297": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6941
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1298": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6934,
+        6935
+      ],
+      "op": "DUP5",
+      "path": "217"
+    },
+    "1299": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6934,
+        6941
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0xFF"
+    },
+    "1301": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6934,
+        6941
+      ],
+      "op": "AND",
+      "path": "217"
+    },
+    "1302": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6939,
+        6941
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x1C"
+    },
+    "1304": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6934,
+        6941
+      ],
+      "op": "EQ",
+      "path": "217"
+    },
+    "1305": {
+      "branch": 32,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6934,
+        6941
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1306": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6923,
+        6941
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1307": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6919,
+        7019
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1308": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6919,
+        7019
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x52B"
+    },
+    "1311": {
+      "branch": 32,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6919,
+        7019
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1312": {
+      "op": "POP"
+    },
+    "1313": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6973,
+        6974
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "statement": 18,
+      "value": "0x0"
+    },
+    "1315": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6973,
+        6974
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "1316": {
+      "op": "POP"
+    },
+    "1317": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6977,
+        7007
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x4"
+    },
+    "1319": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6957,
+        7008
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x5AF"
+    },
+    "1322": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6957,
+        7008
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1323": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        6919,
+        7019
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1324": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x40"
+    },
+    "1326": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1327": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "1328": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7113,
+        7127
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "1330": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1331": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "1332": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "MSTORE",
+      "path": "217"
+    },
+    "1333": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x20"
+    },
+    "1335": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "1336": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "1337": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1338": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP5",
+      "path": "217"
+    },
+    "1339": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "MSTORE",
+      "path": "217"
+    },
+    "1340": {
+      "op": "DUP10"
+    },
+    "1341": {
+      "op": "SWAP1"
+    },
+    "1342": {
+      "op": "MSTORE"
+    },
+    "1343": {
+      "op": "PUSH1",
+      "value": "0xFF"
+    },
+    "1345": {
+      "op": "DUP9"
+    },
+    "1346": {
+      "op": "AND"
+    },
+    "1347": {
+      "op": "SWAP3"
+    },
+    "1348": {
+      "op": "DUP3"
+    },
+    "1349": {
+      "op": "ADD"
+    },
+    "1350": {
+      "op": "SWAP3"
+    },
+    "1351": {
+      "op": "SWAP1"
+    },
+    "1352": {
+      "op": "SWAP3"
+    },
+    "1353": {
+      "op": "MSTORE"
+    },
+    "1354": {
+      "op": "PUSH1",
+      "value": "0x60"
+    },
+    "1356": {
+      "op": "DUP2"
+    },
+    "1357": {
+      "op": "ADD"
+    },
+    "1358": {
+      "op": "DUP7"
+    },
+    "1359": {
+      "op": "SWAP1"
+    },
+    "1360": {
+      "op": "MSTORE"
+    },
+    "1361": {
+      "op": "PUSH1",
+      "value": "0x80"
+    },
+    "1363": {
+      "op": "DUP2"
+    },
+    "1364": {
+      "op": "ADD"
+    },
+    "1365": {
+      "op": "DUP6"
+    },
+    "1366": {
+      "op": "SWAP1"
+    },
+    "1367": {
+      "op": "MSTORE"
+    },
+    "1368": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x1"
+    },
+    "1370": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "1371": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "1373": {
+      "op": "ADD"
+    },
+    "1374": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x20"
+    },
+    "1376": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x40"
+    },
+    "1378": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "1379": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x20"
+    },
+    "1381": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1382": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "SUB",
+      "path": "217"
+    },
+    "1383": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "1384": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1385": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP5",
+      "path": "217"
+    },
+    "1386": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "SUB",
+      "path": "217"
+    },
+    "1387": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "1388": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP6",
+      "path": "217"
+    },
+    "1389": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "GAS",
+      "path": "217"
+    },
+    "1390": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "STATICCALL",
+      "path": "217"
+    },
+    "1391": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1392": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1393": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "ISZERO",
+      "path": "217"
+    },
+    "1394": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x57F"
+    },
+    "1397": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1398": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "RETURNDATASIZE",
+      "path": "217"
+    },
+    "1399": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "1401": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1402": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "RETURNDATACOPY",
+      "path": "217"
+    },
+    "1403": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "RETURNDATASIZE",
+      "path": "217"
+    },
+    "1404": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "1406": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "REVERT",
+      "path": "217"
+    },
+    "1407": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1408": {
+      "op": "POP"
+    },
+    "1409": {
+      "op": "POP"
+    },
+    "1410": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x40"
+    },
+    "1412": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "1413": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "1415": {
+      "op": "NOT"
+    },
+    "1416": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "ADD",
+      "path": "217"
+    },
+    "1417": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "MLOAD",
+      "path": "217"
+    },
+    "1418": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7130,
+        7154
+      ],
+      "op": "SWAP2",
+      "path": "217"
+    },
+    "1419": {
+      "op": "POP"
+    },
+    "1420": {
+      "op": "POP"
+    },
+    "1421": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1423": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1425": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "1427": {
+      "op": "SHL"
+    },
+    "1428": {
+      "op": "SUB"
+    },
+    "1429": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7168,
+        7188
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1430": {
+      "branch": 33,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7168,
+        7188
+      ],
+      "op": "AND",
+      "path": "217"
+    },
+    "1431": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7164,
+        7265
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x5A8"
+    },
+    "1434": {
+      "branch": 33,
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7164,
+        7265
+      ],
+      "op": "JUMPI",
+      "path": "217"
+    },
+    "1435": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7220,
+        7221
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "statement": 19,
+      "value": "0x0"
+    },
+    "1437": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7224,
+        7253
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x1"
+    },
+    "1439": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7204,
+        7254
+      ],
+      "op": "SWAP3",
+      "path": "217"
+    },
+    "1440": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7204,
+        7254
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1441": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7204,
+        7254
+      ],
+      "op": "SWAP3",
+      "path": "217"
+    },
+    "1442": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7204,
+        7254
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1443": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7204,
+        7254
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1444": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7204,
+        7254
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x5AF"
+    },
+    "1447": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7204,
+        7254
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1448": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7164,
+        7265
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1449": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7283,
+        7289
+      ],
+      "op": "SWAP2",
+      "path": "217",
+      "statement": 20
+    },
+    "1450": {
+      "op": "POP"
+    },
+    "1451": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7291,
+        7311
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "1453": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        7291,
+        7311
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "1454": {
+      "op": "POP"
+    },
+    "1455": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1456": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "SWAP5",
+      "path": "217"
+    },
+    "1457": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1458": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "SWAP5",
+      "path": "217"
+    },
+    "1459": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "SWAP3",
+      "path": "217"
+    },
+    "1460": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1461": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1462": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1463": {
+      "fn": "ECDSA.tryRecover",
+      "jump": "o",
+      "offset": [
+        5716,
+        7319
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1464": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4789,
+        5125
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1465": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4899,
+        4906
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x0"
+    },
+    "1467": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4899,
+        4906
+      ],
+      "op": "DUP1",
+      "path": "217"
+    },
+    "1468": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1470": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1472": {
+      "op": "PUSH1",
+      "value": "0xFF"
+    },
+    "1474": {
+      "op": "SHL"
+    },
+    "1475": {
+      "op": "SUB"
+    },
+    "1476": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4944,
+        5024
+      ],
+      "op": "DUP4",
+      "path": "217"
+    },
+    "1477": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4944,
+        5024
+      ],
+      "op": "AND",
+      "path": "217"
+    },
+    "1478": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4899,
+        4906
+      ],
+      "op": "DUP2",
+      "path": "217"
+    },
+    "1479": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5050,
+        5075
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x5D5"
+    },
+    "1482": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5066,
+        5069
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0xFF"
+    },
+    "1484": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5051,
+        5069
+      ],
+      "op": "DUP7",
+      "path": "217"
+    },
+    "1485": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5051,
+        5069
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "1486": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5051,
+        5069
+      ],
+      "op": "SHR",
+      "path": "217"
+    },
+    "1487": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5073,
+        5075
+      ],
+      "op": "PUSH1",
+      "path": "217",
+      "value": "0x1B"
+    },
+    "1489": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5050,
+        5075
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x701"
+    },
+    "1492": {
+      "fn": "ECDSA.tryRecover",
+      "jump": "i",
+      "offset": [
+        5050,
+        5075
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1493": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5050,
+        5075
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1494": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5034,
+        5076
+      ],
+      "op": "SWAP1",
+      "path": "217"
+    },
+    "1495": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5034,
+        5076
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1496": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5093,
+        5118
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "statement": 21,
+      "value": "0x5E3"
+    },
+    "1499": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5104,
+        5108
+      ],
+      "op": "DUP8",
+      "path": "217"
+    },
+    "1500": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5110,
+        5111
+      ],
+      "op": "DUP3",
+      "path": "217"
+    },
+    "1501": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5113,
+        5114
+      ],
+      "op": "DUP9",
+      "path": "217"
+    },
+    "1502": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5116,
+        5117
+      ],
+      "op": "DUP6",
+      "path": "217"
+    },
+    "1503": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5093,
+        5103
+      ],
+      "op": "PUSH2",
+      "path": "217",
+      "value": "0x4CB"
+    },
+    "1506": {
+      "fn": "ECDSA.tryRecover",
+      "jump": "i",
+      "offset": [
+        5093,
+        5118
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1507": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5093,
+        5118
+      ],
+      "op": "JUMPDEST",
+      "path": "217"
+    },
+    "1508": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5086,
+        5118
+      ],
+      "op": "SWAP4",
+      "path": "217"
+    },
+    "1509": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5086,
+        5118
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1510": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5086,
+        5118
+      ],
+      "op": "SWAP4",
+      "path": "217"
+    },
+    "1511": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5086,
+        5118
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1512": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5086,
+        5118
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1513": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        5086,
+        5118
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1514": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4789,
+        5125
+      ],
+      "op": "SWAP4",
+      "path": "217"
+    },
+    "1515": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4789,
+        5125
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1516": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4789,
+        5125
+      ],
+      "op": "SWAP4",
+      "path": "217"
+    },
+    "1517": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4789,
+        5125
+      ],
+      "op": "SWAP2",
+      "path": "217"
+    },
+    "1518": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4789,
+        5125
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1519": {
+      "fn": "ECDSA.tryRecover",
+      "offset": [
+        4789,
+        5125
+      ],
+      "op": "POP",
+      "path": "217"
+    },
+    "1520": {
+      "fn": "ECDSA.tryRecover",
+      "jump": "o",
+      "offset": [
+        4789,
+        5125
+      ],
+      "op": "JUMP",
+      "path": "217"
+    },
+    "1521": {
+      "op": "JUMPDEST"
+    },
+    "1522": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "1527": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "1529": {
+      "op": "SHL"
+    },
+    "1530": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1532": {
+      "op": "MSTORE"
+    },
+    "1533": {
+      "op": "PUSH1",
+      "value": "0x41"
+    },
+    "1535": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "1537": {
+      "op": "MSTORE"
+    },
+    "1538": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "1540": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1542": {
+      "op": "REVERT"
+    },
+    "1543": {
+      "op": "JUMPDEST"
+    },
+    "1544": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1546": {
+      "op": "DUP1"
+    },
+    "1547": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "1549": {
+      "op": "DUP4"
+    },
+    "1550": {
+      "op": "DUP6"
+    },
+    "1551": {
+      "op": "SUB"
+    },
+    "1552": {
+      "op": "SLT"
+    },
+    "1553": {
+      "op": "ISZERO"
+    },
+    "1554": {
+      "op": "PUSH2",
+      "value": "0x61A"
+    },
+    "1557": {
+      "op": "JUMPI"
+    },
+    "1558": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1560": {
+      "op": "DUP1"
+    },
+    "1561": {
+      "op": "REVERT"
+    },
+    "1562": {
+      "op": "JUMPDEST"
+    },
+    "1563": {
+      "op": "DUP3"
+    },
+    "1564": {
+      "op": "CALLDATALOAD"
+    },
+    "1565": {
+      "op": "SWAP2"
+    },
+    "1566": {
+      "op": "POP"
+    },
+    "1567": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1569": {
+      "op": "DUP4"
+    },
+    "1570": {
+      "op": "ADD"
+    },
+    "1571": {
+      "op": "CALLDATALOAD"
+    },
+    "1572": {
+      "op": "PUSH8",
+      "value": "0xFFFFFFFFFFFFFFFF"
+    },
+    "1581": {
+      "op": "DUP1"
+    },
+    "1582": {
+      "op": "DUP3"
+    },
+    "1583": {
+      "op": "GT"
+    },
+    "1584": {
+      "op": "ISZERO"
+    },
+    "1585": {
+      "op": "PUSH2",
+      "value": "0x639"
+    },
+    "1588": {
+      "op": "JUMPI"
+    },
+    "1589": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1591": {
+      "op": "DUP1"
+    },
+    "1592": {
+      "op": "REVERT"
+    },
+    "1593": {
+      "op": "JUMPDEST"
+    },
+    "1594": {
+      "op": "DUP2"
+    },
+    "1595": {
+      "op": "DUP6"
+    },
+    "1596": {
+      "op": "ADD"
+    },
+    "1597": {
+      "op": "SWAP2"
+    },
+    "1598": {
+      "op": "POP"
+    },
+    "1599": {
+      "op": "DUP6"
+    },
+    "1600": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "1602": {
+      "op": "DUP4"
+    },
+    "1603": {
+      "op": "ADD"
+    },
+    "1604": {
+      "op": "SLT"
+    },
+    "1605": {
+      "op": "PUSH2",
+      "value": "0x64D"
+    },
+    "1608": {
+      "op": "JUMPI"
+    },
+    "1609": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1611": {
+      "op": "DUP1"
+    },
+    "1612": {
+      "op": "REVERT"
+    },
+    "1613": {
+      "op": "JUMPDEST"
+    },
+    "1614": {
+      "op": "DUP2"
+    },
+    "1615": {
+      "op": "CALLDATALOAD"
+    },
+    "1616": {
+      "op": "DUP2"
+    },
+    "1617": {
+      "op": "DUP2"
+    },
+    "1618": {
+      "op": "GT"
+    },
+    "1619": {
+      "op": "ISZERO"
+    },
+    "1620": {
+      "op": "PUSH2",
+      "value": "0x65F"
+    },
+    "1623": {
+      "op": "JUMPI"
+    },
+    "1624": {
+      "op": "PUSH2",
+      "value": "0x65F"
+    },
+    "1627": {
+      "op": "PUSH2",
+      "value": "0x5F1"
+    },
+    "1630": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "1631": {
+      "op": "JUMPDEST"
+    },
+    "1632": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "1634": {
+      "op": "MLOAD"
+    },
+    "1635": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "1637": {
+      "op": "DUP3"
+    },
+    "1638": {
+      "op": "ADD"
+    },
+    "1639": {
+      "op": "PUSH1",
+      "value": "0x1F"
+    },
+    "1641": {
+      "op": "NOT"
+    },
+    "1642": {
+      "op": "SWAP1"
+    },
+    "1643": {
+      "op": "DUP2"
+    },
+    "1644": {
+      "op": "AND"
+    },
+    "1645": {
+      "op": "PUSH1",
+      "value": "0x3F"
+    },
+    "1647": {
+      "op": "ADD"
+    },
+    "1648": {
+      "op": "AND"
+    },
+    "1649": {
+      "op": "DUP2"
+    },
+    "1650": {
+      "op": "ADD"
+    },
+    "1651": {
+      "op": "SWAP1"
+    },
+    "1652": {
+      "op": "DUP4"
+    },
+    "1653": {
+      "op": "DUP3"
+    },
+    "1654": {
+      "op": "GT"
+    },
+    "1655": {
+      "op": "DUP2"
+    },
+    "1656": {
+      "op": "DUP4"
+    },
+    "1657": {
+      "op": "LT"
+    },
+    "1658": {
+      "op": "OR"
+    },
+    "1659": {
+      "op": "ISZERO"
+    },
+    "1660": {
+      "op": "PUSH2",
+      "value": "0x687"
+    },
+    "1663": {
+      "op": "JUMPI"
+    },
+    "1664": {
+      "op": "PUSH2",
+      "value": "0x687"
+    },
+    "1667": {
+      "op": "PUSH2",
+      "value": "0x5F1"
+    },
+    "1670": {
+      "jump": "i",
+      "op": "JUMP"
+    },
+    "1671": {
+      "op": "JUMPDEST"
+    },
+    "1672": {
+      "op": "DUP2"
+    },
+    "1673": {
+      "op": "PUSH1",
+      "value": "0x40"
+    },
+    "1675": {
+      "op": "MSTORE"
+    },
+    "1676": {
+      "op": "DUP3"
+    },
+    "1677": {
+      "op": "DUP2"
+    },
+    "1678": {
+      "op": "MSTORE"
+    },
+    "1679": {
+      "op": "DUP9"
+    },
+    "1680": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1682": {
+      "op": "DUP5"
+    },
+    "1683": {
+      "op": "DUP8"
+    },
+    "1684": {
+      "op": "ADD"
+    },
+    "1685": {
+      "op": "ADD"
+    },
+    "1686": {
+      "op": "GT"
+    },
+    "1687": {
+      "op": "ISZERO"
+    },
+    "1688": {
+      "op": "PUSH2",
+      "value": "0x6A0"
+    },
+    "1691": {
+      "op": "JUMPI"
+    },
+    "1692": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1694": {
+      "op": "DUP1"
+    },
+    "1695": {
+      "op": "REVERT"
+    },
+    "1696": {
+      "op": "JUMPDEST"
+    },
+    "1697": {
+      "op": "DUP3"
+    },
+    "1698": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1700": {
+      "op": "DUP7"
+    },
+    "1701": {
+      "op": "ADD"
+    },
+    "1702": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1704": {
+      "op": "DUP4"
+    },
+    "1705": {
+      "op": "ADD"
+    },
+    "1706": {
+      "op": "CALLDATACOPY"
+    },
+    "1707": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1709": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1711": {
+      "op": "DUP5"
+    },
+    "1712": {
+      "op": "DUP4"
+    },
+    "1713": {
+      "op": "ADD"
+    },
+    "1714": {
+      "op": "ADD"
+    },
+    "1715": {
+      "op": "MSTORE"
+    },
+    "1716": {
+      "op": "DUP1"
+    },
+    "1717": {
+      "op": "SWAP6"
+    },
+    "1718": {
+      "op": "POP"
+    },
+    "1719": {
+      "op": "POP"
+    },
+    "1720": {
+      "op": "POP"
+    },
+    "1721": {
+      "op": "POP"
+    },
+    "1722": {
+      "op": "POP"
+    },
+    "1723": {
+      "op": "POP"
+    },
+    "1724": {
+      "op": "SWAP3"
+    },
+    "1725": {
+      "op": "POP"
+    },
+    "1726": {
+      "op": "SWAP3"
+    },
+    "1727": {
+      "op": "SWAP1"
+    },
+    "1728": {
+      "op": "POP"
+    },
+    "1729": {
+      "jump": "o",
+      "op": "JUMP"
+    },
+    "1730": {
+      "op": "JUMPDEST"
+    },
+    "1731": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1733": {
+      "op": "PUSH1",
+      "value": "0x20"
+    },
+    "1735": {
+      "op": "DUP3"
+    },
+    "1736": {
+      "op": "DUP5"
+    },
+    "1737": {
+      "op": "SUB"
+    },
+    "1738": {
+      "op": "SLT"
+    },
+    "1739": {
+      "op": "ISZERO"
+    },
+    "1740": {
+      "op": "PUSH2",
+      "value": "0x6D4"
+    },
+    "1743": {
+      "op": "JUMPI"
+    },
+    "1744": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1746": {
+      "op": "DUP1"
+    },
+    "1747": {
+      "op": "REVERT"
+    },
+    "1748": {
+      "op": "JUMPDEST"
+    },
+    "1749": {
+      "op": "DUP2"
+    },
+    "1750": {
+      "op": "CALLDATALOAD"
+    },
+    "1751": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1753": {
+      "op": "PUSH1",
+      "value": "0x1"
+    },
+    "1755": {
+      "op": "PUSH1",
+      "value": "0xA0"
+    },
+    "1757": {
+      "op": "SHL"
+    },
+    "1758": {
+      "op": "SUB"
+    },
+    "1759": {
+      "op": "DUP2"
+    },
+    "1760": {
+      "op": "AND"
+    },
+    "1761": {
+      "op": "DUP2"
+    },
+    "1762": {
+      "op": "EQ"
+    },
+    "1763": {
+      "op": "PUSH2",
+      "value": "0xEF"
+    },
+    "1766": {
+      "op": "JUMPI"
+    },
+    "1767": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1769": {
+      "op": "DUP1"
+    },
+    "1770": {
+      "op": "REVERT"
+    },
+    "1771": {
+      "op": "JUMPDEST"
+    },
+    "1772": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "1777": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "1779": {
+      "op": "SHL"
+    },
+    "1780": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1782": {
+      "op": "MSTORE"
+    },
+    "1783": {
+      "op": "PUSH1",
+      "value": "0x21"
+    },
+    "1785": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "1787": {
+      "op": "MSTORE"
+    },
+    "1788": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "1790": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1792": {
+      "op": "REVERT"
+    },
+    "1793": {
+      "op": "JUMPDEST"
+    },
+    "1794": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1796": {
+      "op": "DUP3"
+    },
+    "1797": {
+      "op": "NOT"
+    },
+    "1798": {
+      "op": "DUP3"
+    },
+    "1799": {
+      "op": "GT"
+    },
+    "1800": {
+      "op": "ISZERO"
+    },
+    "1801": {
+      "op": "PUSH2",
+      "value": "0x722"
+    },
+    "1804": {
+      "op": "JUMPI"
+    },
+    "1805": {
+      "op": "PUSH4",
+      "value": "0x4E487B71"
+    },
+    "1810": {
+      "op": "PUSH1",
+      "value": "0xE0"
+    },
+    "1812": {
+      "op": "SHL"
+    },
+    "1813": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1815": {
+      "op": "MSTORE"
+    },
+    "1816": {
+      "op": "PUSH1",
+      "value": "0x11"
+    },
+    "1818": {
+      "op": "PUSH1",
+      "value": "0x4"
+    },
+    "1820": {
+      "op": "MSTORE"
+    },
+    "1821": {
+      "op": "PUSH1",
+      "value": "0x24"
+    },
+    "1823": {
+      "op": "PUSH1",
+      "value": "0x0"
+    },
+    "1825": {
+      "op": "REVERT"
+    },
+    "1826": {
+      "op": "JUMPDEST"
+    },
+    "1827": {
+      "op": "POP"
+    },
+    "1828": {
+      "op": "ADD"
+    },
+    "1829": {
+      "op": "SWAP1"
+    },
+    "1830": {
+      "jump": "o",
+      "op": "JUMP"
+    }
+  },
+  "sha1": "9d2a1ce33119146a31d04a06ae05955481a808a3",
+  "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\nimport \"../access/Ownable.sol\";\nimport \"../interfaces/IERC1271.sol\";\nimport \"../utils/cryptography/ECDSA.sol\";\n\ncontract ERC1271WalletMock is Ownable, IERC1271 {\n    constructor(address originalOwner) {\n        transferOwnership(originalOwner);\n    }\n\n    function isValidSignature(bytes32 hash, bytes memory signature) public view override returns (bytes4 magicValue) {\n        return ECDSA.recover(hash, signature) == owner() ? this.isValidSignature.selector : bytes4(0);\n    }\n}\n",
+  "sourceMap": "170:369:75:-:0;;;224:84;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;921:32:18;719:10:210;921:18:18;:32::i;:::-;269::75;287:13;269:17;:32::i;:::-;224:84;170:369;;2270:187:18;2343:16;2362:6;;-1:-1:-1;;;;;2378:17:18;;;-1:-1:-1;;;;;;2378:17:18;;;;;;2410:40;;2362:6;;;;;;;2410:40;;2343:16;2410:40;2333:124;2270:187;:::o;1918:198::-;1082:7;1108:6;-1:-1:-1;;;;;1108:6:18;719:10:210;1248:23:18;1240:68;;;;-1:-1:-1;;;1240:68:18;;511:2:239;1240:68:18;;;493:21:239;;;530:18;;;523:30;589:34;569:18;;;562:62;641:18;;1240:68:18;;;;;;;;;-1:-1:-1;;;;;2006:22:18;::::1;1998:73;;;::::0;-1:-1:-1;;;1998:73:18;;872:2:239;1998:73:18::1;::::0;::::1;854:21:239::0;911:2;891:18;;;884:30;950:34;930:18;;;923:62;-1:-1:-1;;;1001:18:239;;;994:36;1047:19;;1998:73:18::1;670:402:239::0;1998:73:18::1;2081:28;2100:8:::0;2081:18:::1;:28::i;:::-;1918:198:::0;:::o;14:290:239:-;84:6;137:2;125:9;116:7;112:23;108:32;105:52;;;153:1;150;143:12;105:52;179:16;;-1:-1:-1;;;;;224:31:239;;214:42;;204:70;;270:1;267;260:12;204:70;293:5;14:290;-1:-1:-1;;;14:290:239:o;670:402::-;170:369:75;;;;;;",
+  "sourcePath": "contracts/openzeppelin/contracts/mocks/ERC1271WalletMock.sol",
+  "type": "contract"
+}

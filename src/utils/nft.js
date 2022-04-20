@@ -6,6 +6,10 @@ import {nftABI} from "../config/abis";
 import {nftURI} from "../config/uri";
 import axios from "axios"
 
+//stupid shit please make me a better programmer one day for the love of christ
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 //ABIs
 import {ERC20Abi} from "../config/abis"
 
@@ -23,14 +27,34 @@ export const writeContract = async (active, _signer, _account, _address, _abi) =
     }
 }
 
+const goodToast = (msg) => {
+    const ToastStyle = {
+        borderRadius: "50px",
+        color: "rgba(242, 242, 242, 0.87)",
+        backdropFilter: "blur(12px) saturate(149%)",
+        backgroundColor: "rgba(29, 30, 32, 0.87)",
+        border: "2px solid rgba(251, 219, 55, 0.95)",
+        padding: "0.42em",
+        
+    }
+
+    const id = toast(`${msg}`, {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        style: ToastStyle
+    })
+    toast.update(id, { render: `${msg}`, hideProgressBar: true, closeOnClick: true, position: "bottom-right", autoClose: 5000, className: 'rotateY animated', draggable: true})
+}
 
 
-export const userMint = async (_nftContract, recipient, _tokenURI) => {
+export const userMint = async (_nftContract, fee) => {
     const ctr = _nftContract;
     try {
-        const mint = await ctr.mintNFT(recipient, _tokenURI)
+        const mint = await ctr.mint({value: fee})
         return mint
-    } catch (err) {console.log(err)}
+    } catch (err) {
+        console.log(err)
+        goodToast(`${err.data.message}`)
+    }
 }
 
 
@@ -43,12 +67,12 @@ const getNFTData = async () => {
 
 
 //staking stuff
-export const fetchPoolAllowance = async (pools, _signer, account, masterchef) => {
+export const fetchPoolAllowance = async (_POOLS, _signer, account, masterchefAddress) => {
 
-    const calls = pools.map( async (pool) => {
+    const calls = _POOLS.map( async (pool) => {
         const token = pool.tokenStakeAddress;
         const ctr = new ethers.Contract(token, ERC20Abi, _signer)
-        const allowance = await ctr.allowance(account, masterchef.address)
+        const allowance = await ctr.allowance(account, masterchefAddress)
         const formattedAllowance = ethers.utils.formatUnits(allowance, "ether");
 
         if (formattedAllowance !== "0.0") {
@@ -121,8 +145,7 @@ export const userStake = async (_masterchef, pid, amount) => {
         const strPid = pid.toString();
 
         const tx = await ctr.deposit(strPid, bigNumAmount);
-        const receipt = await tx.wait()
-        return receipt
+        return tx
     } catch (err) {console.log(err)}
 }
 
@@ -135,10 +158,7 @@ export const userUnstake = async (_masterchef, pid, amount) => {
         const strPid = pid.toString();
 
         const tx = await ctr.withdraw(strPid, bigNumAmount);
-        const receipt = await tx.wait()
-        console.log("RECEIPT")
-        console.log(receipt)
-        return receipt
+        return tx
 
     } catch (err) {console.log(err)}
 }
@@ -150,7 +170,8 @@ export const userClaim = async (_masterchef, pid) => {
         const strAmount = amount.toString();
         const strPid = pid.toString();
 
-        await ctr.deposit(strPid, strAmount)
+        const tx = await ctr.deposit(strPid, strAmount)
+        return tx
     } catch (err) {console.log(err)}
 }
 
@@ -178,23 +199,37 @@ export const toFixed = (num, fixed) => {
 
 
 
-  export const createStopLossTrade = async (to, tokenIn, tokenInDecimals, tokenOut, amountIn, priceOut, _stopLossContract) => {
+  export const createLimitTrade = async (pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract) => {
+    console.log("DICKSDICKSDICKDIDCKS")
     const path = [tokenIn, tokenOut]
     const bigNumAmountIn = ethers.utils.parseUnits(amountIn, tokenInDecimals)
-    const numerator = ethers.utils.parseUnits("1", 8)
-    const denominator = ethers.utils.parseUnits(priceOut, 8)
-    const bigNumPriceOut = numerator.div(denominator)
-    const amounts = [bigNumAmountIn, bigNumPriceOut]
+    const bigNumPrice = ethers.utils.parseUnits(price, 18)
+    const amounts = [bigNumAmountIn, bigNumPrice]
     const times = [0]
+    const maxGas = 1000000000000
     
-    const ctr = _stopLossContract
+    const ctr = _controllerContract
     try {
         const mint = await ctr.createTrade(
-        to,
+        pid,
         path,
         amounts,
-        times
+        times,
+        maxGas
         )
         return mint
     } catch (err) {console.log(err)}
 }
+
+export const fetchGasBalance = async (_controllerContract, _user) => {
+    try {
+        const call = await _controllerContract.userGasAmounts(_user)
+        const amount = ethers.utils.formatUnits(call, 18)
+        console.log("GAS AMOUNT")
+        console.log(amount)
+        return amount
+    } catch (err) {console.log(err)}
+}
+
+
+// router

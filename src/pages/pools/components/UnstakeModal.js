@@ -7,11 +7,12 @@ import {ethers} from "ethers"
 //addresses etc
 import {ERC20Abi, MasterChefABI} from "../../../config/abis" //will need forapprove button
 import { addresses } from "../../../config/addresses";
-import {writeContract, userUnstake} from "../../../utils/nft";
-
+import {writeContract, userUnstake, toFixed} from "../../../utils/nft";
+import { POOLS } from '../../../config/pools';
 
 import {Container, Card, Modal} from "react-bootstrap"
 import {HeaderButtonSecondary} from "../../vaults/index"
+import {TokenButton} from "../../nftgallery/components/TokenSelector"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -42,25 +43,35 @@ const FakeBackground = styled.div`
     padding: 60px;
 `
 
+
+
 const ModalContainer = styled(Container)`
     display: grid;
     z-index: 9999;
     grid-template-columns: auto;
     grid-template-rows: auto;
-    
-    height: 100%;
-    width: auto;
+    position: relative;
+    height: auto;
+    width: 100%;
     padding: 0;
+    max-width: 480px;
 `
 const ModalCard = styled(Card)`
     display: flex;
     flex-direction: column;
     padding: 0;
     border-radius: 12px;
-    height: 60%;
-    width: auto;
-    background-color: #1D1E20;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    position: relative;
+    max-width: 480px;
+    height: auto;
+    width: 100%;
+    backdrop-filter: blur(12px) saturate(189%);
+    -webkit-backdrop-filter: blur(12px) saturate(189%);
+    background-color: rgba(29, 30, 32, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.225);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+    border-radius: 24px;
+    margin-top: 1rem;
 `
 const ModalCardFooter = styled.div`
     border-top: 1px solid #7a7f87;
@@ -84,23 +95,41 @@ const ModalCardContentContainer = styled(Container)`
     align-items: center;
 `
 
+const TokenLink = styled.a`
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: none;
+    }
+`
+
 const TokenInput = styled.input`
   
-    width: 90%;
-    height: 70px !important;
-    border: none;
-    background: #292C2D;
-    color: white;
+    position: relative;
+    display: flex;
+    padding: 16px;
+    margin-bottom: 1.8em;
+    margin-top: 1.8em;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+    background: none;
+    outline: none;
     border-radius: 20px;
-    border-width: 1px !important;
-    border-color: #4e5456 !important;
-    padding: 7px;
-    font-size: 22px;
-    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    background-color: rgb(33, 36, 41);
+    color: rgb(255, 255, 255);
+    border: 1px solid rgb(64, 68, 79);
+    appearance: none;
+    font-size: 18px;
+    transition: border 100ms ease 0s;
 
 `
 
 const WithdrawButton = styled(HeaderButtonSecondary)`
+    margin: 0px;
     &:focus {
         background: #fbdb37;
         border-color: #dfbb05;
@@ -120,12 +149,31 @@ const WithdrawButton = styled(HeaderButtonSecondary)`
     }
 `
 
-const UnstakeModal = ({showUnstakeModal, setShowUnstakeModal, userStaked, pid}) => {
+const TitleText = styled.h3`
+    box-sizing: border-box;
+    margin: 0px;
+    min-width: 0px;
+    font-weight: 600;
+    font-size: 1.3em;
+    color: #fbdb37 !important;
+    align-self: center;
+`
+
+const TitleContainer = styled.div`
+    display: flex;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    align-text: center;
+    margin-bottom: 2.5rem;
+    padding: 1rem 1.25rem 0.5rem;
+    justify-content: space-between;
+`
+
+const UnstakeModal = (props) => {
     const {active, account, library, connector} = useWeb3React();
     const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
-    const [userStakedAmount, setUserStakedAmount] = useState(userStaked)
-    const [poolId, setPoolId] = useState(pid)
 
         useEffect( () => {
             if (active) {
@@ -162,7 +210,7 @@ const UnstakeModal = ({showUnstakeModal, setShowUnstakeModal, userStaked, pid}) 
                 if (active) {
                     console.log(pid)
                     const tx = await userUnstake(masterChefContract, pid, amount)
-                    setShowUnstakeModal(prev => !prev)
+                    props.setShowUnstakeModal(prev => !prev)
                     if (tx) {
                         if (tx.status == 1) {
                             goodToast(`Successfully Unstaked... Allow for UI to Update`)
@@ -184,46 +232,71 @@ const UnstakeModal = ({showUnstakeModal, setShowUnstakeModal, userStaked, pid}) 
  
     let button;
     if (amount == '') {
-        button = <WithdrawButton disabled>Withdraw</WithdrawButton>;
+        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} disabled>Withdraw</WithdrawButton>;
       } else if (amount !== ''){
-        button = <WithdrawButton onClick={async () => handleUnstakeOnClick(poolId, amount)}>Withdraw</WithdrawButton>
+        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} onClick={async () => handleUnstakeOnClick(props.pid, amount)}>Withdraw</WithdrawButton>
         ;
       } else {
-        button = <WithdrawButton disabled >Withdraw</WithdrawButton>;
+        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} disabled >Withdraw</WithdrawButton>;
       }
 
+      const amountFilter = (e) => {
+        e.preventDefault()
+        const enteredAmount = e.target.value
+        if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
+            setAmount(enteredAmount)
+        }   
+    }
 
     return (
         <>
-        { showUnstakeModal ? (
+        { props.showUnstakeModal == true ? (
             
         <FakeBackground>
 
-        <ModalContainer showUnstakeModal={showUnstakeModal}>
+        <ModalContainer >
             <ModalCard>
                 <ModalCardContentContainer>
-                    <ExitButton onClick={() => setShowUnstakeModal(prev => !prev)}><FaTimesCircle/></ExitButton>
-                    <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
-                        <FaWallet/>
-                        {`Balance: ${userStaked}`}
-                    </Container>
+                    <TitleContainer>
+                        <TitleText>Withdraw</TitleText>
+                        <ExitButton onClick={() => props.setShowUnstakeModal(prev => !prev)}><FaTimesCircle/></ExitButton>
+                    </TitleContainer>
+
+                    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+
+                        <TokenLink href={POOLS[props.pid].poolurl} target="_blank">
+                            <TokenButton
+                            style={{alignSelf: "center"}}
+                            side="in" data={"0"} symbol={props.tokenUnstake} imageurl={props.imageurl} setTokenOut={() => console.log('dud')} setTokenIn={() => console.log('dud')}>
+                            </TokenButton>
+                        </TokenLink>
+
+                        <p style={{fontSize: "1.4em", marginTop: "1.0em"}}>
+                        <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em", color: "#fbdb37"}}/>
+
+                        { props.state.userPoolDataLoading == false ? toFixed(props.state.userPoolData[props.pid].USER.stakedAmount, 6) : "0"}
+                        <WithdrawButton
+                            style={{fontSize: "0.6em", fontWeight: "800", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
+                            onClick={() => setAmount(props.state.userPoolData[props.pid].USER.stakedAmount)}>Max
+                        </WithdrawButton>
+                        </p>
+                    </div>
+
                     <TokenInput 
                         placeholder = "0.00"
                         value={amount}
-                        onChange = {(e) => setAmount(e.target.value)}
+                        onChange = {amountFilter}
                     />
-                    <Container style={{display: "flex", flexDirection: "row", justifyContent: "space-around", marginBottom: "18px"}}>
+
+                    {/* deposit button */}
+                    <Container style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "18px"}}>
                         {button}
                         <ToastContainer></ToastContainer>
-
-                    <HeaderButtonSecondary>Max</HeaderButtonSecondary>
                     </Container>
+                
 
 
                 </ModalCardContentContainer>
-                <ModalCardFooter>
-                    Withdraw
-                </ModalCardFooter>
             </ModalCard>
 
         </ModalContainer>

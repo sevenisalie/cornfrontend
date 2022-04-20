@@ -9,6 +9,8 @@ import {RefreshContextProvider} from "./contexts/RefreshContext"
 import { Web3ReactProvider } from "@web3-react/core";
 import { ethers } from "ethers";
 import {useWeb3React} from "@web3-react/core";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const getLibrary = (provider, connector)  => {
   return new ethers.providers.Web3Provider(provider);
@@ -20,6 +22,7 @@ ReactDOM.render(
     <Web3ReactProvider getLibrary={getLibrary}>
     <GlobalStyle />
     <RefreshContextProvider>
+    <ToastContainer></ToastContainer>
     <App />
     </RefreshContextProvider>
     </Web3ReactProvider>

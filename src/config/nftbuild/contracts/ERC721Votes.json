@@ -1,0 +1,1310 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "approved",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Approval",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "approved",
+          "type": "bool"
+        }
+      ],
+      "name": "ApprovalForAll",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "delegator",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "fromDelegate",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "toDelegate",
+          "type": "address"
+        }
+      ],
+      "name": "DelegateChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "delegate",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "previousBalance",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newBalance",
+          "type": "uint256"
+        }
+      ],
+      "name": "DelegateVotesChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "DOMAIN_SEPARATOR",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "approve",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "balanceOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "delegatee",
+          "type": "address"
+        }
+      ],
+      "name": "delegate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "delegatee",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "nonce",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "expiry",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "v",
+          "type": "uint8"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "r",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "s",
+          "type": "bytes32"
+        }
+      ],
+      "name": "delegateBySig",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "delegates",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getApproved",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPastTotalSupply",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPastVotes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        }
+      ],
+      "name": "getVotes",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        }
+      ],
+      "name": "isApprovedForAll",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "name",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "nonces",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ownerOf",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "safeTransferFrom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes",
+          "name": "_data",
+          "type": "bytes"
+        }
+      ],
+      "name": "safeTransferFrom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "operator",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "approved",
+          "type": "bool"
+        }
+      ],
+      "name": "setApprovalForAll",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes4",
+          "name": "interfaceId",
+          "type": "bytes4"
+        }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "symbol",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "tokenURI",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "transferFrom",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "187": "contracts/openzeppelin/contracts/token/ERC721/ERC721.sol",
+    "188": "contracts/openzeppelin/contracts/token/ERC721/IERC721.sol",
+    "196": "contracts/openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
+    "197": "contracts/openzeppelin/contracts/token/ERC721/extensions/draft-ERC721Votes.sol",
+    "210": "contracts/openzeppelin/contracts/utils/Context.sol",
+    "220": "contracts/openzeppelin/contracts/utils/cryptography/draft-EIP712.sol",
+    "224": "contracts/openzeppelin/contracts/utils/introspection/ERC165.sol",
+    "228": "contracts/openzeppelin/contracts/utils/introspection/IERC165.sol",
+    "36": "contracts/openzeppelin/contracts/governance/utils/IVotes.sol",
+    "37": "contracts/openzeppelin/contracts/governance/utils/Votes.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/openzeppelin/contracts/token/ERC721/extensions/draft-ERC721Votes.sol",
+    "exportedSymbols": {
+      "Address": [
+        26327
+      ],
+      "Checkpoints": [
+        26693
+      ],
+      "Context": [
+        26715
+      ],
+      "Counters": [
+        26789
+      ],
+      "ECDSA": [
+        27839
+      ],
+      "EIP712": [
+        28166
+      ],
+      "ERC165": [
+        28500
+      ],
+      "ERC721": [
+        23473
+      ],
+      "ERC721Votes": [
+        24294
+      ],
+      "IERC165": [
+        28824
+      ],
+      "IERC721": [
+        23589
+      ],
+      "IERC721Metadata": [
+        24244
+      ],
+      "IERC721Receiver": [
+        23607
+      ],
+      "IVotes": [
+        6206
+      ],
+      "Math": [
+        29016
+      ],
+      "SafeCast": [
+        29409
+      ],
+      "Strings": [
+        27218
+      ],
+      "Votes": [
+        6660
+      ]
+    },
+    "id": 24295,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 24246,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "129:23:197"
+      },
+      {
+        "absolutePath": "contracts/openzeppelin/contracts/token/ERC721/ERC721.sol",
+        "file": "../ERC721.sol",
+        "id": 24247,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 24295,
+        "sourceUnit": 23474,
+        "src": "154:23:197",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "contracts/openzeppelin/contracts/governance/utils/Votes.sol",
+        "file": "../../../governance/utils/Votes.sol",
+        "id": 24248,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 24295,
+        "sourceUnit": 6661,
+        "src": "178:45:197",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": true,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 24250,
+              "name": "ERC721",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 23473,
+              "src": "783:6:197"
+            },
+            "id": 24251,
+            "nodeType": "InheritanceSpecifier",
+            "src": "783:6:197"
+          },
+          {
+            "baseName": {
+              "id": 24252,
+              "name": "Votes",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 6660,
+              "src": "791:5:197"
+            },
+            "id": 24253,
+            "nodeType": "InheritanceSpecifier",
+            "src": "791:5:197"
+          }
+        ],
+        "canonicalName": "ERC721Votes",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 24249,
+          "nodeType": "StructuredDocumentation",
+          "src": "225:524:197",
+          "text": " @dev Extension of ERC721 to support voting and delegation as implemented by {Votes}, where each individual NFT counts\n as 1 vote unit.\n Tokens do not count as votes until they are delegated, because votes must be tracked which incurs an additional cost\n on every transfer. Token holders can either delegate to a trusted representative who will decide how to make use of\n the votes in governance decisions, or they can delegate to themselves to be their own representative.\n _Available since v4.5._"
+        },
+        "fullyImplemented": false,
+        "id": 24294,
+        "linearizedBaseContracts": [
+          24294,
+          6660,
+          28166,
+          23473,
+          24244,
+          23589,
+          28500,
+          28824,
+          26715,
+          6206
+        ],
+        "name": "ERC721Votes",
+        "nameLocation": "768:11:197",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "baseFunctions": [
+              23472
+            ],
+            "body": {
+              "id": 24278,
+              "nodeType": "Block",
+              "src": "1060:104:197",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 24265,
+                        "name": "from",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24256,
+                        "src": "1091:4:197",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 24266,
+                        "name": "to",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24258,
+                        "src": "1097:2:197",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "hexValue": "31",
+                        "id": 24267,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "number",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1101:1:197",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        },
+                        "value": "1"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_rational_1_by_1",
+                          "typeString": "int_const 1"
+                        }
+                      ],
+                      "id": 24264,
+                      "name": "_transferVotingUnits",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 6497,
+                      "src": "1070:20:197",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
+                        "typeString": "function (address,address,uint256)"
+                      }
+                    },
+                    "id": 24268,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1070:33:197",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 24269,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1070:33:197"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 24273,
+                        "name": "from",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24256,
+                        "src": "1139:4:197",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 24274,
+                        "name": "to",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24258,
+                        "src": "1145:2:197",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 24275,
+                        "name": "tokenId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24260,
+                        "src": "1149:7:197",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "id": 24270,
+                        "name": "super",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -25,
+                        "src": "1113:5:197",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_super$_ERC721Votes_$24294_$",
+                          "typeString": "type(contract super ERC721Votes)"
+                        }
+                      },
+                      "id": 24272,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "_afterTokenTransfer",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 23472,
+                      "src": "1113:25:197",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
+                        "typeString": "function (address,address,uint256)"
+                      }
+                    },
+                    "id": 24276,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1113:44:197",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 24277,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1113:44:197"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 24254,
+              "nodeType": "StructuredDocumentation",
+              "src": "803:124:197",
+              "text": " @dev Adjusts votes when tokens are transferred.\n Emits a {Votes-DelegateVotesChanged} event."
+            },
+            "id": 24279,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_afterTokenTransfer",
+            "nameLocation": "941:19:197",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 24262,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "1051:8:197"
+            },
+            "parameters": {
+              "id": 24261,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24256,
+                  "mutability": "mutable",
+                  "name": "from",
+                  "nameLocation": "978:4:197",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24279,
+                  "src": "970:12:197",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 24255,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "970:7:197",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 24258,
+                  "mutability": "mutable",
+                  "name": "to",
+                  "nameLocation": "1000:2:197",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24279,
+                  "src": "992:10:197",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 24257,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "992:7:197",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 24260,
+                  "mutability": "mutable",
+                  "name": "tokenId",
+                  "nameLocation": "1020:7:197",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24279,
+                  "src": "1012:15:197",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 24259,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1012:7:197",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "960:73:197"
+            },
+            "returnParameters": {
+              "id": 24263,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1060:0:197"
+            },
+            "scope": 24294,
+            "src": "932:232:197",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "internal"
+          },
+          {
+            "baseFunctions": [
+              6659
+            ],
+            "body": {
+              "id": 24292,
+              "nodeType": "Block",
+              "src": "1318:42:197",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 24289,
+                        "name": "account",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 24282,
+                        "src": "1345:7:197",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "id": 24288,
+                      "name": "balanceOf",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 22725,
+                      "src": "1335:9:197",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_view$_t_address_$returns$_t_uint256_$",
+                        "typeString": "function (address) view returns (uint256)"
+                      }
+                    },
+                    "id": 24290,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1335:18:197",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 24287,
+                  "id": 24291,
+                  "nodeType": "Return",
+                  "src": "1328:25:197"
+                }
+              ]
+            },
+            "documentation": {
+              "id": 24280,
+              "nodeType": "StructuredDocumentation",
+              "src": "1170:57:197",
+              "text": " @dev Returns the balance of `account`."
+            },
+            "id": 24293,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_getVotingUnits",
+            "nameLocation": "1241:15:197",
+            "nodeType": "FunctionDefinition",
+            "overrides": {
+              "id": 24284,
+              "nodeType": "OverrideSpecifier",
+              "overrides": [],
+              "src": "1291:8:197"
+            },
+            "parameters": {
+              "id": 24283,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24282,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nameLocation": "1265:7:197",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24293,
+                  "src": "1257:15:197",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 24281,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1257:7:197",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1256:17:197"
+            },
+            "returnParameters": {
+              "id": 24287,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 24286,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 24293,
+                  "src": "1309:7:197",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 24285,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1309:7:197",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1308:9:197"
+            },
+            "scope": 24294,
+            "src": "1232:128:197",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 24295,
+        "src": "750:612:197",
+        "usedErrors": []
+      }
+    ],
+    "src": "129:1234:197"
+  },
+  "bytecode": "",
+  "bytecodeSha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.12+commit.f00d7308"
+  },
+  "contractName": "ERC721Votes",
+  "coverageMap": {
+    "branches": {},
+    "statements": {}
+  },
+  "dependencies": [
+    "Context",
+    "EIP712",
+    "ERC165",
+    "ERC721",
+    "IERC165",
+    "IERC721",
+    "IERC721Metadata",
+    "IVotes",
+    "Votes"
+  ],
+  "deployedBytecode": "",
+  "deployedSourceMap": "",
+  "language": "Solidity",
+  "natspec": {
+    "details": "Extension of ERC721 to support voting and delegation as implemented by {Votes}, where each individual NFT counts as 1 vote unit. Tokens do not count as votes until they are delegated, because votes must be tracked which incurs an additional cost on every transfer. Token holders can either delegate to a trusted representative who will decide how to make use of the votes in governance decisions, or they can delegate to themselves to be their own representative. _Available since v4.5._",
+    "kind": "dev",
+    "methods": {
+      "DOMAIN_SEPARATOR()": {
+        "details": "Returns the contract's {EIP712} domain separator."
+      },
+      "approve(address,uint256)": {
+        "details": "See {IERC721-approve}."
+      },
+      "balanceOf(address)": {
+        "details": "See {IERC721-balanceOf}."
+      },
+      "delegate(address)": {
+        "details": "Delegates votes from the sender to `delegatee`."
+      },
+      "delegateBySig(address,uint256,uint256,uint8,bytes32,bytes32)": {
+        "details": "Delegates votes from signer to `delegatee`."
+      },
+      "delegates(address)": {
+        "details": "Returns the delegate that `account` has chosen."
+      },
+      "getApproved(uint256)": {
+        "details": "See {IERC721-getApproved}."
+      },
+      "getPastTotalSupply(uint256)": {
+        "details": "Returns the total supply of votes available at the end of a past block (`blockNumber`). NOTE: This value is the sum of all available votes, which is not necessarily the sum of all delegated votes. Votes that have not been delegated are still part of total supply, even though they would not participate in a vote. Requirements: - `blockNumber` must have been already mined"
+      },
+      "getPastVotes(address,uint256)": {
+        "details": "Returns the amount of votes that `account` had at the end of a past block (`blockNumber`). Requirements: - `blockNumber` must have been already mined"
+      },
+      "getVotes(address)": {
+        "details": "Returns the current amount of votes that `account` has."
+      },
+      "isApprovedForAll(address,address)": {
+        "details": "See {IERC721-isApprovedForAll}."
+      },
+      "name()": {
+        "details": "See {IERC721Metadata-name}."
+      },
+      "nonces(address)": {
+        "details": "Returns an address nonce."
+      },
+      "ownerOf(uint256)": {
+        "details": "See {IERC721-ownerOf}."
+      },
+      "safeTransferFrom(address,address,uint256)": {
+        "details": "See {IERC721-safeTransferFrom}."
+      },
+      "safeTransferFrom(address,address,uint256,bytes)": {
+        "details": "See {IERC721-safeTransferFrom}."
+      },
+      "setApprovalForAll(address,bool)": {
+        "details": "See {IERC721-setApprovalForAll}."
+      },
+      "supportsInterface(bytes4)": {
+        "details": "See {IERC165-supportsInterface}."
+      },
+      "symbol()": {
+        "details": "See {IERC721Metadata-symbol}."
+      },
+      "tokenURI(uint256)": {
+        "details": "See {IERC721Metadata-tokenURI}."
+      },
+      "transferFrom(address,address,uint256)": {
+        "details": "See {IERC721-transferFrom}."
+      }
+    },
+    "version": 1
+  },
+  "offset": [
+    750,
+    1362
+  ],
+  "opcodes": "",
+  "pcMap": {},
+  "sha1": "cdb31c805f75af972177c016a5c175cb84e0822b",
+  "source": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts (last updated v4.5.0) (token/ERC721/extensions/draft-ERC721Votes.sol)\n\npragma solidity ^0.8.0;\n\nimport \"../ERC721.sol\";\nimport \"../../../governance/utils/Votes.sol\";\n\n/**\n * @dev Extension of ERC721 to support voting and delegation as implemented by {Votes}, where each individual NFT counts\n * as 1 vote unit.\n *\n * Tokens do not count as votes until they are delegated, because votes must be tracked which incurs an additional cost\n * on every transfer. Token holders can either delegate to a trusted representative who will decide how to make use of\n * the votes in governance decisions, or they can delegate to themselves to be their own representative.\n *\n * _Available since v4.5._\n */\nabstract contract ERC721Votes is ERC721, Votes {\n    /**\n     * @dev Adjusts votes when tokens are transferred.\n     *\n     * Emits a {Votes-DelegateVotesChanged} event.\n     */\n    function _afterTokenTransfer(\n        address from,\n        address to,\n        uint256 tokenId\n    ) internal virtual override {\n        _transferVotingUnits(from, to, 1);\n        super._afterTokenTransfer(from, to, tokenId);\n    }\n\n    /**\n     * @dev Returns the balance of `account`.\n     */\n    function _getVotingUnits(address account) internal virtual override returns (uint256) {\n        return balanceOf(account);\n    }\n}\n",
+  "sourceMap": "",
+  "sourcePath": "contracts/openzeppelin/contracts/token/ERC721/extensions/draft-ERC721Votes.sol",
+  "type": "contract"
+}

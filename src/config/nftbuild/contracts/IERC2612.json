@@ -1,0 +1,203 @@
+{
+  "abi": [
+    {
+      "inputs": [],
+      "name": "DOMAIN_SEPARATOR",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "nonces",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "spender",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "value",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "deadline",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "v",
+          "type": "uint8"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "r",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "s",
+          "type": "bytes32"
+        }
+      ],
+      "name": "permit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "allSourcePaths": {
+    "182": "contracts/openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
+    "49": "contracts/openzeppelin/contracts/interfaces/draft-IERC2612.sol"
+  },
+  "ast": {
+    "absolutePath": "contracts/openzeppelin/contracts/interfaces/draft-IERC2612.sol",
+    "exportedSymbols": {
+      "IERC20Permit": [
+        22102
+      ],
+      "IERC2612": [
+        6878
+      ]
+    },
+    "id": 6879,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 6874,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "98:23:49"
+      },
+      {
+        "absolutePath": "contracts/openzeppelin/contracts/token/ERC20/extensions/draft-IERC20Permit.sol",
+        "file": "../token/ERC20/extensions/draft-IERC20Permit.sol",
+        "id": 6875,
+        "nameLocation": "-1:-1:-1",
+        "nodeType": "ImportDirective",
+        "scope": 6879,
+        "sourceUnit": 22103,
+        "src": "123:58:49",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [
+          {
+            "baseName": {
+              "id": 6876,
+              "name": "IERC20Permit",
+              "nodeType": "IdentifierPath",
+              "referencedDeclaration": 22102,
+              "src": "205:12:49"
+            },
+            "id": 6877,
+            "nodeType": "InheritanceSpecifier",
+            "src": "205:12:49"
+          }
+        ],
+        "canonicalName": "IERC2612",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "fullyImplemented": false,
+        "id": 6878,
+        "linearizedBaseContracts": [
+          6878,
+          22102
+        ],
+        "name": "IERC2612",
+        "nameLocation": "193:8:49",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 6879,
+        "src": "183:37:49",
+        "usedErrors": []
+      }
+    ],
+    "src": "98:123:49"
+  },
+  "bytecode": "",
+  "bytecodeSha1": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+  "compiler": {
+    "evm_version": "istanbul",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "version": "0.8.12+commit.f00d7308"
+  },
+  "contractName": "IERC2612",
+  "coverageMap": {
+    "branches": {},
+    "statements": {}
+  },
+  "dependencies": [
+    "IERC20Permit"
+  ],
+  "deployedBytecode": "",
+  "deployedSourceMap": "",
+  "language": "Solidity",
+  "natspec": {
+    "kind": "dev",
+    "methods": {
+      "DOMAIN_SEPARATOR()": {
+        "details": "Returns the domain separator used in the encoding of the signature for {permit}, as defined by {EIP712}."
+      },
+      "nonces(address)": {
+        "details": "Returns the current nonce for `owner`. This value must be included whenever a signature is generated for {permit}. Every successful call to {permit} increases ``owner``'s nonce by one. This prevents a signature from being used multiple times."
+      },
+      "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": {
+        "details": "Sets `value` as the allowance of `spender` over ``owner``'s tokens, given ``owner``'s signed approval. IMPORTANT: The same issues {IERC20-approve} has related to transaction ordering also apply here. Emits an {Approval} event. Requirements: - `spender` cannot be the zero address. - `deadline` must be a timestamp in the future. - `v`, `r` and `s` must be a valid `secp256k1` signature from `owner` over the EIP712-formatted function arguments. - the signature must use ``owner``'s current nonce (see {nonces}). For more information on the signature format, see the https://eips.ethereum.org/EIPS/eip-2612#specification[relevant EIP section]."
+      }
+    },
+    "version": 1
+  },
+  "offset": [
+    183,
+    220
+  ],
+  "opcodes": "",
+  "pcMap": {},
+  "sha1": "c552cfe08228baa517d97419a19ae78786d48f49",
+  "source": "// SPDX-License-Identifier: MIT\n// OpenZeppelin Contracts v4.4.1 (interfaces/draft-IERC2612.sol)\n\npragma solidity ^0.8.0;\n\nimport \"../token/ERC20/extensions/draft-IERC20Permit.sol\";\n\ninterface IERC2612 is IERC20Permit {}\n",
+  "sourceMap": "",
+  "sourcePath": "contracts/openzeppelin/contracts/interfaces/draft-IERC2612.sol",
+  "type": "interface"
+}

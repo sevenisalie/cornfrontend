@@ -2,21 +2,24 @@
 import styled from "styled-components";
 import axios from "axios"
 import {ethers} from "ethers";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useReducer} from "react";
 import { useWeb3React } from "@web3-react/core";
+import useFetchPoolData from "../../hooks/useFetchPoolData"
+
 
 //static confg
-
-
+import MASTERCHEF from "../../config/build/contracts/MasterChefV2.json";
 import { addresses } from "../../config/addresses";
-import {pools} from "../../config/pools";
+import {POOLS} from "../../config/pools";
 import {MasterChefABI, ERC20Abi} from "../../config/abis";
-import {writeContract, fetchPoolAllowance, getTokenStakeBalance, fetchTokenStakeBalance} from "../../utils/nft";
-import {fetchUserPoolData, mapPendingToOriginalData, getPoolBalance} from "../../utils/fetchUserData";
+import {writeContract} from "../../utils/nft";
+import {fetchPendingCob, getUserTokenBalance} from "../../utils/fetchUserData";
+
 //Components
 import {Page} from "../../components/Page"
 import {Container, Card, Button} from "react-bootstrap";
 import PoolCard from "./components/PoolCard";
+import PlaceholderPoolCard from "./components/PlaceholderPoolCard"
 import PoolPageHeading from "./components/PoolPageHeading"
 import BackdropFilter from "react-backdrop-filter";
 
@@ -24,6 +27,20 @@ import BackdropFilter from "react-backdrop-filter";
 
 //hooks
 import {useRefresh} from "../../utils/useRefresh";
+import useFetchBalances from "../../hooks/useFetchBalances";
+import useFetchContractWrite from '../../hooks/useFetchContractWrite';
+
+
+
+const size = {
+    mobileS: '320px',
+    mobileM: '375px',
+    mobileL: '425px',
+    tablet: '768px',
+    laptop: '1024px',
+    laptopL: '1440px',
+    desktop: '2560px'
+  }
 
 
 
@@ -37,139 +54,194 @@ const PoolGrid = styled(Container)`
     align-content: start;
     column-gap: 2px;
     row-gap: 4.20em;
-    margin-bottom: 25px;
 
+  
+    @media (max-width: 315px) {
+        margin-bottom: 6em;
+
+
+    }
+    @media (max-width: 2048px) {
+        margin-bottom: 11em;
+      }
+  
     @media (max-width: 768px) {
+        margin-bottom: 6em;
         flex-direction: column;
         grid-template-columns: auto;
         grid-template-rows: auto;
-      }
-  
-`
-
-
-
-
-const Pools = (props) => {
    
-    const {active, account, library, connector} = useWeb3React();
-    const [poolData, setPoolData] = useState(pools); //imported above
-    const [masterChefContract, setMasterChefContract] = useState()
-    const [poolBalance, setPoolBalance] = useState('0')
-    const { fastRefresh } = useRefresh()
-    const [allowances, setAllowances] = useState('false')
-    const [balances, setBalances] = useState('0')
-    
-    
-    useEffect( () => {
-        if (active) {
-          const master = writeContract(
-              active, 
-              library.getSigner(), 
-              account,
-              addresses.masterChef,
-              MasterChefABI,
-              ).then(val => {
-                setMasterChefContract(val)
-                console.log(val)
-              })
-        } else {
-            console.log("no masterchef")
-          const noData = setMasterChefContract(null)
+      }
+`
+const poolReducer = (state, action) => {
+    switch (action.type) {
+        case 'allowances': {
+            return{
+                ...state,
+                allowances: action.payload,
+                loading: false
+            }
         }
-        
-        
-      }, [active])
+        case 'userPoolData': {
+            return {
+                ...state,
+                userPoolData: action.payload,
+                userPoolDataLoading: false
+            }
+        }
+        case 'poolData': {
+            return {
+                ...state,
+                poolData: action.payload,
+                poolDataLoading: false
+            }
+        }
+        case 'masterChefContract': {
+            return {
+                ...state,
+                masterChefContract: action.payload,
+                masterChefLoading: false
+            }
+        }
+        case "signer": {
+            return {
+                ...state,
+                signer: action.payload
+            }
+        }
+        case 'userBalances': {
+            return {
+                ...state,
+                userBalances: action.payload
+            }
+        }
+        case 'ERROR': {
+            return {
+                ...state,
+                error: action.payload,
+                loading: true
+            }
+        }
+
+    
+
+    }
+    console.log("STATE")
+    console.log(state)
+    return state
+}
+
+const initialState = {
+    preLaunch: true,
+    loading: true,
+    masterChefLoading: true,
+    poolDataLoading: true,
+    userPoolDataLoading: true,
+    poolData: [],
+    userPoolData: [],
+    userBalances: [],
+    allowances: [],
+    masterChefContract: {},
+    signer: {},
+    error: '',
+}
+
+ const Pools = (props) => {
+   
+        const {active, account, library, connector} = useWeb3React();
+        const { fastRefresh } = useRefresh()
+        const { state: POOLDATA } = useFetchPoolData(account)
+        const [state, dispatch] = useReducer(poolReducer, initialState)
+        const [contract, query] = useFetchContractWrite(addresses.masterChef, MASTERCHEF["abi"])
+
+    
+
+    
 
     useEffect( async () => {
-     
+        if (active && library && account) {
             try {
-
-                if (library && account) {
-            
-                    const farmData = await fetchUserPoolData(masterChefContract, library, account, 4)
-                    const userFarmData = await mapPendingToOriginalData(farmData, pools, masterChefContract, 4)
-                    const alounces = await fetchPoolAllowance(userFarmData, library.getSigner(), account, masterChefContract)
-                    const bal = await fetchTokenStakeBalance(userFarmData, library.getSigner(), account)
-                    setBalances(bal)
-                    setPoolData(userFarmData)
-                    setAllowances(alounces)
-                } else {
-                    console.log("stillbroke no pooldata")
-                    setPoolData(pools)
-                    setAllowances("false")
-                    setBalances('0')
-                }
-
+                const userBalancePromises = POOLS.map( (pool) => {
+                    const promise = getUserTokenBalance(
+                        active, 
+                        library.getSigner(),
+                        account,
+                        pool.tokenStakeAddress,
+                        ERC20Abi
+                        )
+                    return promise
+                })
+                const _userBalances = await Promise.all(userBalancePromises)
+                
+                dispatch({ type: "userBalances", payload: _userBalances})
+                console.log("balances")
+                console.log(_userBalances)
+    
             } catch (err) {console.log(err)}
-            
-    
-              
-       }, [masterChefContract, fastRefresh])
+        } 
+        
+    }, [account, active, library])
 
-    useEffect( async () => {
+   
 
-        try {
-            console.log(`This is poolData inside function ${poolData}`)
-            console.log(poolData)
-            const poolbl = await getPoolBalance(poolData, active, library.getSigner(), account, ERC20Abi, masterChefContract, 4)
-            //const poolbal = ethers.utils.formatUnits(poolbl, "ether")
-            setPoolBalance(poolbl)
-            console.log("poolbally")
-            console.log(poolbl)          
-    
-
-        } catch (err) {
-            console.log(err)
-        }
-    }, [poolData, active, library])
-
-    //if we do have pooldata then go ahead and populate a card for each pool
-    if (masterChefContract !== null && active && balances != undefined) {
-            const mapPoolData =  poolData.map((pool, index) => (
-
-                <PoolCard balance={balances[index]} allowance={allowances[index]} masterChef={masterChefContract} signer={library.getSigner()} pid={index} poolBalance={poolBalance[index]} pool={pool}/>
-                ));
       
 
 
+    
 
+    
+    //DEV NOTE:
+    // replace with 
+    // if (POOLDATA.loading == false && library ) {
+    //
+    //we broke this intentionally for pre-release site launch
+    if (state.preLaunch === false ) {
+        const mapPoolData =  POOLDATA.allData.map((pool, index) => (
+
+            <PoolCard master={contract} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+            ));
         return (
             <>
-  
+    
+            <PoolPageHeading/>
+
+                
+        
+                <PoolGrid >
+                    {mapPoolData}
+                </PoolGrid>
+        
+            </>
+        )
+
+    //DEV NOTE:
+    // replace with 
+    // } else if (POOLDATA.loading == true || !library) {
+    //
+    //we broke this intentionally for pre-release site launch
+
+    } else if (state.preLaunch === true ) {
+        const mapPlaceHolderPoolData = POOLS.map( (pool) => (
+            <PlaceholderPoolCard data={pool} tokenStake={pool.tokenStakeName}/>
+        ))
+        return (
+            <>
+    
             <PoolPageHeading/>
             
-            <PoolGrid style={{marginBottom: "6.5em"}}>
-                {mapPoolData}
-            </PoolGrid>
+      
+                <PoolGrid>
+                    {mapPlaceHolderPoolData}
+                </PoolGrid>
+      
             
             
     
             </>
         )
     }
-   
-    //if we dont have pool data then return static dummy
-    return (
-        <>
-        <Page>
+      
 
-            <PoolPageHeading/>
-
-            <PoolGrid>
-
-                <PoolCard/>
-                <PoolCard/>
-                <PoolCard/>
-                
-            
-            </PoolGrid>
-            
-
-        </Page>
-
-        </>
-    )
 }
 
 export default Pools
