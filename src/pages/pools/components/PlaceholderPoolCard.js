@@ -22,6 +22,8 @@ import {GiLockedChest} from "react-icons/gi"
 import {RiCoinLine} from "react-icons/ri"
 
 const ActualPoolCard = styled.div`
+    max-width: 375px;
+    min-width: 374px;
     border-radius: 50px;
     backdrop-filter: blur(12px) saturate(149%);
     -webkit-backdrop-filter: blur(0px) saturate(149%);

@@ -195,7 +195,7 @@ const initialState = {
     // if (POOLDATA.loading == false && library ) {
     //
     //we broke this intentionally for pre-release site launch
-    if (state.preLaunch === false ) {
+    if (POOLDATA.loading == false && library ) {
         const mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
             <PoolCard master={contract} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
@@ -220,7 +220,7 @@ const initialState = {
     //
     //we broke this intentionally for pre-release site launch
 
-    } else if (state.preLaunch === true ) {
+    } else if (POOLDATA.loading == true || !library) {
         const mapPlaceHolderPoolData = POOLS.map( (pool) => (
             <PlaceholderPoolCard data={pool} tokenStake={pool.tokenStakeName}/>
         ))

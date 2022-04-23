@@ -10,6 +10,7 @@ import {Button} from "react-bootstrap";
 import {InjectedConnector} from "@web3-react/injected-connector";
 import { ethers, getSigner } from "ethers";
 import {useWeb3React} from "@web3-react/core";
+import WalletCard from './WalletCard';
 
 export const injected = new InjectedConnector({
     supportedChainIds: [1, 137],
@@ -61,13 +62,19 @@ const TheButton = styled(Button)`
 
 export const ConnectButton = () => {
     const { active, account, library, connector, provider, activate, deactivate } = useWeb3React();
+    const [toggleModal, setToggleModal] = useState(false)
+
+    const modalToggle = () => {
+        setToggleModal( prev => !prev)
+    }
     const shortie = TruncateAddress(account);
+
 
     const goodToast = (msg) => {
         const ToastStyle = {
             borderRadius: "50px",
             backdropFilter: "blur(12px) saturate(149%)",
-            backgroundColor: "rgba(29, 30, 32, 0.57)",
+            backgroundColor: "rgba(29, 30, 32, 0.87)",
             border: "2px solid rgba(251, 219, 55, 0.95)",
             padding: "0.42em",
             
@@ -84,7 +91,7 @@ export const ConnectButton = () => {
         const ToastStyle = {
             borderRadius: "50px",
             backdropFilter: "blur(12px) saturate(149%)",
-            backgroundColor: "rgba(29, 30, 32, 0.57)",
+            backgroundColor: "rgba(29, 30, 32, 0.87)",
             border: "2px solid rgba(251, 219, 55, 0.95)",
             padding: "0.42em",
         }
@@ -96,20 +103,37 @@ export const ConnectButton = () => {
         toast.update(id, { render: `${msg}`, closeOnClick: true, hideProgressBar: true, position: "bottom-right", autoClose: 5000, className: 'rotateY animated', draggable: true })
     }
 
-    useEffect( async () => {
-        
-        await handleConnect(injected);
-        
+    useEffect( () => {
+        if (account === undefined)  {
+            handleConnect(injected);
+        }
     }, [])
 
-    const handleConnect = async (connector) => {
-        try {
-            await activate(connector);
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            const account = accounts[0];
-            goodToast(`Connected to ${account}`)
+    const isMetaMaskInstalled = async () => {
+        const { ethereum } = window
+        return Boolean(ethereum && ethereum.isMetaMask)
+    }
 
-        } catch (err) {console.log(err)}
+    const handleConnect = async (connector) => {
+        modalToggle()
+        const isMetaMask = await isMetaMaskInstalled()
+
+        if (isMetaMask === false) {
+            goodToast(`Please Install MetaMask 🦊`)
+        }
+
+        if (isMetaMask === true) {
+            
+            try {
+                await activate(connector);
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const account = accounts[0];
+                // modalToggle()
+                goodToast(`Connected to ${account}`)
+    
+            } catch (err) {console.log(err)}
+        }
+
 
     }
 
@@ -126,11 +150,11 @@ export const ConnectButton = () => {
 
     return (
         <>
-        
+        <WalletCard handleConnect={handleConnect} showDepositModal={toggleModal} setShowDepositModal={modalToggle} />
 
         { !active ? 
         <>
-        <TheButton onClick={() => handleConnect(injected)} >Connect</TheButton>
+        <TheButton onClick={() => modalToggle()} >Connect</TheButton>
         </>
         :
         <>
