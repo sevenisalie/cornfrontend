@@ -28,8 +28,8 @@ const useFetchSwapRoute = (_tokenA, _tokenB, _amountIn) => {
 
 
     useEffect( () => {
-        const fetchRequest = async (_query) => {
-            const url = `https://cornoracleapi.herokuapp.com/routerInfo/?tokenA=${_query.tokenA.address}&tokenB=${_query.tokenB.address}&amount=${_query.amountIn}`
+        const fetchRequest = async (_tokenA, _tokenB, _amountIn) => {
+            const url = `https://cornoracleapi.herokuapp.com/routerInfo/?tokenA=${_tokenA.address}&tokenB=${_tokenB.address}&amount=${_amountIn}`
             const request = await axios.get(url)
             const data = request.data
             setResults(
@@ -37,8 +37,8 @@ const useFetchSwapRoute = (_tokenA, _tokenB, _amountIn) => {
             )
         }
 
-        if (query.tokenA !== "" && query.tokenB !== "" && query.amountIn !== "") {
-            fetchRequest(query)
+        if (_tokenA !== "" && _tokenB !== "" && _amountIn !== "") {
+            fetchRequest(_tokenA, _tokenB, _amountIn)
         }
     }, [query, _tokenA, _tokenB, _amountIn])
 

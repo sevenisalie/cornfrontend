@@ -16,12 +16,11 @@ import {writeContract} from "../../utils/nft";
 import {fetchPendingCob, getUserTokenBalance} from "../../utils/fetchUserData";
 
 //Components
-import {Page} from "../../components/Page"
 import {Container, Card, Button} from "react-bootstrap";
 import PoolCard from "./components/PoolCard";
 import PlaceholderPoolCard from "./components/PlaceholderPoolCard"
 import PoolPageHeading from "./components/PoolPageHeading"
-import BackdropFilter from "react-backdrop-filter";
+import HowToSection from "./components/HowToSection"
 
 
 
@@ -205,6 +204,7 @@ const initialState = {
     
             <PoolPageHeading/>
 
+                <HowToSection />
                 
         
                 <PoolGrid >
@@ -229,7 +229,8 @@ const initialState = {
     
             <PoolPageHeading/>
             
-      
+                <HowToSection />
+
                 <PoolGrid>
                     {mapPlaceHolderPoolData}
                 </PoolGrid>

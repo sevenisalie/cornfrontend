@@ -766,7 +766,7 @@ const LimitOrderEntry = (props) => {
                          setAmountOut={setAmountOut}
                          openTokenSelectorToggle={openTokenSelectorOutToggle} />
 
-                        <PriceDisplay state={state} clearOrderEntry={clearOrderEntry} />
+                        <PriceDisplay path={results} state={state} clearOrderEntry={clearOrderEntry} />
 
 
                         <SubmitSection state={state} mintFunction={handleMintLimit} />
@@ -837,15 +837,15 @@ const AmountEntry = (props) => {
     const amountFilter = (e) => {
         e.preventDefault()
 
-        const enteredAmount = e.target.value
+       
 
         if (props.side == 'in') {
-            if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
-                props.setAmountIn(enteredAmount)
+            if (e.target.value == '' || e.target.value.match(/^[0-9]\d*\.?\d*$/)) {
+                props.setAmountIn(e.target.value)
             } 
         } else if (props.side == "out") {
-            if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
-                props.setAmountOut(enteredAmount)
+            if (e.target.value == '' || e.target.value.match(/^[0-9]\d*\.?\d*$/)) {
+                props.setAmountOut(e.target.value)
             }
         }
     
@@ -1024,10 +1024,49 @@ const SwapText = styled.div`
 
 export const PriceDisplay = (props) => {
     const [direction, setDirection] = useState(true)
+    const [results] = useFetchSwapRoute(props.state.setTokenIn, props.state.setTokenOut, 1)
+
+    const [amount, setAmount] = useState('1')
+
+
+
+    const switchAmounts = () => {
+        if (direction === true) {
+            if (amount !== '') {
+              
+                
+                const floatyNum = inversePrice(results.amountOut)
+                setAmount(floatyNum)
+            }
+            if (amount == NaN) {
+                setAmount("1")
+            }
+        }
+
+        if (direction === false) {
+            if (amount !== '') {
+                setAmount(results.amountOut)
+            }
+
+            if (amount === NaN) {
+                setAmount("1")
+            }
+        }
+        
+    }
+ 
+    const inversePrice = (_price) => {
+        const inverse = 1 / parseFloat(_price)
+        return inverse.toString()
+    }
 
     const handleToggleDirection = () => {
         setDirection( prev => !prev)
+        switchAmounts()
+
     }
+
+
 
     return (
         <>
@@ -1037,12 +1076,13 @@ export const PriceDisplay = (props) => {
             </ClearFormContainer>
             <RateContainer>
                 <RateSwapButton onClick={() => handleToggleDirection()}>
-                    {/* { direction == true 
+         
+                    { direction == true 
                     ?
-                    <SwapText>1 {props.state.setTokenIn.symbol} = {props.state.bothMarketPrices.BPerA} {props.state.setTokenOut.symbol}</SwapText>
+                    <SwapText>1 {props.state.setTokenIn.symbol} = {amount} {props.state.setTokenOut.symbol}</SwapText>
                     :
-                    <SwapText>1 {props.state.setTokenOut.symbol} = {props.state.bothMarketPrices.APerB} {props.state.setTokenIn.symbol}</SwapText>
-                    } */}
+                    <SwapText>1 {props.state.setTokenOut.symbol} = {amount} {props.state.setTokenIn.symbol}</SwapText>
+                    }
                 </RateSwapButton>
             </RateContainer>
         </PriceContainer>  
