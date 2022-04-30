@@ -291,8 +291,8 @@ const PoolCard = (props, {state}) => {
                   </div>
 
                   <MultiplierBadge><GoVerified style={{marginRight: "4px"}}/>
-                  {toFixed(data.depositFee, 1)}
-                  {` Fees`}
+                  {toFixed(data.depositFee, 1)} 
+                  {" Fees"}
                   </MultiplierBadge>
 
                   <MultiplierBadge>
