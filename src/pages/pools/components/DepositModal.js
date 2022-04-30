@@ -263,7 +263,7 @@ const DepositModal = (props) => {
 
     if (amount === '') {
         button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Enter Amount</DepositButton>;
-      } else if (amount !== '' && verifiedDeposit === true){
+      } else if (amount !== ''){
         button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => await handleStakeOnClick(props.pid, amount)}>Deposit</DepositButton>;
       } else {
         button = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Enter Amount</DepositButton>;
