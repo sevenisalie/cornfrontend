@@ -274,11 +274,6 @@ const DepositModal = (props) => {
         const enteredAmount = e.target.value
         if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
             setAmount(enteredAmount)
-            if (balanceData.loading === false) {
-                const bal = toFixed(balanceData.balances[props.pid].string, 6)
-                const auth = verifyDeposit(enteredAmount, bal)
-                setVerifiedDeposit(auth)
-            }
         }   
     }
     
