@@ -163,13 +163,13 @@ const CardFooter = (props, {
             <StyledDetails>
             <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                   <p style={{fontSize: "80%"}}>Pool TVL:</p>
-                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{toFixed(props.data.APY.poolTVL, 2)}</p>
+                  <p style={{fontSize: "80%"}}>{`$ ${toFixed(props.data.APY.poolTVL, 2)}`}</p>
                 </Container>
             </StyledDetails>
 
             <StyledDetails>
             <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                  <p style={{fontSize: "80%"}}>Staked:</p>
+                  <p style={{fontSize: "80%"}}>User Staked:</p>
                   <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{`${toFixed(props.data.USER.stakedAmount, 6)}`}</p>
                 </Container>
             </StyledDetails>

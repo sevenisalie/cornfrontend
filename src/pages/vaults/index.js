@@ -9,6 +9,7 @@ import NavigationBar from "../../components/NavigationBar"
 import {Page} from "../../components/Page"
 import {BsArrowUpRight} from "react-icons/bs"
 import {GiToken} from "react-icons/gi"
+import {FaTwitter, FaGithub, FaDiscord} from "react-icons/fa"
 import {Card, Container, Button, Dropdown, Form, Placeholder} from "react-bootstrap"
 import {HowToSection} from "./components/HowToSection"
 import OracleBar from "../../components/OracleBar"
@@ -508,10 +509,11 @@ export const Home = () => {
         <FooterImageThree src={'/assets/images/Sircle.svg'}></FooterImageThree>
         </Container>
 
-        <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "25px", marginBottom: "50px"}}>
-            <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
-            <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank">Twitter</HeaderButtonSecondary>
-            <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank">Github</HeaderButtonSecondary>
+        <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", alignContent: "center", marginTop: "25px", marginBottom: "50px"}}>
+        <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank"><FaTwitter/></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank"><FaGithub /></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://discord.gg/MnyauaMDgQ" target="_blank"><FaDiscord /></HeaderButtonSecondary>
         </Container>
 
         </>

@@ -28,6 +28,8 @@ import HowToSection from "./components/HowToSection"
 import {useRefresh} from "../../utils/useRefresh";
 import useFetchBalances from "../../hooks/useFetchBalances";
 import useFetchContractWrite from '../../hooks/useFetchContractWrite';
+import useFetchPoolAllowances from "../../hooks/useFetchPoolAllowances"
+import { GiTrousers } from "react-icons/gi";
 
 
 
@@ -72,6 +74,12 @@ const PoolGrid = styled(Container)`
    
       }
 `
+
+
+   
+
+  
+
 const poolReducer = (state, action) => {
     switch (action.type) {
         case 'allowances': {
@@ -148,11 +156,16 @@ const initialState = {
  const Pools = (props) => {
    
         const {active, account, library, connector} = useWeb3React();
+        const [forceRefresh, setForceRefresh] = useState(false)
         const { fastRefresh } = useRefresh()
-        const { state: POOLDATA } = useFetchPoolData(account)
+        const { state: POOLDATA } = useFetchPoolData(account, forceRefresh)
         const [state, dispatch] = useReducer(poolReducer, initialState)
         const [contract, query] = useFetchContractWrite(addresses.masterChef, MASTERCHEF["abi"])
 
+
+
+        const [trigger, setTrigger] = useState(true)
+        const [allowance] = useFetchPoolAllowances(trigger)
     
 
     
@@ -181,11 +194,12 @@ const initialState = {
         
     }, [account, active, library])
 
-   
-
-      
 
 
+    const manualRefresh = () => {
+        console.log("BOOMHARU")
+        return setTrigger(prev => !prev)
+    }
     
 
     
@@ -194,10 +208,10 @@ const initialState = {
     // if (POOLDATA.loading == false && library ) {
     //
     //we broke this intentionally for pre-release site launch
-    if (state.preLaunch === false ) {
+    if (POOLDATA.loading == false && library ) {
         const mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
-            <PoolCard master={contract} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+            <PoolCard allowances={allowance} master={contract} refresh={manualRefresh} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
             ));
         return (
             <>
@@ -220,7 +234,7 @@ const initialState = {
     //
     //we broke this intentionally for pre-release site launch
 
-    } else if (state.preLaunch === true) {
+    } else if (POOLDATA.loading == true || !library) {
         const mapPlaceHolderPoolData = POOLS.map( (pool) => (
             <PlaceholderPoolCard data={pool} tokenStake={pool.tokenStakeName}/>
         ))

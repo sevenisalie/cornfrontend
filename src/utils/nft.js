@@ -110,8 +110,12 @@ export const setPoolAllowance = async (tokenAddress, masterchef, _signer) => {
     const ctr = new ethers.Contract(tokenAddress, ERC20Abi, _signer)
     try {
         const approve = await ctr.approve(masterchef.address, ethers.constants.MaxUint256) 
-        return approve
-    } catch (err) {console.log(err)}
+        const receipt = await approve.wait()
+        return receipt
+    } catch (err) {
+        console.log(err)
+        goodToast(`${err.data.message}`)
+    }
 }
 
 
@@ -136,31 +140,43 @@ export const getTokenStakeBalance = async (tokenAddress, _signer, account) => {
 // return results
 
 
-export const userStake = async (_masterchef, pid, amount) => {
+export const userStake = async (_masterchef, pid, amount, decimals) => {
     const ctr = _masterchef;
+    console.log("HANKUS")
+    console.log(ctr)
+    console.log(pid)
+    console.log(amount)
     try {
         //const strAmount = amount.toString();
-        const bigNumAmount = ethers.utils.parseUnits(amount, 18)
-        const formattedBigNumAmount = ethers.utils.formatUnits(bigNumAmount, 18)
+        const bigNumAmount = ethers.utils.parseUnits(amount, decimals)
+        const formattedBigNumAmount = ethers.utils.formatUnits(bigNumAmount, decimals)
         const strPid = pid.toString();
 
         const tx = await ctr.deposit(strPid, bigNumAmount);
         return tx
-    } catch (err) {console.log(err)}
+    } catch (err) {
+        console.log(err)
+        goodToast(`${err.data.message}`)
+    }
 }
 
-export const userUnstake = async (_masterchef, pid, amount) => {
+export const userUnstake = async (_masterchef, pid, amount, decimals) => {
     const ctr = _masterchef;
+
     try {
+     
         //const strAmount = amount.toString();
-        const bigNumAmount = ethers.utils.parseUnits(amount, 18)
+        const bigNumAmount = ethers.utils.parseUnits(amount, decimals)
         const formattedBigNumAmount = ethers.utils.formatUnits(bigNumAmount, 18)
         const strPid = pid.toString();
 
         const tx = await ctr.withdraw(strPid, bigNumAmount);
         return tx
 
-    } catch (err) {console.log(err)}
+    } catch (err) {
+        console.log(err)
+        goodToast(`${err.data.message}`)
+    }
 }
 
 export const userClaim = async (_masterchef, pid) => {
@@ -172,7 +188,10 @@ export const userClaim = async (_masterchef, pid) => {
 
         const tx = await ctr.deposit(strPid, strAmount)
         return tx
-    } catch (err) {console.log(err)}
+    } catch (err) {
+        console.log(err)
+        goodToast(`${err.data.message}`)
+    }
 }
 
 export const toFixed = (num, fixed) => {

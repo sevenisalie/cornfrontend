@@ -6,7 +6,7 @@ import axios from "axios"
 import { getUserTokenBalance } from '../utils/fetchUserData';
 import { POOLS } from '../config/pools';
 import { ERC20Abi } from '../config/abis';
-import { fastRefresh, verySlowRefresh } from "../contexts/RefreshContext"
+
 import useRefresh from '../utils/useRefresh';
 
 // TokenStakeName apydata
@@ -81,9 +81,9 @@ const initialState = {
     error: null,
 }
 
-const useFetchPoolData = (_user) => {
+const useFetchPoolData = (_user, forceRefresh) => {
     const [state, dispatch] = useReducer(poolReducer, initialState)
-    const { verySlowRefresh } = useRefresh()
+    const { verySlowRefresh, slowRefresh } = useRefresh()
     const {active, account, library, connector} = useWeb3React();
 
 
@@ -121,6 +121,7 @@ const useFetchPoolData = (_user) => {
                 pid: pool.pid,
                 tokenStakeName: pool.tokenStakeName,
                 tokenStakeAddress: pool.tokenStakeAddress,
+                decimals: pool.decimals,
                 tokenEarnName: pool.tokenEarnName,
                 depositFee: pool.depositFee,
                 multiplier: pool.multiplier,
@@ -130,22 +131,27 @@ const useFetchPoolData = (_user) => {
                 APY: apyData.POOLS[pool.pid]
             }
         })
-        dispatch({ type: 'allData', payload: data })
+        return dispatch({ type: 'allData', payload: data })
     }
 
     const fetchBoth = async (_userAddress) => {
-        const apy = await getSetAPYData()
-        const user = await getSetUserData(_userAddress)
-        await mergeData(user, apy)
+        try {
+            const user = await getSetUserData(_userAddress)
+            const apy = await getSetAPYData()
+            await mergeData(user, apy)
+        } catch (err) {
+            console.log("error fetching pool data from API")
+            console.log(err)
+        }
+
     }
     
     useEffect(() => {
-        if (active && account) {
+        if (active && _user === account) {
             try {
             
-                const data = fetchBoth(account)
+                fetchBoth(account)
 
-               
 
             } catch (err) {
 
@@ -153,7 +159,7 @@ const useFetchPoolData = (_user) => {
 
             }
         }
-    }, [_user, verySlowRefresh])
+    }, [_user, active, slowRefresh, forceRefresh])
 
  
     console.log("THIS IS THE DATA UR LOOKING FOR")

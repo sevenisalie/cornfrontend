@@ -12,6 +12,8 @@ import {writeContract, userStake, toFixed} from "../../../utils/nft";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {goodToast, badToast} from "../../../components/Toast"
+
 import {Container, Card, Modal} from "react-bootstrap"
 import {HeaderButtonSecondary} from "../../vaults/index"
 import {TokenButton} from "../../nftgallery/components/TokenSelector"
@@ -176,18 +178,61 @@ const DepositButton = styled(HeaderButtonSecondary)`
     }
 `
 
+const MaxButton = styled.div`
+    display: inline;
+    color: #fbdb37;
+    font-size: 0.8em;
+    align-self: center;
+    &:hover {
+        border-width: 3px;
+        color: #dfbb05;
+        cursor: pointer;
+    }
+`
+
 const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
     const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
+    const [verifiedDeposit, setVerifiedDeposit] = useState(false)
     const {data: balanceData} = useFetchBalances()
 
 
-    //props
-    // const bal = props.walletBalance;
-    // console.log("pooooop")
-    // console.log(bal)
+    const handleStakeOnClick = async (pid, amount) => {
+        try {
+            if (active) {
+                goodToast(`Confirming Transaction`)
+                const raw = await userStake(masterChefContract, pid, amount, props.data.allData[props.pid].decimals)
+                const tx = await raw.wait()
+                props.setShowDepositModal(prev => !prev)
+              
+                
+                if (tx.status === 1) {
+                goodToast(`Deposit Successful. UI Syncing...`)
+                } 
 
+                //error handled in userStake() :)
+                      
+                return tx
+                     
+            }  
+          } catch (err) {
+            console.log(err)
+          }
+  
+      }
+
+
+    const verifyDeposit = (_amount, _balance) => {
+        const amountNum = parseFloat(_amount)
+        const balanceNum = parseFloat(_balance)
+        if (amountNum <= balanceNum ) {
+            return true
+        }
+        if (amountNum > balanceNum ) {
+            return false
+        }
+    }  
     
 
     
@@ -216,12 +261,12 @@ const DepositModal = (props) => {
     //hide and show button
     let button;
 
-    if (amount == '') {
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Deposit</DepositButton>;
-      } else if (amount !== ''){
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => props.handleStakeOnClick(props.pid, amount)}>Deposit</DepositButton>;
+    if (amount === '') {
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Enter Amount</DepositButton>;
+      } else if (amount !== '' && verifiedDeposit === true){
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => await handleStakeOnClick(props.pid, amount)}>Deposit</DepositButton>;
       } else {
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Deposit</DepositButton>;
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Enter Amount</DepositButton>;
       }
       
     const amountFilter = (e) => {
@@ -229,6 +274,11 @@ const DepositModal = (props) => {
         const enteredAmount = e.target.value
         if (enteredAmount == '' || enteredAmount.match(/^[0-9]\d*\.?\d*$/)) {
             setAmount(enteredAmount)
+            if (balanceData.loading === false) {
+                const bal = toFixed(balanceData.balances[props.pid].string, 6)
+                const auth = verifyDeposit(enteredAmount, bal)
+                setVerifiedDeposit(auth)
+            }
         }   
     }
     
@@ -250,20 +300,27 @@ const DepositModal = (props) => {
 
                         <TokenLink href={POOLS[props.pid].poolurl} target="_blank">
                         <TokenButton
-                        style={{alignSelf: "center"}}
+                        style={{alignSelf: "center", height: "auto", width: "auto"}}
                         side="in" data={"0"} symbol={props.tokenStake} imageurl={props.imageurl} setTokenOut={() => console.log('dud')} setTokenIn={() => console.log('dud')}>
                         </TokenButton>
                         </TokenLink>
 
-                        <p style={{fontSize: "1.4em", marginTop: "1.0em"}}>
-                        <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
-                        {balanceData.loading !== true  ? toFixed(balanceData.balances[props.pid].string, 6) : 'loading...' }
-                        <DepositButton
-                            style={{fontSize: "0.6em", fontWeight: "800", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
-                            onClick={() => setAmount(balanceData.balances[props.pid].string)}>Max
-                        </DepositButton>
+                        <div style={{alignSelf: "center", fontWeight: "800", fontSize: "0.7em", color: "rgba(242, 242, 242, 0.56", marginTop: "0.7em"}}>
+                            BALANCE
+                        </div>
 
-                        </p>
+                        <div style={{display: "flex", flexDirection: "row"}}>
+                            <p style={{fontSize: "1.4em", marginTop: "0.3em"}}>
+                            <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
+                            {balanceData.loading !== true  ? toFixed(balanceData.balances[props.pid].string, 6) : 'loading...' }
+                            <MaxButton
+                                style={{fontSize: "0.6em", fontWeight: "800", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
+                                onClick={() => setAmount(balanceData.balances[props.pid].string)}>(Max)
+                            </MaxButton>
+                            </p>
+                        </div>
+
+
                     </div>
                     <TokenInput 
                         placeholder = "0.00"

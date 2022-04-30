@@ -37,7 +37,7 @@ const SubHeaderContentContainer = styled.div`
    
 `
 
-export const HeaderButtonSecondary = styled.button`
+export const HeaderButtonSecondary = styled.a`
     border-radius: 15px;
     height: auto;
     width: auto;
@@ -47,7 +47,7 @@ export const HeaderButtonSecondary = styled.button`
     color: #FFFFE0;
     font-size: 20px;
     font-weight: 600;
-
+    text-decoration: none;
     align-self: start;
     margin-right: 15px;
     border-style: solid;
@@ -55,19 +55,15 @@ export const HeaderButtonSecondary = styled.button`
     &:hover {
         background: #fbdb37;
         border-color: #dfbb05;
-        border-width: 3px;
         color: #dfbb05;
-        font-size: 20px;
-        font-weight: 800;
+    
     }
 
     &:focus {
         background: #fbdb37;
         border-color: #dfbb05;
-        border-width: 3px;
         color: #dfbb05;
-        font-size: 20px;
-        font-weight: 800;
+
     }
 
 `
@@ -75,6 +71,7 @@ export const HeaderButtonSecondary = styled.button`
 export const BuyButtonSecondary = styled(HeaderButtonSecondary)`
     align-self: center;
     font-size: 1em;
+    padding: 0.42em;
 
     @media (max-width: 525px) {
         font-size: 0.69em;
@@ -141,7 +138,7 @@ const CobTokenDetails = (props) => {
                 <SubHeaderContentContainer>
               
                     <TokenHeaderText>COB Token</TokenHeaderText>
-                    <BuyButtonSecondary>
+                    <BuyButtonSecondary href='https://quickswap.exchange/#/swap?outputCurrency=0x648FA1E7Dd2722Ba93EC4Da99f2C32347522a37C' target="_blank">
                         Quick <BsArrowUpRight />
                     </BuyButtonSecondary>
                 </SubHeaderContentContainer>

@@ -105,13 +105,24 @@ export const ConnectButton = () => {
 
     useEffect( () => {
         if (account === undefined)  {
-            handleConnect(injected);
+            handleEagerConnect(injected);
         }
     }, [])
 
     const isMetaMaskInstalled = async () => {
         const { ethereum } = window
         return Boolean(ethereum && ethereum.isMetaMask)
+    }
+
+    const handleEagerConnect = async (connector) => {
+        try {
+            await activate(connector);
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const account = accounts[0];
+            // modalToggle()
+            goodToast(`Connected to ${account}`)
+
+        } catch (err) {console.log(err)}
     }
 
     const handleConnect = async (connector) => {
