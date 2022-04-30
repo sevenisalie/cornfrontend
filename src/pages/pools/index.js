@@ -211,7 +211,7 @@ const initialState = {
     if (POOLDATA.loading == false && library ) {
         const mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
-            <PoolCard allowances={allowance} master={contract} refresh={manualRefresh} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+            <PoolCard rawPoolData={POOLS} allowances={allowance} master={contract} refresh={manualRefresh} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
             ));
         return (
             <>

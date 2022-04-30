@@ -263,8 +263,12 @@ const PoolCard = (props, {state}) => {
       )
     }
 
-
-    return (
+    if (props.rawPoolData[props.pid].display === false) {
+      return (
+        null
+      )
+    } else {
+      return (
 
         <>
         <DepositModal data={props.data} tokenStake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl}  pid={props.pid} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal} />
@@ -427,6 +431,9 @@ const PoolCard = (props, {state}) => {
         </>
     
     )
+    }
+
+    
      
                     
 }
