@@ -166,6 +166,8 @@ const initialState = {
 
         const [trigger, setTrigger] = useState(true)
         const [allowance] = useFetchPoolAllowances(trigger)
+
+        const [allowances, setAllowances] = useState('')
     
 
     
@@ -193,6 +195,8 @@ const initialState = {
         } 
         
     }, [account, active, library])
+
+
 
 
 

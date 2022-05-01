@@ -143,6 +143,7 @@ const PoolCard = (props, {state}) => {
     }, [props.data])
     
     useEffect(() => {
+      if (props.allowances.length > 0)
       console.log("ALLOWANZ")
       console.log(props.allowances)
       setAllowance(props.allowances[props.pid].approved)

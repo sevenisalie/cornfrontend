@@ -165,7 +165,7 @@ depositFee: "0.1%"
 pid: 10,
 LP: false,
 tokenStakeAddress: "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6",
-decimals: 18,
+decimals: 8,
 tokenStakeName: "WBTC",
 tokenBaseAddress: "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6",
 poolurl: "https://info.quickswap.exchange/#/pair/0xdc9232e2df177d7a12fdff6ecbab114e2231198d",

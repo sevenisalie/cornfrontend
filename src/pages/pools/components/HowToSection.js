@@ -170,7 +170,7 @@ const HowToSection = () => {
                         <InstructionListItem>Hitchhiker friendly fees {`👽`} (0.1%)</InstructionListItem>
                         <InstructionListItem>Don't forget to approve the pool first!</InstructionListItem>
                         <InstructionListItem>
-                            Dividend pools are separate and can be found above
+                            Dividend pools are separate and are coming soon*
                             <InstructionLink href="#" target="_blank" >{`👆`}</InstructionLink>
                         </InstructionListItem>
                     </InstructionList>

@@ -137,6 +137,8 @@ const useFetchPoolData = (_user, forceRefresh) => {
     const fetchBoth = async (_userAddress) => {
         try {
             const user = await getSetUserData(_userAddress)
+            console.log("PIZZAHUT")
+            console.log(user)
             const apy = await getSetAPYData()
             await mergeData(user, apy)
         } catch (err) {

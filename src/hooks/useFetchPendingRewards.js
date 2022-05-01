@@ -36,6 +36,7 @@ const useFetchPendingRewards = () => {
     
                 const sum = getSum(callData)
                 setTotal(toFixed(sum, 2))
+
             }   
         } catch (err) {console.log(err)}
         
