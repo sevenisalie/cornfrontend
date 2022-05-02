@@ -20,10 +20,17 @@ export const writeContract = async (active, _signer, _account, _address, _abi) =
             const ctr = new ethers.Contract(_address, _abi, _signer)
             if (ctr.address) {
                 return ctr
-            } else {
-                console.log("Contract failed to load, refresh signer")
-            }
+            } 
         } catch (err) {console.log(err)}
+    }
+}
+
+export const CornProvider = async () => {
+    try {
+        const provider = new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL);
+        return provider
+    } catch (err) {
+        console.log(err)
     }
 }
 
