@@ -31,7 +31,7 @@ const useFetchPendingRewards = () => {
     useEffect( async () => {
         try {
             if (account) {
-                const callData = await mapPendingCobCalls(library.getSigner())
+                const callData = await mapPendingCobCalls(library.getSigner(), account)
                 setResults(callData)
     
                 const sum = getSum(callData)

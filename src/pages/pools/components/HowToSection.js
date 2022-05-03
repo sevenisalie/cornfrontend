@@ -142,8 +142,9 @@ const ClaimButton = styled(HeaderButtonSecondary)`
 `
 
 const HowToSection = () => {
-    const [contract, results, total] = useFetchPendingRewards()
     const {active, account, library, connector} = useWeb3React();
+    const [contract, results, total] = useFetchPendingRewards()
+
 
 
     const claimAll = async () => {

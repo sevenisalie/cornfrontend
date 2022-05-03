@@ -133,8 +133,7 @@ const poolReducer = (state, action) => {
     
 
     }
-    console.log("STATE")
-    console.log(state)
+
     return state
 }
 
@@ -154,20 +153,19 @@ const initialState = {
 }
 
  const Pools = (props) => {
-   
+        const [trigger, setTrigger] = useState(true)
+        const [allowance] = useFetchPoolAllowances(trigger)
+
+        const [allowances, setAllowances] = useState('')
         const {active, account, library, connector} = useWeb3React();
-        const [forceRefresh, setForceRefresh] = useState(false)
         const { fastRefresh } = useRefresh()
-        const { state: POOLDATA } = useFetchPoolData(account, forceRefresh)
+        const { state: POOLDATA } = useFetchPoolData(account, trigger)
         const [state, dispatch] = useReducer(poolReducer, initialState)
         const [contract, query] = useFetchContractWrite(addresses.masterChef, MASTERCHEF["abi"])
 
 
 
-        const [trigger, setTrigger] = useState(true)
-        const [allowance] = useFetchPoolAllowances(trigger)
-
-        const [allowances, setAllowances] = useState('')
+      
     
 
     
@@ -188,8 +186,7 @@ const initialState = {
                 const _userBalances = await Promise.all(userBalancePromises)
                 
                 dispatch({ type: "userBalances", payload: _userBalances})
-                console.log("balances")
-                console.log(_userBalances)
+             
     
             } catch (err) {console.log(err)}
         } 
@@ -201,9 +198,10 @@ const initialState = {
 
 
     const manualRefresh = () => {
-        console.log("BOOMHARU")
         return setTrigger(prev => !prev)
     }
+
+ 
     
 
     

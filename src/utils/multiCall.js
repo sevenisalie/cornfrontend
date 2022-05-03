@@ -1,9 +1,15 @@
 import {ethers} from "ethers"
 import {Provider, Contract} from "ethers-multicall"
+import BigNumber from "bignumber.js";
+
 import {addresses} from "../config/addresses"
 import {POOLS} from "../config/pools"
 import {ERC20Abi} from "../config/abis"
 import MASTERCHEF from "../config/build/contracts/MasterChefV2.json"
+
+import { toFixed } from "./nft"
+
+
 
 //READ REWARDS
 
@@ -21,7 +27,7 @@ export const resolvePendingCobCalls = async (calls, provider) => {
 
 }
 
-export const mapPendingCobCalls = async (provider) => {
+export const mapPendingCobCalls = async (provider, account) => {
     try {
         const masterChef = new Contract(
             addresses.masterChef,
@@ -29,7 +35,7 @@ export const mapPendingCobCalls = async (provider) => {
         )
     
         const pendingCalls = POOLS.map( pool => 
-            masterChef.pendingCob(pool.pid, "0x395977E98105A96328357f847Edc75333015b8f4")
+            masterChef.pendingCob(pool.pid, account)
         )
     
         const data = await resolvePendingCobCalls(pendingCalls, provider)
@@ -125,3 +131,66 @@ export const mapPoolAllowances = async (account, provider) => {
     }
 
 }
+
+// cob token details
+
+export const resolveTokenDetailCalls = async (calls, provider) => {
+    try {
+        const callProvider = new Provider(provider, 137)
+
+        const data = await callProvider.all(calls)
+        return data
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+export const mapTokenDetailCalls = async (provider) => {
+    try {
+        const cob = new Contract(
+            addresses.tokens.COB,
+            ERC20Abi,
+        )
+        const usdc = new Contract(
+            addresses.tokens.USDC,
+            ERC20Abi,
+        )
+        const lp = addresses.tokens.lp.COBUSDC
+        const totalSupply =  cob.totalSupply()
+        const tokenALpBalance =  cob.balanceOf(lp)
+        const tokenBLpBalance =  usdc.balanceOf(lp)
+        const calls = [totalSupply, tokenALpBalance, tokenBLpBalance]
+
+        const data = await resolveTokenDetailCalls(calls, provider)
+
+        //crunching
+        const numTotalSupply = parseFloat(ethers.utils.formatUnits(data[0], 18))
+    
+        const cobLpBalance = parseFloat(ethers.utils.formatUnits(data[1], 18))
+    
+        const UsdcLpBalance = parseFloat(ethers.utils.formatUnits(data[2], 6))
+
+        const tokenPriceVsQuote = new BigNumber(UsdcLpBalance).div(new BigNumber(cobLpBalance))
+        const price = tokenPriceVsQuote.toPrecision()
+        const mc = price * numTotalSupply
+        const cleanMarketCap = toFixed(mc, 3)
+        const cleanPrice = toFixed(price, 5)
+        BigNumber.config({ EXPONENTIAL_AT: 1e+9 })
+       
+    
+        const cleanData = {
+            supply: numTotalSupply,
+            price: cleanPrice,
+            marketCap: cleanMarketCap
+    
+        }
+        return cleanData
+    } catch (err)  {
+        console.log("BRAIL ERROR")
+        console.log(err)
+    }
+}
+
+
+

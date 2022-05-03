@@ -144,8 +144,6 @@ const PoolCard = (props, {state}) => {
     
     useEffect(() => {
       if (props.allowances.length > 0)
-      console.log("ALLOWANZ")
-      console.log(props.allowances)
       setAllowance(props.allowances[props.pid].approved)
     }, [props.allowances])
 
@@ -183,7 +181,6 @@ const PoolCard = (props, {state}) => {
       if (account) {
         try {
           fetchPending()
-          console.log(props.state)
         } catch (err) {
           console.log(err)
         }
@@ -218,10 +215,7 @@ const PoolCard = (props, {state}) => {
       try {
         goodToast(`Confirming Transaction`)
         const raw = await userClaim(masterChef, pid)
-        console.log("TRANNNY")
-        console.log(raw)
         const tx = await raw.wait()
-        console.log(tx)
 
           if (tx.status === 1) {
             goodToast(`Rewards Claimed`)
@@ -239,8 +233,7 @@ const PoolCard = (props, {state}) => {
         goodToast("Confirming Transaction");
         
 
-        console.log("TRANS")
-        console.log(token)
+    
         //pid, tokenAddress, masterchef, _signer
           const tx = await setPoolAllowance(token, masterChef, library.getSigner())
           if (tx.status === 1) {

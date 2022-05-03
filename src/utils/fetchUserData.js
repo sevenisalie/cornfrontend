@@ -64,8 +64,7 @@ export const fetchUserPoolData = async (_masterChef, _library, _account, poolLen
             const depositFee = pool.depositFeeBP;
             const userStakedBigNum = dataPackBalances[index]
             const userStaked = ethers.utils.formatUnits(userStakedBigNum.amount, 18)
-            console.log("USERSTAKED IN M FUNCTION")
-            console.log(userStaked)
+          
             
             // const userApproved = fetchPoolAllowance() // fix this dummy
             // pools, _signer, _account, _masterchef

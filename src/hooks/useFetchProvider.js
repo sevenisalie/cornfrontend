@@ -12,7 +12,7 @@ const useFetchProvider = () => {
                 return setProvider(prov)
             } catch (err) {
                 console.log(err)
-                setRetry(true)
+                setRetry(prev => !prev)
             }
         }
 

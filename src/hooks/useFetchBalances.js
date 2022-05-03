@@ -35,8 +35,7 @@ const balanceReducer = (state, action) => {
     
 
     }
-    console.log("STATE")
-    console.log(state)
+   
     return state
 }
 

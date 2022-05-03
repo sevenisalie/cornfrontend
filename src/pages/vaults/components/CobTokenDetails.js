@@ -3,6 +3,7 @@ import styled from "styled-components"
 import {fetchCobTokenInfo} from "../../../utils/fetchUserData"
 import {BsArrowUpRight} from "react-icons/bs"
 import {Placeholder} from "react-bootstrap"
+import useFetchCobDetails from "../../../hooks/useFetchCobDetails"
 
 
 
@@ -100,38 +101,8 @@ const TokenText = styled.div`
 
 
 const CobTokenDetails = (props) => {
-    if (props.account === undefined) {
-        return (
-        
-            <>
-            <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
-                    <SubHeaderContentContainer>
-                  
-                    <TokenHeaderText>COB Token</TokenHeaderText>
-
-                        <Placeholder  animation="glow" as="p">
-                            <Placeholder size="lg" lg={10} />
-                        </Placeholder>
-                    </SubHeaderContentContainer>
-                    <SubHeaderContentContainer>
-                    <TokenHeaderText>Market Cap</TokenHeaderText>
-
-                    
-                        <Placeholder animation="glow" as="p"  >
-                            <Placeholder size="lg" lg={10} />
-                        </Placeholder>
-                    </SubHeaderContentContainer>
-                    <SubHeaderContentContainer>
-                    <TokenHeaderText>Price</TokenHeaderText>
-
-                        <Placeholder animation="glow" as="p"  >
-                            <Placeholder size="lg" lg={10} />
-                        </Placeholder>
-                    </SubHeaderContentContainer>
-                </SubHeaderGridContainer>    
-            </>
-        )
-    } else if (props.token.supply) {
+    const [results] = useFetchCobDetails()
+    
         return (
             <>
             <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
@@ -145,18 +116,16 @@ const CobTokenDetails = (props) => {
                 <SubHeaderContentContainer>
                     <TokenHeaderText>Market Cap</TokenHeaderText>
                     {}
-                    <TokenText>${props.token.marketCap}</TokenText>
+                    <TokenText>${results.marketCap}</TokenText>
                 </SubHeaderContentContainer>
                 <SubHeaderContentContainer>
                     <TokenHeaderText>Price</TokenHeaderText>
-                    <TokenText>${props.token.price}</TokenText>
+                    <TokenText>${results.price}</TokenText>
                 </SubHeaderContentContainer>
             </SubHeaderGridContainer>
             </>
         )
-    } else {
-        return (null)
-    }
+    
     
 }
 

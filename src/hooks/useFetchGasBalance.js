@@ -53,8 +53,7 @@ const balanceReducer = (state, action) => {
     
 
     }
-    console.log("STATE")
-    console.log(state)
+  
     return state
 }
 
@@ -112,8 +111,6 @@ const useFetchBalances = () => {
     }, [active, account, state.setController])
 
 
-    // console.log("GAS STATE")
-    // console.log(state)
 
     return {
         data: state,

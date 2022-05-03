@@ -329,27 +329,10 @@ const FooterImageThree = styled.img`
 
 
 export const Home = () => {
-    const [cobData, setCobData] = useState({Hi: "Hello"})
     const {active, account, library, connector} = useWeb3React();
 
 
-    useEffect( async () => {
-        try {
-            if (active && library && account) {
-                const tokenData = await fetchCobTokenInfo(
-                    active,
-                    library.getSigner(),
-                    account
-                )
-                setCobData(tokenData)
-                console.log("POOOP")
-                console.log(tokenData)
-            } else if (!active) {
-                setCobData({Hi: "Hello"})
-            }
-        } catch (err) {console.log(err)}
-
-    }, [active])
+    
 
 
     //toastie
@@ -404,7 +387,7 @@ export const Home = () => {
 
             
             
-            <CobTokenDetails account={account} token={cobData} />
+            <CobTokenDetails   />
 
              
             <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves2})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "550px"}} >

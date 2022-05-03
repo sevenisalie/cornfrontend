@@ -222,7 +222,6 @@ const UnstakeModal = (props) => {
             try {
 
                 if (active) {
-                    console.log(pid)
                     const tx = await userUnstake(masterChefContract, pid, amount, props.data.allData[props.pid].decimals)
                     props.setShowUnstakeModal(prev => !prev)
                     if (tx.status === 1) {

@@ -25,6 +25,17 @@ export const writeContract = async (active, _signer, _account, _address, _abi) =
     }
 }
 
+const readContract = async (_provider, _address, _abi) => {
+    try {
+        const ctr = new ethers.Contract(_address, _abi, _provider)
+        if (ctr.address) {
+            return ctr
+        }
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export const CornProvider = async () => {
     try {
         const provider = new ethers.providers.JsonRpcProvider(process.env.REACT_APP_RPC_URL);
@@ -90,8 +101,7 @@ export const fetchPoolAllowance = async (_POOLS, _signer, account, masterchefAdd
     })
 
     const callResults = await Promise.all(calls)
-    console.log(`These are your call results from allowance ${callResults}`)
-    console.log(callResults)
+
     return callResults
 
 }
@@ -107,7 +117,6 @@ try {    const calls = pools.map( async (pool) => {
     })
 
     const callResults = await Promise.all(calls)
-    console.log(callResults)
     return callResults
     } catch (err) {console.log(err)}
 
@@ -149,10 +158,7 @@ export const getTokenStakeBalance = async (tokenAddress, _signer, account) => {
 
 export const userStake = async (_masterchef, pid, amount, decimals) => {
     const ctr = _masterchef;
-    console.log("HANKUS")
-    console.log(ctr)
-    console.log(pid)
-    console.log(amount)
+
     try {
         //const strAmount = amount.toString();
         const bigNumAmount = ethers.utils.parseUnits(amount, decimals)
@@ -251,8 +257,7 @@ export const fetchGasBalance = async (_controllerContract, _user) => {
     try {
         const call = await _controllerContract.userGasAmounts(_user)
         const amount = ethers.utils.formatUnits(call, 18)
-        console.log("GAS AMOUNT")
-        console.log(amount)
+     
         return amount
     } catch (err) {console.log(err)}
 }

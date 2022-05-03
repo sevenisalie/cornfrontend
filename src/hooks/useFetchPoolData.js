@@ -66,8 +66,7 @@ const poolReducer = (state, action) => {
     
 
     }
-    console.log("poolReducer State")
-    console.log(state)
+
     return state
 }
 
@@ -81,10 +80,11 @@ const initialState = {
     error: null,
 }
 
-const useFetchPoolData = (_user, forceRefresh) => {
+const useFetchPoolData = (_user, _trigger) => {
     const [state, dispatch] = useReducer(poolReducer, initialState)
-    const { verySlowRefresh, slowRefresh } = useRefresh()
+    const { fastRefresh, verySlowRefresh, slowRefresh } = useRefresh()
     const {active, account, library, connector} = useWeb3React();
+    const [trigger, setTrigger] = useState(_trigger)
 
 
     const getSetAPYData = async () => {
@@ -137,8 +137,7 @@ const useFetchPoolData = (_user, forceRefresh) => {
     const fetchBoth = async (_userAddress) => {
         try {
             const user = await getSetUserData(_userAddress)
-            console.log("PIZZAHUT")
-            console.log(user)
+          
             const apy = await getSetAPYData()
             await mergeData(user, apy)
         } catch (err) {
@@ -161,11 +160,10 @@ const useFetchPoolData = (_user, forceRefresh) => {
 
             }
         }
-    }, [_user, active, slowRefresh, forceRefresh])
+    }, [_user, active, fastRefresh, trigger])
 
  
-    console.log("THIS IS THE DATA UR LOOKING FOR")
-    console.log(state)
+  
     return {
         state: state
     }

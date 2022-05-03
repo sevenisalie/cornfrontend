@@ -10,8 +10,7 @@ const useFetchPoolAllowances = (query) => {
     useEffect(async () => {
         if (account) {
             const data = await mapPoolAllowances(account, library.getSigner())
-            console.log("JAMO")
-            console.log(data)
+          
             setAllowance(data)
         }
 
