@@ -58,7 +58,7 @@ export const resolvePendingClaimCalls = async (calls, provider) => {
 
 }
 
-export const mapPendingClaimCalls = async (provider) => {
+export const mapPendingClaimCalls = async (provider, account) => {
     try {
         const masterChef = new ethers.Contract(
             addresses.masterChef,
@@ -66,16 +66,27 @@ export const mapPendingClaimCalls = async (provider) => {
             provider
         )
 
-        const rewards = await mapPendingCobCalls(provider)
+        const rewards = await mapPendingCobCalls(provider, account)
 
         const filteredPIDS = rewards.map( (reward, index) => {
+            console.log("THIS IS CASUING UR PROBLEM")
+            console.log(reward)
+            console.log(typeof(reward))
             if (reward !== '0.0') {
+                
+                console.log(index)
                 return index
+            } else {
+                return
             }
         })
+
+        const filteredFilteredPIDS = filteredPIDS.filter(pid => {
+            return pid !== undefined
+        })
     
-        const pendingCalls = filteredPIDS.map( pid => {
-            masterChef.deposit(pid, 0)
+        const pendingCalls = filteredFilteredPIDS.map( pid => {
+            return masterChef.deposit(pid, 0)
         })
     
         const data = await resolvePendingClaimCalls(pendingCalls, provider)

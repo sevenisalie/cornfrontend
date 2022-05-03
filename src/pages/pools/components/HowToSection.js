@@ -148,12 +148,15 @@ const HowToSection = () => {
 
 
     const claimAll = async () => {
-    
-        try {
-            return await mapPendingClaimCalls(library.getSigner())
-        } catch (err) {
-            console.log(err)
+        if (account) {
+            try {
+                console.log("PEGGY")
+                return await mapPendingClaimCalls(library.getSigner(), account)
+            } catch (err) {
+                console.log(err)
+            }
         }
+
     }
 
     return (
