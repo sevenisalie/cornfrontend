@@ -143,14 +143,13 @@ const ClaimButton = styled(HeaderButtonSecondary)`
 
 const HowToSection = () => {
     const {active, account, library, connector} = useWeb3React();
-    const [contract, results, total] = useFetchPendingRewards()
+    const {contract, results, total} = useFetchPendingRewards(true)
 
 
 
     const claimAll = async () => {
         if (account) {
             try {
-                console.log("PEGGY")
                 return await mapPendingClaimCalls(library.getSigner(), account)
             } catch (err) {
                 console.log(err)

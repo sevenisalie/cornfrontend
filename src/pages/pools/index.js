@@ -5,7 +5,7 @@ import {ethers} from "ethers";
 import React, {useEffect, useState, useReducer} from "react";
 import { useWeb3React } from "@web3-react/core";
 import useFetchPoolData from "../../hooks/useFetchPoolData"
-
+import useFetchPendingRewards from "../../hooks/useFetchPendingRewards"
 
 //static confg
 import MASTERCHEF from "../../config/build/contracts/MasterChefV2.json";
@@ -156,12 +156,12 @@ const initialState = {
         const [trigger, setTrigger] = useState(true)
         const [allowance] = useFetchPoolAllowances(trigger)
 
-        const [allowances, setAllowances] = useState('')
         const {active, account, library, connector} = useWeb3React();
         const { fastRefresh } = useRefresh()
         const { state: POOLDATA } = useFetchPoolData(account, trigger)
         const [state, dispatch] = useReducer(poolReducer, initialState)
         const [contract, query] = useFetchContractWrite(addresses.masterChef, MASTERCHEF["abi"])
+        const {results} = useFetchPendingRewards(trigger)
 
 
 
@@ -213,7 +213,7 @@ const initialState = {
     if (POOLDATA.loading == false && library ) {
         const mapPoolData =  POOLDATA.allData.map((pool, index) => (
 
-            <PoolCard rawPoolData={POOLS} allowances={allowance} master={contract} refresh={manualRefresh} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+            <PoolCard rewards={results} rawPoolData={POOLS} allowances={allowance} master={contract} refresh={manualRefresh} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
             ));
         return (
             <>
@@ -222,7 +222,6 @@ const initialState = {
 
                 <HowToSection />
                 
-        
                 <PoolGrid >
                     {mapPoolData}
                 </PoolGrid>

@@ -129,14 +129,18 @@ const PoolCard = (props, {state}) => {
     const [showUnstakeModal, setShowUnstakeModal] = useState(false)
     const [loadingData, setLoadingData] = useState(true)
     const [masterChef, setMasterChef] = useState('')
+    const [pendingCob, setPendingCob] = useState('0')
   
     const [allowance, setAllowance] = useState(false)
-    const [pendingCob, setPendingCob] = useState('')
+ 
     const [isOpen, setIsOpen] = useState(false)
 
-    //apyv2
     // catch previous reduced state
     const [data, setData] = useState({})
+
+    useEffect(() => {
+      setPendingCob(props.rewards[props.pid])
+    }, [props.rewards])
 
     useEffect(() => {
       setData(props.data.allData[props.pid])
@@ -151,44 +155,12 @@ const PoolCard = (props, {state}) => {
       setLoadingData(props.data.loading)
     }, [props.data])
 
-    
- 
-
-
-
-
-
-  useEffect(() => {
-    
-      setMasterChef(props.master)
-     
-  }, [props.master])
+    useEffect(() => {
+        setMasterChef(props.master)
+    }, [props.master])
 
   
-  const fetchPending = async () => {
-
-    try {
-
-      const pendingCob = await masterChef.pendingCob(props.pid, account)
-      setPendingCob(ethers.utils.formatUnits(pendingCob, 18))
-    } catch (err) {
-      console.log(err)
-    }
-  }
   
-  useEffect(  () => {
-    if (masterChef !== '') {
-      if (account) {
-        try {
-          fetchPending()
-        } catch (err) {
-          console.log(err)
-        }
-        
-      }
-    }
-
-  }, [account, masterChef, slowRefresh])
 
 
  
@@ -203,6 +175,9 @@ const PoolCard = (props, {state}) => {
     const handleOnClick = () => {
         setApproved(!approved)
     }
+
+    const refresh = () => {props.refresh()}
+
 
     const ToastStyle = {
       borderRadius: "50px",
@@ -219,9 +194,10 @@ const PoolCard = (props, {state}) => {
 
           if (tx.status === 1) {
             goodToast(`Rewards Claimed`)
+            refresh()
+
           } 
         
-          
       } catch (err) {
         console.log(err)
       }
