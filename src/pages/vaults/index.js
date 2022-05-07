@@ -9,10 +9,11 @@ import NavigationBar from "../../components/NavigationBar"
 import {Page} from "../../components/Page"
 import {BsArrowUpRight} from "react-icons/bs"
 import {GiToken} from "react-icons/gi"
+import {FaTwitter, FaGithub, FaDiscord} from "react-icons/fa"
 import {Card, Container, Button, Dropdown, Form, Placeholder} from "react-bootstrap"
 import {HowToSection} from "./components/HowToSection"
 import OracleBar from "../../components/OracleBar"
-
+import CobTokenDetails from "./components/CobTokenDetails"
 //images
 import Gelatologo from "../../assets/images/Gelatologo.svg"
 import waves1 from "../../assets/images/waves1.png"
@@ -326,94 +327,12 @@ const FooterImageThree = styled.img`
     }
 `
 
-const CobTokenDetails = (props) => {
-    if (props.token == undefined) {
-        return (
-        
-            <>
-            <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
-                    <SubHeaderContentContainer>
-                  
-                        <Placeholder animation="glow" as="h2" >
-                            <Placeholder size="lg" lg={10} />
-                        </Placeholder>
-                        <Placeholder  animation="glow" >
-                            <Placeholder size="lg" lg={7} />
-                        </Placeholder>
-                    </SubHeaderContentContainer>
-                    <SubHeaderContentContainer>
-                        <Placeholder animation="glow" as="h2"  >
-                            <Placeholder size="lg" lg={10} />
-                        </Placeholder>
-                    
-                        <Placeholder animation="glow" as="p"  >
-                            <Placeholder size="lg" lg={10} />
-                        </Placeholder>
-                    </SubHeaderContentContainer>
-                    <SubHeaderContentContainer>
-                        <Placeholder animation="glow" as="p"  >
-                            <Placeholder size="lg" lg={10} />
-                        </Placeholder>
-                        <Placeholder animation="glow" as="p"  >
-                            <Placeholder size="lg" lg={10} />
-                        </Placeholder>
-                    </SubHeaderContentContainer>
-                </SubHeaderGridContainer>    
-            </>
-        )
-    } else if (props.token.supply) {
-        return (
-            <>
-            <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
-                <SubHeaderContentContainer>
-              
-                    <h2 style={{color: "#fbdb37", fontWeight: "600"}}>COB Token</h2>
-                    <BuyButtonSecondary>
-                        Buy <BsArrowUpRight />
-                    </BuyButtonSecondary>
-                </SubHeaderContentContainer>
-                <SubHeaderContentContainer>
-                    <h2 style={{color: "#fbdb37", fontWeight: "600"}}>Market Cap</h2>
-                    {}
-                    <h2>{props.token.marketCap}</h2>
-                </SubHeaderContentContainer>
-                <SubHeaderContentContainer>
-                    <h2 style={{color: "#fbdb37", fontWeight: "600"}}>Total Supply</h2>
-                    <h2>{props.token.supply}</h2>
-                </SubHeaderContentContainer>
-            </SubHeaderGridContainer>
-            </>
-        )
-    } else {
-        return (null)
-    }
-    
-}
-
-
 
 export const Home = () => {
-    const [cobData, setCobData] = useState({Hi: "Hello"})
     const {active, account, library, connector} = useWeb3React();
 
 
-    useEffect( async () => {
-        try {
-            if (active && library && account) {
-                const tokenData = await fetchCobTokenInfo(
-                    active,
-                    library.getSigner(),
-                    account
-                )
-                setCobData(tokenData)
-                console.log("POOOP")
-                console.log(tokenData)
-            } else if (!active) {
-                setCobData({Hi: "Hello"})
-            }
-        } catch (err) {console.log(err)}
-
-    }, [active])
+    
 
 
     //toastie
@@ -468,7 +387,7 @@ export const Home = () => {
 
             
             
-            {/* <CobTokenDetails token={cobData} /> */}
+            <CobTokenDetails   />
 
              
             <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves2})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "550px"}} >
@@ -479,7 +398,7 @@ export const Home = () => {
                             <BodyBigHeading>Accumulation Distribution Model</BodyBigHeading>
                             <hr></hr>
                             <BodyLittleHeading>
-                                Our base smart contract is built on the principals of institutional algorithmic investing. Accumulate tokens at low price targets and Distribute them at higher prices. 
+                                Our revolutionary smart contract is built on the principals of institutional algorithmic investing. Accumulate tokens at low price targets and Distribute them at higher prices. 
                             </BodyLittleHeading>
                             <BodyLittleHeading style={{color: "#fbdb37", fontWeight: "600"}}>
                                 Easy right? 
@@ -509,7 +428,7 @@ export const Home = () => {
 
                 <BodyContentContainer>
                     <BodyBigHeading style={{fontSize: "310%"}}>Smart Aggregation and Routing</BodyBigHeading>
-                    <BodyLittleHeading>We route orders through multiple DEX's to ensure ample liquidity and reduce slippage.</BodyLittleHeading>
+                    <BodyLittleHeading>Corn routes orders through multiple DEX's to ensure ample liquidity and reduce slippage. Corn's ERC20 router outperforms every individual AMM on the network.</BodyLittleHeading>
                 </BodyContentContainer>
             </BodyGridContainer>
 
@@ -556,7 +475,7 @@ export const Home = () => {
                     <p>Stake liquidity to earn COB token.  No pre-sale, no whitelist, just 100% community driven emissions.</p>
                     <hr></hr>
  
-                    <p>Not only will COB be useful for the community to drive the development of strategies through governance, but it will also as a gas utility token that rewards you in protocol trade fees.</p>
+                    <p>Not only will COB be useful for the community to drive the development of strategies through governance, but it is also a gas utility token that rewards you in protocol trade fees.</p>
                     <p>Get Paid to Trade.</p>
                     </BodyContentCardContainer>
                     </BodyContentCard>
@@ -573,10 +492,11 @@ export const Home = () => {
         <FooterImageThree src={'/assets/images/Sircle.svg'}></FooterImageThree>
         </Container>
 
-        <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "25px", marginBottom: "50px"}}>
-            <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
-            <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank">Twitter</HeaderButtonSecondary>
-            <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank">Github</HeaderButtonSecondary>
+        <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", alignContent: "center", marginTop: "25px", marginBottom: "50px"}}>
+        <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank"><FaTwitter/></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank"><FaGithub /></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://discord.gg/MnyauaMDgQ" target="_blank"><FaDiscord /></HeaderButtonSecondary>
         </Container>
 
         </>

@@ -45,14 +45,12 @@ const useFetchContractWrite = (_ADDRESS, _ABI) => {
     if (active) {
 
         fetchContract()
-        console.log("ppeppp")
-        console.log("This is your fuckin contract")
+       
     } else {
         console.log("something happened and it wasnt fuckin alright")
     }
 }, [active, account, query])
 
-    console.log(contract)
     return [contract, query]
 }
 

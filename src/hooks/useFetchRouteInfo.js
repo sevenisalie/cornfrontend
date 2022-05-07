@@ -134,8 +134,7 @@ const useFetchRouteInfo = (_tokenA, _tokenB, _amount) => {
     
 
     
-    console.log("Router Data")
-    console.log(state)
+    
    
     return {
      

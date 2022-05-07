@@ -16,6 +16,8 @@ import {TokenButton} from "../../nftgallery/components/TokenSelector"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import {goodToast} from "../../../components/Toast"
+
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
 
 const ExitButton = styled.button`
@@ -170,6 +172,18 @@ const TitleContainer = styled.div`
     justify-content: space-between;
 `
 
+const MaxButton = styled.div`
+    display: inline;
+    color: #fbdb37;
+    font-size: 0.8em;
+    align-self: center;
+    &:hover {
+        border-width: 3px;
+        color: #dfbb05;
+        cursor: pointer;
+    }
+`
+
 const UnstakeModal = (props) => {
     const {active, account, library, connector} = useWeb3React();
     const [masterChefContract, setMasterChefContract] = useState(null)
@@ -208,19 +222,14 @@ const UnstakeModal = (props) => {
             try {
 
                 if (active) {
-                    console.log(pid)
-                    const tx = await userUnstake(masterChefContract, pid, amount)
+                    const tx = await userUnstake(masterChefContract, pid, amount, props.data.allData[props.pid].decimals)
                     props.setShowUnstakeModal(prev => !prev)
-                    if (tx) {
-                        if (tx.status == 1) {
-                            goodToast(`Successfully Unstaked... Allow for UI to Update`)
-    
-                        } else {
-                            badToast("Unstake Failed... Check Gas Settings and Try Again")
-                        }
-                    } else if (tx === undefined) {
-                        badToast(`Withdrawal cancelled`)
-                    }
+                    if (tx.status === 1) {
+                        goodToast(`Deposit Successful. UI Syncing...`)
+            
+                        } 
+                              
+                        return tx
 
 
                 }  
@@ -231,13 +240,13 @@ const UnstakeModal = (props) => {
 
  
     let button;
-    if (amount == '') {
-        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} disabled>Withdraw</WithdrawButton>;
+    if (amount === '') {
+        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} disabled>Enter Amount</WithdrawButton>;
       } else if (amount !== ''){
-        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} onClick={async () => handleUnstakeOnClick(props.pid, amount)}>Withdraw</WithdrawButton>
+        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} onClick={async () => await handleUnstakeOnClick(props.pid, amount)}>Withdraw</WithdrawButton>
         ;
       } else {
-        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} disabled >Withdraw</WithdrawButton>;
+        button = <WithdrawButton style={{width: "100%", alignSelf: "center"}} disabled >Enter Amount</WithdrawButton>;
       }
 
       const amountFilter = (e) => {
@@ -271,14 +280,18 @@ const UnstakeModal = (props) => {
                             </TokenButton>
                         </TokenLink>
 
+                        <div style={{alignSelf: "center", fontWeight: "800", fontSize: "0.7em", color: "rgba(242, 242, 242, 0.56", marginTop: "0.7em"}}>
+                            BALANCE
+                        </div>
+
                         <p style={{fontSize: "1.4em", marginTop: "1.0em"}}>
                         <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em", color: "#fbdb37"}}/>
 
-                        { props.state.userPoolDataLoading == false ? toFixed(props.state.userPoolData[props.pid].USER.stakedAmount, 6) : "0"}
-                        <WithdrawButton
+                        { props.data.userDataLoading === false ? toFixed(props.data.userData[props.pid].USER.stakedAmount, 6) : "0"}
+                        <MaxButton
                             style={{fontSize: "0.6em", fontWeight: "800", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
-                            onClick={() => setAmount(props.state.userPoolData[props.pid].USER.stakedAmount)}>Max
-                        </WithdrawButton>
+                            onClick={() => setAmount(props.data.userData[props.pid].USER.stakedAmount)}>Max
+                        </MaxButton>
                         </p>
                     </div>
 

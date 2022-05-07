@@ -3,6 +3,7 @@ import styled from "styled-components"
 import {Container, Button, Card} from "react-bootstrap"
 import {BiPurchaseTagAlt} from "react-icons/bi"
 import {RiRefund2Line, RiFundsLine} from "react-icons/ri"
+import CardBackground from "../../../assets/images/CardBackground.svg"
 
 //components
 import {BodyContentCard, BodyBigHeading, BodyContentCardContainer, BodyLittleHeading} from "../index"
@@ -100,7 +101,7 @@ const CardThree = styled(Card)`
     }
 `
 const BigCard = styled(Card)`
-    background-image: url("assets/images/CardBackground.svg");
+    background-image: url(${CardBackground});
     background-position: relative;
     border: none;
     height: 100%;

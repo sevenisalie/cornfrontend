@@ -63,8 +63,7 @@ const useFetchNFTCollections = () => {
             const contracts = NFTS.map( (nft) => {
                 fetchContract(nft.address)
             }) 
-            console.log("This is your fuckin data")
-            console.log(state)
+         
         } else {
             console.log("something happened and it wasnt good")
         }

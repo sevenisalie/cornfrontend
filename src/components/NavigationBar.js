@@ -12,7 +12,7 @@ import DepositModal from "./DepositModal"
 
 import {AiOutlineSwap} from "react-icons/ai"
 import {GiCorn, GiHamburgerMenu} from "react-icons/gi"
-import {FaGasPump, FaHome, FaTicketAlt, FaHandHoldingWater} from "react-icons/fa"
+import {FaGasPump, FaHome, FaTicketAlt, FaHandHoldingWater, FaTwitter, FaDiscord, AiFillGithub, FaGithub} from "react-icons/fa"
 
 
 
@@ -576,7 +576,7 @@ export const NavigationBar = () => {
                 
             <NavMenuOverlay>
                 <Menu>
-                    <MobileMenuRow>
+                    <MobileMenuRow style={{marginTop: "0.42em"}}>
                         <MobileMenuGasContainer>
                             <CornIcon/>
                             <MobileGasTank />
@@ -612,10 +612,11 @@ export const NavigationBar = () => {
 
                     </MobileMenuLinkContainer>
 
-                    <MobileMenuRow>
-                    <HeaderButtonSecondary href="https://medium.com/@cornfinance" target="_blank">Medium</HeaderButtonSecondary>
-                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank">Twitter</HeaderButtonSecondary>
-                    <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank">Github</HeaderButtonSecondary>
+                    <MobileMenuRow style={{justifyContent: "center"}}>
+                    <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank"><FaTwitter/></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank"><FaGithub /></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://discord.gg/MnyauaMDgQ" target="_blank"><FaDiscord /></HeaderButtonSecondary>
                     </MobileMenuRow>
                 </Menu>                
             </NavMenuOverlay>

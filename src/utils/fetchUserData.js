@@ -1,6 +1,6 @@
 import React from "react";
 import {ethers} from "ethers";
-import {writeContract} from "./nft"
+import {toFixed, writeContract} from "./nft"
 import {quickRouterAbi, ERC20Abi} from "../config/abis"
 import {addresses} from "../config/addresses"
 import BigNumber from "bignumber.js";
@@ -64,8 +64,7 @@ export const fetchUserPoolData = async (_masterChef, _library, _account, poolLen
             const depositFee = pool.depositFeeBP;
             const userStakedBigNum = dataPackBalances[index]
             const userStaked = ethers.utils.formatUnits(userStakedBigNum.amount, 18)
-            console.log("USERSTAKED IN M FUNCTION")
-            console.log(userStaked)
+          
             
             // const userApproved = fetchPoolAllowance() // fix this dummy
             // pools, _signer, _account, _masterchef
@@ -182,28 +181,31 @@ export const fetchCobTokenInfo = async (_active, signer, _account) => {
     try {
         const cobctr = await writeContract(_active, signer, _account, addresses.tokens.COB, ERC20Abi)
         const usdcctr = await writeContract(_active, signer, _account, addresses.tokens.USDC, ERC20Abi)
-    
+        const lp = addresses.tokens.lp.COBUSDC
     
         // const lpctr = await fetchContract(addresses.tokens.lp.COBUSDC, UniPairAbi)
         // const ctr = ctr_read.connect(signer)
         const totalSupply = await cobctr.totalSupply()
         const numTotalSupply = parseFloat(ethers.utils.formatUnits(totalSupply, 18))
     
-        const tokenALpBalance = await cobctr.balanceOf(addresses.tokens.lp.COBUSDC)
+        const tokenALpBalance = await cobctr.balanceOf(lp)
         const cobLpBalance = parseFloat(ethers.utils.formatUnits(tokenALpBalance, 18))
     
-        const tokenBLpBalance = await usdcctr.balanceOf(addresses.tokens.lp.COBUSDC)
+        const tokenBLpBalance = await usdcctr.balanceOf(lp)
         const UsdcLpBalance = parseFloat(ethers.utils.formatUnits(tokenBLpBalance, 6))
     
         const tokenPriceVsQuote = new BigNumber(UsdcLpBalance).div(new BigNumber(cobLpBalance))
-        const mc = UsdcLpBalance / cobLpBalance 
-    
+        const price = tokenPriceVsQuote.toPrecision()
+        const mc = price * numTotalSupply
+        const cleanMarketCap = toFixed(mc, 3)
+        const cleanPrice = toFixed(price, 5)
         BigNumber.config({ EXPONENTIAL_AT: 1e+9 })
        
     
         const data = {
             supply: numTotalSupply,
-            marketCap: tokenPriceVsQuote.toPrecision()
+            price: cleanPrice,
+            marketCap: cleanMarketCap
     
         }
     
