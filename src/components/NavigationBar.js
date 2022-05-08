@@ -614,7 +614,7 @@ export const NavigationBar = () => {
 
                     <MobileMenuRow style={{justifyContent: "center"}}>
                     <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
-                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank"><FaTwitter/></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://twitter.com/CornFiExchange" target="_blank"><FaTwitter/></HeaderButtonSecondary>
                     <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank"><FaGithub /></HeaderButtonSecondary>
                     <HeaderButtonSecondary href="https://discord.gg/MnyauaMDgQ" target="_blank"><FaDiscord /></HeaderButtonSecondary>
                     </MobileMenuRow>
