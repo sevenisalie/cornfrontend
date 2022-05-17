@@ -5,23 +5,27 @@ import { useWeb3React } from "@web3-react/core"
 import { addresses } from "../../../config/addresses"
 import ADDRESSES from "../../../config/build/deployments/map.json"
 import CONTROLLERCONTRACT from "../../../config/build/contracts/Controller.json"
+import RESOLVER from "../../../config/build/contracts/Resolver.json"
 
 import {MasterChefABI, ERC20Abi} from "../../../config/abis"
+import {goodToast, badToast} from "../../../components/Toast"
 
 import axios from "axios"
 import {writeContract, userMint, toFixed, createLimitTrade} from "../../../utils/nft"
+import {approveToken, EasySwap} from "../../../utils/swap"
 import {getUserTokenBalance} from "../../../utils/fetchUserData"
 
 import {BiDownArrow} from "react-icons/bi"
 import {GiTwoCoins} from "react-icons/gi"
 import {FaArrowAltCircleDown} from "react-icons/fa"
+import {AiOutlineUndo} from "react-icons/ai"
 
 import {HeaderButtonSecondary} from "../../vaults/index"
 import TokenSelector from "./TokenSelector"
 import TokenPath from "./TokenPath"
 import {useRefresh} from "../../../utils/useRefresh"
-import useFetchSwapRoute from "../../../hooks/useFetchSwapRoute"
-
+import useFetchRouterInfo from "../../../hooks/useFetchRouterInfo"
+import useFetchContractWrite from "../../../hooks/useFetchContractWrite"
 
 const MainContainer = styled.div`
     display: flex;
@@ -422,6 +426,11 @@ const SubmitButton = styled(HeaderButtonSecondary)`
     width: 100%;
     height: auto;
     margin-top: 0px;
+
+    &:disabled {
+        background: rgba(251, 219, 55, .88);
+        border: rgba(251, 219, 55, .88);
+    }
 `
 const TokenSelectorOverlay = styled.div`
     position: absolute;
@@ -438,14 +447,82 @@ const TokenSelectorOverlay = styled.div`
 
 
 const SubmitSection = (props) => {
+    const {active, library} = useWeb3React()
+    const [contract] = useFetchContractWrite(addresses.vaults.resolver, RESOLVER.abi)
+    
+    const handleSwap = async (routerInfo) => {
+        try {
+            if (active) {
+                const tx = await EasySwap(routerInfo, library.getSigner(), contract)
+                const receipt = await tx.wait()
+    
+                if (receipt.status === 1) {
+                        goodToast(`Swapped ${routerInfo.path[0].name} for ${routerInfo.path[routerInfo.path.length - 1].name}`)
+                    }
+            }
+        } catch (err) {console.log(err)}
+
+    }
+
+    const handleApproveToken = async (path) => {
+        try {
+            if (active) {
+                const tx = await approveToken(path[0].address, addresses.vaults.resolver, library.getSigner())
+                const receipt = await tx.wait()
+
+                if (receipt.status === 1) {
+                    // goodToast(`Swapped ${path[0].name} for ${path[path.length - 1].name}`)
+                    goodToast(`Approved ${path[0].name}`)
+                    props.triggerRefresh()
+                    }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+    if (props.routerData) {
+        return (
+            <>
+                <TitleContainer>
+                    {props.approval == false
+                    ?
+                    <SubmitButton onClick={() => handleApproveToken(props.routerData.path)}>{`Approve ${props.routerData.path[0].name}`}</SubmitButton>
+                    :
+                    <SubmitButton onClick={() => handleSwap(props.routerData)}>{`Swap ${props.routerData.path[0].name}`}</SubmitButton>
+    
+                    }
+                </TitleContainer>
+            </>
+        )
+    } 
+    if (!active) {
+        return (
+            <>
+                <TitleContainer>
+          
+                    <SubmitButton >{`Connect Wallet`}</SubmitButton>
+                   
+                </TitleContainer>
+            </>
+        )
+    }
+
     return (
         <>
             <TitleContainer>
-      
-                <SubmitButton onClick={() => props.mintFunction()}>{props.state.setSubmitButtonText}</SubmitButton>
+                
+                <SubmitButton disabled>{`Enter an Amount`}</SubmitButton>
+               
             </TitleContainer>
         </>
     )
+
+
+
+
+    
 }
 
 
@@ -555,12 +632,6 @@ const orderReducer = (state, action) => {
                 setBalanceIn: action.payload
             }
         }
-        case 'setSubmitButtonText': {
-            return {
-                ...state,
-                setSubmitButtonText: action.payload
-            }
-        }
         case 'bothMarketPrices': {
             return {
                 ...state,
@@ -590,7 +661,6 @@ const initialState = {
     setAmountOut: '',
     setBalanceIn: '',
     setBalanceOut: '',
-    setSubmitButtonText: 'Select a Token',
 }
 
 
@@ -599,7 +669,7 @@ const LimitOrderEntry = (props) => {
     const {active, account, library, connector} = useWeb3React()
     const { fastRefresh } = useRefresh()
     const [state, dispatch] = useReducer(orderReducer, initialState)
-    const [results, query] = useFetchSwapRoute(state.setTokenIn, state.setTokenOut, state.setAmountIn)
+    const {data:results, approval, triggerRefresh} = useFetchRouterInfo(state.setTokenIn, state.setTokenOut, state.setAmountIn)
 
     useEffect( () => {
         if (active) {
@@ -631,34 +701,26 @@ const LimitOrderEntry = (props) => {
  
     const openTokenSelectorOutToggle = () => {
         dispatch({ type: 'openTokenSelectorOut' })
-        console.log("reached")
     }
 
     const setTokenIn = (_tokenData) => {
         dispatch({ type: "setTokenIn", payload: _tokenData })
-        console.log('Beans n Cocks')
     }
 
     const setAmountIn = (_amount) => {
         dispatch({ type: "setAmountIn", payload: _amount })
-        console.log(state)
-        setSubmitButtonText('Enter Price')
-
     }
 
     const openTokenSelectorInToggle = () => {
         dispatch({ type: 'openTokenSelectorIn' })
-        console.log("reached")
     }
 
     const setTokenOut = (_tokenData) => {
         dispatch({ type: "setTokenOut", payload: _tokenData })
-        setSubmitButtonText('Enter Amount')
     }
     
     const setAmountOut = (_amount) => {
         dispatch({ type: "setAmountOut", payload: _amount })
-        console.log(state)
     }
 
     const setBalanceIn = (_balanceIn) => {
@@ -670,10 +732,7 @@ const LimitOrderEntry = (props) => {
     }
 
 
-
-    const setSubmitButtonText = (_message) => {
-        dispatch({ type: 'setSubmitButtonText', payload: _message})
-    }
+   
 
  
 
@@ -707,17 +766,14 @@ const LimitOrderEntry = (props) => {
     //populate amount out when amount in and price exist
     useEffect(() => {
 
-        if (state.setAmountIn !== '') {
-            setAmountOut('42')
+        if (results) {
+            setAmountOut(results.amountOut)
+
         }
-    }, [state.side])
+    }, [results])
 
-    //then the reverse
 
-    
 
-   
-    
 
     //create trade pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract
         const handleMintLimit = async () => {
@@ -769,9 +825,11 @@ const LimitOrderEntry = (props) => {
                         <PriceDisplay path={results} state={state} clearOrderEntry={clearOrderEntry} />
 
 
-                        <SubmitSection state={state} mintFunction={handleMintLimit} />
-
+                        <SubmitSection approval={approval} routerData={results} triggerRefresh={triggerRefresh} state={state} mintFunction={handleMintLimit} />
+                        
+                        {results  &&
                         <TokenPath path={results} tokenOut={state.tokenOut} state={state}/>
+                        }
                         
                     </FormContainer>
                     
@@ -784,23 +842,16 @@ const LimitOrderEntry = (props) => {
                 <TokenSelectorOverlay>
                     <TokenSelector side={'in'} setTokenIn={setTokenIn} setTokenOut={setTokenOut} state={state} openTokenSelectorToggle={openTokenSelectorInToggle}/>
                 </TokenSelectorOverlay>
-                
-            
             }
              {state.openTokenSelectorOut == true &&
                 
                 <TokenSelectorOverlay>
                     <TokenSelector side={'out'} setTokenIn={setTokenIn} setTokenOut={setTokenOut} state={state} openTokenSelectorToggle={openTokenSelectorOutToggle}/>
                 </TokenSelectorOverlay>
-                
-            
             }
             
 
         </MainContainer>
-        <pre>
-            {JSON.stringify(results, null, 2)}
-        </pre>
         </>
     )
 }
@@ -921,49 +972,48 @@ const PriceContainer = styled.div`
 
 const ClearFormContainer = styled.div`
     display: flex;
-        align-content: space-between;
-
+    align-content: space-between;
 `
 const ClearFormButton = styled.button`
-text-align: center;
-text-decoration: none;
-display: flex;
-flex-wrap: nowrap;
-position: relative;
-z-index: 1;
-will-change: transform;
-transition: transform 450ms ease 0s;
-transform: perspective(1px) translateZ(0px);
--webkit-box-align: center;
-align-items: center;
-font-size: 1.2em;
-font-weight: 500;
-backdrop-filter: blur(12px) saturate(149%);
--webkit-backdrop-filter: blur(0px) saturate(149%);
-background-color: rgba(29, 30, 32, 0.57);
-border: 1px solid rgba(255, 255, 255, 0.125);
-box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    transition: transform 450ms ease 0s;
+    transform: perspective(1px) translateZ(0px);
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: 500;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
 
-color: rgb(255, 255, 255);
-border-radius: 16px;
+    color: rgb(255, 255, 255);
+    border-radius: 16px;
 
-outline: none;
-cursor: pointer;
-user-select: none;
-height: 2.8rem;
-width: initial;
-padding: 0px 8px;
--webkit-box-pack: justify;
-justify-content: space-between;
-margin-right: 3px;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    height: 2.8rem;
+    width: initial;
+    padding: 0px 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-right: 3px;
 
 
-&:hover {
-    background-color: rgb(44, 47, 54);
-}
-&:focus {
-    background-color: rgb(33, 35, 40);
-}
+    &:hover {
+        background-color: rgb(44, 47, 54);
+    }
+    &:focus {
+        background-color: rgb(33, 35, 40);
+    }
 `
 const RateContainer = styled.div`
     display: flex;
@@ -1024,19 +1074,23 @@ const SwapText = styled.div`
 
 export const PriceDisplay = (props) => {
     const [direction, setDirection] = useState(true)
-    const [results] = useFetchSwapRoute(props.state.setTokenIn, props.state.setTokenOut, 1)
+    const {data:results} = useFetchRouterInfo(props.state.setTokenIn, props.state.setTokenOut, "1")
+    const [amount, setAmount] = useState(`1`)
 
-    const [amount, setAmount] = useState('1')
+    useEffect(() => {
+        if (results) {
+            setAmount(toFixed(results.amountOut, 3))
+        }
+    }, [results])
 
 
 
     const switchAmounts = () => {
         if (direction === true) {
             if (amount !== '') {
-              
-                
+
                 const floatyNum = inversePrice(results.amountOut)
-                setAmount(floatyNum)
+                setAmount(toFixed(floatyNum, 8))
             }
             if (amount == NaN) {
                 setAmount("1")
@@ -1045,7 +1099,7 @@ export const PriceDisplay = (props) => {
 
         if (direction === false) {
             if (amount !== '') {
-                setAmount(results.amountOut)
+                setAmount(toFixed(results.amountOut, 3))
             }
 
             if (amount === NaN) {
@@ -1072,7 +1126,9 @@ export const PriceDisplay = (props) => {
         <>
         <PriceContainer>
             <ClearFormContainer>
-                <ClearFormButton onClick={props.clearOrderEntry}>Clear</ClearFormButton>
+                <ClearFormButton onClick={props.clearOrderEntry}>
+                    <AiOutlineUndo style={{fontWeight: "800", fontSize: "1.3em" }}/>
+                </ClearFormButton>
             </ClearFormContainer>
             <RateContainer>
                 <RateSwapButton onClick={() => handleToggleDirection()}>

@@ -11,6 +11,8 @@ import DepositModal from "./DepositModal"
 
 
 import {AiOutlineSwap} from "react-icons/ai"
+import {SiReadthedocs} from "react-icons/si"
+import {RiAliensFill} from "react-icons/ri"
 import {GiCorn, GiHamburgerMenu} from "react-icons/gi"
 import {FaGasPump, FaHome, FaTicketAlt, FaHandHoldingWater, FaTwitter, FaDiscord, AiFillGithub, FaGithub} from "react-icons/fa"
 
@@ -599,24 +601,32 @@ export const NavigationBar = () => {
                         </MobileMenuRow>
                         <MobileMenuRow style={{borderBottom: "1px solid rgba(244, 244, 244, 0.32", margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
                             <AiOutlineSwap style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em", marginBottom: "0.1em"}} />
-                            <CleanLink onClick={toggle} to="/trade">
-                                <MenuLink href="#">Trade</MenuLink>
+                            <CleanLink onClick={toggle} to="/swap">
+                                <MenuLink href="#">Swap</MenuLink>
                             </CleanLink>
                         </MobileMenuRow>
                         <MobileMenuRow style={{margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
                             <FaTicketAlt style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}} />
-                            <CleanLink onClick={toggle} to="/collections">
-                                <MenuLink href="#">NFTs</MenuLink>
+                            <CleanLink onClick={toggle} to="/trade">
+                                <MenuLink href="#">Trade</MenuLink>
                             </CleanLink>
                         </MobileMenuRow>
 
                     </MobileMenuLinkContainer>
 
                     <MobileMenuRow style={{justifyContent: "center"}}>
-                    <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
-                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank"><FaTwitter/></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank"><SiReadthedocs/></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank"><FaTwitter /></HeaderButtonSecondary>
+          
                     <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank"><FaGithub /></HeaderButtonSecondary>
                     <HeaderButtonSecondary href="https://discord.gg/MnyauaMDgQ" target="_blank"><FaDiscord /></HeaderButtonSecondary>
+
+                    {/* <HeaderButtonSecondary href="#">
+                    <CleanLink onClick={toggle} to="/collections">
+                        <RiAliensFill/>
+                    </CleanLink>
+                    </HeaderButtonSecondary> */}
+                    
                     </MobileMenuRow>
                 </Menu>                
             </NavMenuOverlay>
@@ -643,11 +653,11 @@ export const NavigationBar = () => {
                             <CleanLink to="/pools">
                                 <NavbarLink href="#">Pools</NavbarLink>
                             </CleanLink>
+                            <CleanLink to="/swap">
+                                <NavbarLink href="#">Swap</NavbarLink>
+                            </CleanLink>
                             <CleanLink to="/trade">
                                 <NavbarLink href="#">Trade</NavbarLink>
-                            </CleanLink>
-                            <CleanLink to="/collections">
-                                <NavbarLink href="#">NFTs</NavbarLink>
                             </CleanLink>
                         </LinkContainer>
 
