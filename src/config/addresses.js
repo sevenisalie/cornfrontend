@@ -19,7 +19,7 @@ export const addresses = {
 
     vaults: {
         controller: "0x07f53502db0e721e47BE3F01d2B8aC3D86ED9B22",
-        resolver: "0xa7De8F221BeD2ea75dE1325539e2A1B9C8770B67",
+        resolver: "0x7DEfff816DB6da768De806eC4C8f42fC8FaE4531",
         limitVault: "0xD7c32710Ff3d2Ea038f56DA7Fd019A157263F412",
         stopVault: "0xF48b4223b968d33A951169B22B7a9B25A8FaCe09",
         accDistVault: "0x54819ec7F50250d8D2A05861265FD05f4c9C801E",
