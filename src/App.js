@@ -25,7 +25,7 @@ function App() {
 
           <Route path='/' element={<Home/>} />
      
-          <Route path='/trade' element={<NFT/>} />
+          {/* <Route path='/trade' element={<NFT/>} /> */}
 
           <Route path="/pools" element={<Pools/>} />
 

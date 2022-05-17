@@ -23,6 +23,8 @@ import {AiOutlineUndo} from "react-icons/ai"
 import {HeaderButtonSecondary} from "../../vaults/index"
 import TokenSelector from "./TokenSelector"
 import TokenPath from "./TokenPath"
+import SlippageSelector from "./SlippageSelector"
+
 import {useRefresh} from "../../../utils/useRefresh"
 import useFetchRouterInfo from "../../../hooks/useFetchRouterInfo"
 import useFetchContractWrite from "../../../hooks/useFetchContractWrite"
@@ -62,7 +64,7 @@ const EntryContainer = styled.div`
     margin-top: 1rem;
 `
 
-const CardContentContainer = styled.div`
+export const CardContentContainer = styled.div`
     display: box
     position: relative;
     padding: 8px;
@@ -670,8 +672,9 @@ const LimitOrderEntry = (props) => {
     const { fastRefresh } = useRefresh()
     const [state, dispatch] = useReducer(orderReducer, initialState)
     const {data:results, approval, triggerRefresh} = useFetchRouterInfo(state.setTokenIn, state.setTokenOut, state.setAmountIn)
+    const [toggleSlippage, setToggleSlippage] = useState(false)
 
-    useEffect( () => {
+     useEffect( () => {
         if (active) {
             const nftctr = writeContract(
                 active,
@@ -732,7 +735,9 @@ const LimitOrderEntry = (props) => {
     }
 
 
-   
+   const handleToggleSlippage = () => {
+       setToggleSlippage(prev => !prev)
+   }
 
  
 
@@ -822,7 +827,7 @@ const LimitOrderEntry = (props) => {
                          setAmountOut={setAmountOut}
                          openTokenSelectorToggle={openTokenSelectorOutToggle} />
 
-                        <PriceDisplay path={results} state={state} clearOrderEntry={clearOrderEntry} />
+                        <PriceDisplay  path={results} state={state} clearOrderEntry={clearOrderEntry} toggleSlippage={handleToggleSlippage}/>
 
 
                         <SubmitSection approval={approval} routerData={results} triggerRefresh={triggerRefresh} state={state} mintFunction={handleMintLimit} />
@@ -847,6 +852,12 @@ const LimitOrderEntry = (props) => {
                 
                 <TokenSelectorOverlay>
                     <TokenSelector side={'out'} setTokenIn={setTokenIn} setTokenOut={setTokenOut} state={state} openTokenSelectorToggle={openTokenSelectorOutToggle}/>
+                </TokenSelectorOverlay>
+            }
+
+            {toggleSlippage == true &&
+                <TokenSelectorOverlay>
+                    <SlippageSelector state={state} toggleSlippage={handleToggleSlippage}/>
                 </TokenSelectorOverlay>
             }
             
@@ -1130,6 +1141,11 @@ export const PriceDisplay = (props) => {
                     <AiOutlineUndo style={{fontWeight: "800", fontSize: "1.3em" }}/>
                 </ClearFormButton>
             </ClearFormContainer>
+            <ClearFormContainer>
+                <ClearFormButton onClick={props.toggleSlippage}>
+                    <AiOutlineUndo style={{fontWeight: "800", fontSize: "1.3em" }}/>
+                </ClearFormButton>
+            </ClearFormContainer>
             <RateContainer>
                 <RateSwapButton onClick={() => handleToggleDirection()}>
          
@@ -1139,6 +1155,7 @@ export const PriceDisplay = (props) => {
                     :
                     <SwapText>1 {props.state.setTokenOut.symbol} = {amount} {props.state.setTokenIn.symbol}</SwapText>
                     }
+
                 </RateSwapButton>
             </RateContainer>
         </PriceContainer>  

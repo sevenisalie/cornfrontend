@@ -605,12 +605,12 @@ export const NavigationBar = () => {
                                 <MenuLink href="#">Swap</MenuLink>
                             </CleanLink>
                         </MobileMenuRow>
-                        <MobileMenuRow style={{margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
+                        {/* <MobileMenuRow style={{margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
                             <FaTicketAlt style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}} />
                             <CleanLink onClick={toggle} to="/trade">
                                 <MenuLink href="#">Trade</MenuLink>
                             </CleanLink>
-                        </MobileMenuRow>
+                        </MobileMenuRow> */}
 
                     </MobileMenuLinkContainer>
 
@@ -656,9 +656,9 @@ export const NavigationBar = () => {
                             <CleanLink to="/swap">
                                 <NavbarLink href="#">Swap</NavbarLink>
                             </CleanLink>
-                            <CleanLink to="/trade">
+                            {/* <CleanLink to="/trade">
                                 <NavbarLink href="#">Trade</NavbarLink>
-                            </CleanLink>
+                            </CleanLink> */}
                         </LinkContainer>
 
                 
