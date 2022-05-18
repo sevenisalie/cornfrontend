@@ -17,6 +17,7 @@ import {getUserTokenBalance} from "../../../utils/fetchUserData"
 
 import {BiDownArrow} from "react-icons/bi"
 import {GiTwoCoins} from "react-icons/gi"
+import {GoSettings} from "react-icons/go"
 import {FaArrowAltCircleDown} from "react-icons/fa"
 import {AiOutlineUndo} from "react-icons/ai"
 
@@ -31,9 +32,12 @@ import useFetchContractWrite from "../../../hooks/useFetchContractWrite"
 
 const MainContainer = styled.div`
     display: flex;
+    flex-direction: column;
     height: auto;
     width: 100%;
-    justify-content: space-around;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 
     @media (max-width: 315px) {
         margin-bottom: 6em;
@@ -52,7 +56,7 @@ const MainContainer = styled.div`
       }
 `
 
-const EntryContainer = styled.div`
+export const EntryContainer = styled.div`
     position: relative;
     max-width: 480px;
     width: 100%;
@@ -69,7 +73,7 @@ export const CardContentContainer = styled.div`
     position: relative;
     padding: 8px;
 `
-const FormContainer = styled.div`
+export const FormContainer = styled.div`
     display: grid;
     grid-auto-rows: auto;
     row-gap: 0.25em;
@@ -640,6 +644,12 @@ const orderReducer = (state, action) => {
                 bothMarketPrices: action.payload
             }
         }
+        case "slippage": {
+            return {
+                ...state,
+                slippage: action.payload
+            }
+        }
        
    
     }
@@ -663,6 +673,7 @@ const initialState = {
     setAmountOut: '',
     setBalanceIn: '',
     setBalanceOut: '',
+    slippage: ''
 }
 
 
@@ -704,6 +715,10 @@ const LimitOrderEntry = (props) => {
  
     const openTokenSelectorOutToggle = () => {
         dispatch({ type: 'openTokenSelectorOut' })
+    }
+
+    const setSlippage = (_slippage) => {
+        dispatch({ type: "slippage", payload: _slippage })
     }
 
     const setTokenIn = (_tokenData) => {
@@ -770,7 +785,6 @@ const LimitOrderEntry = (props) => {
 
     //populate amount out when amount in and price exist
     useEffect(() => {
-
         if (results) {
             setAmountOut(results.amountOut)
 
@@ -805,7 +819,11 @@ const LimitOrderEntry = (props) => {
         <>
 
         <MainContainer>
+        {toggleSlippage == true &&
+                    <SlippageSelector setSlippage={setSlippage} state={state} toggleSlippage={handleToggleSlippage}/>
+            }
             <EntryContainer>
+                
                 <CardContentContainer>
                     <FormContainer>
                         
@@ -855,11 +873,7 @@ const LimitOrderEntry = (props) => {
                 </TokenSelectorOverlay>
             }
 
-            {toggleSlippage == true &&
-                <TokenSelectorOverlay>
-                    <SlippageSelector state={state} toggleSlippage={handleToggleSlippage}/>
-                </TokenSelectorOverlay>
-            }
+
             
 
         </MainContainer>
@@ -973,19 +987,18 @@ const AmountEntry = (props) => {
 
 const PriceContainer = styled.div`
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: auto;
     margin-bottom: 0px;
     padding: 2px;
-    justify-content: space-between;
-    align-content: space-between;
+  
+    align-content: center;
+    align-items: center;
 `
 
-const ClearFormContainer = styled.div`
-    display: flex;
-    align-content: space-between;
-`
-const ClearFormButton = styled.button`
+
+export const ClearFormButton = styled.button`
     text-align: center;
     text-decoration: none;
     display: flex;
@@ -1028,7 +1041,10 @@ const ClearFormButton = styled.button`
 `
 const RateContainer = styled.div`
     display: flex;
-    align-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-content: center;
 `
 
 const RateSwapButton = styled(ClearFormButton)`
@@ -1136,27 +1152,29 @@ export const PriceDisplay = (props) => {
     return (
         <>
         <PriceContainer>
-            <ClearFormContainer>
-                <ClearFormButton onClick={props.clearOrderEntry}>
-                    <AiOutlineUndo style={{fontWeight: "800", fontSize: "1.3em" }}/>
-                </ClearFormButton>
-            </ClearFormContainer>
-            <ClearFormContainer>
-                <ClearFormButton onClick={props.toggleSlippage}>
-                    <AiOutlineUndo style={{fontWeight: "800", fontSize: "1.3em" }}/>
-                </ClearFormButton>
-            </ClearFormContainer>
-            <RateContainer>
-                <RateSwapButton onClick={() => handleToggleDirection()}>
-         
-                    { direction == true 
-                    ?
-                    <SwapText>1 {props.state.setTokenIn.symbol} = {amount} {props.state.setTokenOut.symbol}</SwapText>
-                    :
-                    <SwapText>1 {props.state.setTokenOut.symbol} = {amount} {props.state.setTokenIn.symbol}</SwapText>
-                    }
 
-                </RateSwapButton>
+                <ClearFormButton onClick={props.clearOrderEntry} >
+                    <AiOutlineUndo style={{fontWeight: "800", fontSize: "1.3em" }}/>
+                </ClearFormButton>
+
+                <ClearFormButton onClick={props.toggleSlippage} style={{alignSelf: "flex-start"}}>
+                    <GoSettings style={{fontWeight: "800", fontSize: "1.3em" }}/>
+                </ClearFormButton>
+
+            <RateContainer style={{justifyContent: "flex-end"}}>
+                { amount !== "1" && 
+                    <RateSwapButton onClick={() => handleToggleDirection()}>
+                
+                        { direction == true 
+                        ?
+                        <SwapText>1 {props.state.setTokenIn.symbol} = {amount} {props.state.setTokenOut.symbol}</SwapText>
+                        :
+                        <SwapText>1 {props.state.setTokenOut.symbol} = {amount} {props.state.setTokenIn.symbol}</SwapText>
+                        }
+
+                    </RateSwapButton>
+                }
+                
             </RateContainer>
         </PriceContainer>  
         </>

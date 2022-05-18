@@ -179,22 +179,33 @@ const HowToSection = () => {
                     </InstructionList>
             </HowToCard>
 
-            <PendingRewardCard>
-                <RewardContainer>
-                    <RewardText>
-                        PENDING REWARDS
-                    </RewardText>
-                    <RewardAmountText>
-                        <BiCoinStack />{`${total}`}
-                    </RewardAmountText>
-                </RewardContainer>
-           
-                    <ClaimButton onClick={ async () => await claimAll()}>
-                        <AiOutlineDeliveredProcedure style={{marginRight: "0.42em"}} />
-                        Claim
-                    </ClaimButton>
+            <div style={{display: "flex", flexDirection: "column", width: "28em", height: "auto"}}>
+
+                <a  href={`https://rugdoc.io/project/corn-finance/`} target="_blank">
      
-            </PendingRewardCard>
+                <img src={`https://rugdoc.io/assets/2021/06/rugdoc-review-badge-with-glow.png`} style={{width: "100%", height: "auto", marginBottom: "2.69em"}} />
+                </a>
+             
+
+                <PendingRewardCard>
+                    <RewardContainer>
+                        <RewardText>
+                            PENDING REWARDS
+                        </RewardText>
+                        <RewardAmountText>
+                            <BiCoinStack />{`${total}`}
+                        </RewardAmountText>
+                    </RewardContainer>
+            
+                        <ClaimButton onClick={ async () => await claimAll()}>
+                            <AiOutlineDeliveredProcedure style={{marginRight: "0.42em"}} />
+                            Claim
+                        </ClaimButton>
+     
+                </PendingRewardCard>
+            </div>
+
+
         </SectionContainer>
 
         <PoolHeaderText>
