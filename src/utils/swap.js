@@ -175,7 +175,7 @@ export const fetchRouterInfo = async (tokenA, tokenB, amountIn, resolverContract
 
 
 export const EasySwap = async (routerInfo, _slippage, signer, contract) => {
-    const slipco = 1.0 - parseFloat(_slippage)
+    const slipco = 100.00 - parseFloat(_slippage)
     const slippage = parseFloat(routerInfo.amountOut) * slipco
     const slippageString = slippage.toString()
     const router = routerInfo.router.address
