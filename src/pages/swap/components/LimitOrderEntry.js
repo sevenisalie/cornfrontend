@@ -952,6 +952,8 @@ const AmountEntry = (props) => {
                                         <BiDownArrow style={{marginLeft: "5px", fontSize: "0.69em"}} />
                                     </TokenSelectContainer>
                                 </TokenSelect>
+
+
                                
                                 <PriceEntryInput
                                  value={ props.side == 'in' ?  props.state.setAmountIn : props.state.setAmountOut} 
@@ -967,7 +969,7 @@ const AmountEntry = (props) => {
                                  </PriceEntryInput>
 
                                 
-
+                        
                                 
                             </InputRow>
                     { props.side == 'in' && 

@@ -149,7 +149,7 @@ const TokenPath = (props) => {
                             <GiCorn style={{marginLeft: "0.3em"}}/>
                         </RouteText>
                         <RouteText style={{color: `${flash} !important`}}>
-                        {loading ? null : price }
+                        {loading ? null : price * (1 - props.state.slippage/100) }
                    
 
                         </RouteText>
