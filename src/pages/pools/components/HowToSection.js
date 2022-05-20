@@ -163,7 +163,7 @@ const HowToSection = () => {
 
        
         <SectionContainer>
-        
+
             <HowToCard>
                 <InstructionList>
                     <InstructionText style={{fontSize: "1.1em", color: "#fbdb37"}}>
@@ -178,12 +178,11 @@ const HowToSection = () => {
                         </InstructionListItem>
                     </InstructionList>
             </HowToCard>
-
-            <div style={{display: "flex", flexDirection: "column", width: "28em", height: "auto"}}>
+            <div style={{display: "flex", flexDirection: "column", width: "100%", maxWidth: "24em", height: "auto", justifyContent: "center", alignContent: "center", alignItems: "center"}}>
 
                 <a  href={`https://rugdoc.io/project/corn-finance/`} target="_blank">
      
-                <img src={`https://rugdoc.io/assets/2021/06/rugdoc-review-badge-with-glow.png`} style={{width: "100%", height: "auto", marginBottom: "2.69em"}} />
+                <img src="https://rugdoc.io/assets/2021/06/rugdoc-review-badge-with-glow.png" style={{width: "14em", height: "auto", marginBottom: "2.69em"}} />
                 </a>
              
 

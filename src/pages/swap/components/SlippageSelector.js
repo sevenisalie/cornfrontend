@@ -5,6 +5,7 @@ import useFetchContractWrite from "../../../hooks/useFetchContractWrite"
 
 import {CardContentContainer, FormContainer, ClearFormButton, EntryContainer} from "./LimitOrderEntry"
 import {MdCancel} from "react-icons/md"
+import {BsBoxArrowInRight} from "react-icons/bs"
 import {GoSettings} from "react-icons/go"
 const SlippageButtonContainer = styled.div`
     display: flex;
@@ -13,8 +14,8 @@ const SlippageButtonContainer = styled.div`
     width: 80%;
     height: 50px;
     padding: 2px;
-    border-radius: 8px;
-    align-self: center;
+    border-radius: 18px;
+    justify-self: flex-start;
     justify-content: flex-start;
     align-items: center;
     backdrop-filter: blur(12px) saturate(149%);
@@ -25,7 +26,8 @@ const SlippageButtonContainer = styled.div`
     1.4px 4.2px 8.2px -50px rgba(0, 0, 0, 0.032),
     4.7px 14.1px 27.7px -50px rgba(0, 0, 0, 0.048),
     21px 63px 124px -50px rgba(0, 0, 0, 0.08);
-    
+
+
     @media (max-width: 518px) {
         display: none;
       }
@@ -52,6 +54,9 @@ const SlippageButton = styled.button`
     border: 0px;
     text-decoration: none;
     background-color: transparent;
+    font-size: 1em;
+
+
 
     @media (max-width: 1080px) {
         font-size: 0.9em;
@@ -90,9 +95,14 @@ const SlippageButton = styled.button`
         -webkit-backdrop-filter: blur(0px) saturate(149%);
         background-color: rgba(0, 0, 0, 0.3);
     }
+
+    ${({ isActive }) => isActive && `
+    background: #393C3F;
+    color: white;
+  `}
 `
 const SlippageEntryInput = styled.input`
-    color: rgb(255, 255, 255);
+    color: rgba(255, 255, 255, 0.88);
     width: 100%;
     position: relative;
     font-weight: 500;
@@ -101,7 +111,7 @@ const SlippageEntryInput = styled.input`
     -webkit-writing-mode: horizontal-tb !important;
     flex: 1 1 auto;
     background-color: transparent;
-    font-size: 24px;
+    font-size: 1em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -117,41 +127,77 @@ const SlippageEntryInput = styled.input`
         border-color: rgba(0, 0, 0, 0.3);
     }
 `
+//style={{marginLeft: "0.42em", height: "100%", width: "auto", alignSelf: "flex-end", justifySelf: "flex-end"}}
+const SaveSlippageButton = styled(BsBoxArrowInRight)`
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-left: 0.42em;
 
+`
+const SaveButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    margin-left: 1.42em;
+    justify-content: flex-end;
+    justify-self: center;
+    align-self: center;
+    cursor: pointer;
+`
 const SlippageSelector = (props) => {
-    const buttonChoices = ["small", "medium", "large"]
+    const buttonChoices = ["0.1", "0.5", "1"]
+    const [activeButton, setActiveButton] = useState( () => props.state.slippage === "" ? "0.5" : props.state.slippage)
     
     const amountFilter = (e) => {
         e.preventDefault()
-        if (props.side == 'in') {
-            if (e.target.value == '' || e.target.value.match(/^[0-9]\d*\.?\d*$/)) {
+        
+            if (e.target.value == '' || e.target.value.match(/^100(\.0{0,2}?)?$|^\d{0,2}(\.\d{0,2})?$/)) {
                 props.setSlippage(e.target.value)
             } 
-        } else if (props.side == "out") {
-            if (e.target.value == '' || e.target.value.match(/^[0-9]\d*\.?\d*$/)) {
-                props.setSlippage(e.target.value)
-            }
-        }
+    }
+
+    const slippageHandler = (e) => {
+        setActiveButton(e.target.id)
+        props.setSlippage(e.target.id)
     }
 
 
     return (
         <>
         <EntryContainer>
-            <CardContentContainer style={{display: "flex", flexDirection: "row !important"}}>
-                <FormContainer style={{display: "flex", flexDirection: "row !important"}}>
+                <h3 style={{marginLeft: "35px", marginBottom: "0px", marginTop: "1em", alignSelf: "center", justifySelf: "center", fontSize: "1em"}}>Slippage</h3>
+                <FormContainer style={{display: "flex", flexDirection: "row", alignSelf: "center", padding: "1em"}}>
                     <SlippageButtonContainer>
-                        <SlippageButton id="small" >{`0.1%`}</SlippageButton>
-                        <SlippageButton id="medium">{`0.5%`}</SlippageButton>
-                        <SlippageButton id="large">{`1%`}</SlippageButton>
-                        <SlippageEntryInput onChange={amountFilter} placeholder={`Custom`} />
+
+                    {buttonChoices.map(( button ) => (
+                        <SlippageButton 
+                        onClick={slippageHandler}
+                        isActive={activeButton === button ? true : false} 
+                        id={button} >
+                            {button}{`%`}
+                        </SlippageButton>
+
+                    ))}
+
+
+                        <SlippageEntryInput
+                         value={props.state.slippage}
+                         onChange={amountFilter} 
+                         placeholder={`Custom`}
+                         inputmode="decimal"  
+                         pattern="^[0-9]*[.,]?[0-9]*$"
+
+                         />
                     </SlippageButtonContainer>
-                    <ClearFormButton onClick={props.toggleSlippage} style={{marginLeft: "0.42em", height: "100%", width: "auto"}} >
-                    <MdCancel />
-                </ClearFormButton>
+                    
+
+                    <SaveButtonContainer>
+                        
+                    <SaveSlippageButton onClick={props.toggleSlippage}  />
+                    </SaveButtonContainer>
+
                 </FormContainer>
 
-            </CardContentContainer>
 
         </EntryContainer>
 

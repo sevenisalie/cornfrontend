@@ -74,9 +74,10 @@ export const CardContentContainer = styled.div`
     padding: 8px;
 `
 export const FormContainer = styled.div`
-    display: grid;
-    grid-auto-rows: auto;
+    display: flex;
+    flex-direction: column;
     row-gap: 0.25em;
+
 `
 const TitleContainer = styled.div`
     padding: 1rem 1.25rem 0.5rem;
@@ -459,11 +460,12 @@ const SubmitSection = (props) => {
     const handleSwap = async (routerInfo) => {
         try {
             if (active) {
-                const tx = await EasySwap(routerInfo, library.getSigner(), contract)
+                const tx = await EasySwap(routerInfo, props.state.slippage, library.getSigner(), contract)
                 const receipt = await tx.wait()
     
                 if (receipt.status === 1) {
                         goodToast(`Swapped ${routerInfo.path[0].name} for ${routerInfo.path[routerInfo.path.length - 1].name}`)
+                        props.clearOrderEntry()
                     }
             }
         } catch (err) {console.log(err)}
@@ -673,7 +675,7 @@ const initialState = {
     setAmountOut: '',
     setBalanceIn: '',
     setBalanceOut: '',
-    slippage: ''
+    slippage: '0.5'
 }
 
 
@@ -819,9 +821,11 @@ const LimitOrderEntry = (props) => {
         <>
 
         <MainContainer>
-        {toggleSlippage == true &&
-                    <SlippageSelector setSlippage={setSlippage} state={state} toggleSlippage={handleToggleSlippage}/>
+
+            {toggleSlippage == true &&
+                <SlippageSelector setSlippage={setSlippage} state={state} toggleSlippage={handleToggleSlippage}/>
             }
+
             <EntryContainer>
                 
                 <CardContentContainer>
@@ -834,7 +838,7 @@ const LimitOrderEntry = (props) => {
                          openTokenSelectorToggle={openTokenSelectorInToggle}
                          />
 
-                        <FaArrowAltCircleDown style={{color: "rgba(251, 219, 55, 0.88)", justifySelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545"}} /> 
+                        <FaArrowAltCircleDown style={{color: "rgba(251, 219, 55, 0.88)", alignSelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545"}} /> 
                         
                         
 
@@ -848,7 +852,7 @@ const LimitOrderEntry = (props) => {
                         <PriceDisplay  path={results} state={state} clearOrderEntry={clearOrderEntry} toggleSlippage={handleToggleSlippage}/>
 
 
-                        <SubmitSection approval={approval} routerData={results} triggerRefresh={triggerRefresh} state={state} mintFunction={handleMintLimit} />
+                        <SubmitSection approval={approval} routerData={results} triggerRefresh={triggerRefresh} clearOrderEntry={clearOrderEntry} state={state} mintFunction={handleMintLimit} />
                         
                         {results  &&
                         <TokenPath path={results} tokenOut={state.tokenOut} state={state}/>
@@ -966,17 +970,19 @@ const AmountEntry = (props) => {
 
                                 
                             </InputRow>
-
+                    { props.side == 'in' && 
                             <TokenDataRow>
-                                <TokenDataContentContainer>
-                                    <TokenPriceSymbolContainer>
-                                        <TokenBalanceText>Balance: { balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
-                                        <TokenMax >(Max)</TokenMax>
-                                    </TokenPriceSymbolContainer>
-                                    
-                                   
-                                </TokenDataContentContainer>
-                            </TokenDataRow>
+                            <TokenDataContentContainer>
+                                <TokenPriceSymbolContainer>
+                                    <TokenBalanceText>Balance: { balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
+                                    <TokenMax >(Max)</TokenMax>
+                                </TokenPriceSymbolContainer>
+                                
+                               
+                            </TokenDataContentContainer>
+                        </TokenDataRow>
+                    }
+
 
                         </InputBox>
                     </InputContainer>    

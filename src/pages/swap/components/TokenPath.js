@@ -145,7 +145,7 @@ const TokenPath = (props) => {
                     <CardRow style={{marginTop: "1.02em"}}>
                         {/* PRICE */}
                         <RouteText >
-                            {`Corn Price`}
+                            {`Amount Out`}
                             <GiCorn style={{marginLeft: "0.3em"}}/>
                         </RouteText>
                         <RouteText style={{color: `${flash} !important`}}>
@@ -158,10 +158,10 @@ const TokenPath = (props) => {
                     <CardRow>
                         {/* PRICE IMPACT */}
                         <RouteText>
-                            {`Price Impact`}
+                            {`Slippage`}
                         </RouteText>
                         <RouteText>
-                            {"0.01%"}
+                            {props.state.slippage}%
                         </RouteText>
                     </CardRow>
 
