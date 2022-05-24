@@ -182,7 +182,7 @@ const HowToSection = () => {
 
                 <a  href={`https://rugdoc.io/project/corn-finance/`} target="_blank">
      
-                <img src="https://rugdoc.io/assets/2021/06/rugdoc-review-badge-with-glow.png" style={{width: "14em", height: "auto", marginBottom: "2.69em"}} />
+                <img src="/assets/images/rugdoc.png" style={{width: "14em", height: "auto", marginBottom: "2.69em"}} />
                 </a>
              
 

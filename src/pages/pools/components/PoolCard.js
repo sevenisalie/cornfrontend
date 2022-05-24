@@ -43,8 +43,6 @@ const ActualPoolCard = styled.div`
     border: 1px solid rgba(255, 255, 255, 0.125);
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.5)
 
-
-
 `
 const CardTitle = styled.div`
   font-weight: 600;
