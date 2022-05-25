@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from "styled-components"
 
+import useFetchPortfolio from "../../../hooks/useFetchPortfolio"
+import { useWeb3React } from "@web3-react/core";
+
 const SectionContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -65,12 +68,16 @@ const CardTwoImage = styled.img`
 
 `
 const UserSection = () => {
+    const {account, library} = useWeb3React()
+    const {data} = useFetchPortfolio(account)
     return (
         <>
            <SectionContainer>
                <CardOne>
                    <CardContentContainer>
-                       <div style={{width: "70%", height: "100%", padding: "2em"}}>user_data</div>
+                       <div style={{width: "70%", height: "100%", padding: "2em"}}>
+                           <p>{JSON.stringify(data)}</p>
+                       </div>
                        <CardOneImage src={"https://via.placeholder.com/150"}/>
                    </CardContentContainer>
                </CardOne>
