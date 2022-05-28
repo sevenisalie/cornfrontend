@@ -7,7 +7,7 @@ import { useWeb3React } from "@web3-react/core";
 const SectionContainer = styled.div`
     display: flex;
     flex-direction: row;
-    height: 482px;
+    height: 382px;
     width: 100%;
     justify-content: space-around;
     align-items: center;
@@ -21,27 +21,34 @@ const SectionContainer = styled.div`
 `
 
 const CardOne = styled.div`
-    border-radius: 50px;
+    border-radius: 12px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 100%;
-    width: 60%;
-    backdrop-filter: blur(12px) saturate(149%);
-    -webkit-backdrop-filter: blur(0px) saturate(149%);
-    background-color: rgba(29, 30, 32, 0.57);
-    border: 1px solid rgba(255, 255, 255, 0.125);
+    width: 70%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background: url(/assets/images/portfoliobg.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     box-shadow: var(--shadow-elevation-medium);
+   
 `
 const CardTwo = styled.div`
     border-radius: 50px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     height: 100%;
     width: 30%;
-    backdrop-filter: blur(12px) saturate(149%);
-    -webkit-backdrop-filter: blur(0px) saturate(149%);
-    background-color: rgba(29, 30, 32, 0.57);
-    border: 1px solid rgba(255, 255, 255, 0.125);
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background: url(https://via.placeholder.com/150) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     box-shadow: var(--shadow-elevation-medium);
 `
 const CardContentContainer = styled.div`
@@ -50,41 +57,43 @@ const CardContentContainer = styled.div`
     width: 100%;
     height: 100%;
     justify-content: space-between;
+    backdrop-filter: saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 1);
+    border: 1px solid rgba(255, 255, 255, 0.125);
 `
 const CardOneImage = styled.img`
-    display: flex;
-    height: 100%;
-    width: 30%;
-    border-radius: 0 50px 50px 0;
-    opacity: 70%;
+    width: auto;
+    height: 380px;
+    border-radius: 0 12px 12px 0;
+    opacity: 100%;
+    padding-top: 5em;
     align-self: flex-end;
 `
 const CardTwoImage = styled.img`
-    display: flex;
-    height: 100%;
-    width: 100%;
+    
+    height: auto;
+    width: auto;
     border-radius: 50px;
     opacity: 70%;
 
 `
 const UserSection = () => {
     const {account, library} = useWeb3React()
-    const {data} = useFetchPortfolio(account)
+    // const {data} = useFetchPortfolio(account)
     return (
         <>
            <SectionContainer>
                <CardOne>
-                   <CardContentContainer>
-                       <div style={{width: "70%", height: "100%", padding: "2em"}}>
-                           <p>{JSON.stringify(data)}</p>
+                   <CardContentContainer style={{width: "90%"}}>
+                       <div style={{display: "flex", flexDirection: "row", width: "auto", height: "100%", padding: "2em"}}>
+                           {/* {JSON.stringify(data)} */}
+                           {"Portfolio Data goes here"}
                        </div>
-                       <CardOneImage src={"https://via.placeholder.com/150"}/>
                    </CardContentContainer>
                </CardOne>
                <CardTwo>
-                   <CardContentContainer>
-                       <CardTwoImage src={"https://via.placeholder.com/150"}/>
-                   </CardContentContainer>
+               
                </CardTwo>
             </SectionContainer> 
         </>

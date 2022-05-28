@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import RESOLVER from "../config/build/contracts/Resolver.json"
 import ERC20 from "../config/build/contracts/ERC20.json"
+import ERC721 from "../config/contracts/ERC721.json"
 import TOKENLIST from "../config/TOKENLIST.json"
 import CONTROLLER from "../config/contracts/Controller.json"
 import GAS_TANK from "../config/contracts/IGasTank.json"
@@ -90,6 +91,24 @@ async function withdraw(vaultId, tokenId, signer) {
   
   // ----------------------------------------------------------------------------------
   
+  var groupBy = function(xs, key) {
+    return xs.reduce(function(rv, x) {
+      (rv[x[key]] = rv[x[key]] || []).push(x);
+      return rv;
+    }, {});
+  };
+
+  const getVaultIdByAddress = async (controller, address) => {
+    const id = await controller.vaultId(address)
+    return id
+  }
+
+  export const fetchOpenTradesByTokenId = async (controller, tokenId, vaultAddress) => {
+      const vaultId = await getVaultIdByAddress(controller, vaultAddress) 
+      const trades = await controller.viewOpenOrdersByToken(vaultId, tokenId)
+      return trades
+  }
+
   export async function vaultTokensByOwner(owner, signer) {
     
     const controllerView = await fetchContract(addresses.vaults.controllerView, CONTROLLER_VIEW.abi, signer);
@@ -99,10 +118,17 @@ async function withdraw(vaultId, tokenId, signer) {
 
     const vaults = [];
     for(const vault of vaultTokens) {
+      const trades = await fetchOpenTradesByTokenId(controllerView, vault.tokenId.toNumber(), vault.vault)
         vaults.push({
             vault: vault.vault,
-            tokenId: vault.tokenId.toNumber()
+            tokenId: vault.tokenId.toNumber(),
+            openTrades: [
+              ...trades
+            ]
         })
     }
-    return vaults;
+
+
+    return vaults
   }
+

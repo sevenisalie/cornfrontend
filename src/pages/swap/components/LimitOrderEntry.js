@@ -751,6 +751,12 @@ const LimitOrderEntry = (props) => {
         dispatch({ type: 'setBalanceOut', payload: _balanceOut})
     }
 
+    const toggleTokens = () => {
+        const newTokenA = state.setTokenOut
+        const newTokenB = state.setTokenIn
+        dispatch({ type: "setTokenIn", payload: newTokenA })
+        dispatch({ type: "setTokenOut", payload: newTokenB })
+    }
 
    const handleToggleSlippage = () => {
        setToggleSlippage(prev => !prev)
@@ -838,10 +844,14 @@ const LimitOrderEntry = (props) => {
                          openTokenSelectorToggle={openTokenSelectorInToggle}
                          />
 
-                        <FaArrowAltCircleDown style={{color: "rgba(251, 219, 55, 0.88)", alignSelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545"}} /> 
-                        
-                        
 
+                        <FaArrowAltCircleDown
+                        onClick={toggleTokens}
+                        style={{color: "rgba(251, 219, 55, 0.88)", alignSelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545", cursor: "pointer"}}
+                         />  
+                        
+                        
+                        {/* smoke and then turn this into its own component with on hover effect */}
 
                         <AmountEntry
                          state={state}
@@ -977,7 +987,7 @@ const AmountEntry = (props) => {
                             <TokenDataContentContainer>
                                 <TokenPriceSymbolContainer>
                                     <TokenBalanceText>Balance: { balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
-                                    <TokenMax >(Max)</TokenMax>
+                                    <TokenMax onClick={() => props.setAmountIn(balance.toString())}>(Max)</TokenMax>
                                 </TokenPriceSymbolContainer>
                                 
                                

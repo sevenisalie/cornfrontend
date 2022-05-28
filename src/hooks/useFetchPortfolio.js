@@ -12,7 +12,7 @@ const useFetchPortfolio = (_address) => {
 
         const fetchData = async () => {
             try {
-                response = await vaultTokensByOwner(account, library.getSigner())
+                const response = await vaultTokensByOwner(account, library.getSigner())
                 setData(response)
             } catch (err) {
        
