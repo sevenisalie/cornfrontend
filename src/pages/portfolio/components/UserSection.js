@@ -1,8 +1,13 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
-
+import { gql } from "graphql-request"
+import { portfolioTotalsGraphQuery } from "../../../queries/portfolioQueries"
+import { cleanPortfolioTotalData } from "../../../utils/portfolio"
+import { toFixed } from "../../../utils/nft"
 import useFetchPortfolio from "../../../hooks/useFetchPortfolio"
+import useGraphQuery from "../../../hooks/useGraphQuery"
 import { useWeb3React } from "@web3-react/core";
+import ChartWidget from "./ChartWidget"
 
 const SectionContainer = styled.div`
     display: flex;
@@ -12,11 +17,12 @@ const SectionContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     align-content: center;
-    padding: 2.5em;
+    padding: 1.5em;
     column-gap: 0.42em;
-    @media (max-width: 666px) {
+    @media (max-width: 742px) {
         flex-direction: column;
         row-gap: 0.8em;
+        height: 568px;
     }
 `
 
@@ -54,13 +60,12 @@ const CardTwo = styled.div`
 const CardContentContainer = styled.div`
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: 75%;
     height: 100%;
-    justify-content: space-between;
-    backdrop-filter: saturate(149%);
-    -webkit-backdrop-filter: blur(0px) saturate(149%);
-    background-color: rgba(29, 30, 32, 1);
-    border: 1px solid rgba(255, 255, 255, 0.125);
+    justify-content: space-between;    
+    @media (max-width: 742px) {
+        flex-direction: column;
+    }
 `
 const CardOneImage = styled.img`
     width: auto;
@@ -71,30 +76,156 @@ const CardOneImage = styled.img`
     align-self: flex-end;
 `
 const CardTwoImage = styled.img`
-    
     height: auto;
     width: auto;
     border-radius: 50px;
     opacity: 70%;
-
 `
+const InfoGrid = styled.div`
+    display: grid; 
+    grid-template-columns: 0.7fr 1.7fr 0.6fr; 
+    grid-template-rows: 1fr 1fr; 
+    gap: 0.5em 0.5em; 
+    grid-template-areas: 
+    ". Info ."
+    "Tokens Tokens Tokens";
+    width: 100%;
+    height: auto;
+    place-items: center;
+
+    @media (max-width: 742px) {
+        
+    }
+`
+const TokenLogoContainer = styled.div`
+    grid-area: Tokens;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    height: max-content;
+    background-color: transparent;
+    border-radius: 18px;
+    justify-self: center;
+    padding: 0.3em;
+`
+const TokenLogoHexContainer = styled.div`
+    display: grid; 
+    grid-template-columns: auto auto auto; 
+    grid-template-rows: auto; 
+    gap: 0.4px 0.8px; 
+    grid-template-areas: 
+    ". . ."; ;
+    border: solid 2px rgba(166, 202, 157, 1);
+    border-radius: 22px;
+    padding: 0.3em;
+`
+const TokenLogoImage = styled.img`
+    width: 3.5em;
+    height: auto;
+`
+
+const TradeInfoContainer = styled.div`
+    grid-area: Info;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(29, 30, 32, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    border-radius: 22px;
+    box-shadow: var(--shadow-elevation-low);
+    padding: 1.3em;
+    align-self: center;
+`
+const TradeInfoRow = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: auto;
+    align-self: center;
+ 
+`
+const InfoText = styled.p`
+    font-size: 1em;
+    color: rgba(242, 242, 242, 0.87);
+    font-weight: 600;
+    margin: 0px;
+`
+const ValueText = styled.p`
+    font-size: 1.1em;
+    color: rgba(201, 255, 187, 1);
+    font-weight: 700;
+    margin: 0px;
+`
+
+
 const UserSection = () => {
     const {account, library} = useWeb3React()
+    const [query, setQuery] = useState("")
+    const {data:portfolioData} = useGraphQuery(query)
+    const [portfolio, setPortfolio] = useState(null)
+
+    useEffect(() => {
+        if (account) {
+            const q = portfolioTotalsGraphQuery(account)
+            setQuery(q)
+        }
+    }, [account])
+
+    useEffect(() => {
+        const fetchData = () => {
+            const data = cleanPortfolioTotalData(portfolioData.erc20S)
+            setPortfolio(data)
+        }
+        if ( portfolioData ) {
+            fetchData()
+        }
+    }, [portfolioData])
+    
     // const {data} = useFetchPortfolio(account)
+    let mappedTokens;
+    if (portfolio) {
+        mappedTokens = portfolio.allTokenLogos.map( (token) => {
+            return (<TokenLogoImage src={token} />)
+        })
+    }
+
     return (
         <>
+        {/* <pre>
+            {JSON.stringify(portfolio, null, 2)}
+        </pre> */}
            <SectionContainer>
-               <CardOne>
-                   <CardContentContainer style={{width: "90%"}}>
-                       <div style={{display: "flex", flexDirection: "row", width: "auto", height: "100%", padding: "2em"}}>
-                           {/* {JSON.stringify(data)} */}
-                           {"Portfolio Data goes here"}
-                       </div>
+  
+                   <CardContentContainer >
+                           <ChartWidget />
+                           <InfoGrid>
+                                <TokenLogoContainer>
+                                    <TokenLogoHexContainer>
+                                        {
+                                            mappedTokens
+                                        }
+                                    </TokenLogoHexContainer>
+                                </TokenLogoContainer>
+                                <TradeInfoContainer>
+                                    <TradeInfoRow>
+                                        <InfoText>Open Volume:</InfoText>
+                                        <ValueText >${portfolio && toFixed(portfolio.totalValue, 6)}</ValueText>
+                               
+                                        <InfoText>Open Interest</InfoText>
+                                        <ValueText>{portfolio && portfolio.tradeCount}</ValueText>
+                                    </TradeInfoRow>
+                                </TradeInfoContainer>
+                           </InfoGrid>
                    </CardContentContainer>
-               </CardOne>
-               <CardTwo>
+ 
+               {/* <CardTwo>
                
-               </CardTwo>
+               </CardTwo> */}
             </SectionContainer> 
         </>
     )

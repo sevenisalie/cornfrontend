@@ -127,8 +127,62 @@ async function withdraw(vaultId, tokenId, signer) {
             ]
         })
     }
-
-
     return vaults
+  }
+
+  export const matchTokenByAddress = (_tokenAddress) => {
+    try {
+      const token = TOKENLIST.tokens.filter( ( token ) => {
+        return token.address.toLowerCase() === _tokenAddress.toLowerCase()
+      })
+      return token 
+    } catch (err) {
+      console.log(err)
+      return null
+    }
+
+  }
+
+  const sumArray = (_array) => {
+    let n = 0;
+    _array.forEach(i => {
+        const number = parseFloat(i)
+        n = n + number
+    });
+
+    return n.toString()
+}
+
+export  const cleanPortfolioTotalData = (_portfolioData) => {
+    const totalOpen = _portfolioData.map( ( trade ) => {
+      const rawAmount = trade.amount
+      const token = matchTokenByAddress(trade.address)
+      if (!token) {
+        return null
+      }
+      const decimals = token[0].decimals
+      const amount = ethers.utils.formatUnits(rawAmount, decimals)
+
+      return {
+        amount: amount,
+        token: token[0]
+      }
+    })
+
+    const justAmounts = totalOpen.map( ( open ) => {
+      return open.amount
+    })
+    const allTokenLogos = totalOpen.map( ( open ) => {
+      return open.token.logoURI
+    })
+    const totalValueOpen = sumArray(justAmounts)
+    const amountOpen = justAmounts.length
+
+    return {
+      open: totalOpen,
+      totalValue: totalValueOpen,
+      tradeCount: amountOpen,
+      allTokenLogos: allTokenLogos
+    }
   }
 

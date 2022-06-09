@@ -1,21 +1,33 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
+import {request, gql} from "graphql-request"
+import { useWeb3React } from "@web3-react/core";
+import useGraphQuery from "../../../hooks/useGraphQuery"
+import {VAULTS} from "../../../config/vaults"
+import { portfolioGraphRequest } from "../../../queries/portfolioQueries"
 
 import { AiFillEye } from "react-icons/ai"
 import { GoSettings } from "react-icons/go"
 import { BsArrowBarDown, BsArrowRight, BsChevronRight } from "react-icons/bs"
+import { IoRadioButtonOff, IoRadioButtonOn } from "react-icons/io5"
+import { Token } from 'graphql/language/ast';
 
 const TradeGridContainer = styled.div`
     display: grid;
     width: 100%;
     height: auto;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     grid-template-rows: auto;
     justify-items: center;
     align-content: start;
     column-gap: 1em;
     row-gap: 4.20em;
     padding: 2.5em;
+
+    @media (max-width: 960px ) {
+        grid-template-columns: auto;
+
+    }
 `
 
 const TradeCard = styled.div`
@@ -142,10 +154,12 @@ const TradePriceTokenLogo = styled.img`
     height: 1.3em;
 `
 
-const TradeGrid = () => {
-    const mockTrades = ["LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT"]
-    const trades = mockTrades.map(( trade ) => (
-        <TradeCard>
+
+
+const Trade = ({ trade }) => {
+    return (
+        <>
+                <TradeCard>
             <CardContentContainer>
                 <CardContentColumnContainer>
 
@@ -163,7 +177,7 @@ const TradeGrid = () => {
 
 
                     <CardContentRowContainer>
-                        <StrategyTypeText>Limit</StrategyTypeText>
+                        <StrategyTypeText>{trade.strategy}</StrategyTypeText>
                         <TokenOutIcon></TokenOutIcon>
                         <TokenOutImage src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"}></TokenOutImage>
                     </CardContentRowContainer>
@@ -172,21 +186,106 @@ const TradeGrid = () => {
                     <TradeHR></TradeHR>
                     
                     <CardContentRowContainer>
-                        <TradePriceText>1</TradePriceText>
+                        <TradePriceText>{trade.trades[0].orders[0].amountIn}</TradePriceText>
                         <TradePriceTokenLogo src={"https://etherscan.io/token/images/aave_32.png"} />
                         <PathIcon></PathIcon>
-                        <TradePriceText>69.00</TradePriceText>
+                        <TradePriceText>{trade.trades[0].orders[0].desiredAmountOut}</TradePriceText>
                         <TradePriceTokenLogo src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"} />
+                        {
+                            trade.trades[0].orders[0].open === true
+                            ?
+                            <IoRadioButtonOff style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
+                            :
+                            <IoRadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
+                        }
+                        <IoRadioButtonOff style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
+                    </CardContentRowContainer>
+
+                    <CardContentRowContainer>
+                        <TradePriceText>{trade.trades[0].orders[0].amountIn}</TradePriceText>
+                        <TradePriceTokenLogo src={"https://etherscan.io/token/images/aave_32.png"} />
+                        <PathIcon></PathIcon>
+                        <TradePriceText>{trade.trades[0].orders[0].desiredAmountOut}</TradePriceText>
+                        <TradePriceTokenLogo src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"} />
+                        {
+                            trade.trades[0].orders[0].open === true
+                            ?
+                            <IoRadioButtonOff style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
+                            :
+                            <IoRadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
+                        }
                     </CardContentRowContainer>
 
                 </CardContentColumnContainer>
             </CardContentContainer>
         </TradeCard>
+        </>
+    )
+}
+
+const TradeGrid = () => {
+    const {account, library} = useWeb3React()
+    const [query, setQuery] = useState("")
+    const {data:portfolioData} = useGraphQuery(query)
+    const [tradeData, setTradeData] = useState([])
+
+    useEffect(() => {
+        if (account) {
+            const q = portfolioGraphRequest(account)
+            setQuery(q)
+        }
+    }, [account])
+
+    useEffect(() => {
+        if (portfolioData !== "") {
+            const data = mapTrades()
+            setTradeData(data)
+        }
+    }, [portfolioData])
+
+    const mapTrades = () => {
+
+        const mappedTrades = portfolioData.users[0].strategyTokens.map( (strategy) => {
+            const strat = VAULTS.filter( (vault) => {
+                return vault.pid === parseInt(strategy.strategyId)
+
+            })
+    
+            const trades = strategy.trades.map( (trade) => {
+                return trade
+            })
+
+            const ordersOfTrades = trades.map( (trade) => {
+                const orders = trade.orders.map( (order) => {
+                    return order
+                })
+                return orders
+            })
+
+
+            return {
+                strategy: strat[0].name,
+                trades: trades
+  
+            }
+        } )
+        return mappedTrades
+    }
+
+    const mapTradesToCards = tradeData.map( ( trade ) => {
+        return (<Trade trade={trade}/>)
+    })
+    
+
+    const mockTrades = ["LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT", "LIMIT"]
+    const trades = mockTrades.map(( trade ) => (
+        <Trade trade={trade}/>
     ))
     return (
         <>
+        {/* <pre>{JSON.stringify(tradeData, null, 2)}</pre> */}
         <TradeGridContainer>
-            {trades}
+            {mapTradesToCards}
         </TradeGridContainer>
         </>
     )

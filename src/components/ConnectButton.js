@@ -18,8 +18,6 @@ export const injected = new InjectedConnector({
 
 
 const TheButton = styled(Button)`
- 
-
     border-radius: 15px;
     height: auto;
     width: auto;
