@@ -34,8 +34,8 @@ const TradeCard = styled.div`
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    height: 258px;
-    width: 100%;
+    height: max-content;
+    width: max-content;
     margin-top: 2px;
     margin-bottom: 2px;
     background: url(/assets/images/opentradebg.png) no-repeat center center fixed; 
