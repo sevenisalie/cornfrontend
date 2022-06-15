@@ -25,8 +25,10 @@ import waves3 from "../../assets/images/waves3.svg"
 import homeufo from "../../assets/images/homeufo.svg"
 
 
-
+import useGraphQuery from '../../hooks/useGraphQuery'
 import { masterChefQuery } from "../../queries/portfolioQueries";
+
+import { toFixed } from "../../utils/nft"
 
 
 
@@ -360,10 +362,32 @@ const APYContainer = styled.div`
 
 export const Home = () => {
     const {active, account, library, connector} = useWeb3React();
-    const [results, sum, cobAPY] = useFetchTVL()
+    const { data: graphData } = useGraphQuery(masterChefQuery(), "masterchef")
+    const [masterchefData, setMasterchefData] = useState({
+        tvl: 0,
+        apr: 0
+    })
 
-    
-
+    useEffect(() => {
+        if (graphData.masterchefs !== undefined && graphData.pools !== undefined) {
+            let tvl = 0
+            let apr = 0
+            for(let i = 0; i < graphData.pools.length; i++) {
+                tvl = tvl + Number(graphData.pools[i].tvl)
+                // if(graphData.pools[i].id == 15) {}
+            }
+            const cobPool = graphData.pools.find(p => p.id == 15)
+            console.log("log", cobPool)
+            const cobPrice = cobPool.priceUSD
+            const cobPerYear = graphData.masterchefs[0].cobPerBlock * 15017142
+            const cobYearUSD = cobPerYear * cobPrice
+            apr = (cobYearUSD / tvl) * 100
+            setMasterchefData({
+                tvl: toFixed(tvl, 2),
+                apr: toFixed(apr, 2)
+            })
+        }
+    }, [graphData])
 
     //toastie
     const goodToast = (msg) => {
@@ -434,7 +458,7 @@ export const Home = () => {
                                             TVL
                                         </div>
                                         <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
-                                        {`$ ${sum}`}
+                                        {`$ ${masterchefData.tvl}`}
                                         </div>
                                     </BodyContentCardContainer>
                                 </BodyContentCard>
@@ -444,7 +468,7 @@ export const Home = () => {
                                             APY
                                         </div>
                                         <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)"}}>
-                                        {`${cobAPY}%`}
+                                        {`${masterchefData.apr}%`}
                                         </div>
                                     </BodyContentCardContainer>
                                 </BodyContentCard>
