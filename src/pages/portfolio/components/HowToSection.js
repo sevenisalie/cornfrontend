@@ -159,7 +159,7 @@ const HowToSection = () => {
         <>
         <SectionContainer>
         <PoolHeaderText>
-            All Trades
+            {`My Trades`}
         </PoolHeaderText>
         <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Open</HeaderButtonSecondary>
         <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Closed</HeaderButtonSecondary>
