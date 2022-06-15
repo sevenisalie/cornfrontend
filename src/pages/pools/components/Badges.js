@@ -13,5 +13,4 @@ export const MultiplierBadge = styled(Badge)`
     border: 2px solid ${props => props.borderColor ? props.borderColor : "#fbdb37"};
     border-radius: 12px;
     margin: 4px;
-    
 ` 

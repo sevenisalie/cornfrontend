@@ -47,7 +47,8 @@ const useFetchContractWrite = (_ADDRESS, _ABI) => {
         fetchContract()
        
     } else {
-        console.log("something happened and it wasnt fuckin alright")
+        console.log(query)
+        console.log(`fucked up while loading contract`)
     }
 }, [active, account, query])
 

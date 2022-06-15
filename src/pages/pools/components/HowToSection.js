@@ -163,7 +163,7 @@ const HowToSection = () => {
 
        
         <SectionContainer>
-        
+
             <HowToCard>
                 <InstructionList>
                     <InstructionText style={{fontSize: "1.1em", color: "#fbdb37"}}>
@@ -178,23 +178,33 @@ const HowToSection = () => {
                         </InstructionListItem>
                     </InstructionList>
             </HowToCard>
+            <div style={{display: "flex", flexDirection: "column", width: "100%", maxWidth: "24em", height: "auto", justifyContent: "center", alignContent: "center", alignItems: "center"}}>
 
-            <PendingRewardCard>
-                <RewardContainer>
-                    <RewardText>
-                        PENDING REWARDS
-                    </RewardText>
-                    <RewardAmountText>
-                        <BiCoinStack />{`${total}`}
-                    </RewardAmountText>
-                </RewardContainer>
-           
-                    <ClaimButton onClick={ async () => await claimAll()}>
-                        <AiOutlineDeliveredProcedure style={{marginRight: "0.42em"}} />
-                        Claim
-                    </ClaimButton>
+                <a  href={`https://rugdoc.io/project/corn-finance/`} target="_blank">
      
-            </PendingRewardCard>
+                <img src="/assets/images/rugdoc.png" style={{width: "14em", height: "auto", marginBottom: "2.69em"}} />
+                </a>
+             
+
+                <PendingRewardCard>
+                    <RewardContainer>
+                        <RewardText>
+                            PENDING REWARDS
+                        </RewardText>
+                        <RewardAmountText>
+                            <BiCoinStack />{`${total}`}
+                        </RewardAmountText>
+                    </RewardContainer>
+            
+                        <ClaimButton onClick={ async () => await claimAll()}>
+                            <AiOutlineDeliveredProcedure style={{marginRight: "0.42em"}} />
+                            Claim
+                        </ClaimButton>
+     
+                </PendingRewardCard>
+            </div>
+
+
         </SectionContainer>
 
         <PoolHeaderText>

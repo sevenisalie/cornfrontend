@@ -10,6 +10,7 @@ import NFT from "./pages/nftgallery";
 import Pools from "./pages/pools";
 import Swap from "./pages/swap"
 import NFTs from "./pages/nfts"
+import Portfolio from "./pages/portfolio"
 import {NavigationBar} from "./components/NavigationBar";
 import {Footer} from "./components/Footer"
 
@@ -25,7 +26,7 @@ function App() {
 
           <Route path='/' element={<Home/>} />
      
-          <Route path='/trade' element={<NFT/>} />
+          {/* <Route path='/trade' element={<NFT/>} /> */}
 
           <Route path="/pools" element={<Pools/>} />
 
@@ -34,6 +35,8 @@ function App() {
           <Route path="/swap" element={<Swap/>} />
 
           <Route path="/collections" element={<NFTs />} />
+
+          <Route path="/portfolio" element={<Portfolio />} />
 
         </Routes>
       

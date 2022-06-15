@@ -1,9 +1,12 @@
 import React, {useState, useEffect}from 'react'
 import styled, { keyframes } from "styled-components"
 import { ToastContainer, toast } from 'react-toastify';
+import { TwitterTimelineEmbed } from "react-twitter-embed"
+import {Link, NavLink} from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { useWeb3React } from "@web3-react/core";
 import {fetchCobTokenInfo} from "../../utils/fetchUserData"
+import useFetchTVL from '../../hooks/useFetchTVL';
 
 import NavigationBar from "../../components/NavigationBar"
 import {Page} from "../../components/Page"
@@ -20,6 +23,10 @@ import waves1 from "../../assets/images/waves1.png"
 import waves2 from "../../assets/images/waves2.svg"
 import waves3 from "../../assets/images/waves3.svg"
 import homeufo from "../../assets/images/homeufo.svg"
+
+
+
+import { masterChefQuery } from "../../queries/portfolioQueries";
 
 
 
@@ -167,7 +174,7 @@ export const HeaderButtonSecondary = styled(Button)`
         border-width: 3px;
         color: #dfbb05;
         font-size: 20px;
-        font-weight: 800;
+     
     }
 
     &:focus {
@@ -176,7 +183,6 @@ export const HeaderButtonSecondary = styled(Button)`
         border-width: 3px;
         color: #dfbb05;
         font-size: 20px;
-        font-weight: 800;
     }
 `
 const StupidSpan = styled.span`
@@ -269,6 +275,11 @@ const TokenSubHeaderGridContainer = styled(SubHeaderGridContainer)`
     grid-template-columns: auto;
 
 `
+const CleanLink = styled(Link)`
+    text-decoration: none;
+    align-self: center;
+    
+`
 const TokenSubHeaderContentContainer = styled(Container)`
     display: flex;
     text-align: center;
@@ -326,11 +337,37 @@ const FooterImageThree = styled.img`
         margin-bottom: 100px;
     }
 `
+// <div style={{display: "flex", flexDirection: "row", columnGap: "3.82em", padding: "0.5em", margin: "0.5em", justifyContent: "center", alignContent: "center", alignItems: "center"}}>
 
+const APYContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    column-gap: 3.82em;
+    padding: 0.5em;
+    margin: 0.5em;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    margin-bottom: 3em;
+
+    @media (max-width: 712px) {
+        flex-direction: column;
+        row-gap: 1em;
+    }
+`
 
 export const Home = () => {
     const {active, account, library, connector} = useWeb3React();
+    const [results, sum, cobAPY] = useFetchTVL()
+    // useEffect(() => {
 
+    //         const query =  masterChefUserQuery(account)
+    //         setUserQuery(query)
+    //     }
+
+    // }, [])
 
     
 
@@ -389,8 +426,59 @@ export const Home = () => {
             
             <CobTokenDetails   />
 
+    
+                
+
+                        <APYContainer>
+                            <div style={{display: "flex", flexDirection: "column", rowGap: "0.88em", alignContent: "center", alignItems: "center", justifyContent: "center", height: "auto", width: "auto"}}>
+                                <CleanLink to="/pools">
+                                    <BuyButtonSecondary >Stake Now<BsArrowUpRight/></BuyButtonSecondary>
+                                </CleanLink>
+
+                                <BodyContentCard style={{width: "14em"}}>
+                                    <BodyContentCardContainer>
+                                        <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
+                                            TVL
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`$ ${sum}`}
+                                        </div>
+                                    </BodyContentCardContainer>
+                                </BodyContentCard>
+                                <BodyContentCard style={{width: "14em"}}>
+                                    <BodyContentCardContainer>
+                                        <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
+                                            APY
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)"}}>
+                                        {`${cobAPY}%`}
+                                        </div>
+                                    </BodyContentCardContainer>
+                                </BodyContentCard>
+
+
+                            </div>
+                            
+
+                            <BodyContentCard style={{width: "28em"}}>
+                                <BodyContentCardContainer>
+                                    <TwitterTimelineEmbed
+                                    sourceType="profile"
+                                    screenName="CornFiExchange"
+                                    options={{height: 400}}
+                                    theme="dark"
+                                    />
+                                </BodyContentCardContainer>
+                            
+                            </BodyContentCard>
+
+                        </APYContainer>
+
+
+                    
+
              
-            <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves2})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "550px"}} >
+            <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves2})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "44em", }} >
             <BodyGridContainer >
                 <BodyContentContainer>
                     <BodyContentCard>
@@ -433,7 +521,7 @@ export const Home = () => {
             </BodyGridContainer>
 
             
-            <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves1})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "550px"}} >
+            <div style={{display: "flex", paddingRight: "0px", marginLeft: "0px", marginRight: "0px", marginBottom: "100px", backgroundImage: `url(${waves1})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover", width: "100%", height: "44em"}} >
             <BodyGridContainer>
                 <BodyContentContainer>
                     <BodyLittleHeading style={{color: "#fbdb37", fontWeight: "800", fontSize: "2.8em", textAlign: "center"}}>
@@ -466,24 +554,7 @@ export const Home = () => {
                     </BodyContentContainer>
             </BodyGridContainer>
 
-            <TokenSubHeaderGridContainer>
-                <TokenSubHeaderContentContainer style={{alignSelf: "center"}}>
-                    <GiToken style={{alignSelf: "center", color: "#fbdb37", fontSize: "500%", marginBottom: "30px"}}/>
-                    <h2 style={{color: "#fbdb37", fontWeight: "600", fontSize: "240%", marginBottom: "50px"}}>100% Fair Launch Governance Token</h2>
-                    <BodyContentCard>
-                        <BodyContentCardContainer>
-                    <p>Stake liquidity to earn COB token.  No pre-sale, no whitelist, just 100% community driven emissions.</p>
-                    <hr></hr>
- 
-                    <p>Not only will COB be useful for the community to drive the development of strategies through governance, but it is also a gas utility token that rewards you in protocol trade fees.</p>
-                    <p>Get Paid to Trade.</p>
-                    </BodyContentCardContainer>
-                    </BodyContentCard>
-                    <BuyButtonSecondary href="/pools">Staking Coming Soon<BsArrowUpRight/></BuyButtonSecondary>
-
-
-                </TokenSubHeaderContentContainer>
-            </TokenSubHeaderGridContainer>
+            
 
 
         <Container style={{height: "460px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", marginTop: "100px", marginBottom: "20px"}}>
@@ -494,7 +565,7 @@ export const Home = () => {
 
         <Container style={{height: "auto", width: "100%", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", alignContent: "center", marginTop: "25px", marginBottom: "50px"}}>
         <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">Docs</HeaderButtonSecondary>
-                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank"><FaTwitter/></HeaderButtonSecondary>
+                    <HeaderButtonSecondary href="https://twitter.com/CornFiExchange" target="_blank"><FaTwitter/></HeaderButtonSecondary>
                     <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank"><FaGithub /></HeaderButtonSecondary>
                     <HeaderButtonSecondary href="https://discord.gg/MnyauaMDgQ" target="_blank"><FaDiscord /></HeaderButtonSecondary>
         </Container>

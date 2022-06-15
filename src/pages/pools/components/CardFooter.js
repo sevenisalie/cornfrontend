@@ -14,6 +14,7 @@ import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
 import {RiCoinLine} from "react-icons/ri"
 
 import {Container, Card, Button, Image, Placeholder, Spinner} from "react-bootstrap";
+import { POOLS } from "../../../config/pools";
 
 
 
@@ -136,10 +137,28 @@ const CardFooter = (props, {
   
     const handleClick = () => props.setIsOpen()
 
-
+    let pData = {
+      totalDeposited: 0,
+      symbol: "",
+      tvl: 0,
+      priceUSD: 0
+    }
+    if(props.poolData !== null && props.poolData !== undefined) {
+      pData.totalDeposited = props.poolData.totalDeposited
+      pData.symbol = props.poolData.symbol
+      pData.tvl = props.poolData.tvl
+      pData.priceUSD = props.poolData.priceUSD
+    }
     
+    let uData = {
+      depositAmount: 0,
+      pid: 0
+    }
+    if(props.userData !== null && props.userData !== undefined) {
+      uData.pid = props.userData.pid
+      uData.depositAmount = props.userData.depositAmount
+    }
 
-    
     return (
       <StyledFooter isOpen={props.isOpen} isFinished={isFinished}>
         <Row>
@@ -160,17 +179,32 @@ const CardFooter = (props, {
         
             </StyledDetails>
             
+
+            <StyledDetails>
+            <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                  <p style={{fontSize: "80%"}}>Price (USD):</p>
+                  <p style={{fontSize: "80%"}}>{`$${pData.priceUSD > 0.1 ? toFixed(pData.priceUSD, 2) : toFixed(pData.priceUSD, 6)}`}</p>
+                </Container>
+            </StyledDetails>
+
             <StyledDetails>
             <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                   <p style={{fontSize: "80%"}}>Pool TVL:</p>
-                  <p style={{fontSize: "80%"}}>{`$ ${toFixed(props.data.APY.poolTVL, 2)}`}</p>
+                  <p style={{fontSize: "80%"}}>{`$${toFixed(pData.tvl, 2)}`}</p>
+                </Container>
+            </StyledDetails>
+
+            <StyledDetails>
+            <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                  <p style={{fontSize: "80%"}}>Total Staked:</p>
+                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{`${pData.totalDeposited < 1 ? toFixed(pData.totalDeposited, 6) : toFixed(pData.totalDeposited, 2)}`}</p>
                 </Container>
             </StyledDetails>
 
             <StyledDetails>
             <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                   <p style={{fontSize: "80%"}}>User Staked:</p>
-                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{`${toFixed(props.data.USER.stakedAmount, 6)}`}</p>
+                  <p style={{fontSize: "80%"}}><RiCoinLine style={{marginRight: "6px"}}/>{`${toFixed(uData.depositAmount,4)}`}</p>
                 </Container>
             </StyledDetails>
 

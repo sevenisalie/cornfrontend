@@ -14,6 +14,10 @@ const FooterImage = styled.svg`
     height: auto;
     transform: scaleY(1.8);
     margin-top: 30px;
+
+    @media (min-width: 1250px) {
+        transform: scaleY(1.0);
+    }
     
 `
 
