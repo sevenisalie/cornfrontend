@@ -12,11 +12,6 @@ import { BsArrowBarDown, BsArrowRight, BsChevronRight } from "react-icons/bs"
 import { IoRadioButtonOff, IoRadioButtonOn } from "react-icons/io5"
 import { Token } from 'graphql/language/ast';
 
-<<<<<<< HEAD
-import {tokenData} from "../../../utils/tokenData"
-
-=======
->>>>>>> 7943e750b2d79d2eac508df4145450ec893630c1
 const TradeGridContainer = styled.div`
     display: grid;
     width: 100%;
@@ -39,13 +34,8 @@ const TradeCard = styled.div`
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-<<<<<<< HEAD
-    height: 258px;
-    width: 100%;
-=======
     height: max-content;
     width: max-content;
->>>>>>> 7943e750b2d79d2eac508df4145450ec893630c1
     margin-top: 2px;
     margin-bottom: 2px;
     background: url(/assets/images/opentradebg.png) no-repeat center center fixed; 
@@ -295,7 +285,7 @@ const Trade = ({ trade }) => {
 const TradeGrid = () => {
     const {account, library} = useWeb3React()
     const [query, setQuery] = useState("")
-    const {data:portfolioData} = useGraphQuery(query)
+    const {data:portfolioData} = useGraphQuery(query, "controller")
     const [tradeData, setTradeData] = useState([])
 
     useEffect(() => {
