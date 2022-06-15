@@ -5,7 +5,7 @@ import styled from "styled-components";
 import {POOLS} from "../../../config/pools";
 import TOKENLIST from "../../../config/TOKENLIST.json"
 import {addresses} from "../../../config/addresses";
-import {ORDERTYPES} from "../../../config/ordertypes"
+import {VAULTS} from "../../../config/vaults"
 
 
 
@@ -256,7 +256,7 @@ export const OrderTypeButton = (props) => {
 
 const OrderSelector = (props) => {
 
-    const orderTypeMap = ORDERTYPES.map( (order) => (
+    const orderTypeMap = VAULTS.map( (order) => (
         <OrderTypeButton setOrderType={props.setOrderType} data={order} imageurl={order.image} symbol={order.name}/>
     ))
 
@@ -303,7 +303,7 @@ export default OrderSelector
 const OrderSearch = (props) => {
  
 
-        const SearchResultsMap = ORDERTYPES.map( (order) => (
+        const SearchResultsMap = VAULTS.map( (order) => (
             <>
              <ResultContainer>
                  <OrderTypeButton setOrderType={props.setOrderType} data={order} imageurl={order.image} symbol={order.name}></OrderTypeButton>

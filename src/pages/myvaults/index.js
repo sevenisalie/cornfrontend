@@ -24,7 +24,7 @@ import {BiDownArrow} from "react-icons/bi"
 
 
 import {EthIcon, BitcoinIcon, DollarIcon} from "../nftgallery/components/CreateVault"
-import useFetchRouteInfo from "../../hooks/useFetchRouteInfo"
+import useFetchRouterInfo from "../../hooks/useFetchRouterInfo"
 
 const MyVaultContainer = styled(Container)`
     display: flex;
@@ -208,7 +208,7 @@ const OrdersCard = (props) => {
 
     
 const PriceTag = () => {
-    const {state: routerData} =  useFetchRouteInfo(
+    const {state: routerData} =  useFetchRouterInfo(
         "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619",
         "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
         10000000000000

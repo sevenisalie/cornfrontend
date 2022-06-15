@@ -91,6 +91,7 @@ const TokenPath = (props) => {
     const [router, setRouter] = useState('')
     const [paths, setPaths] = useState('')
     const [price, setPrice] = useState('')
+    const [flash, setFlash] = useState(`blue`)
    
 
 
@@ -102,18 +103,19 @@ const TokenPath = (props) => {
         const isLoading = Object.keys(props.path).length === 0
 
 
-
+        setFlash(`rgba(242, 242, 242, 0.95)`)
         setPaths(PATHS)
         setRouter(ROUTER)
         setPrice(PRICE)
         setLoading(isLoading)
-        console.log("POOOOPIEE PEE PEE")
-        console.log(props.state)
+
         if (props.state.setAmountIn === "") {
             setPrice('')
             setRouter('')
             setLoading(true)
         }
+        setFlash(`rgba(242, 242, 242, 0.45)`)
+
     }, [props.path, props.state.setAmountIn])
     
 
@@ -142,12 +144,12 @@ const TokenPath = (props) => {
 
                     <CardRow style={{marginTop: "1.02em"}}>
                         {/* PRICE */}
-                        <RouteText>
-                            {`Corn Price`}
+                        <RouteText >
+                            {`Amount Out`}
                             <GiCorn style={{marginLeft: "0.3em"}}/>
                         </RouteText>
-                        <RouteText>
-                        {loading ? null : price }
+                        <RouteText style={{color: `${flash} !important`}}>
+                        {loading ? null : price * (1 - props.state.slippage/100) }
                    
 
                         </RouteText>
@@ -156,10 +158,10 @@ const TokenPath = (props) => {
                     <CardRow>
                         {/* PRICE IMPACT */}
                         <RouteText>
-                            {`Price Impact`}
+                            {`Slippage`}
                         </RouteText>
                         <RouteText>
-                            {"0.01%"}
+                            {props.state.slippage}%
                         </RouteText>
                     </CardRow>
 

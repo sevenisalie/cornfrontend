@@ -5,29 +5,39 @@ import { useWeb3React } from "@web3-react/core"
 import { addresses } from "../../../config/addresses"
 import ADDRESSES from "../../../config/build/deployments/map.json"
 import CONTROLLERCONTRACT from "../../../config/build/contracts/Controller.json"
+import RESOLVER from "../../../config/build/contracts/Resolver.json"
 
 import {MasterChefABI, ERC20Abi} from "../../../config/abis"
+import {goodToast, badToast} from "../../../components/Toast"
 
 import axios from "axios"
 import {writeContract, userMint, toFixed, createLimitTrade} from "../../../utils/nft"
+import {approveToken, EasySwap} from "../../../utils/swap"
 import {getUserTokenBalance} from "../../../utils/fetchUserData"
 
 import {BiDownArrow} from "react-icons/bi"
 import {GiTwoCoins} from "react-icons/gi"
+import {GoSettings} from "react-icons/go"
 import {FaArrowAltCircleDown} from "react-icons/fa"
+import {AiOutlineUndo} from "react-icons/ai"
 
 import {HeaderButtonSecondary} from "../../vaults/index"
 import TokenSelector from "./TokenSelector"
 import TokenPath from "./TokenPath"
-import {useRefresh} from "../../../utils/useRefresh"
-import useFetchSwapRoute from "../../../hooks/useFetchSwapRoute"
+import SlippageSelector from "./SlippageSelector"
 
+import {useRefresh} from "../../../utils/useRefresh"
+import useFetchRouterInfo from "../../../hooks/useFetchRouterInfo"
+import useFetchContractWrite from "../../../hooks/useFetchContractWrite"
 
 const MainContainer = styled.div`
     display: flex;
+    flex-direction: column;
     height: auto;
     width: 100%;
-    justify-content: space-around;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
 
     @media (max-width: 315px) {
         margin-bottom: 6em;
@@ -46,7 +56,7 @@ const MainContainer = styled.div`
       }
 `
 
-const EntryContainer = styled.div`
+export const EntryContainer = styled.div`
     position: relative;
     max-width: 480px;
     width: 100%;
@@ -58,15 +68,16 @@ const EntryContainer = styled.div`
     margin-top: 1rem;
 `
 
-const CardContentContainer = styled.div`
+export const CardContentContainer = styled.div`
     display: box
     position: relative;
     padding: 8px;
 `
-const FormContainer = styled.div`
-    display: grid;
-    grid-auto-rows: auto;
+export const FormContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     row-gap: 0.25em;
+
 `
 const TitleContainer = styled.div`
     padding: 1rem 1.25rem 0.5rem;
@@ -422,6 +433,11 @@ const SubmitButton = styled(HeaderButtonSecondary)`
     width: 100%;
     height: auto;
     margin-top: 0px;
+
+    &:disabled {
+        background: rgba(251, 219, 55, .88);
+        border: rgba(251, 219, 55, .88);
+    }
 `
 const TokenSelectorOverlay = styled.div`
     position: absolute;
@@ -438,14 +454,83 @@ const TokenSelectorOverlay = styled.div`
 
 
 const SubmitSection = (props) => {
+    const {active, library} = useWeb3React()
+    const [contract] = useFetchContractWrite(addresses.vaults.resolver, RESOLVER.abi)
+    
+    const handleSwap = async (routerInfo) => {
+        try {
+            if (active) {
+                const tx = await EasySwap(routerInfo, props.state.slippage, library.getSigner(), contract)
+                const receipt = await tx.wait()
+    
+                if (receipt.status === 1) {
+                        goodToast(`Swapped ${routerInfo.path[0].name} for ${routerInfo.path[routerInfo.path.length - 1].name}`)
+                        props.clearOrderEntry()
+                    }
+            }
+        } catch (err) {console.log(err)}
+
+    }
+
+    const handleApproveToken = async (path) => {
+        try {
+            if (active) {
+                const tx = await approveToken(path[0].address, addresses.vaults.resolver, library.getSigner())
+                const receipt = await tx.wait()
+
+                if (receipt.status === 1) {
+                    // goodToast(`Swapped ${path[0].name} for ${path[path.length - 1].name}`)
+                    goodToast(`Approved ${path[0].name}`)
+                    props.triggerRefresh()
+                    }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
+    if (props.routerData) {
+        return (
+            <>
+                <TitleContainer>
+                    {props.approval == false
+                    ?
+                    <SubmitButton onClick={() => handleApproveToken(props.routerData.path)}>{`Approve ${props.routerData.path[0].name}`}</SubmitButton>
+                    :
+                    <SubmitButton onClick={() => handleSwap(props.routerData)}>{`Swap ${props.routerData.path[0].name}`}</SubmitButton>
+    
+                    }
+                </TitleContainer>
+            </>
+        )
+    } 
+    if (!active) {
+        return (
+            <>
+                <TitleContainer>
+          
+                    <SubmitButton >{`Connect Wallet`}</SubmitButton>
+                   
+                </TitleContainer>
+            </>
+        )
+    }
+
     return (
         <>
             <TitleContainer>
-      
-                <SubmitButton onClick={() => props.mintFunction()}>{props.state.setSubmitButtonText}</SubmitButton>
+                
+                <SubmitButton disabled>{`Enter an Amount`}</SubmitButton>
+               
             </TitleContainer>
         </>
     )
+
+
+
+
+    
 }
 
 
@@ -555,16 +640,16 @@ const orderReducer = (state, action) => {
                 setBalanceIn: action.payload
             }
         }
-        case 'setSubmitButtonText': {
-            return {
-                ...state,
-                setSubmitButtonText: action.payload
-            }
-        }
         case 'bothMarketPrices': {
             return {
                 ...state,
                 bothMarketPrices: action.payload
+            }
+        }
+        case "slippage": {
+            return {
+                ...state,
+                slippage: action.payload
             }
         }
        
@@ -590,7 +675,7 @@ const initialState = {
     setAmountOut: '',
     setBalanceIn: '',
     setBalanceOut: '',
-    setSubmitButtonText: 'Select a Token',
+    slippage: '0.5'
 }
 
 
@@ -599,9 +684,10 @@ const LimitOrderEntry = (props) => {
     const {active, account, library, connector} = useWeb3React()
     const { fastRefresh } = useRefresh()
     const [state, dispatch] = useReducer(orderReducer, initialState)
-    const [results, query] = useFetchSwapRoute(state.setTokenIn, state.setTokenOut, state.setAmountIn)
+    const {data:results, approval, triggerRefresh} = useFetchRouterInfo(state.setTokenIn, state.setTokenOut, state.setAmountIn)
+    const [toggleSlippage, setToggleSlippage] = useState(false)
 
-    useEffect( () => {
+     useEffect( () => {
         if (active) {
             const nftctr = writeContract(
                 active,
@@ -631,34 +717,30 @@ const LimitOrderEntry = (props) => {
  
     const openTokenSelectorOutToggle = () => {
         dispatch({ type: 'openTokenSelectorOut' })
-        console.log("reached")
+    }
+
+    const setSlippage = (_slippage) => {
+        dispatch({ type: "slippage", payload: _slippage })
     }
 
     const setTokenIn = (_tokenData) => {
         dispatch({ type: "setTokenIn", payload: _tokenData })
-        console.log('Beans n Cocks')
     }
 
     const setAmountIn = (_amount) => {
         dispatch({ type: "setAmountIn", payload: _amount })
-        console.log(state)
-        setSubmitButtonText('Enter Price')
-
     }
 
     const openTokenSelectorInToggle = () => {
         dispatch({ type: 'openTokenSelectorIn' })
-        console.log("reached")
     }
 
     const setTokenOut = (_tokenData) => {
         dispatch({ type: "setTokenOut", payload: _tokenData })
-        setSubmitButtonText('Enter Amount')
     }
     
     const setAmountOut = (_amount) => {
         dispatch({ type: "setAmountOut", payload: _amount })
-        console.log(state)
     }
 
     const setBalanceIn = (_balanceIn) => {
@@ -669,11 +751,16 @@ const LimitOrderEntry = (props) => {
         dispatch({ type: 'setBalanceOut', payload: _balanceOut})
     }
 
-
-
-    const setSubmitButtonText = (_message) => {
-        dispatch({ type: 'setSubmitButtonText', payload: _message})
+    const toggleTokens = () => {
+        const newTokenA = state.setTokenOut
+        const newTokenB = state.setTokenIn
+        dispatch({ type: "setTokenIn", payload: newTokenA })
+        dispatch({ type: "setTokenOut", payload: newTokenB })
     }
+
+   const handleToggleSlippage = () => {
+       setToggleSlippage(prev => !prev)
+   }
 
  
 
@@ -706,18 +793,14 @@ const LimitOrderEntry = (props) => {
 
     //populate amount out when amount in and price exist
     useEffect(() => {
+        if (results) {
+            setAmountOut(results.amountOut)
 
-        if (state.setAmountIn !== '') {
-            setAmountOut('42')
         }
-    }, [state.side])
+    }, [results])
 
-    //then the reverse
 
-    
 
-   
-    
 
     //create trade pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract
         const handleMintLimit = async () => {
@@ -744,7 +827,13 @@ const LimitOrderEntry = (props) => {
         <>
 
         <MainContainer>
+
+            {toggleSlippage == true &&
+                <SlippageSelector setSlippage={setSlippage} state={state} toggleSlippage={handleToggleSlippage}/>
+            }
+
             <EntryContainer>
+                
                 <CardContentContainer>
                     <FormContainer>
                         
@@ -755,10 +844,14 @@ const LimitOrderEntry = (props) => {
                          openTokenSelectorToggle={openTokenSelectorInToggle}
                          />
 
-                        <FaArrowAltCircleDown style={{color: "rgba(251, 219, 55, 0.88)", justifySelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545"}} /> 
-                        
-                        
 
+                        <FaArrowAltCircleDown
+                        onClick={toggleTokens}
+                        style={{color: "rgba(251, 219, 55, 0.88)", alignSelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545", cursor: "pointer"}}
+                         />  
+                        
+                        
+                        {/* smoke and then turn this into its own component with on hover effect */}
 
                         <AmountEntry
                          state={state}
@@ -766,12 +859,14 @@ const LimitOrderEntry = (props) => {
                          setAmountOut={setAmountOut}
                          openTokenSelectorToggle={openTokenSelectorOutToggle} />
 
-                        <PriceDisplay path={results} state={state} clearOrderEntry={clearOrderEntry} />
+                        <PriceDisplay  path={results} state={state} clearOrderEntry={clearOrderEntry} toggleSlippage={handleToggleSlippage}/>
 
 
-                        <SubmitSection state={state} mintFunction={handleMintLimit} />
-
+                        <SubmitSection approval={approval} routerData={results} triggerRefresh={triggerRefresh} clearOrderEntry={clearOrderEntry} state={state} mintFunction={handleMintLimit} />
+                        
+                        {results  &&
                         <TokenPath path={results} tokenOut={state.tokenOut} state={state}/>
+                        }
                         
                     </FormContainer>
                     
@@ -784,23 +879,18 @@ const LimitOrderEntry = (props) => {
                 <TokenSelectorOverlay>
                     <TokenSelector side={'in'} setTokenIn={setTokenIn} setTokenOut={setTokenOut} state={state} openTokenSelectorToggle={openTokenSelectorInToggle}/>
                 </TokenSelectorOverlay>
-                
-            
             }
              {state.openTokenSelectorOut == true &&
                 
                 <TokenSelectorOverlay>
                     <TokenSelector side={'out'} setTokenIn={setTokenIn} setTokenOut={setTokenOut} state={state} openTokenSelectorToggle={openTokenSelectorOutToggle}/>
                 </TokenSelectorOverlay>
-                
-            
             }
+
+
             
 
         </MainContainer>
-        <pre>
-            {JSON.stringify(results, null, 2)}
-        </pre>
         </>
     )
 }
@@ -872,6 +962,8 @@ const AmountEntry = (props) => {
                                         <BiDownArrow style={{marginLeft: "5px", fontSize: "0.69em"}} />
                                     </TokenSelectContainer>
                                 </TokenSelect>
+
+
                                
                                 <PriceEntryInput
                                  value={ props.side == 'in' ?  props.state.setAmountIn : props.state.setAmountOut} 
@@ -887,20 +979,22 @@ const AmountEntry = (props) => {
                                  </PriceEntryInput>
 
                                 
-
+                        
                                 
                             </InputRow>
-
+                    { props.side == 'in' && 
                             <TokenDataRow>
-                                <TokenDataContentContainer>
-                                    <TokenPriceSymbolContainer>
-                                        <TokenBalanceText>Balance: { balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
-                                        <TokenMax >(Max)</TokenMax>
-                                    </TokenPriceSymbolContainer>
-                                    
-                                   
-                                </TokenDataContentContainer>
-                            </TokenDataRow>
+                            <TokenDataContentContainer>
+                                <TokenPriceSymbolContainer>
+                                    <TokenBalanceText>Balance: { balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
+                                    <TokenMax onClick={() => props.setAmountIn(balance.toString())}>(Max)</TokenMax>
+                                </TokenPriceSymbolContainer>
+                                
+                               
+                            </TokenDataContentContainer>
+                        </TokenDataRow>
+                    }
+
 
                         </InputBox>
                     </InputContainer>    
@@ -911,63 +1005,64 @@ const AmountEntry = (props) => {
 
 const PriceContainer = styled.div`
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: auto;
     margin-bottom: 0px;
     padding: 2px;
-    justify-content: space-between;
-    align-content: space-between;
+  
+    align-content: center;
+    align-items: center;
 `
 
-const ClearFormContainer = styled.div`
+
+export const ClearFormButton = styled.button`
+    text-align: center;
+    text-decoration: none;
     display: flex;
-        align-content: space-between;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    transition: transform 450ms ease 0s;
+    transform: perspective(1px) translateZ(0px);
+    -webkit-box-align: center;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: 500;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
 
-`
-const ClearFormButton = styled.button`
-text-align: center;
-text-decoration: none;
-display: flex;
-flex-wrap: nowrap;
-position: relative;
-z-index: 1;
-will-change: transform;
-transition: transform 450ms ease 0s;
-transform: perspective(1px) translateZ(0px);
--webkit-box-align: center;
-align-items: center;
-font-size: 1.2em;
-font-weight: 500;
-backdrop-filter: blur(12px) saturate(149%);
--webkit-backdrop-filter: blur(0px) saturate(149%);
-background-color: rgba(29, 30, 32, 0.57);
-border: 1px solid rgba(255, 255, 255, 0.125);
-box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+    color: rgb(255, 255, 255);
+    border-radius: 16px;
 
-color: rgb(255, 255, 255);
-border-radius: 16px;
-
-outline: none;
-cursor: pointer;
-user-select: none;
-height: 2.8rem;
-width: initial;
-padding: 0px 8px;
--webkit-box-pack: justify;
-justify-content: space-between;
-margin-right: 3px;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    height: 2.8rem;
+    width: initial;
+    padding: 0px 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-right: 3px;
 
 
-&:hover {
-    background-color: rgb(44, 47, 54);
-}
-&:focus {
-    background-color: rgb(33, 35, 40);
-}
+    &:hover {
+        background-color: rgb(44, 47, 54);
+    }
+    &:focus {
+        background-color: rgb(33, 35, 40);
+    }
 `
 const RateContainer = styled.div`
     display: flex;
-    align-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-content: center;
 `
 
 const RateSwapButton = styled(ClearFormButton)`
@@ -1024,19 +1119,23 @@ const SwapText = styled.div`
 
 export const PriceDisplay = (props) => {
     const [direction, setDirection] = useState(true)
-    const [results] = useFetchSwapRoute(props.state.setTokenIn, props.state.setTokenOut, 1)
+    const {data:results} = useFetchRouterInfo(props.state.setTokenIn, props.state.setTokenOut, "1")
+    const [amount, setAmount] = useState(`1`)
 
-    const [amount, setAmount] = useState('1')
+    useEffect(() => {
+        if (results) {
+            setAmount(toFixed(results.amountOut, 3))
+        }
+    }, [results])
 
 
 
     const switchAmounts = () => {
         if (direction === true) {
             if (amount !== '') {
-              
-                
+
                 const floatyNum = inversePrice(results.amountOut)
-                setAmount(floatyNum)
+                setAmount(toFixed(floatyNum, 8))
             }
             if (amount == NaN) {
                 setAmount("1")
@@ -1045,7 +1144,7 @@ export const PriceDisplay = (props) => {
 
         if (direction === false) {
             if (amount !== '') {
-                setAmount(results.amountOut)
+                setAmount(toFixed(results.amountOut, 3))
             }
 
             if (amount === NaN) {
@@ -1071,19 +1170,29 @@ export const PriceDisplay = (props) => {
     return (
         <>
         <PriceContainer>
-            <ClearFormContainer>
-                <ClearFormButton onClick={props.clearOrderEntry}>Clear</ClearFormButton>
-            </ClearFormContainer>
-            <RateContainer>
-                <RateSwapButton onClick={() => handleToggleDirection()}>
-         
-                    { direction == true 
-                    ?
-                    <SwapText>1 {props.state.setTokenIn.symbol} = {amount} {props.state.setTokenOut.symbol}</SwapText>
-                    :
-                    <SwapText>1 {props.state.setTokenOut.symbol} = {amount} {props.state.setTokenIn.symbol}</SwapText>
-                    }
-                </RateSwapButton>
+
+                <ClearFormButton onClick={props.clearOrderEntry} >
+                    <AiOutlineUndo style={{fontWeight: "800", fontSize: "1.3em" }}/>
+                </ClearFormButton>
+
+                <ClearFormButton onClick={props.toggleSlippage} style={{alignSelf: "flex-start"}}>
+                    <GoSettings style={{fontWeight: "800", fontSize: "1.3em" }}/>
+                </ClearFormButton>
+
+            <RateContainer style={{justifyContent: "flex-end"}}>
+                { amount !== "1" && 
+                    <RateSwapButton onClick={() => handleToggleDirection()}>
+                
+                        { direction == true 
+                        ?
+                        <SwapText>1 {props.state.setTokenIn.symbol} = {amount} {props.state.setTokenOut.symbol}</SwapText>
+                        :
+                        <SwapText>1 {props.state.setTokenOut.symbol} = {amount} {props.state.setTokenIn.symbol}</SwapText>
+                        }
+
+                    </RateSwapButton>
+                }
+                
             </RateContainer>
         </PriceContainer>  
         </>
