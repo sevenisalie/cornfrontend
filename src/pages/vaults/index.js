@@ -338,6 +338,7 @@ const FooterImageThree = styled.img`
     }
 `
 // <div style={{display: "flex", flexDirection: "row", columnGap: "3.82em", padding: "0.5em", margin: "0.5em", justifyContent: "center", alignContent: "center", alignItems: "center"}}>
+<<<<<<< HEAD
 
 const APYContainer = styled.div`
     display: flex;
@@ -352,6 +353,22 @@ const APYContainer = styled.div`
     width: 100%;
     margin-bottom: 3em;
 
+=======
+
+const APYContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    column-gap: 3.82em;
+    padding: 0.5em;
+    margin: 0.5em;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    margin-bottom: 3em;
+
+>>>>>>> 7943e750b2d79d2eac508df4145450ec893630c1
     @media (max-width: 712px) {
         flex-direction: column;
         row-gap: 1em;
@@ -361,6 +378,7 @@ const APYContainer = styled.div`
 export const Home = () => {
     const {active, account, library, connector} = useWeb3React();
     const [results, sum, cobAPY] = useFetchTVL()
+<<<<<<< HEAD
     // useEffect(() => {
 
     //         const query =  masterChefUserQuery(account)
@@ -368,6 +386,8 @@ export const Home = () => {
     //     }
 
     // }, [])
+=======
+>>>>>>> 7943e750b2d79d2eac508df4145450ec893630c1
 
     
 

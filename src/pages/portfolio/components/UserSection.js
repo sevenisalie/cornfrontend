@@ -115,7 +115,11 @@ const TokenLogoHexContainer = styled.div`
     gap: 0.4px 0.8px; 
     grid-template-areas: 
     ". . ."; ;
+<<<<<<< HEAD
     border: solid 2px rgba(166, 202, 157, 1);
+=======
+    border: solid 2px #fbdb37;
+>>>>>>> 7943e750b2d79d2eac508df4145450ec893630c1
     border-radius: 22px;
     padding: 0.3em;
 `
@@ -157,7 +161,11 @@ const InfoText = styled.p`
 `
 const ValueText = styled.p`
     font-size: 1.1em;
+<<<<<<< HEAD
     color: rgba(201, 255, 187, 1);
+=======
+    color: #fbdb37;
+>>>>>>> 7943e750b2d79d2eac508df4145450ec893630c1
     font-weight: 700;
     margin: 0px;
 `
@@ -205,6 +213,12 @@ const UserSection = () => {
                            <ChartWidget />
                            <InfoGrid>
                                 <TokenLogoContainer>
+<<<<<<< HEAD
+=======
+                                <ValueText style={{marginLeft: "1.12em"}}>
+                                {`My Tokens`}
+                                </ValueText>    
+>>>>>>> 7943e750b2d79d2eac508df4145450ec893630c1
                                     <TokenLogoHexContainer>
                                         {
                                             mappedTokens

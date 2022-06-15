@@ -155,11 +155,13 @@ async function withdraw(vaultId, tokenId, signer) {
 
 export  const cleanPortfolioTotalData = (_portfolioData) => {
     const totalOpen = _portfolioData.map( ( trade ) => {
+      const rawAmount = trade.amount
       const token = matchTokenByAddress(trade.address)
       if (!token) {
         return null
       }
-      const amount = trade.amount
+      const decimals = token[0].decimals
+      const amount = rawAmount
 
       return {
         amount: amount,
@@ -191,20 +193,14 @@ export const cleanTradeData = (_tradeData) => {
       const mappedOrders = trade.orders.map( (order) => {
         const matchedTokenIn = matchTokenByAddress(order.fromToken)
         const matchedTokenOut = matchTokenByAddress(order.toToken)
-        console.log("YOUR PROBLEM")
-        console.log(matchedTokenIn)
-        console.log("SHIT")
-        const _amountIn = ethers.utils.formatUnits(order.amountIn, matchedTokenIn[0].decimals)
-        const _desiredOut = ethers.utils.formatUnits(order.desiredAmountOut, matchedTokenOut[0].decimals)
-        const _amountOut = ethers.utils.formatUnits(order.amountOut, matchedTokenOut.decimals)
   
           return {
             id: order.id,
             fromToken: matchedTokenIn,
             toToken: matchedTokenOut,
-            amountIn: _amountIn,
-            desiredAmountOut: _desiredOut,
-            amountOut: _amountOut,
+            amountIn: order.amountIn,
+            desiredAmountOut: order.desiredAmountOut,
+            amountOut: order.amountOut,
             expiration: order.expiration,
             open: order.open,
             timestamp: order.timestamp

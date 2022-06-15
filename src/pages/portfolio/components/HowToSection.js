@@ -14,17 +14,15 @@ import {mapPendingClaimCalls, mapPoolAllowances} from "../../../utils/multiCall"
 const SectionContainer = styled.div`
     display: flex;
     flex-direction: row;
-    height: auto;
+    height: max-content;
+    margin-left: 2em;
     width: 100%;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     align-content: center;
-    padding: 2.5em;
-    column-gap: 0.42em;
-    @media (max-width: 666px) {
-        flex-direction: column;
-        row-gap: 0.8em;
-    }
+    padding-top: 2.5em;
+    padding-bottom: 0.5em;
+    column-gap: 2.42em;
 `
 
 const HowToCard = styled.div`
@@ -76,9 +74,8 @@ const InstructionLink = styled.a`
 export const PoolHeaderText = styled.div`
     font-size: 2em;
     color: rgba(242, 242, 242, 0.90);
-    align-self: center;
-    margin-left: 1.2em;
-
+    margin: 0 0 0 0;
+    
     @media (max-width: 712px) {
         font-size: 1.7em;
     }
@@ -91,7 +88,7 @@ export const LineBreak = styled.hr`
     color: rgba(242, 242, 242, 0.90);
     margin-left: 30px;
     margin-top: 1.8em;
-    margin-bottom: 8em;
+    margin-bottom: 2em;
 
     @media (max-width: 712px) {
         width: auto;
@@ -160,58 +157,14 @@ const HowToSection = () => {
 
     return (
         <>
-
-       
         <SectionContainer>
-
-            <HowToCard>
-                <InstructionList>
-                    <InstructionText style={{fontSize: "1.1em", color: "#fbdb37"}}>
-                        Cool Things to Know:
-                    </InstructionText>
-                    <InstructionListItem>The world famous MasterChef returns to dish out COB</InstructionListItem>
-                        <InstructionListItem>Hitchhiker friendly fees {`👽`} (0.1%)</InstructionListItem>
-                        <InstructionListItem>Don't forget to approve the pool first!</InstructionListItem>
-                        <InstructionListItem>
-                            Dividend pools are separate and are coming soon*
-                            <InstructionLink href="#" target="_blank" >{`👆`}</InstructionLink>
-                        </InstructionListItem>
-                    </InstructionList>
-            </HowToCard>
-            <div style={{display: "flex", flexDirection: "column", width: "100%", maxWidth: "24em", height: "auto", justifyContent: "center", alignContent: "center", alignItems: "center"}}>
-
-                <a  href={`https://rugdoc.io/project/corn-finance/`} target="_blank">
-     
-                <img src="/assets/images/rugdoc.png" style={{width: "14em", height: "auto", marginBottom: "2.69em"}} />
-                </a>
-             
-
-                <PendingRewardCard>
-                    <RewardContainer>
-                        <RewardText>
-                            PENDING REWARDS
-                        </RewardText>
-                        <RewardAmountText>
-                            <BiCoinStack />{`${total}`}
-                        </RewardAmountText>
-                    </RewardContainer>
-            
-                        <ClaimButton onClick={ async () => await claimAll()}>
-                            <AiOutlineDeliveredProcedure style={{marginRight: "0.42em"}} />
-                            Claim
-                        </ClaimButton>
-     
-                </PendingRewardCard>
-            </div>
-
-
-        </SectionContainer>
-
         <PoolHeaderText>
-            Recently Added
+            {`My Trades`}
         </PoolHeaderText>
+        <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Open</HeaderButtonSecondary>
+        <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Closed</HeaderButtonSecondary>
+        </SectionContainer>
         <LineBreak />
-            
         </>
     )
 }
