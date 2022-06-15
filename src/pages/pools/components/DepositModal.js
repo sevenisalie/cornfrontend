@@ -202,7 +202,7 @@ const DepositModal = (props) => {
         try {
             if (active) {
                 goodToast(`Confirming Transaction`)
-                const raw = await userStake(masterChefContract, pid, amount, props.data.allData[props.pid].decimals)
+                const raw = await userStake(masterChefContract, pid, amount, POOLS[props.pid].decimals)
                 const tx = await raw.wait()
                 props.setShowDepositModal(prev => !prev)
               

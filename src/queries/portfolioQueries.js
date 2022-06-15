@@ -43,3 +43,65 @@ export const portfolioTotalsGraphQuery = (_account) => {
     `
     return query
 }
+
+
+export const gasTankQuery = (_account) => {
+    return gql`
+    {
+        payers(where: {id: "${_account}"}) {
+          id
+          amountDeposited
+          totalAmountSpent
+          payees {
+            payee {
+              id
+            }
+            approved
+          }
+        }
+      }
+    `
+}
+
+
+export const masterChefQuery = () => {
+    return gql`
+    {
+        masterchefs {
+            id
+            poolCount
+            cobPerBlock
+            userCount
+            tvl
+            totalAllocationPoints
+        }
+        pools {
+            id
+            token
+            name
+            symbol
+            decimals
+            lp
+            userCount
+            totalDeposited
+            priceUSD
+            tvl
+            allocationPoint
+            apy
+            depositFee
+            timestamp
+        }
+    }`
+}
+
+export const masterChefUserQuery = (_account) => {
+    return gql`{
+        poolUsers(where: {user: "${_account.toLowerCase()}"}) {
+            pool {
+                id
+                priceUSD
+            }
+            depositAmount
+        }
+    }`
+}

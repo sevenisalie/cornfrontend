@@ -193,7 +193,6 @@ export const cleanTradeData = (_tradeData) => {
       const mappedOrders = trade.orders.map( (order) => {
         const matchedTokenIn = matchTokenByAddress(order.fromToken)
         const matchedTokenOut = matchTokenByAddress(order.toToken)
-
   
           return {
             id: order.id,

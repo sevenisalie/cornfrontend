@@ -31,6 +31,10 @@ import useFetchContractWrite from '../../hooks/useFetchContractWrite';
 import useFetchPoolAllowances from "../../hooks/useFetchPoolAllowances"
 import { GiTrousers } from "react-icons/gi";
 
+import useGraphQuery from '../../hooks/useGraphQuery'
+import { masterChefQuery, masterChefUserQuery } from "../../queries/portfolioQueries";
+
+
 
 
 const size = {
@@ -152,22 +156,37 @@ const initialState = {
     error: '',
 }
 
- const Pools = (props) => {
-        const [trigger, setTrigger] = useState(true)
-        const [allowance] = useFetchPoolAllowances(trigger)
+const Pools = (props) => {
+    const [trigger, setTrigger] = useState(true)
+    const [allowance] = useFetchPoolAllowances(trigger)
+    const [userQuery, setUserQuery] = useState("")
+    const {active, account, library, connector} = useWeb3React();
 
-        const {active, account, library, connector} = useWeb3React();
-        const { fastRefresh } = useRefresh()
-        const { state: POOLDATA } = useFetchPoolData(account, trigger)
-        const [state, dispatch] = useReducer(poolReducer, initialState)
-        const [contract, query] = useFetchContractWrite(addresses.masterChef, MASTERCHEF["abi"])
-        const {results} = useFetchPendingRewards(trigger)
+    const { data: graphData } = useGraphQuery(masterChefQuery(), "masterchef")
+    const { data: rawGraphUserData } = useGraphQuery(userQuery, "masterchef")
+    const [graphUserData, setGraphUserData] = useState(null)
+
+    const { fastRefresh } = useRefresh()
+    const [state, dispatch] = useReducer(poolReducer, initialState)
+    const [contract, query] = useFetchContractWrite(addresses.masterChef, MASTERCHEF["abi"])
+    const {results} = useFetchPendingRewards(trigger)
 
 
+    useEffect(() => {
 
-      
-    
+        if (account) {
+            const query =  masterChefUserQuery(account)
+            setUserQuery(query)
+        }
 
+    }, [account])
+        
+
+    useEffect(() => {
+        if (rawGraphUserData) {
+            setGraphUserData(rawGraphUserData)
+        }
+    }, [rawGraphUserData])
     
 
     useEffect( async () => {
@@ -194,27 +213,21 @@ const initialState = {
     }, [account, active, library])
 
 
-
-
-
     const manualRefresh = () => {
         return setTrigger(prev => !prev)
     }
 
- 
-    
 
-    
-    //DEV NOTE:
-    // replace with 
-    // if (POOLDATA.loading == false && library ) {
-    //
-    //we broke this intentionally for pre-release site launch
-    if (POOLDATA.loading == false && library ) {
-        const mapPoolData =  POOLDATA.allData.map((pool, index) => (
-
-            <PoolCard rewards={results} rawPoolData={POOLS} allowances={allowance} master={contract} refresh={manualRefresh} data={POOLDATA} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
-            ));
+    if (graphData.pools !== null && graphData.pools !== undefined && library ) {
+        const mapPoolData =  graphData.pools.map((pool, index) => {
+            console.log("Pool Data", graphData)
+            console.log("User Data", graphUserData)
+            return (
+                <>
+                <PoolCard graphUserData={graphUserData} graphData={graphData} rewards={results} rawPoolData={POOLS} allowances={allowance} master={contract} refresh={manualRefresh} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+                </>
+            )
+            });
         return (
             <>
     
@@ -228,14 +241,8 @@ const initialState = {
         
             </>
         )
-
-    //DEV NOTE:
-    // replace with 
-    // } else if (POOLDATA.loading == true || !library) {
-    //
-    //we broke this intentionally for pre-release site launch
-
-    } else if (POOLDATA.loading == true || !library) {
+    } 
+    else if (graphData.pools === null || graphData.pools === undefined || !library) {
         const mapPlaceHolderPoolData = POOLS.map( (pool) => (
             <PlaceholderPoolCard data={pool} tokenStake={pool.tokenStakeName}/>
         ))

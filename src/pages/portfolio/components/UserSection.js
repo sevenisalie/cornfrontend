@@ -166,7 +166,7 @@ const ValueText = styled.p`
 const UserSection = () => {
     const {account, library} = useWeb3React()
     const [query, setQuery] = useState("")
-    const {data:portfolioData} = useGraphQuery(query)
+    const {data:portfolioData} = useGraphQuery(query, "controller")
     const [portfolio, setPortfolio] = useState(null)
 
     useEffect(() => {
