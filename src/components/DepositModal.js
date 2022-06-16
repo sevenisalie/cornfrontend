@@ -18,7 +18,9 @@ import {FaGasPump} from "react-icons/fa"
 
 import useFetchGasBalance from '../hooks/useFetchGasBalance';
 import useFetchMaticBalance from "../hooks/useFetchMaticBalance"
-import {writeContract, userStake, toFixed} from "../utils/nft";
+import {writeContract, userDepositGas, toFixed} from "../utils/nft";
+import useGraphQuery from '../hooks/useGraphQuery'
+import { gasTankQuery } from "../queries/portfolioQueries";
 
 
 const EntryContainer = styled.div`
@@ -300,34 +302,34 @@ const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
     // const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
-    const {data: balanceData} = useFetchGasBalance()
-    const {data: maticBalanceData} = useFetchMaticBalance()
+    
+    
+    const [gasTankQueryData, setGasTankQueryData] = useState("")
+    const [gasTankData, setGasTankData] = useState(0)
 
     //props
     // const bal = props.walletBalance;
     // console.log("pooooop")
     // console.log(bal)
+    
+    const {data: balanceData} = useGraphQuery(gasTankQueryData, "gas-tank")
+
+    const {data: maticBalanceData} = useFetchMaticBalance()
 
     
+    useEffect( () => {
+        if (account) {
+            setGasTankQueryData(gasTankQuery(account.toLowerCase()))
+            console.log("gasQuery", gasTankQueryData)
+        }
+      }, [account])
 
-    
-
-    // useEffect( () => {
-    //     if (active) {
-    //       const masterChef = writeContract(
-    //           active, 
-    //           library.getSigner(), 
-    //           account,
-    //           addresses.masterChef,
-    //           MasterChefABI,
-    //           )
-    //       .then( value => setMasterChefContract(value))
-    //     } else {
-    //       const noData = setMasterChefContract(null)
-    //     }
-        
-        
-    //   }, [account, library])
+    useEffect( () => {
+        if (balanceData.payers !== undefined) {
+            setGasTankData(balanceData.payers[0].amountDeposited)
+            console.log("gasData", balanceData.payers[0])
+        }
+      }, [balanceData])
 
     
 
@@ -339,7 +341,7 @@ const DepositModal = (props) => {
     if (amount == '') {
         button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Gas Amount</DepositButton>;
       } else if (amount !== ''){
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => props.handleStakeOnClick(props.pid, amount)}>Deposit Gas</DepositButton>;
+        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => userDepositGas(library.getSigner(), account, amount)}>Deposit Gas</DepositButton>;
       } else {
         button = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Deposit</DepositButton>;
       }
@@ -384,7 +386,7 @@ const DepositModal = (props) => {
                             <GasIcon style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
 
                                 <WalletText >
-                                    {balanceData.loading !== true  ? toFixed(balanceData.gasBalance, 4) : 'loading...' }
+                                    {balanceData.loading !== true  ? toFixed(gasTankData, 4) : 'loading...' }
                                 </WalletText>
 
                             </WalletButtonContentContainer>

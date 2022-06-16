@@ -16,6 +16,7 @@ export const addresses = {
     COB: "0x648FA1E7Dd2722Ba93EC4Da99f2C32347522a37C",
     BOB: "0xBa9BA36175425C024d7986b7C3Af17b7f792e5ac",
     multicall: "0x296915a77dCd930834274F2BACf2DB99fE6e0464",
+    gasTank: "0xA7721E54dd41bceaB8d30B5590D861c396B32F2c",
 
     vaults: {
         controller: "0x678753f5b53bfbF1d4dCfBB0F33aB5C2161edDF2",

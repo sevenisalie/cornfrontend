@@ -46,7 +46,7 @@ export const portfolioTotalsGraphQuery = (_account) => {
 
 
 export const gasTankQuery = (_account) => {
-    return gql`
+    const data = gql`
     {
         payers(where: {id: "${_account}"}) {
           id
@@ -61,6 +61,7 @@ export const gasTankQuery = (_account) => {
         }
       }
     `
+    return data
 }
 
 
