@@ -172,7 +172,7 @@ const CardFooter = (props, {
 
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                   <p style={{fontSize: "80%"}}>Analytics:</p>
-                  <TokenLink style={{color: "#fbdb37"}} href={props.projectLink} target="_blank" >
+                  <TokenLink style={{color: "#fbdb37"}} href={`https://quickswap.exchange/#/swap?outputCurrency=${POOLS[props.pid].tokenStakeAddress}`} target="_blank" >
                     {'View project site'} <BsArrowUpRightSquare style={{marginLeft: '5px'}}/>
                 </TokenLink>
                 </Container>
