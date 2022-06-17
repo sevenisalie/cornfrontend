@@ -486,7 +486,42 @@ export const Home = () => {
 
                             </div>
                             
+                            <div style={{display: "flex", flexDirection: "column", rowGap: "0.88em", alignContent: "center", alignItems: "center", justifyContent: "center", height: "auto", width: "auto"}}>
+                    
 
+                                <BodyContentCard style={{width: "14em"}}>
+                                    <BodyContentCardContainer>
+                                        <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
+                                            Trades
+                                        </div>
+                                        <p>
+                                            {`Total Orders: ${controllerData.totalOrderCount}`}
+                                        </p>
+                                        <p>
+                                            {`Open Orders: ${controllerData.openOrderCount}`}
+                                        </p>
+                                        <p>
+                                            {`Filled Orders: ${controllerData.filledOrderCount}`}
+                                        </p>
+                                        <p>
+                                            {`Total Value (USD): $${toFixed(controllerData.totalValueUSD, 2)}`}
+                                        </p>
+                                        <p>
+                                            {`Total Volume Deposited: $${toFixed(controllerData.totalVolumeDepositedUSD, 2)}`}
+                                        </p>
+                                        <p>
+                                            {`Total Volume Filled: $${toFixed(controllerData.totalVolumeFilledUSD, 2)}`}
+                                        </p>
+                                        <p>
+                                            {`Total Users: ${controllerData.userCount}`}
+                                        </p>
+                                        {/* <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`$ ${JSON.stringify(controllerData)}`}
+                                        </div> */}
+                                    </BodyContentCardContainer>
+                                </BodyContentCard>
+            
+                            </div>
                             <BodyContentCard style={{width: "28em"}}>
                                 <BodyContentCardContainer>
                                     <TwitterTimelineEmbed
@@ -502,23 +537,9 @@ export const Home = () => {
                         </APYContainer>
 
 
-                        <APYContainer>
-                            <div style={{display: "flex", flexDirection: "column", rowGap: "0.88em", alignContent: "center", alignItems: "center", justifyContent: "center", height: "auto", width: "auto"}}>
-                    
-
-                                <BodyContentCard style={{width: "14em"}}>
-                                    <BodyContentCardContainer>
-                                        <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
-                                            Controller
-                                        </div>
-                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
-                                        {`$ ${JSON.stringify(controllerData)}`}
-                                        </div>
-                                    </BodyContentCardContainer>
-                                </BodyContentCard>
-            
-                            </div>
-                        </APYContainer>
+                        {/* <APYContainer>
+                            
+                        </APYContainer> */}
 
 
                     
