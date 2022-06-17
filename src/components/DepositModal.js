@@ -18,7 +18,7 @@ import {FaGasPump} from "react-icons/fa"
 
 import useFetchGasBalance from '../hooks/useFetchGasBalance';
 import useFetchMaticBalance from "../hooks/useFetchMaticBalance"
-import {writeContract, userDepositGas, toFixed} from "../utils/nft";
+import {writeContract, userDepositGas, userWithdrawGas, toFixed} from "../utils/nft";
 import useGraphQuery from '../hooks/useGraphQuery'
 import { gasTankQuery } from "../queries/portfolioQueries";
 
@@ -298,6 +298,9 @@ const WalletButtonContentContainer = styled.div`
     width: 100%;
 `
 
+const StakeButton = styled(HeaderButtonSecondary)`
+`
+
 const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
     // const [masterChefContract, setMasterChefContract] = useState(null)
@@ -306,6 +309,8 @@ const DepositModal = (props) => {
     
     const [gasTankQueryData, setGasTankQueryData] = useState("")
     const [gasTankData, setGasTankData] = useState(0)
+    const [showDepositModal, setShowDepositModal] = useState(false)
+    const [showUnstakeModal, setShowUnstakeModal] = useState(false)
 
     //props
     // const bal = props.walletBalance;
@@ -332,18 +337,23 @@ const DepositModal = (props) => {
       }, [balanceData])
 
     
-
+    const handleModalOnClick = () => {
+        setShowDepositModal(prev => !prev)
+    }
     
 
     //hide and show button
-    let button;
+    let dButton, wButton;
 
     if (amount == '') {
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Gas Amount</DepositButton>;
-      } else if (amount !== ''){
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => userDepositGas(library.getSigner(), account, amount)}>Deposit Gas</DepositButton>;
-      } else {
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Deposit</DepositButton>;
+        dButton = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Deposit</DepositButton>;
+        wButton = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Withdraw</DepositButton>;
+    } else if (amount !== ''){
+        dButton = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => userDepositGas(library.getSigner(), account, amount)}>Deposit</DepositButton>;
+        wButton = <DepositButton style={{width: "100%", alignSelf: "center"}} onClick={async () => userWithdrawGas(library.getSigner(), amount)}>Withdraw</DepositButton>;
+    } else {
+        dButton = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Deposit</DepositButton>;
+        wButton = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Withdraw</DepositButton>;
       }
       
     const amountFilter = (e) => {
@@ -366,7 +376,7 @@ const DepositModal = (props) => {
             <ModalCard>
                 <ModalCardContentContainer>
                     <TitleContainer>
-                    <TitleText>Deposit</TitleText>
+                    <TitleText>Gas Tank</TitleText>
                     <MaticButton
                             style={{alignSelf: "center"}}
                             side="in" data={"0"} symbol={"MATIC"} imageurl={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"} setTokenOut={() => console.log('dud')} setTokenIn={() => console.log('dud')}>
@@ -374,14 +384,18 @@ const DepositModal = (props) => {
                             </TokenLink>
 
                             </MaticButton>
-                    <ExitButton onClick={() => props.setShowDepositModal()}><FaTimesCircle/></ExitButton>
+                    <ExitButton onClick={() => {
+                        props.setShowDepositModal()
+                        setAmount('')
+                    }
+                    }><FaTimesCircle/></ExitButton>
                     </TitleContainer>
 
                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                         <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "baseline", height: "100%", width: "100%"}}>
                             
 
-                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}}> 
+                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}} onClick={() => setAmount(gasTankData)}>
                             <WalletButtonContentContainer>
                             <GasIcon style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
 
@@ -395,17 +409,17 @@ const DepositModal = (props) => {
                         </div>
                         
 
-                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}}> 
+                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}} onClick={() => setAmount(maticBalanceData)}> 
                             <WalletButtonContentContainer>
                             <WalletIcon style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
 
                                 <WalletText >
                                     {balanceData.loading !== true  ? toFixed(maticBalanceData, 4) : 'loading...' }
                                 </WalletText>
-                                <MaxButton
+                                {/* <MaxButton
                                         style={{fontSize: "0.6em", fontWeight: "800", alignSelf: "center", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
                                         onClick={() => setAmount(maticBalanceData)}>Max
-                                </MaxButton>
+                                </MaxButton> */}
                             </WalletButtonContentContainer>
                             
                         </WalletButton>
@@ -421,8 +435,10 @@ const DepositModal = (props) => {
 
                     {/* deposit button */}
                     <Container style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "18px"}}>
-                        {button}
+                        {dButton}
+                        {wButton}
                     </Container>
+                    
 
                 </ModalCardContentContainer>
             

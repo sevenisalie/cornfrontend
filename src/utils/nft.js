@@ -188,6 +188,19 @@ export const userDepositGas = async (signer, receiver, amount) => {
     }
 }
 
+export const userWithdrawGas = async (signer, amount) => {
+    const ctr = new ethers.Contract(addresses.gasTank, gasTankABI, signer);
+
+    try {
+        const bigNumAmount = ethers.utils.parseUnits(amount, 18)
+        const tx = await ctr.withdrawGas(bigNumAmount);
+        return tx
+    } catch (err) {
+        console.log(err)
+        // goodToast(`${err.data.message}`)
+    }
+}
+
 export const userUnstake = async (_masterchef, pid, amount, decimals) => {
     const ctr = _masterchef;
 

@@ -16,6 +16,7 @@ import {RiAliensFill} from "react-icons/ri"
 import {GiCorn, GiHamburgerMenu} from "react-icons/gi"
 import {FaGasPump, FaHome, FaTicketAlt, FaHandHoldingWater, FaTwitter, FaDiscord, AiFillGithub, FaGithub} from "react-icons/fa"
 
+import {toFixed} from "../utils/nft";
 
 
 //bootstrap components
@@ -479,7 +480,7 @@ const GasTank = (props) => {
 
         <GasContainer style={props.breakpoint}>
             <GasTextContainer>
-                <GasText>{data}</GasText>
+                <GasText>{toFixed(data, 4)}</GasText>
                 
             </GasTextContainer>
             <GasButtonContainer>
