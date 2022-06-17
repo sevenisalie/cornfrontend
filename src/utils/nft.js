@@ -201,6 +201,18 @@ export const userWithdrawGas = async (signer, amount) => {
     }
 }
 
+export const userGasTankApprove = async (signer, payee, approvalStatus) => {
+    const ctr = new ethers.Contract(addresses.gasTank, gasTankABI, signer);
+
+    try {
+        const tx = await ctr.approve(payee, approvalStatus);
+        return tx
+    } catch (err) {
+        console.log(err)
+        // goodToast(`${err.data.message}`)
+    }
+}
+
 export const userUnstake = async (_masterchef, pid, amount, decimals) => {
     const ctr = _masterchef;
 

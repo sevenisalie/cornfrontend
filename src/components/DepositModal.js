@@ -195,7 +195,7 @@ const TokenInput = styled.input`
 
 `
 const DepositButton = styled(HeaderButtonSecondary)`
-    margin: 0px;
+    margin: 10px;
     &:hover {
         background: #fbdb37;
         border-color: #dfbb05;
@@ -262,6 +262,48 @@ const WalletButton = styled.button`
     transform: perspective(1px) translateZ(0px);
     -webkit-box-align: center;
     align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+
+    color: rgb(255, 255, 255);
+    border-radius: 16px;
+
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    height: 2.8rem;
+    width: initial;
+    padding: 0px 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-right: 3px;
+
+
+    &:hover {
+        background-color: rgb(44, 47, 54);
+    }
+    &:focus {
+        background-color: rgb(33, 35, 40);
+    }
+`
+
+const GasTankButton = styled.button`
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    transition: transform 450ms ease 0s;
+    transform: perspective(1px) translateZ(0px);
+    -webkit-box-align: center;
+    align-items: center;
     font-size: 24px;
     font-weight: 500;
     backdrop-filter: blur(12px) saturate(149%);
@@ -298,12 +340,9 @@ const WalletButtonContentContainer = styled.div`
     width: 100%;
 `
 
-const StakeButton = styled(HeaderButtonSecondary)`
-`
 
 const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
-    // const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
     
     
@@ -312,13 +351,8 @@ const DepositModal = (props) => {
     const [showDepositModal, setShowDepositModal] = useState(false)
     const [showUnstakeModal, setShowUnstakeModal] = useState(false)
 
-    //props
-    // const bal = props.walletBalance;
-    // console.log("pooooop")
-    // console.log(bal)
     
     const {data: balanceData} = useGraphQuery(gasTankQueryData, "gas-tank")
-
     const {data: maticBalanceData} = useFetchMaticBalance()
 
     
@@ -330,7 +364,7 @@ const DepositModal = (props) => {
       }, [account])
 
     useEffect( () => {
-        if (balanceData.payers !== undefined) {
+        if (balanceData.payers !== undefined && balanceData.payers.length > 0) {
             setGasTankData(balanceData.payers[0].amountDeposited)
             console.log("gasData", balanceData.payers[0])
         }
@@ -345,7 +379,7 @@ const DepositModal = (props) => {
     //hide and show button
     let dButton, wButton;
 
-    if (amount == '') {
+    if (amount == '' || !active) {
         dButton = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Deposit</DepositButton>;
         wButton = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Withdraw</DepositButton>;
     } else if (amount !== ''){
@@ -395,7 +429,7 @@ const DepositModal = (props) => {
                         <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "baseline", height: "100%", width: "100%"}}>
                             
 
-                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}} onClick={() => setAmount(gasTankData)}>
+                        <GasTankButton style={{marginTop: "1.0em", padding: "1.42em"}} onClick={() => setAmount(gasTankData)}>
                             <WalletButtonContentContainer>
                             <GasIcon style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
 
@@ -405,7 +439,7 @@ const DepositModal = (props) => {
 
                             </WalletButtonContentContainer>
                             
-                        </WalletButton>
+                        </GasTankButton>
                         </div>
                         
 
