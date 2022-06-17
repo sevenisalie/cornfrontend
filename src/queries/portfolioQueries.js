@@ -136,3 +136,11 @@ export const masterChefUserQuery = (_account) => {
         }
     }`
 }
+
+export const cobQuery = () => {
+    return gql`{
+        cobs {
+            totalSupply
+        }
+    }`
+}

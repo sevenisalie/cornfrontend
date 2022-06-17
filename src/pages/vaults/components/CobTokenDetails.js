@@ -5,6 +5,10 @@ import {BsArrowUpRight} from "react-icons/bs"
 import {Placeholder} from "react-bootstrap"
 import useFetchCobDetails from "../../../hooks/useFetchCobDetails"
 
+import useGraphQuery from '../../../hooks/useGraphQuery'
+import { cobQuery, masterChefQuery } from "../../../queries/portfolioQueries";
+import { toFixed } from "../../../utils/nft"
+
 
 
 const SubHeaderGridContainer = styled.div`
@@ -103,6 +107,29 @@ const TokenText = styled.div`
 const CobTokenDetails = (props) => {
     const [results] = useFetchCobDetails()
     
+    const { data: graphData } = useGraphQuery(masterChefQuery(), "masterchef")
+    const { data: cobSupplyData } = useGraphQuery(cobQuery(), "cob")
+
+    const [cobTotalSupplyData, setCobTotalSupplyData] = useState(0)
+    const [cobPriceData, setCobPriceData] = useState(0)
+
+    useEffect(() => {
+        if(cobSupplyData.cobs !== undefined) {
+            setCobTotalSupplyData(cobSupplyData.cobs[0].totalSupply)
+        }
+    }, [cobSupplyData])
+
+    useEffect(() => {
+        if(graphData.pools !== undefined) {
+            const cobPool = graphData.pools.find(p => p.id === "15")
+            if(cobPool !== undefined) {
+                setCobPriceData(cobPool.priceUSD)
+            }
+        }
+    }, [graphData])
+
+    const marketCap = toFixed((cobTotalSupplyData * cobPriceData), 2)
+    
         return (
             <>
             <SubHeaderGridContainer style={{marginTop: "180px", marginBottom: "140px"}}>
@@ -116,11 +143,11 @@ const CobTokenDetails = (props) => {
                 <SubHeaderContentContainer>
                     <TokenHeaderText>Market Cap</TokenHeaderText>
                     {}
-                    <TokenText>${results !== undefined && results.marketCap}</TokenText>
+                    <TokenText>${marketCap}</TokenText>
                 </SubHeaderContentContainer>
                 <SubHeaderContentContainer>
                     <TokenHeaderText>Price</TokenHeaderText>
-                    <TokenText>${results !== undefined && results.price}</TokenText>
+                    <TokenText>${cobPriceData}</TokenText>
                 </SubHeaderContentContainer>
             </SubHeaderGridContainer>
             </>
