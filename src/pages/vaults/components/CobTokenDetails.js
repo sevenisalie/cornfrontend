@@ -8,6 +8,7 @@ import useFetchCobDetails from "../../../hooks/useFetchCobDetails"
 import useGraphQuery from '../../../hooks/useGraphQuery'
 import { cobQuery, masterChefQuery } from "../../../queries/portfolioQueries";
 import { toFixed } from "../../../utils/nft"
+import {useRefresh} from "../../../utils/useRefresh";
 
 
 
@@ -110,12 +111,14 @@ const CobTokenDetails = (props) => {
 
     const [cobTotalSupplyData, setCobTotalSupplyData] = useState(0)
     const [cobPriceData, setCobPriceData] = useState(0)
+    const {slowRefresh} = useRefresh()
 
     useEffect(() => {
         if(cobSupplyData.cobs !== undefined) {
-            setCobTotalSupplyData(cobSupplyData.cobs[0].totalSupply)
+            const mc = cobPriceData * cobSupplyData.cobs[0].totalSupply
+            setCobTotalSupplyData(mc)
         }
-    }, [cobSupplyData])
+    }, [cobSupplyData, slowRefresh])
 
     useEffect(() => {
         if(graphData.pools !== undefined) {
@@ -124,9 +127,9 @@ const CobTokenDetails = (props) => {
                 setCobPriceData(cobPool.priceUSD)
             }
         }
-    }, [graphData])
+    }, [graphData, slowRefresh])
 
-    const marketCap = toFixed((cobTotalSupplyData * cobPriceData), 2)
+    // const marketCap = toFixed((cobTotalSupplyData * cobPriceData), 2)
     
         return (
             <>
@@ -141,7 +144,7 @@ const CobTokenDetails = (props) => {
                 <SubHeaderContentContainer>
                     <TokenHeaderText>Market Cap</TokenHeaderText>
                     {}
-                    <TokenText>${marketCap}</TokenText>
+                    <TokenText>${toFixed(cobTotalSupplyData, 2)}</TokenText>
                 </SubHeaderContentContainer>
                 <SubHeaderContentContainer>
                     <TokenHeaderText>Price</TokenHeaderText>
