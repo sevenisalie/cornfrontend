@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import {Link, NavLink} from 'react-router-dom';
 import {useWeb3React} from "@web3-react/core"
@@ -17,6 +17,8 @@ import {GiCorn, GiHamburgerMenu} from "react-icons/gi"
 import {FaGasPump, FaHome, FaTicketAlt, FaHandHoldingWater, FaTwitter, FaDiscord, AiFillGithub, FaGithub} from "react-icons/fa"
 
 import {toFixed} from "../utils/nft";
+import useGraphQuery from '../hooks/useGraphQuery'
+import { gasTankQuery } from "../queries/portfolioQueries";
 
 
 //bootstrap components
@@ -465,7 +467,29 @@ export const GasForm = () => {
 
 
 const GasTank = (props) => {
-    const { data } = useFetchMaticBalance()
+
+    const {active, account, library, connector} = useWeb3React()
+    
+    const [gasTankQueryData, setGasTankQueryData] = useState("")
+    const [gasTankData, setGasTankData] = useState(0)
+
+    const {data: balanceData} = useGraphQuery(gasTankQueryData, "gas-tank")
+
+    
+    useEffect( () => {
+        if (account) {
+            setGasTankQueryData(gasTankQuery(account.toLowerCase()))
+            console.log("gasQuery", gasTankQueryData)
+        }
+      }, [account])
+
+    useEffect( () => {
+        if (balanceData.payers !== undefined && balanceData.payers.length > 0) {
+            setGasTankData(balanceData.payers[0].amountDeposited)
+            console.log("gasData", balanceData.payers[0])
+        }
+      }, [balanceData])
+
     const [toggleGas, setToggleGas] = useState(false)
 
     const gasToggle = () => {
@@ -480,7 +504,7 @@ const GasTank = (props) => {
 
         <GasContainer style={props.breakpoint}>
             <GasTextContainer>
-                <GasText>{toFixed(data, 4)}</GasText>
+                <GasText>{toFixed(gasTankData, 4)}</GasText>
                 
             </GasTextContainer>
             <GasButtonContainer>
