@@ -26,7 +26,7 @@ import homeufo from "../../assets/images/homeufo.svg"
 
 
 import useGraphQuery from '../../hooks/useGraphQuery'
-import { masterChefQuery } from "../../queries/portfolioQueries";
+import { controllerGraphQuery, masterChefQuery } from "../../queries/portfolioQueries";
 
 import { toFixed } from "../../utils/nft"
 
@@ -363,10 +363,13 @@ const APYContainer = styled.div`
 export const Home = () => {
     const {active, account, library, connector} = useWeb3React();
     const { data: graphData } = useGraphQuery(masterChefQuery(), "masterchef")
+    const { data: controllerGraphData } = useGraphQuery(controllerGraphQuery(), "controller")
     const [masterchefData, setMasterchefData] = useState({
         tvl: 0,
         apr: 0
     })
+
+    const [controllerData, setControllerData] = useState()
 
     useEffect(() => {
         if (graphData.masterchefs !== undefined && graphData.pools !== undefined) {
@@ -388,6 +391,13 @@ export const Home = () => {
             })
         }
     }, [graphData])
+
+    useEffect(() => {
+        if (controllerGraphData.controllers !== undefined) {
+            
+            setControllerData(controllerGraphData.controllers[0])
+        }
+    }, [controllerGraphData])
 
     //toastie
     const goodToast = (msg) => {
@@ -455,7 +465,7 @@ export const Home = () => {
                                 <BodyContentCard style={{width: "14em"}}>
                                     <BodyContentCardContainer>
                                         <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
-                                            TVL
+                                            MasterChef TVL
                                         </div>
                                         <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
                                         {`$ ${masterchefData.tvl}`}
@@ -465,7 +475,7 @@ export const Home = () => {
                                 <BodyContentCard style={{width: "14em"}}>
                                     <BodyContentCardContainer>
                                         <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
-                                            APY
+                                            MasterChef APY
                                         </div>
                                         <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)"}}>
                                         {`${masterchefData.apr}%`}
@@ -489,6 +499,25 @@ export const Home = () => {
                             
                             </BodyContentCard>
 
+                        </APYContainer>
+
+
+                        <APYContainer>
+                            <div style={{display: "flex", flexDirection: "column", rowGap: "0.88em", alignContent: "center", alignItems: "center", justifyContent: "center", height: "auto", width: "auto"}}>
+                    
+
+                                <BodyContentCard style={{width: "14em"}}>
+                                    <BodyContentCardContainer>
+                                        <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
+                                            Controller
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`$ ${JSON.stringify(controllerData)}`}
+                                        </div>
+                                    </BodyContentCardContainer>
+                                </BodyContentCard>
+            
+                            </div>
                         </APYContainer>
 
 

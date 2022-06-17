@@ -10,6 +10,10 @@ export const portfolioGraphRequest = (_account) => {
                 erc20 {
                     address
                     amount
+                    erc20Meta {
+                        name
+                        priceUSD
+                    }
                 }
                 trades {
                     tradeId
@@ -41,6 +45,32 @@ export const portfolioTotalsGraphQuery = (_account) => {
         }
       }
     `
+    return query
+}
+
+export const controllerGraphQuery = () => {
+    const query = gql`{
+        controllers {
+            id
+            strategyCount
+            userCount
+            totalOrderCount
+            openOrderCount
+            filledOrderCount
+            totalValueUSD
+            totalVolumeDepositedUSD
+            totalVolumeFilledUSD
+            erc20(where: {totalBalance_not: 0}) {
+                id
+                priceUSD
+                decimals
+                name
+                symbol
+                totalBalance
+                totalValueUSD
+            }
+        }
+    }`
     return query
 }
 
