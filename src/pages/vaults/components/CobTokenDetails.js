@@ -104,9 +104,7 @@ const TokenText = styled.div`
 `
 
 
-const CobTokenDetails = (props) => {
-    const [results] = useFetchCobDetails()
-    
+const CobTokenDetails = (props) => {    
     const { data: graphData } = useGraphQuery(masterChefQuery(), "masterchef")
     const { data: cobSupplyData } = useGraphQuery(cobQuery(), "cob")
 
