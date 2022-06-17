@@ -31,6 +31,8 @@ import { controllerGraphQuery, masterChefQuery } from "../../queries/portfolioQu
 import { toFixed } from "../../utils/nft"
 
 
+import {useRefresh} from "../../utils/useRefresh";
+
 
 
 const HeaderGridContainer = styled(Container)`
@@ -361,15 +363,26 @@ const APYContainer = styled.div`
 `
 
 export const Home = () => {
+    const {slowRefresh} = useRefresh()
     const {active, account, library, connector} = useWeb3React();
     const { data: graphData } = useGraphQuery(masterChefQuery(), "masterchef")
     const { data: controllerGraphData } = useGraphQuery(controllerGraphQuery(), "controller")
     const [masterchefData, setMasterchefData] = useState({
         tvl: 0,
-        apr: 0
+        apr: 0,
+        userCount: 0,
+        poolCount: 0
     })
 
-    const [controllerData, setControllerData] = useState()
+    const [controllerData, setControllerData] = useState({
+        userCount: 0,
+        totalOrderCount: 0,
+        openOrderCount: 0,
+        filledOrderCount: 0,
+        totalValueUSD: 0,
+        totalVolumeDepositedUSD: 0,
+        totalVolumeFilledUSD: 0
+    })
 
     useEffect(() => {
         if (graphData.masterchefs !== undefined && graphData.pools !== undefined) {
@@ -387,10 +400,12 @@ export const Home = () => {
             apr = (cobYearUSD / tvl) * 100
             setMasterchefData({
                 tvl: toFixed(tvl, 2),
-                apr: toFixed(apr, 2)
+                apr: toFixed(apr, 2),
+                userCount: graphData.masterchefs[0].userCount,
+                poolCount: graphData.masterchefs[0].poolCount
             })
         }
-    }, [graphData])
+    }, [graphData, slowRefresh])
 
     useEffect(() => {
         if (controllerGraphData.controllers !== undefined) {
@@ -464,24 +479,36 @@ export const Home = () => {
 
                                 <BodyContentCard style={{width: "14em"}}>
                                     <BodyContentCardContainer>
-                                        <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
-                                            MasterChef TVL
+                                        <div style={{fontSize:"1.5em", fontWeight: "600", color: "#fbdb37", }}>
+                                            MasterChef
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`TVL`}
                                         </div>
                                         <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
                                         {`$ ${masterchefData.tvl}`}
                                         </div>
-                                    </BodyContentCardContainer>
-                                </BodyContentCard>
-                                <BodyContentCard style={{width: "14em"}}>
-                                    <BodyContentCardContainer>
-                                        <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
-                                            MasterChef APY
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`APR`}
                                         </div>
-                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)"}}>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
                                         {`${masterchefData.apr}%`}
                                         </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`Pool Count`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`${masterchefData.poolCount - 1}`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`Total Users`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`${masterchefData.userCount}`}
+                                        </div>
                                     </BodyContentCardContainer>
                                 </BodyContentCard>
+            
 
 
                             </div>
@@ -489,24 +516,58 @@ export const Home = () => {
                             <div style={{display: "flex", flexDirection: "column", rowGap: "0.88em", alignContent: "center", alignItems: "center", justifyContent: "center", height: "auto", width: "auto"}}>
                     
 
-                                <BodyContentCard style={{width: "14em"}}>
+                                <BodyContentCard style={{width: "20em"}}>
                                     <BodyContentCardContainer>
-                                        <div style={{fontSize:"1.3em", fontWeight: "600", color: "#fbdb37", }}>
+                                        <div style={{fontSize:"1.5em", fontWeight: "600", color: "#fbdb37", }}>
                                             Trades
                                         </div>
-                                        <p>
-                                            {`Total Orders: ${controllerData.totalOrderCount}`}
-                                        </p>
-                                        <p>
-                                            {`Open Orders: ${controllerData.openOrderCount}`}
-                                        </p>
-                                        <p>
-                                            {`Filled Orders: ${controllerData.filledOrderCount}`}
-                                        </p>
-                                        <p>
-                                            {`Total Value (USD): $${toFixed(controllerData.totalValueUSD, 2)}`}
-                                        </p>
-                                        <p>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`TVL`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`$ ${toFixed(controllerData.totalValueUSD, 2)}`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`Total Orders`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`${controllerData.totalOrderCount}`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`Total Open Orders`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`${controllerData.openOrderCount}`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`Total Filled Orders`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`${controllerData.filledOrderCount}`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`Total Volume Deposited`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`$ ${toFixed(controllerData.totalVolumeDepositedUSD, 2)}`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`Total Volume Filled`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`$ ${toFixed(controllerData.totalVolumeFilledUSD, 2)}`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "#ffffff", }}>
+                                        {`Total Users`}
+                                        </div>
+                                        <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
+                                        {`${controllerData.userCount}`}
+                                        </div>
+
+
+
+                                        
+                                        {/* <p>
                                             {`Total Volume Deposited: $${toFixed(controllerData.totalVolumeDepositedUSD, 2)}`}
                                         </p>
                                         <p>
@@ -514,7 +575,7 @@ export const Home = () => {
                                         </p>
                                         <p>
                                             {`Total Users: ${controllerData.userCount}`}
-                                        </p>
+                                        </p> */}
                                         {/* <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
                                         {`$ ${JSON.stringify(controllerData)}`}
                                         </div> */}

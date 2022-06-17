@@ -32,6 +32,7 @@ import {GiLockedChest} from "react-icons/gi"
 import {RiCoinLine} from "react-icons/ri"
 
 
+
 const ActualPoolCard = styled.div`
     border-radius: 50px;
     display: flex;
@@ -137,6 +138,7 @@ const PoolCard = (props, {state}) => {
     const [userData, setUserData] = useState(null)
     const [poolData, setPoolData] = useState(null)
 
+
   
    
 
@@ -144,7 +146,7 @@ const PoolCard = (props, {state}) => {
       if(props.graphData.pools !== null && props.graphData.pools !== undefined) {
         setPoolData(props.graphData.pools.find(p => p.id === props.pid.toString()))
       }
-    }, [props.graphData.pools])
+    }, [props.graphData.pools, slowRefresh])
 
     useEffect(() => {
       if(props.graphUserData !== null && props.graphUserData !== undefined) {
@@ -159,13 +161,13 @@ const PoolCard = (props, {state}) => {
         console.log("bill", data)
         setUserData(data.find(p => p.pid === props.pid.toString()))
       }
-    }, [props.graphUserData])
+    }, [props.graphUserData, slowRefresh])
     
     useEffect(() => {
       if(props.rewards !== undefined) {
         setPendingCob(props.rewards[props.pid])
       }
-    }, [props.rewards])
+    }, [props.rewards, slowRefresh])
 
     
     useEffect(() => {
