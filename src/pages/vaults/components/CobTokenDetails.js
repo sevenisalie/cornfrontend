@@ -118,7 +118,7 @@ const CobTokenDetails = (props) => {
             const mc = cobPriceData * cobSupplyData.cobs[0].totalSupply
             setCobTotalSupplyData(mc)
         }
-    }, [cobSupplyData, slowRefresh])
+    }, [cobSupplyData, slowRefresh, cobPriceData])
 
     useEffect(() => {
         if(graphData.pools !== undefined) {
@@ -127,7 +127,7 @@ const CobTokenDetails = (props) => {
                 setCobPriceData(cobPool.priceUSD)
             }
         }
-    }, [graphData, slowRefresh])
+    }, [graphData, cobTotalSupplyData, slowRefresh])
 
     // const marketCap = toFixed((cobTotalSupplyData * cobPriceData), 2)
     
