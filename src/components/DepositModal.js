@@ -10,14 +10,15 @@ import { POOLS } from '../config/pools';
 import TOKENLIST from "../config/TOKENLIST.json"
 
 import {TokenButton} from "../pages/nftgallery/components/TokenSelector"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {Container, Card, Modal} from "react-bootstrap"
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
 import {FaGasPump} from "react-icons/fa"
 
-import useFetchGasBalance from '../hooks/useFetchGasBalance';
+import useFetchGasBalance from '../hooks/useFetchGasBalance'
 import useFetchMaticBalance from "../hooks/useFetchMaticBalance"
+import useGraphQuery from "../hooks/useGraphQuery"
+import useFetchContractWrite from "../hooks/useFetchContractWrite"
+
 import {writeContract, userStake, toFixed} from "../utils/nft";
 
 
@@ -298,40 +299,10 @@ const WalletButtonContentContainer = styled.div`
 
 const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
-    // const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
     const {data: balanceData} = useFetchGasBalance()
     const {data: maticBalanceData} = useFetchMaticBalance()
 
-    //props
-    // const bal = props.walletBalance;
-    // console.log("pooooop")
-    // console.log(bal)
-
-    
-
-    
-
-    // useEffect( () => {
-    //     if (active) {
-    //       const masterChef = writeContract(
-    //           active, 
-    //           library.getSigner(), 
-    //           account,
-    //           addresses.masterChef,
-    //           MasterChefABI,
-    //           )
-    //       .then( value => setMasterChefContract(value))
-    //     } else {
-    //       const noData = setMasterChefContract(null)
-    //     }
-        
-        
-    //   }, [account, library])
-
-    
-
-    
 
     //hide and show button
     let button;
