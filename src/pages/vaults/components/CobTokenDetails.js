@@ -116,11 +116,11 @@ const CobTokenDetails = (props) => {
                 <SubHeaderContentContainer>
                     <TokenHeaderText>Market Cap</TokenHeaderText>
                     {}
-                    <TokenText>${results.marketCap}</TokenText>
+                    <TokenText>${results !== undefined && results.marketCap}</TokenText>
                 </SubHeaderContentContainer>
                 <SubHeaderContentContainer>
                     <TokenHeaderText>Price</TokenHeaderText>
-                    <TokenText>${results.price}</TokenText>
+                    <TokenText>${results !== undefined && results.price}</TokenText>
                 </SubHeaderContentContainer>
             </SubHeaderGridContainer>
             </>

@@ -115,20 +115,20 @@ const useFetchPoolData = (_user, _trigger) => {
 
 
 
-    const mergeData = async (userData, apyData) => {
+    const mergeData = async (userData) => {
         const data = POOLS.map( (pool) => {
             return {
                 pid: pool.pid,
-                tokenStakeName: pool.tokenStakeName,
-                tokenStakeAddress: pool.tokenStakeAddress,
-                decimals: pool.decimals,
-                tokenEarnName: pool.tokenEarnName,
-                depositFee: pool.depositFee,
-                multiplier: pool.multiplier,
-                poolurl: pool.poolurl,
-                imageurl: pool.imageurl,
-                ...userData[pool.pid],
-                APY: apyData.POOLS[pool.pid]
+                // tokenStakeName: pool.tokenStakeName,
+                // tokenStakeAddress: pool.tokenStakeAddress,
+                // decimals: pool.decimals,
+                // tokenEarnName: pool.tokenEarnName,
+                // depositFee: pool.depositFee,
+                // multiplier: pool.multiplier,
+                // poolurl: pool.poolurl,
+                // imageurl: pool.imageurl,
+                ...userData[pool.pid]
+                // APY: apyData.POOLS[pool.pid]
             }
         })
         return dispatch({ type: 'allData', payload: data })
@@ -138,8 +138,8 @@ const useFetchPoolData = (_user, _trigger) => {
         try {
             const user = await getSetUserData(_userAddress)
           
-            const apy = await getSetAPYData()
-            await mergeData(user, apy)
+            // const apy = await getSetAPYData()
+            await mergeData(user)
         } catch (err) {
             console.log("error fetching pool data from API")
             console.log(err)

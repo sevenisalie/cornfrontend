@@ -26,6 +26,10 @@ import homeufo from "../../assets/images/homeufo.svg"
 
 
 
+import { masterChefQuery } from "../../queries/portfolioQueries";
+
+
+
 
 const HeaderGridContainer = styled(Container)`
     margin-top: 66px;

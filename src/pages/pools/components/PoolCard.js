@@ -128,30 +128,51 @@ const PoolCard = (props, {state}) => {
     const [loadingData, setLoadingData] = useState(true)
     const [masterChef, setMasterChef] = useState('')
     const [pendingCob, setPendingCob] = useState('0')
-  
+
     const [allowance, setAllowance] = useState(false)
  
     const [isOpen, setIsOpen] = useState(false)
 
     // catch previous reduced state
-    const [data, setData] = useState({})
+    const [userData, setUserData] = useState(null)
+    const [poolData, setPoolData] = useState(null)
+
+  
+   
 
     useEffect(() => {
-      setPendingCob(props.rewards[props.pid])
+      if(props.graphData.pools !== null && props.graphData.pools !== undefined) {
+        setPoolData(props.graphData.pools.find(p => p.id === props.pid.toString()))
+      }
+    }, [props.graphData.pools])
+
+    useEffect(() => {
+      if(props.graphUserData !== null && props.graphUserData !== undefined) {
+        console.log("donny", props.graphUserData.poolUsers)
+        const data = []
+        for(let i = 0; i < props.graphUserData.poolUsers.length; i++) {
+          data.push({
+            pid: props.graphUserData.poolUsers[i].pool.id,
+            depositAmount: props.graphUserData.poolUsers[i].depositAmount
+          })
+        }
+        console.log("bill", data)
+        setUserData(data.find(p => p.pid === props.pid.toString()))
+      }
+    }, [props.graphUserData])
+    
+    useEffect(() => {
+      if(props.rewards !== undefined) {
+        setPendingCob(props.rewards[props.pid])
+      }
     }, [props.rewards])
 
-    useEffect(() => {
-      setData(props.data.allData[props.pid])
-    }, [props.data])
     
     useEffect(() => {
       if (props.allowances.length > 0)
       setAllowance(props.allowances[props.pid].approved)
     }, [props.allowances])
 
-    useEffect(() => {
-      setLoadingData(props.data.loading)
-    }, [props.data])
 
     useEffect(() => {
         setMasterChef(props.master)
@@ -231,7 +252,8 @@ const PoolCard = (props, {state}) => {
       )
     }
 
-    if (props.rawPoolData[props.pid].display === false) {
+    // Disabled pool
+    if (props.pid == 14) {
       return (
         null
       )
@@ -239,8 +261,8 @@ const PoolCard = (props, {state}) => {
       return (
 
         <>
-        <DepositModal data={props.data} tokenStake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl}  pid={props.pid} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal} />
-        <UnstakeModal data={props.data} tokenUnstake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl} pid={props.pid}  showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
+        <DepositModal tokenStake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl}  pid={props.pid} showDepositModal={showDepositModal} setShowDepositModal={setShowDepositModal} />
+        <UnstakeModal userData={userData} tokenUnstake={POOLS[props.pid].tokenStakeName} imageurl={POOLS[props.pid].imageurl} pid={props.pid}  showUnstakeModal={showUnstakeModal} setShowUnstakeModal={setShowUnstakeModal} />
 
         <ActualPoolCard isOpen={isOpen}>
                     
@@ -249,22 +271,25 @@ const PoolCard = (props, {state}) => {
           
               <div style={{ display: 'flex', flexDirection: 'row', flexWrap: "wrap", alignItems: 'center', justifyContent: "space-between"}}>
               
-                  <Image style={{ marginRight: "19px" }}src={data.imageurl} width={64} height={64} alt={"COB"} />
+                  <Image style={{ marginRight: "19px" }}src={POOLS[props.pid].imageurl} width={64} height={64} alt={"COB"} />
                   
                 <CardTitle >
                   
                  
                   <div style={{display: "flex", flexDirection: 'column', alignContent: "center", justifyContent: "space-between", textAlign: "center", marginBottom: "12px"}}>
-                    {data.tokenStakeName} 
+                    {POOLS[props.pid].tokenStakeName} 
                   </div>
 
                   <MultiplierBadge><GoVerified style={{marginRight: "4px"}}/>
-                  {toFixed(data.depositFee, 1)} 
-                  {" Fees"}
+                  { 
+                    poolData !== null && 
+                    toFixed((poolData.depositFee * 100), 2)
+                  }
+                  {"% Fees"}
                   </MultiplierBadge>
 
                   <MultiplierBadge>
-                  {data.multiplier}
+                  {`${poolData !== null ? poolData.allocationPoint : 0}x`}
                   </MultiplierBadge>
 
                 </CardTitle>
@@ -284,8 +309,10 @@ const PoolCard = (props, {state}) => {
                       <p>APR:</p>
                  
                       <p>
-                        {/* {JSON.stringify(data.APY, null, 2)} */}
-                      {data.APY ? toFixed(data.APY.APY, 2) : LoadingElement(12)} %
+                      {
+                        poolData !== null &&
+                        toFixed(poolData.apy, 2)
+                      } %
                       </p>
                      
                     </Container>
@@ -296,7 +323,7 @@ const PoolCard = (props, {state}) => {
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                       <p>Earn:</p>
                       <p><BiCoinStack style={{marginRight: "6px"}}/>
-                        {data.tokenEarnName}
+                        {POOLS[props.pid].tokenEarnName}
                       </p>
                     </Container>
                 </StyledDetails>
@@ -305,7 +332,7 @@ const PoolCard = (props, {state}) => {
                 <Container style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                       <p>Stake:</p>
                       <p><RiCoinLine style={{marginRight: "6px"}}/>
-                      {data.tokenStakeName}
+                      {POOLS[props.pid].tokenStakeName}
                       </p>
                     </Container>
                 </StyledDetails>
@@ -378,11 +405,12 @@ const PoolCard = (props, {state}) => {
 
 
         <CardFooter
+          poolData={poolData}
+          userData={userData}
           setIsOpen={handleDetailsClick}
           isOpen={isOpen}
           state={props.state}
-          data={data}
-          projectLink={data.poolurl}
+          projectLink={"https://lld.llc"}
           pid={props.pid}
           totalStaked={3535}
           bal={324343}

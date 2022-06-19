@@ -285,7 +285,7 @@ const Trade = ({ trade }) => {
 const TradeGrid = () => {
     const {account, library} = useWeb3React()
     const [query, setQuery] = useState("")
-    const {data:portfolioData} = useGraphQuery(query)
+    const {data:portfolioData} = useGraphQuery(query, "controller")
     const [tradeData, setTradeData] = useState([])
 
     useEffect(() => {
