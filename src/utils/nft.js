@@ -2,7 +2,7 @@ import {ethers} from "ethers";
 import React, {useEffect, useState} from "react";
 import { useWeb3React } from "@web3-react/core";
 import { addresses } from "../config/addresses";
-import {nftABI} from "../config/abis";
+import {nftABI, gasTankABI} from "../config/abis";
 import {nftURI} from "../config/uri";
 import axios from "axios"
 
@@ -137,6 +137,7 @@ export const setPoolAllowance = async (tokenAddress, masterchef, _signer) => {
 
 export const getTokenStakeBalance = async (tokenAddress, _signer, account) => {
     const ctr = new ethers.Contract(tokenAddress, ERC20Abi, _signer)
+    
     try {
         const balance = await ctr.balanceOf(account)
         return balance
@@ -170,6 +171,45 @@ export const userStake = async (_masterchef, pid, amount, decimals) => {
     } catch (err) {
         console.log(err)
         goodToast(`${err.data.message}`)
+    }
+}
+
+export const userDepositGas = async (signer, receiver, amount) => {
+    const ctr = new ethers.Contract(addresses.gasTank, gasTankABI, signer);
+
+    try {
+        const bigNumAmount = ethers.utils.parseUnits(amount, 18)
+        console.log("signer",signer)
+        const tx = await ctr.depositGas(receiver, {value: bigNumAmount});
+        return tx
+    } catch (err) {
+        console.log(err)
+        // goodToast(`${err.data.message}`)
+    }
+}
+
+export const userWithdrawGas = async (signer, amount) => {
+    const ctr = new ethers.Contract(addresses.gasTank, gasTankABI, signer);
+
+    try {
+        const bigNumAmount = ethers.utils.parseUnits(amount, 18)
+        const tx = await ctr.withdrawGas(bigNumAmount);
+        return tx
+    } catch (err) {
+        console.log(err)
+        // goodToast(`${err.data.message}`)
+    }
+}
+
+export const userGasTankApprove = async (signer, payee, approvalStatus) => {
+    const ctr = new ethers.Contract(addresses.gasTank, gasTankABI, signer);
+
+    try {
+        const tx = await ctr.approve(payee, approvalStatus);
+        return tx
+    } catch (err) {
+        console.log(err)
+        // goodToast(`${err.data.message}`)
     }
 }
 

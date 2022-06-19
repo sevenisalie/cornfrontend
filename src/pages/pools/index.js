@@ -218,13 +218,13 @@ const Pools = (props) => {
     }
 
 
-    if (graphData.pools !== null && graphData.pools !== undefined && library ) {
+    if (graphData.pools !== null && graphData.pools !== undefined) {
         const mapPoolData =  graphData.pools.map((pool, index) => {
             console.log("Pool Data", graphData)
             console.log("User Data", graphUserData)
             return (
                 <>
-                <PoolCard graphUserData={graphUserData} graphData={graphData} rewards={results} rawPoolData={POOLS} allowances={allowance} master={contract} refresh={manualRefresh} state={state} signer={library.getSigner()} pid={index} key={index} pool={pool}/>
+                <PoolCard graphUserData={graphUserData} graphData={graphData} rewards={results} rawPoolData={POOLS} allowances={allowance} master={contract} refresh={manualRefresh} state={state} pid={index} key={index} pool={pool}/>
                 </>
             )
             });

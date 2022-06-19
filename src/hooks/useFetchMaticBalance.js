@@ -29,7 +29,7 @@ const useFetchMaticBalance = () => {
         if (active && library) {
             try {
                 const data = await getMaticBalance(account, library)
-                setBalance(toFixed(data, 4))
+                setBalance(toFixed(data, 18))
             } catch (err) {console.log(err)}
         }
 
