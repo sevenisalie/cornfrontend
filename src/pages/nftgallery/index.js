@@ -4,31 +4,24 @@ import {Page} from "../../components/Page"
 import {ethers} from "ethers";
 import React, {useEffect, useState, useReducer} from "react";
 import { useWeb3React } from "@web3-react/core";
+
 import { addresses } from "../../config/addresses";
-import { nftURI } from "../../config/uri";
-import {MasterChefABI, ERC20Abi} from "../../config/abis";
 import {NFTS} from "../../config/nfts"
 import {POOLS} from "../../config/pools"
 
-
-import axios from "axios"
-import {stopLossAbi} from "../../config/abis";
-import {Container, Card, Button} from "react-bootstrap";
 import {writeContract, userMint} from "../../utils/nft";
-import { StyledDetailsButton } from "../../pages/pools/components/PoolCard"
-import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
+import useFetchContractWrite from "../../hooks/useFetchContractWrite"
+import useFetchRouterInfo from "../../hooks/useFetchRouterInfo"
 
-import {EthIcon, BitcoinIcon, DollarIcon} from "./components/CreateVault"
 
-import {NFTFooter} from "./components/NFTFooter";
+
 import {NFTCard} from "./components/NFTCard";
 import MarketPageHeading from "./components/MarketPageHeading";
 import LimitOrderEntry from './components/LimitOrderEntry'
-import TokenSelector from "./components/TokenSelector"
-import useFetchPoolData from "../../hooks/useFetchPoolData"
 
 
-const MyNFTContainer = styled(Container)`
+
+const MyNFTContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +31,7 @@ const MyNFTContainer = styled(Container)`
     margin-bottom: 40px;
 `
 
-const MyNFTGrid = styled(Container)`
+const MyNFTGrid = styled.div`
     margin-top: 25px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -109,31 +102,6 @@ const NFT = () => {
 
     const [state, dispatch] = useReducer(marketReducer, initialState)
     
-
-
-
-    
-
-    useEffect( () => {
-        if (active) {
-            const nftctr = writeContract(
-                active,
-                library.getSigner(),
-                account,
-                addresses.vaults.stopVault,
-                stopLossAbi,
-            )
-            .then( value => {
-                dispatch({ type: 'stopLossContract', payload: value})
-      
-                
-            })
-            
-        } else {
-            dispatch({ type: 'ERROR', payload: 'poop'})
-        }
-    }, [active, account])
-
 
     
 

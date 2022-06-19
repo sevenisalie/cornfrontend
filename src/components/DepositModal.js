@@ -10,17 +10,17 @@ import { POOLS } from '../config/pools';
 import TOKENLIST from "../config/TOKENLIST.json"
 
 import {TokenButton} from "../pages/nftgallery/components/TokenSelector"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {Container, Card, Modal} from "react-bootstrap"
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
 import {FaGasPump} from "react-icons/fa"
 
-import useFetchGasBalance from '../hooks/useFetchGasBalance';
+import useFetchGasBalance from '../hooks/useFetchGasBalance'
 import useFetchMaticBalance from "../hooks/useFetchMaticBalance"
+
 import {writeContract, userDepositGas, userWithdrawGas, toFixed} from "../utils/nft";
 import useGraphQuery from '../hooks/useGraphQuery'
 import { gasTankQuery } from "../queries/portfolioQueries";
+
 
 
 const EntryContainer = styled.div`
@@ -344,6 +344,7 @@ const WalletButtonContentContainer = styled.div`
 const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
     const [amount, setAmount] = useState('')
+
     
     
     const [gasTankQueryData, setGasTankQueryData] = useState("")
@@ -375,6 +376,7 @@ const DepositModal = (props) => {
         setShowDepositModal(prev => !prev)
     }
     
+
 
     //hide and show button
     let dButton, wButton;
