@@ -3,8 +3,8 @@ import { request, gql } from "graphql-request"
 export const portfolioGraphRequest = (_account) => {
     const portfolioByUserQuery = gql`
     {
-        users(where: {id: "${_account.toLowerCase()}"}, first: 100) {
-            strategyTokens(where: {open: true}) {
+        users(where: {id: "${_account.toLowerCase()}"}) {
+            strategyTokens(where: {open: true}, orderBy: tokenId) {
                 strategyId
                 tokenId
                 erc20 {
@@ -39,11 +39,15 @@ export const portfolioGraphRequest = (_account) => {
 export const portfolioTotalsGraphQuery = (_account) => {
     const query = gql`
     {
-        erc20S(where: {owner: "${_account.toLowerCase()}", amount_not: 0}) {
-          address
-          amount
+        strategyTokens(where: {open: true, owner: "${_account.toLowerCase()}"}) {
+            erc20(where: {amount_not: 0}) {
+                amount
+                erc20Meta {
+                    priceUSD
+                }
+            }
         }
-      }
+    }
     `
     return query
 }

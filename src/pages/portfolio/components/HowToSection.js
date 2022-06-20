@@ -161,8 +161,8 @@ const HowToSection = () => {
         <PoolHeaderText>
             {`My Trades`}
         </PoolHeaderText>
-        <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Open</HeaderButtonSecondary>
-        <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Closed</HeaderButtonSecondary>
+        {/* <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Open</HeaderButtonSecondary>
+        <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Closed</HeaderButtonSecondary> */}
         </SectionContainer>
         <LineBreak />
         </>
