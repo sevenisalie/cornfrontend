@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import {ethers} from "ethers"
+import {ContractFactory, ethers} from "ethers"
 import React, {useEffect, useState, useReducer} from "react"
 import { useWeb3React } from "@web3-react/core"
 import { addresses } from "../../../config/addresses"
@@ -30,6 +30,7 @@ import OrderSelector from "./OrderSelector"
 import {EthIcon, BitcoinIcon, DollarIcon} from "../components/CreateVault"
 import {useRefresh} from "../../../utils/useRefresh"
 import useFetchRouterInfo from "../../../hooks/useFetchRouterInfo"
+import useFetchContractWrite from "../../../hooks/useFetchContractWrite"
 
 
 const MainContainer = styled.div`
@@ -446,13 +447,24 @@ const TokenSelectorOverlay = styled.div`
 `
 
 
+
 const SubmitSection = (props) => {
+
     return (
         <>
             <TitleContainer>
       
-                {/* <SubmitButton onClick={() => props.mintFunction()}>{props.state.setSubmitButtonText}</SubmitButton> */}
-                <SubmitButton >{props.state.setSubmitButtonText}</SubmitButton>
+            {/* (strategyId ,tokenIn, tokenInDecimals, tokenOut, amountIn, realLimitPrice, controller) */}
+                <SubmitButton onClick={() => props.handleMintLimit(
+                    props.state.orderType.pid,
+                    props.state.setTokenIn.address,
+                    props.state.setTokenIn.decimals,
+                    props.state.setTokenOut.address,
+                    props.state.setAmountIn,
+                    props.state.setRealLimitPrice,
+                    props.controller
+                )}>{props.state.setSubmitButtonText}</SubmitButton>
+                {/* <SubmitButton >{props.state.setSubmitButtonText}</SubmitButton> */}
 
             </TitleContainer>
         </>
@@ -643,7 +655,8 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
     const [limitPrices, setLimitPrices] = useState(Array(limitPriceCount))
     
 
-
+    const [contract] = useFetchContractWrite(addresses.vaults.controller, CONTROLLERCONTRACT.abi) 
+    console.log("dale", contract)
     // const incrementInput = (_currentCount, _setState) => {
     //     const newCount = _currentCount + 1
     //     const newArray = Array.from(Array(newCount).keys())
@@ -824,19 +837,19 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
     }, [state.setTokenOut])
 
     //create trade pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract
-        const handleMintLimit = async () => {
-            if (account && state.setRealLimitPrice !== "" && state.setAmountIn !== "")
-            try {
-                const mint = await createLimitTrade(
-                    0,
-                    state.setTokenIn.address,
-                    state.setTokenIn.decimals,
-                    state.setTokenOut.address,
-                    state.setAmountIn,
-                    state.setRealLimitPrice,
-                    state.setController
-                )
-            } catch (err) {console.log(err)}
+    const handleMintLimit = async (strategyId ,tokenIn, tokenInDecimals, tokenOut, amountIn, realLimitPrice, controller) => {
+        if (account && state.setRealLimitPrice !== "" && state.setAmountIn !== "")
+        try {
+            const mint = await createLimitTrade(
+                strategyId,
+                tokenIn,
+                tokenInDecimals,
+                tokenOut,
+                amountIn,
+                realLimitPrice,
+                controller
+            )
+        } catch (err) {console.log(err)}
     }
  
 
@@ -883,7 +896,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
 
 
                         {/* <SubmitSection state={state} mintFunction={handleMintLimit} /> */}
-                        <SubmitSection state={state}  />
+                        <SubmitSection controller={contract} handleMintLimit={handleMintLimit} state={state}  />
                         
                     </FormContainer>
                 </CardContentContainer>
