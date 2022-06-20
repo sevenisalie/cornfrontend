@@ -634,11 +634,11 @@ const initialState = {
 
 
 const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
-    
+    const [override, setOverride] = useState(false)
     const {active, account, library, connector} = useWeb3React()
     const { fastRefresh } = useRefresh()
     const [state, dispatch] = useReducer(orderReducer, initialState)
-    const {data:routerInfo, approval, triggerRefresh} = useFetchRouterInfo(state.setTokenIn, state.setTokenOut, state.setAmountIn)
+    const {data:routerInfo, approval, triggerRefresh} = useFetchRouterInfo(state.setTokenIn, state.setTokenOut, "1" )
     const [limitPriceCount, setLimitPriceCount ] = useState(Array.from(Array(1).keys())    )
     const [limitPrices, setLimitPrices] = useState(Array(limitPriceCount))
     
@@ -804,25 +804,23 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
     }, [state.setLimitPrice])
 
     //top right value displayer
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (state.setAmountIn !== '' && state.setLimitPrice !== '') {
-            const amountOutCalc = parseFloat(state.setAmountIn) * parseFloat(state.setLimitPrice)
-            setAmountPrice(amountOutCalc.toString())
-            setAmountOut(amountOutCalc.toString())
-            dispatch({type: "setMaxGasPrice", payload: "1000000000000"})
+    //     if (state.setAmountIn !== '' && state.setLimitPrice !== '') {
+    //         const amountOutCalc = parseFloat(state.setAmountIn) * parseFloat(state.setLimitPrice)
+    //         setAmountPrice(amountOutCalc.toString())
+    //         setAmountOut(amountOutCalc.toString())
+    //         dispatch({type: "setMaxGasPrice", payload: "1000000000000"})
+    //     }
+
+    // }, [state.setAmountIn, state.side, state.setTokenIn, state.setTokenOut])
+
+    useEffect(() => {
+        // clearOrderEntry()
+        if (override === true) {
+            setOverride(false)
         }
 
-    }, [state.setAmountIn, state.side, state.setTokenIn, state.setTokenOut])
-
-    useEffect(() => {
-        if (state.setAmountIn !== "") {
-                if (state.setTokenOut !== "") {
-                      if (routerInfo !== "") {
-                    setLimitPrice(routerInfo.amountOut)
-                }
-            }
-        }
     }, [state.setTokenOut])
 
     //create trade pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract
@@ -856,29 +854,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
             <EntryContainer>
                 <CardContentContainer>
                     <FormContainer>
-                        {/* <TitleContainer>
-                                <TitleRow>
-                                    <TitleTextContainer>
-                                        <OrderSelectorButton onClick={openOrderSelectorToggle}>
-                                            {
-                                            state.orderType !== ''
-                                            ?
-                                            state.orderType.name
-                                            :
-                                            `Order Type`
-                                            }
-                                            <BiDownArrow  style={{marginLeft: "0.2em"}}/>
-                                        </OrderSelectorButton>
-                                    </TitleTextContainer>
-                                    <TitleToggleContainer>
-                                        <TitleButtonGrid> */}
-                                            {/* <SellButtonLink onClick={() => incrementInput(limitPriceCount.length, setLimitPriceCount)} isSelected={state.sell}> +</SellButtonLink>
-                                            <BuyButtonLink onClick={() => decrementInput(limitPriceCount.length, setLimitPriceCount)} isSelected={state.buy}> -</BuyButtonLink> */}
-                                        {/* </TitleButtonGrid>
-                                    </TitleToggleContainer>
-
-                                </TitleRow>
-                            </TitleContainer> */}
+                       
 
                         <AmountEntry
                          state={state}
@@ -894,7 +870,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                         <FaTimes style={{justifySelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545"}} /> 
 
 
-                        <PriceEntry routerInfo={routerInfo} state={state} setLimitPrice={setLimitPrice} setRealLimitPrice={setRealLimitPrice}/>
+                        <PriceEntry routerInfo={routerInfo} state={state} setOverride={setOverride} override={override} setLimitPrice={setLimitPrice} setRealLimitPrice={setRealLimitPrice}/>
 
                         <AmountEntry
                          state={state}
@@ -953,23 +929,20 @@ export default LimitOrderEntry
 
 
 const PriceEntry = (props) => {
-    const [override, setOverride] = useState(false)
     const [amount, setAmount] = useState(null)
-    const {data:results} = useFetchRouterInfo(props.state.setTokenIn, props.state.setTokenOut, "1")
 
     useEffect(() => {
-        if (results) {
-            if (override === false) {
-
-                setAmount(toFixed(results.amountOut, 5))
-                props.setLimitPrice(results.amountOut)
+        if (props.routerInfo) {
+            if (props.override === false) {
+                setAmount(toFixed(props.routerInfo.amountOut, 5))
+                props.setLimitPrice(props.routerInfo.amountOut)
             }
         }
-    }, [results])
+    }, [props.routerInfo, props.override])
 
 
     const priceFilter = (e) => {
-        setOverride(true)
+        props.setOverride(true)
         e.preventDefault()
         const enteredAmount = e.target.value
         if (enteredAmount == '' || enteredAmount.match(/^[1-9]\d*\.?\d*$/)) {
@@ -991,7 +964,7 @@ const PriceEntry = (props) => {
                         </TokenLogoContainer>
                     
                      
-                        <PriceEntryInput value={ override ? props.state.setLimitPrice : amount  } onChange={priceFilter} spellcheck="false" maxlength="79" minlength="1" placeholder="0.0" inputmode="decimal" autocomplete="off" pattern="^[0-9]*[.,]?[0-9]*$"></PriceEntryInput>
+                        <PriceEntryInput value={ props.override === true ? props.state.setLimitPrice : amount  } onChange={priceFilter} spellcheck="false" maxlength="79" minlength="1" placeholder="0.0" inputmode="decimal" autocomplete="off" pattern="^[0-9]*[.,]?[0-9]*$"></PriceEntryInput>
                     
 
 
