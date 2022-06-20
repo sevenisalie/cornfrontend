@@ -225,10 +225,10 @@ const UserSection = () => {
                                 </TokenLogoContainer>
                                 <TradeInfoContainer>
                                     <TradeInfoRow>
-                                        <InfoText>Open Volume:</InfoText>
+                                        <InfoText>User Total Value:</InfoText>
                                         <ValueText >${toFixed(portfolio.totalValue, 2)}</ValueText>
                                
-                                        <InfoText>Open Interest</InfoText>
+                                        <InfoText>Open Tokens</InfoText>
                                         <ValueText>{portfolio.count}</ValueText>
                                     </TradeInfoRow>
                                 </TradeInfoContainer>

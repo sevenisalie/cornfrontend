@@ -204,7 +204,7 @@ export const userTotalValue = (strategyTokens) => {
   })
   return {
     totalValue: totalValue,
-    count: count
+    count: strategyTokens.length
   }
 }
 

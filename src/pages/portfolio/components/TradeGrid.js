@@ -346,6 +346,11 @@ const Trade = ({ trade }) => {
                         {tokensOpen[0].tokensout[0]}
                         {tokensOpen[0].imagesout[0]}
                     </CardContentRowContainer>
+                    {/* <p>
+            
+                        {trade.strategyId}
+                        {trade.tokenId}
+                    </p> */}
 
 
                     <TradeHR></TradeHR>
