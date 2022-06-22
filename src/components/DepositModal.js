@@ -2,22 +2,15 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import {useWeb3React} from "@web3-react/core";
-import {ethers} from "ethers";
-//addresses etc
-import {ERC20Abi, MasterChefABI} from "../config/abis" //will need forapprove button
-import { addresses } from "../config/addresses";
-import { POOLS } from '../config/pools';
-import TOKENLIST from "../config/TOKENLIST.json"
 
 import {TokenButton} from "../pages/nftgallery/components/TokenSelector"
 import {Container, Card, Modal} from "react-bootstrap"
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
 import {FaGasPump} from "react-icons/fa"
 
-import useFetchGasBalance from '../hooks/useFetchGasBalance'
 import useFetchMaticBalance from "../hooks/useFetchMaticBalance"
 
-import {writeContract, userDepositGas, userWithdrawGas, toFixed} from "../utils/nft";
+import {userDepositGas, userWithdrawGas, toFixed} from "../utils/nft";
 import useGraphQuery from '../hooks/useGraphQuery'
 import { gasTankQuery } from "../queries/portfolioQueries";
 

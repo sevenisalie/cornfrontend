@@ -56,10 +56,30 @@ async function fetchContract(address, abi, signer) {
 // ///////////////////////////////// User Functions /////////////////////////////////
 // ----------------------------------------------------------------------------------
 
-async function approveStrategyWithERC20(tokenAddress, strategyAddress, amount, signer) {
-    const erc20 = await fetchContract(tokenAddress, ERC20.abi, signer)
-    return await erc20.approve(strategyAddress, amount);
+export const approveStrategyWithERC20 = async (tokenAddress, strategyAddress, amount, signer) => {
+  const erc20 = await fetchContract(tokenAddress, ERC20.abi, signer);
+    try {
+      const raw = await erc20.approve(strategyAddress, amount);
+      return await raw.wait()
+    } catch (err) {
+      console.log("approve", err)
+      return err
+    }
   }
+
+
+export const erc20Allowance = async (tokenAddress, user, spender, signer) => {
+  const erc20 = await fetchContract(tokenAddress, ERC20.abi, signer);
+  console.log("erc20", erc20)
+  try {
+    return await erc20.allowance(user, spender);
+    // return erc20.decimals()
+  } catch (err) {
+    console.log("allowance", err)
+    return err
+  }
+}
+  
   
   // ----------------------------------------------------------------------------------
   
@@ -86,7 +106,14 @@ async function approveStrategyWithERC20(tokenAddress, strategyAddress, amount, s
 
 export async function withdraw(vaultId, tokenId, signer) {
     const controller = await fetchContract(addresses.vaults.controller, CONTROLLER.abi, signer);
-    return await controller.withdraw(vaultId, tokenId);
+
+    try {
+      const raw = await controller.withdraw(vaultId, tokenId);
+      return await raw.wait()
+    } catch (err) {
+      console.log("withdraw", err)
+      return err
+    }
   }
   
   // ----------------------------------------------------------------------------------
@@ -226,7 +253,9 @@ export const cleanTradeData = (_tradeData) => {
             amountOut: order.amountOut,
             expiration: order.expiration,
             open: order.open,
-            timestamp: order.timestamp
+            timestamp: order.timestamp,
+            creationTime: order.creationTime,
+            txHash: order.txHash
           }
         })
       return {
@@ -240,7 +269,8 @@ export const cleanTradeData = (_tradeData) => {
       strategy: trades.strategy,
       trades: mappedTrade,
       strategyId: trades.strategyId,
-      tokenId: trades.tokenId
+      tokenId: trades.tokenId,
+      txHash: _tradeData[0].txHash
     }
   })
   return mappedData

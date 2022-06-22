@@ -12,6 +12,7 @@ import { GoSettings } from "react-icons/go"
 import { BsArrowBarDown, BsArrowRight, BsChevronRight } from "react-icons/bs"
 import { IoRadioButtonOff, IoRadioButtonOn } from "react-icons/io5"
 import { Token } from 'graphql/language/ast';
+import {goodToast} from "../../../components/Toast"
 
 const TradeGridContainer = styled.div`
     display: grid;
@@ -164,13 +165,14 @@ const TradeGrid = () => {
     const [query, setQuery] = useState("")
     const {data:portfolioData} = useGraphQuery(query, "controller")
     const [tradeData, setTradeData] = useState([])
+    const [refreshTrigger, setRefreshTrigger] = useState(false)
 
     useEffect(() => {
         if (account) {
             const q = portfolioGraphRequest(account)
             setQuery(q)
         }
-    }, [account])
+    }, [account, refreshTrigger])
 
     useEffect(() => {
         if (portfolioData !== "") {
@@ -202,13 +204,14 @@ const TradeGrid = () => {
                     })
                     return orders
                 })
-
+                console.log("strat", strategy)
 
                 return {
                     strategy: strat[0].name,
                     trades: trades,
                     strategyId: strategy.strategyId,
-                    tokenId: strategy.tokenId
+                    tokenId: strategy.tokenId,
+                    txHash: strategy.txHash
     
                 }
             } )
@@ -223,7 +226,7 @@ const TradeGrid = () => {
 
         return (
         <>
-        <Trade trade={trade} key={index}/>
+        <Trade setRefreshTrigger={setRefreshTrigger} trade={trade} key={index}/>
         </>
         )
     })
@@ -242,7 +245,7 @@ const TradeGrid = () => {
 export default TradeGrid
 
 
-const Trade = ({ trade }) => {
+const Trade = ({ trade, setRefreshTrigger }) => {
     const {account, library} = useWeb3React()
     console.log("god dammit bobby", trade)
 
@@ -319,15 +322,19 @@ const Trade = ({ trade }) => {
                         <EyeButton
                         onClick={ (e) => {
                             e.preventDefault()
-                            // window.location.href = 'https://polygonscan.com/tx/0x5ac6d82fabe27b6495dea4b38e6fd765da43ffc0f52b8fdd1dfcead2ddaa9f20'
+                            window.open(`https://polygonscan.com/tx/${trade.txHash}`, '_blank')
                         }}
                         >
                         </EyeButton>
  
                         <SettingsButton
-                        onClick={ (e) => {
+                        onClick={ async (e) => {
                             e.preventDefault()
-                            withdraw(trade.strategyId, trade.tokenId, library.getSigner())
+                            const tx = await withdraw(trade.strategyId, trade.tokenId, library.getSigner())
+                            if(tx === null) {
+                                goodToast(`Trade Withdrawn`)
+                                setRefreshTrigger(prev => !prev)
+                            } 
                         }}></SettingsButton>
                     </CardContentRowContainer>
 
@@ -373,7 +380,12 @@ const Trade = ({ trade }) => {
                                     ?
                                     <IoRadioButtonOff style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
                                     :
-                                    <IoRadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
+                                    <IoRadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} 
+                                    onClick={ (e) => {
+                                        e.preventDefault()
+                                        window.open(`https://polygonscan.com/tx/${order.txHash}`, '_blank')
+                                    }}
+                                    />
                                 }
                                 </CardContentRowContainer>
                                 </>
