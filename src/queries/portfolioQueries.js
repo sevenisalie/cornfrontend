@@ -7,6 +7,7 @@ export const portfolioGraphRequest = (_account) => {
             strategyTokens(where: {open: true}, orderBy: tokenId) {
                 strategyId
                 tokenId
+                txHash#
                 erc20 {
                     address
                     amount
@@ -27,6 +28,8 @@ export const portfolioGraphRequest = (_account) => {
                         expiration
                         open
                         timestamp
+                        creationTime#
+                        txHash#
                     }
                 }
             }
