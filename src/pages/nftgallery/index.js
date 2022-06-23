@@ -16,7 +16,8 @@ import useFetchRouterInfo from "../../hooks/useFetchRouterInfo"
 
 
 import {NFTCard} from "./components/NFTCard";
-import MarketPageHeading from "./components/MarketPageHeading";
+import MarketPageHeading from "./components/MarketPageHeading"
+import HowToSection from "./components/HowToSection"
 import LimitOrderEntry from './components/LimitOrderEntry'
 
 
@@ -134,7 +135,7 @@ const NFT = () => {
         <Page>
 
             <MarketPageHeading/>
-
+            <HowToSection />
 
             <LimitOrderEntry state={state} openTradeWindowToggle={openTradeWindowToggle}/>
 
