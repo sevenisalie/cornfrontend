@@ -39,6 +39,45 @@ export const portfolioGraphRequest = (_account) => {
     return portfolioByUserQuery
 }
 
+export const portfolioGraphRequestClosed = (_account) => {
+    const portfolioByUserQuery = gql`
+    {
+        users(where: {id: "${_account.toLowerCase()}"}) {
+            strategyTokens(where: {open: false}, orderBy: timestamp, orderDirection: desc) {
+                strategyId
+                tokenId
+                txHash#
+                erc20 {
+                    address
+                    amount
+                    erc20Meta {
+                        name
+                        priceUSD
+                    }
+                }
+                trades {
+                    tradeId
+                    orders {
+                        orderId
+                        fromToken
+                        toToken
+                        amountIn
+                        desiredAmountOut
+                        amountOut
+                        expiration
+                        open
+                        timestamp
+                        creationTime#
+                        txHash#
+                    }
+                }
+            }
+        }
+    }
+    `
+    return portfolioByUserQuery
+}
+
 export const portfolioTotalsGraphQuery = (_account) => {
     const query = gql`
     {
