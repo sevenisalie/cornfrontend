@@ -5,12 +5,14 @@ import { useWeb3React } from "@web3-react/core";
 import useGraphQuery from "../../../hooks/useGraphQuery"
 import {VAULTS} from "../../../config/vaults"
 import { portfolioGraphRequest } from "../../../queries/portfolioQueries"
-import { cleanTradeData } from "../../../utils/portfolio"
+import { cleanTradeData, viewTransaction, withdraw } from "../../../utils/portfolio"
+import { toFixed } from "../../../utils/nft"
 import { AiFillEye } from "react-icons/ai"
 import { GoSettings } from "react-icons/go"
 import { BsArrowBarDown, BsArrowRight, BsChevronRight } from "react-icons/bs"
 import { IoRadioButtonOff, IoRadioButtonOn } from "react-icons/io5"
 import { Token } from 'graphql/language/ast';
+import {goodToast} from "../../../components/Toast"
 
 const TradeGridContainer = styled.div`
     display: grid;
@@ -76,6 +78,16 @@ const CardContentRowContainer = styled.div`
     align-content: center;
 `
 
+const CardContentRowContainerSmallText = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    align-content: center;
+    font-size: 1.0em;
+`
+
 const TokenInImage = styled.img`
     height: 2.1em;
     width: auto;
@@ -95,6 +107,11 @@ const TokenInNameText = styled.div`
     color: rgba(242, 242, 242, 0.9);
     justify-self: flex-end;
 `
+
+const RadioButtonOn = styled(IoRadioButtonOn)`
+    cursor: pointer;
+`
+
 const TokenInIcon = styled(BsArrowBarDown)`
     font-size: 1.3em;
     font-weight: 800;
@@ -156,10 +173,100 @@ const TradePriceTokenLogo = styled.img`
 
 
 
-const Trade = ({ trade }) => {
 
-    const tokensOpen = trade.trades.map( (trade) => {
-        const tokenIns = trade.orders.map( (order) => {
+
+const TradeGrid = () => {
+    const {account, library} = useWeb3React()
+    const [query, setQuery] = useState("")
+    const {data:portfolioData} = useGraphQuery(query, "controller")
+    const [tradeData, setTradeData] = useState([])
+    const [refreshTrigger, setRefreshTrigger] = useState(false)
+
+    useEffect(() => {
+        if (account) {
+            const q = portfolioGraphRequest(account)
+            setQuery(q)
+        }
+    }, [account, refreshTrigger])
+
+    useEffect(() => {
+        if (portfolioData !== "") {
+            const data = mapTrades()
+            if(data !== null) {
+                const cleanData = cleanTradeData(data)
+                console.log("cleanData", cleanData)
+                setTradeData(cleanData)
+            }
+        }
+    }, [portfolioData])
+
+    const mapTrades = () => {
+        if(portfolioData.users !== undefined && portfolioData.users[0] !== undefined) {
+            console.log("portDAta", portfolioData)
+            const mappedTrades = portfolioData.users[0].strategyTokens.map( (strategy) => {
+                const strat = VAULTS.filter( (vault) => {
+                    return vault.pid === parseInt(strategy.strategyId)
+
+                })
+        
+                const trades = strategy.trades.map( (trade) => {
+                    return trade
+                })
+
+                const ordersOfTrades = trades.map( (trade) => {
+                    const orders = trade.orders.map( (order) => {
+                        return order
+                    })
+                    return orders
+                })
+                console.log("strat", strategy)
+
+                return {
+                    strategy: strat[0].name,
+                    trades: trades,
+                    strategyId: strategy.strategyId,
+                    tokenId: strategy.tokenId,
+                    txHash: strategy.txHash
+    
+                }
+            } )
+            console.log("mappedTrades", mappedTrades)
+            return mappedTrades
+        }   
+        else {
+            return null
+        }
+    }
+
+    const mapTradesToCards = tradeData.map( ( trade, index ) => {
+
+        return (
+        <>
+        <Trade setRefreshTrigger={setRefreshTrigger} trade={trade} key={index}/>
+        </>
+        )
+    })
+    
+
+
+    return (
+        <>
+        <TradeGridContainer>
+            {mapTradesToCards}
+        </TradeGridContainer>
+        </>
+    )
+}
+
+export default TradeGrid
+
+
+const Trade = ({ trade, setRefreshTrigger }) => {
+    const {account, library} = useWeb3React()
+    console.log("god dammit bobby", trade)
+
+    const tokensOpen = trade.trades.map( (_trade) => {
+        const tokenIns = _trade.orders.map( (order) => {
             console.log("TRADER")
             console.log(order)
             return {
@@ -167,7 +274,7 @@ const Trade = ({ trade }) => {
                 image: order.fromToken[0].logoURI
             } 
         })
-        const tokenOuts = trade.orders.map( (order) => {
+        const tokenOuts = _trade.orders.map( (order) => {
             return {
                 name: order.toToken[0].symbol,
                 image: order.toToken[0].logoURI
@@ -227,15 +334,30 @@ const Trade = ({ trade }) => {
                 <CardContentColumnContainer>
 
                     <CardContentRowContainer>
-                        {tokensOpen[0].images}
-                        <EyeButton ></EyeButton>
-                        <SettingsButton></SettingsButton>
+                        {tokensOpen[0].images[0]}
+                        <EyeButton
+                        onClick={ (e) => {
+                            e.preventDefault()
+                            window.open(`https://polygonscan.com/tx/${trade.txHash}`, '_blank')
+                        }}
+                        >
+                        </EyeButton>
+ 
+                        <SettingsButton
+                        onClick={ async (e) => {
+                            e.preventDefault()
+                            const tx = await withdraw(trade.strategyId, trade.tokenId, library.getSigner())
+                            if(tx === null) {
+                                goodToast(`Trade Withdrawn`)
+                                setRefreshTrigger(prev => !prev)
+                            } 
+                        }}></SettingsButton>
                     </CardContentRowContainer>
 
 
                     <CardContentRowContainer>
                         
-                            {tokensOpen[0].tokensin}
+                            {tokensOpen[0].tokensin[0]}
                         
                         <TokenInIcon></TokenInIcon>
                     </CardContentRowContainer>
@@ -244,112 +366,52 @@ const Trade = ({ trade }) => {
                     <CardContentRowContainer>
                         <StrategyTypeText>{trade.strategy}</StrategyTypeText>
                         <TokenOutIcon></TokenOutIcon>
-                        {tokensOpen[0].tokensout}
-                        {tokensOpen[0].imagesout}
+                        {tokensOpen[0].tokensout[0]}
+                        {tokensOpen[0].imagesout[0]}
                     </CardContentRowContainer>
+                    {/* <p>
+            
+                        {trade.strategyId}
+                        {trade.tokenId}
+                    </p> */}
 
 
                     <TradeHR></TradeHR>
                     
 
                     { trade.trades.map( (trade => {
+                        return trade.orders.map( (order => {
+                            console.log("orderData", order)
                             return (
                                 <>
                                 <CardContentRowContainer>
 
-                                <TradePriceText>{trade.orders[0].amountIn}</TradePriceText>
-                                <TradePriceTokenLogo src={"https://etherscan.io/token/images/aave_32.png"} />
+                                <TradePriceText>{order.amountIn}</TradePriceText>
+                                <TradePriceTokenLogo src={order.fromToken[0].logoURI} />
                                 <PathIcon></PathIcon>
-                                <TradePriceText>{trade.orders[0].desiredAmountOut}</TradePriceText>
-                                <TradePriceTokenLogo src={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"} />
+                                <TradePriceText>{toFixed((order.open ? order.desiredAmountOut : order.amountOut), 3)}</TradePriceText>
+                                <TradePriceTokenLogo src={order.toToken[0].logoURI} />
                                 {
-                                    trade.orders[0].open === true
+                                    order.open === true
                                     ?
                                     <IoRadioButtonOff style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
                                     :
-                                    <IoRadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
+                                    <RadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} 
+                                    onClick={ (e) => {
+                                        e.preventDefault()
+                                        window.open(`https://polygonscan.com/tx/${order.txHash}`, '_blank')
+                                    }}
+                                    />
                                 }
                                 </CardContentRowContainer>
+                                <CardContentRowContainerSmallText>{`Limit Rate: ${toFixed(order.amountIn/order.desiredAmountOut, 6)} ${order.fromToken[0].symbol} / ${order.toToken[0].symbol}`}</CardContentRowContainerSmallText>
                                 </>
                             )
-                        }))}
-                    
-
+                        }))
+                    }))}
                 </CardContentColumnContainer>
             </CardContentContainer>
         </TradeCard>
         </>
     )
 }
-
-const TradeGrid = () => {
-    const {account, library} = useWeb3React()
-    const [query, setQuery] = useState("")
-    const {data:portfolioData} = useGraphQuery(query)
-    const [tradeData, setTradeData] = useState([])
-
-    useEffect(() => {
-        if (account) {
-            const q = portfolioGraphRequest(account)
-            setQuery(q)
-        }
-    }, [account])
-
-    useEffect(() => {
-        if (portfolioData !== "") {
-            const data = mapTrades()
-            const cleanData = cleanTradeData(data)
-            setTradeData(cleanData)
-        }
-    }, [portfolioData])
-
-    const mapTrades = () => {
-
-        const mappedTrades = portfolioData.users[0].strategyTokens.map( (strategy) => {
-            const strat = VAULTS.filter( (vault) => {
-                return vault.pid === parseInt(strategy.strategyId)
-
-            })
-    
-            const trades = strategy.trades.map( (trade) => {
-                return trade
-            })
-
-            const ordersOfTrades = trades.map( (trade) => {
-                const orders = trade.orders.map( (order) => {
-                    return order
-                })
-                return orders
-            })
-
-
-            return {
-                strategy: strat[0].name,
-                trades: trades
-  
-            }
-        } )
-        return mappedTrades
-    }
-
-    const mapTradesToCards = tradeData.map( ( trade ) => {
-
-        return (
-        <>
-        <Trade trade={trade}/>
-        </>
-        )
-    })
-    
-
-
-    return (
-        <>
-        <TradeGridContainer>
-            {mapTradesToCards}
-        </TradeGridContainer>
-        </>
-    )
-}
-
-export default TradeGrid

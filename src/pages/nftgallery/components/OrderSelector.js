@@ -303,10 +303,10 @@ export default OrderSelector
 const OrderSearch = (props) => {
  
 
-        const SearchResultsMap = VAULTS.map( (order) => (
+        const SearchResultsMap = VAULTS.map( (orderType) => (
             <>
              <ResultContainer>
-                 <OrderTypeButton setOrderType={props.setOrderType} data={order} imageurl={order.image} symbol={order.name}></OrderTypeButton>
+                 <OrderTypeButton setOrderType={props.setOrderType} data={orderType} imageurl={orderType.image} symbol={orderType.name}></OrderTypeButton>
              </ResultContainer>
              </>
      ))

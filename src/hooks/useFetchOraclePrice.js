@@ -9,18 +9,22 @@ import { ERC20Abi } from '../config/abis';
 import { fastRefresh, verySlowRefresh } from "../contexts/RefreshContext"
 import useRefresh from '../utils/useRefresh';
 import { toFixed } from '../utils/nft';
+import { oracleABI } from "../config/abis";
+import { addresses } from "../config/addresses";
 
-const getMaticBalance = async (_account, _library) => {
+
+const getOraclePrice = async (token, _library) => {
     try {
         const signer = _library.getSigner()
-        const rawBalance = await signer.getBalance()
-        const stringBalance = ethers.utils.formatUnits(rawBalance, 18)
+        const oracle = new ethers.Contract(addresses.erc20Oracle, oracleABI, signer)
+        const rawPrice = await oracle.getRateUSD(token)
+        const stringBalance = ethers.utils.formatUnits(rawPrice, 6)
         return stringBalance
     } catch (err) {console.log(err)}
 }
 
 
-const useFetchMaticBalance = () => {
+const useFetchOraclePrice = (token) => {
     const [balance, setBalance] = useState('Loading...')
     const {active, account, library, connector} = useWeb3React();
     const { verySlowRefresh } = useRefresh()
@@ -28,16 +32,16 @@ const useFetchMaticBalance = () => {
     useEffect( async () => {
         if (active && library) {
             try {
-                const data = await getMaticBalance(account, library)
-                setBalance(toFixed(data, 18))
+                const data = await getOraclePrice(token, library)
+                setBalance(data)
             } catch (err) {console.log(err)}
         }
 
-    }, [account, verySlowRefresh])
+    }, [token, verySlowRefresh])
 
     return {
         data: balance
     }
 }
 
-export default useFetchMaticBalance
+export default useFetchOraclePrice

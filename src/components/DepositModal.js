@@ -2,23 +2,18 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import {useWeb3React} from "@web3-react/core";
-import {ethers} from "ethers";
-//addresses etc
-import {ERC20Abi, MasterChefABI} from "../config/abis" //will need forapprove button
-import { addresses } from "../config/addresses";
-import { POOLS } from '../config/pools';
-import TOKENLIST from "../config/TOKENLIST.json"
 
 import {TokenButton} from "../pages/nftgallery/components/TokenSelector"
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {Container, Card, Modal} from "react-bootstrap"
 import {FaTimesCircle, FaWallet} from "react-icons/fa"
 import {FaGasPump} from "react-icons/fa"
 
-import useFetchGasBalance from '../hooks/useFetchGasBalance';
 import useFetchMaticBalance from "../hooks/useFetchMaticBalance"
-import {writeContract, userStake, toFixed} from "../utils/nft";
+
+import {userDepositGas, userWithdrawGas, toFixed} from "../utils/nft";
+import useGraphQuery from '../hooks/useGraphQuery'
+import { gasTankQuery } from "../queries/portfolioQueries";
+
 
 
 const EntryContainer = styled.div`
@@ -193,7 +188,7 @@ const TokenInput = styled.input`
 
 `
 const DepositButton = styled(HeaderButtonSecondary)`
-    margin: 0px;
+    margin: 10px;
     &:hover {
         background: #fbdb37;
         border-color: #dfbb05;
@@ -260,6 +255,48 @@ const WalletButton = styled.button`
     transform: perspective(1px) translateZ(0px);
     -webkit-box-align: center;
     align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+    backdrop-filter: blur(12px) saturate(149%);
+    -webkit-backdrop-filter: blur(0px) saturate(149%);
+    background-color: rgba(29, 30, 32, 0.57);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
+
+    color: rgb(255, 255, 255);
+    border-radius: 16px;
+
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    height: 2.8rem;
+    width: initial;
+    padding: 0px 8px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-right: 3px;
+
+
+    &:hover {
+        background-color: rgb(44, 47, 54);
+    }
+    &:focus {
+        background-color: rgb(33, 35, 40);
+    }
+`
+
+const GasTankButton = styled.button`
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
+    transition: transform 450ms ease 0s;
+    transform: perspective(1px) translateZ(0px);
+    -webkit-box-align: center;
+    align-items: center;
     font-size: 24px;
     font-weight: 500;
     backdrop-filter: blur(12px) saturate(149%);
@@ -296,52 +333,56 @@ const WalletButtonContentContainer = styled.div`
     width: 100%;
 `
 
+
 const DepositModal = (props) => {
     const {active, account, library, connector} = useWeb3React()
-    // const [masterChefContract, setMasterChefContract] = useState(null)
     const [amount, setAmount] = useState('')
-    const {data: balanceData} = useFetchGasBalance()
+
+    
+    
+    const [gasTankQueryData, setGasTankQueryData] = useState("")
+    const [gasTankData, setGasTankData] = useState(0)
+    const [showDepositModal, setShowDepositModal] = useState(false)
+    const [showUnstakeModal, setShowUnstakeModal] = useState(false)
+
+    
+    const {data: balanceData} = useGraphQuery(gasTankQueryData, "gas-tank")
     const {data: maticBalanceData} = useFetchMaticBalance()
 
-    //props
-    // const bal = props.walletBalance;
-    // console.log("pooooop")
-    // console.log(bal)
+    
+    useEffect( () => {
+        if (account) {
+            setGasTankQueryData(gasTankQuery(account.toLowerCase()))
+            console.log("gasQuery", gasTankQueryData)
+        }
+      }, [account])
+
+    useEffect( () => {
+        if (balanceData.payers !== undefined && balanceData.payers.length > 0) {
+            setGasTankData(balanceData.payers[0].amountDeposited)
+            console.log("gasData", balanceData.payers[0])
+        }
+      }, [balanceData])
 
     
-
+    const handleModalOnClick = () => {
+        setShowDepositModal(prev => !prev)
+    }
     
 
-    // useEffect( () => {
-    //     if (active) {
-    //       const masterChef = writeContract(
-    //           active, 
-    //           library.getSigner(), 
-    //           account,
-    //           addresses.masterChef,
-    //           MasterChefABI,
-    //           )
-    //       .then( value => setMasterChefContract(value))
-    //     } else {
-    //       const noData = setMasterChefContract(null)
-    //     }
-        
-        
-    //   }, [account, library])
-
-    
-
-    
 
     //hide and show button
-    let button;
+    let dButton, wButton;
 
-    if (amount == '') {
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Gas Amount</DepositButton>;
-      } else if (amount !== ''){
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => props.handleStakeOnClick(props.pid, amount)}>Deposit Gas</DepositButton>;
-      } else {
-        button = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Deposit</DepositButton>;
+    if (amount == '' || !active) {
+        dButton = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Deposit</DepositButton>;
+        wButton = <DepositButton style={{width: "100%", alignSelf: "center"}} disabled>Withdraw</DepositButton>;
+    } else if (amount !== ''){
+        dButton = <DepositButton style={{width: "100%", alignSelf: "center"}}  onClick={async () => userDepositGas(library.getSigner(), account, amount)}>Deposit</DepositButton>;
+        wButton = <DepositButton style={{width: "100%", alignSelf: "center"}} onClick={async () => userWithdrawGas(library.getSigner(), amount)}>Withdraw</DepositButton>;
+    } else {
+        dButton = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Deposit</DepositButton>;
+        wButton = <DepositButton style={{width: "100%", alignSelf: "center"}}  disabled >Withdraw</DepositButton>;
       }
       
     const amountFilter = (e) => {
@@ -364,7 +405,7 @@ const DepositModal = (props) => {
             <ModalCard>
                 <ModalCardContentContainer>
                     <TitleContainer>
-                    <TitleText>Deposit</TitleText>
+                    <TitleText>Gas Tank</TitleText>
                     <MaticButton
                             style={{alignSelf: "center"}}
                             side="in" data={"0"} symbol={"MATIC"} imageurl={"https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png"} setTokenOut={() => console.log('dud')} setTokenIn={() => console.log('dud')}>
@@ -372,38 +413,42 @@ const DepositModal = (props) => {
                             </TokenLink>
 
                             </MaticButton>
-                    <ExitButton onClick={() => props.setShowDepositModal()}><FaTimesCircle/></ExitButton>
+                    <ExitButton onClick={() => {
+                        props.setShowDepositModal()
+                        setAmount('')
+                    }
+                    }><FaTimesCircle/></ExitButton>
                     </TitleContainer>
 
                     <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
                         <div style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "baseline", height: "100%", width: "100%"}}>
                             
 
-                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}}> 
+                        <GasTankButton style={{marginTop: "1.0em", padding: "1.42em"}} onClick={() => setAmount(gasTankData)}>
                             <WalletButtonContentContainer>
                             <GasIcon style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
 
                                 <WalletText >
-                                    {balanceData.loading !== true  ? toFixed(balanceData.gasBalance, 4) : 'loading...' }
+                                    {balanceData.loading !== true  ? toFixed(gasTankData, 4) : 'loading...' }
                                 </WalletText>
 
                             </WalletButtonContentContainer>
                             
-                        </WalletButton>
+                        </GasTankButton>
                         </div>
                         
 
-                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}}> 
+                        <WalletButton style={{marginTop: "1.0em", padding: "1.42em"}} onClick={() => setAmount(maticBalanceData)}> 
                             <WalletButtonContentContainer>
                             <WalletIcon style={{fontSize: "1.5em", marginRight: "0.4em"}}/>
 
                                 <WalletText >
                                     {balanceData.loading !== true  ? toFixed(maticBalanceData, 4) : 'loading...' }
                                 </WalletText>
-                                <MaxButton
+                                {/* <MaxButton
                                         style={{fontSize: "0.6em", fontWeight: "800", alignSelf: "center", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
                                         onClick={() => setAmount(maticBalanceData)}>Max
-                                </MaxButton>
+                                </MaxButton> */}
                             </WalletButtonContentContainer>
                             
                         </WalletButton>
@@ -419,8 +464,10 @@ const DepositModal = (props) => {
 
                     {/* deposit button */}
                     <Container style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginBottom: "18px"}}>
-                        {button}
+                        {dButton}
+                        {wButton}
                     </Container>
+                    
 
                 </ModalCardContentContainer>
             

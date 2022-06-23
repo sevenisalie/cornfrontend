@@ -56,16 +56,43 @@ async function fetchContract(address, abi, signer) {
 // ///////////////////////////////// User Functions /////////////////////////////////
 // ----------------------------------------------------------------------------------
 
-async function approveStrategyWithERC20(tokenAddress, strategyAddress, amount, signer) {
-    const erc20 = await fetchContract(tokenAddress, ERC20.abi, signer)
-    return await erc20.approve(strategyAddress, amount);
+export const approveStrategyWithERC20 = async (tokenAddress, strategyAddress, amount, signer) => {
+  const erc20 = await fetchContract(tokenAddress, ERC20.abi, signer);
+    try {
+      const raw = await erc20.approve(strategyAddress, amount);
+      return await raw.wait()
+    } catch (err) {
+      console.log("approve", err)
+      return err
+    }
   }
+
+
+export const erc20Allowance = async (tokenAddress, user, spender, signer) => {
+  const erc20 = await fetchContract(tokenAddress, ERC20.abi, signer);
+  console.log("erc20", erc20)
+  try {
+    return await erc20.allowance(user, spender);
+    // return erc20.decimals()
+  } catch (err) {
+    console.log("allowance", err)
+    return err
+  }
+}
+  
   
   // ----------------------------------------------------------------------------------
   
-  async function approveControllerWithGasTank(signer) {
+  export const approveControllerWithGasTank = async (signer) => {
     const gasTank = await fetchContract(addresses.gasTank, GAS_TANK.abi, signer);
-    return await gasTank.approve(addresses.controller, true);
+    console.log("gasTank", signer, gasTank)
+    try {
+      const raw = await gasTank.approve(addresses.vaults.controller, true);
+      return await raw.wait()
+    } catch (err) {
+      console.log("allowance", err)
+      return err
+    }
   }
   
   // ----------------------------------------------------------------------------------
@@ -84,9 +111,16 @@ async function approveStrategyWithERC20(tokenAddress, strategyAddress, amount, s
 
   // ----------------------------------------------------------------------------------
 
-async function withdraw(vaultId, tokenId, signer) {
-    const controller = await fetchContract(addresses.controller, CONTROLLER.abi, signer);
-    return await controller.withdraw(vaultId, tokenId);
+export async function withdraw(vaultId, tokenId, signer) {
+    const controller = await fetchContract(addresses.vaults.controller, CONTROLLER.abi, signer);
+
+    try {
+      const raw = await controller.withdraw(vaultId, tokenId);
+      return await raw.wait()
+    } catch (err) {
+      console.log("withdraw", err)
+      return err
+    }
   }
   
   // ----------------------------------------------------------------------------------
@@ -153,47 +187,69 @@ async function withdraw(vaultId, tokenId, signer) {
     return n.toString()
 }
 
-export  const cleanPortfolioTotalData = (_portfolioData) => {
-    const totalOpen = _portfolioData.map( ( trade ) => {
-      const rawAmount = trade.amount
-      const token = matchTokenByAddress(trade.address)
-      if (!token) {
-        return null
-      }
-      const decimals = token[0].decimals
-      const amount = rawAmount
+// export  const cleanPortfolioTotalData = (_portfolioData) => {
+//   const totalOpen = _portfolioData.map( ( token ) => {
+//     const amount = token.amount
+//     const tokenPrice = token.erc20Meta.priceUSD
+//     const tokenValue = amount * tokenPrice
+//     //   const token = matchTokenByAddress(trade.address)
+//     //   if (!token) {
+//     //     return null
+//     //   }
+//     //   const decimals = token[0].decimals
+//     //   const amount = rawAmount
 
-      return {
-        amount: amount,
-        token: token[0]
-      }
-    })
+//     //   return {
+//     //     amount: amount,
+//     //     token: token[0]
+//     //   }
+//     // })
 
-    const justAmounts = totalOpen.map( ( open ) => {
-      return open.amount
-    })
-    const allTokenLogos = totalOpen.map( ( open ) => {
-      return open.token.logoURI
-    })
-    const totalValueOpen = sumArray(justAmounts)
-    const amountOpen = justAmounts.length
+//     // const justAmounts = totalOpen.map( ( open ) => {
+//     //   return open.amount
+//     // })
+//     // const allTokenLogos = totalOpen.map( ( open ) => {
+//     //   return open.token.logoURI
+//     // })
+//     // const totalValueOpen = sumArray(justAmounts)
+//     // const amountOpen = justAmounts.length
 
-    return {
-      open: totalOpen,
-      totalValue: totalValueOpen,
-      tradeCount: amountOpen,
-      allTokenLogos: allTokenLogos
-    }
+//     return {
+//       open: totalOpen,
+//       totalValue: totalValueOpen,
+//       tradeCount: amountOpen,
+//       allTokenLogos: allTokenLogos
+//     }
+//   }
+// }
+
+export const userTotalValue = (strategyTokens) => {
+  let totalValue = 0
+  let count = 0
+  strategyTokens.map( (strategyToken) => {
+    strategyToken.erc20.map( (erc20) => {
+      totalValue = totalValue + (erc20.amount * erc20.erc20Meta.priceUSD)
+      count = count + 1
+    })
+    // const tokenAmount = token.amount
+    // const tokenPrice = token.erc20Meta.priceUSD
+    // totalValue = totalValue + (tokenAmount * tokenPrice)
+    // console.log("userValue", tokenAmount, tokenPrice, totalValue)
+  })
+  return {
+    totalValue: totalValue,
+    count: strategyTokens.length
   }
+}
 
-export const cleanTradeData = (_tradeData) => {
+export const cleanTradeData = (_tradeData, index) => {
+  console.log("tradeData", _tradeData)
   const mappedData = _tradeData.map( (trades) => {
     const mappedTrade = trades.trades.map( (trade) => {
 
       const mappedOrders = trade.orders.map( (order) => {
         const matchedTokenIn = matchTokenByAddress(order.fromToken)
         const matchedTokenOut = matchTokenByAddress(order.toToken)
-
   
           return {
             id: order.id,
@@ -204,7 +260,9 @@ export const cleanTradeData = (_tradeData) => {
             amountOut: order.amountOut,
             expiration: order.expiration,
             open: order.open,
-            timestamp: order.timestamp
+            timestamp: order.timestamp,
+            creationTime: order.creationTime,
+            txHash: order.txHash
           }
         })
       return {
@@ -214,10 +272,17 @@ export const cleanTradeData = (_tradeData) => {
     })
     
       
-    return {
+  return {
       strategy: trades.strategy,
-      trades: mappedTrade
+      trades: mappedTrade,
+      strategyId: trades.strategyId,
+      tokenId: trades.tokenId,
+      txHash: trades.txHash
     }
   })
   return mappedData
+}
+
+export const viewTransaction = (txHash) => {
+  return `https://polygonscan.com/tx/${txHash}`
 }

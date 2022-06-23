@@ -222,7 +222,7 @@ const UnstakeModal = (props) => {
             try {
 
                 if (active) {
-                    const tx = await userUnstake(masterChefContract, pid, amount, props.data.allData[props.pid].decimals)
+                    const tx = await userUnstake(masterChefContract, pid, amount, POOLS[props.pid].decimals)
                     props.setShowUnstakeModal(prev => !prev)
                     if (tx.status === 1) {
                         goodToast(`Deposit Successful. UI Syncing...`)
@@ -257,6 +257,11 @@ const UnstakeModal = (props) => {
         }   
     }
 
+    let dAmount = 0
+    if(props.userData !== null && props.userData !== undefined) {
+        dAmount = toFixed(props.userData.depositAmount, 18)
+    }
+
     return (
         <>
         { props.showUnstakeModal == true ? (
@@ -286,11 +291,10 @@ const UnstakeModal = (props) => {
 
                         <p style={{fontSize: "1.4em", marginTop: "1.0em"}}>
                         <FaWallet style={{fontSize: "1.5em", marginRight: "0.4em", color: "#fbdb37"}}/>
-
-                        { props.data.userDataLoading === false ? toFixed(props.data.userData[props.pid].USER.stakedAmount, 6) : "0"}
+                        {dAmount}
                         <MaxButton
                             style={{fontSize: "0.6em", fontWeight: "800", padding: "0.4em", borderRadius: "0.9em", marginTop: "0px", marginLeft: "0.78em"}}
-                            onClick={() => setAmount(props.data.userData[props.pid].USER.stakedAmount)}>Max
+                            onClick={() => setAmount(dAmount)}>Max
                         </MaxButton>
                         </p>
                     </div>
