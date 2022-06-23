@@ -143,16 +143,41 @@ const NFT = () => {
 
     const [state, dispatch] = useReducer(marketReducer, initialState)
     
-
+    const [gasTankApproval, setGasTankApproval] = useState(false)
     
-
+    const [gasTankQueryData, setGasTankQueryData] = useState("")
+    const [gasTankData, setGasTankData] = useState(0)
     
+    const {data: balanceData} = useGraphQuery(gasTankQueryData, "gas-tank")
+
     const openTradeWindowToggle = () => {
         dispatch({ type: 'openTradeWindow'})
     }
     
-    const gasTankApproval = false
+    useEffect( () => {
+        if (account) {
+            setGasTankQueryData(gasTankQuery(account.toLowerCase()))
+            console.log("pppppppp", gasTankQueryData)
+        }
+    }, [account])
 
+    useEffect( () => {
+        console.log("balanceData", balanceData)
+        if (balanceData.payers !== undefined && balanceData.payers[0] !== undefined && balanceData.payers[0].payees.length > 0) {
+            balanceData.payers[0].payees.map(( payee ) => {
+                console.log("qqqqqqqq", payee)
+                if(payee !== undefined && payee.payee.id === addresses.vaults.controller.toLowerCase()) {
+                    setGasTankApproval(payee.approved)
+                }
+            })
+        }
+      }, [balanceData])
+
+
+
+
+
+    
     if (gasTankApproval) {
 
         const mapUserNFTs = NFTS.map((nft, index) => (
