@@ -1106,7 +1106,11 @@ const AmountEntry = (props) => {
                                 <TokenSelect side={props.side} onClick={props.openTokenSelectorToggle}>
                                     <TokenSelectContainer>
                                         <TokenLogoContainer>
-                                            <GiTwoCoins style={{marginRight: "5px"}}></GiTwoCoins>
+                                            <img
+                                            src={props.side == "in" ? props.state.setTokenIn.logoURI : props.state.setTokenOut.logoURI}
+                                            style={{height: "auto", marginRight: "5px", width: "1.4em"}}
+                                            >
+                                            </img>
                                           
                                                 <TokenName>{`${symbol}`}</TokenName>
                                              
@@ -1145,8 +1149,8 @@ const AmountEntry = (props) => {
                             <TokenDataRow>
                                 <TokenDataContentContainer>
                                     <TokenPriceSymbolContainer>
-                                        <TokenBalanceText>Balance: { balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
-                                        <TokenMax >(Max)</TokenMax>
+                                        <TokenBalanceText style={{color: "#fbdb37", marginRight: "0.2em"}}>Balance:</TokenBalanceText>
+                                        <TokenBalanceText >{ balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
                                     </TokenPriceSymbolContainer>
                                     
                                     
@@ -1340,7 +1344,7 @@ export const PriceDisplay = (props) => {
             <ClearFormContainer>
             <OrderSelectorButton onClick={props.openOrderSelectorToggle}>
                 {
-                props.state.orderType !== ''
+                props.state.orderType.name !== ''
                 ?
                 props.state.orderType.name
                 :
