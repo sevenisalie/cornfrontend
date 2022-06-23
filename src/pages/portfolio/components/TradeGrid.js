@@ -78,6 +78,16 @@ const CardContentRowContainer = styled.div`
     align-content: center;
 `
 
+const CardContentRowContainerSmallText = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    align-content: center;
+    font-size: 1.0em;
+`
+
 const TokenInImage = styled.img`
     height: 2.1em;
     width: auto;
@@ -97,6 +107,11 @@ const TokenInNameText = styled.div`
     color: rgba(242, 242, 242, 0.9);
     justify-self: flex-end;
 `
+
+const RadioButtonOn = styled(IoRadioButtonOn)`
+    cursor: pointer;
+`
+
 const TokenInIcon = styled(BsArrowBarDown)`
     font-size: 1.3em;
     font-weight: 800;
@@ -215,6 +230,7 @@ const TradeGrid = () => {
     
                 }
             } )
+            console.log("mappedTrades", mappedTrades)
             return mappedTrades
         }   
         else {
@@ -249,8 +265,8 @@ const Trade = ({ trade, setRefreshTrigger }) => {
     const {account, library} = useWeb3React()
     console.log("god dammit bobby", trade)
 
-    const tokensOpen = trade.trades.map( (trade) => {
-        const tokenIns = trade.orders.map( (order) => {
+    const tokensOpen = trade.trades.map( (_trade) => {
+        const tokenIns = _trade.orders.map( (order) => {
             console.log("TRADER")
             console.log(order)
             return {
@@ -258,7 +274,7 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                 image: order.fromToken[0].logoURI
             } 
         })
-        const tokenOuts = trade.orders.map( (order) => {
+        const tokenOuts = _trade.orders.map( (order) => {
             return {
                 name: order.toToken[0].symbol,
                 image: order.toToken[0].logoURI
@@ -380,7 +396,7 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                                     ?
                                     <IoRadioButtonOff style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
                                     :
-                                    <IoRadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} 
+                                    <RadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} 
                                     onClick={ (e) => {
                                         e.preventDefault()
                                         window.open(`https://polygonscan.com/tx/${order.txHash}`, '_blank')
@@ -388,6 +404,7 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                                     />
                                 }
                                 </CardContentRowContainer>
+                                <CardContentRowContainerSmallText>{`Limit Rate: ${toFixed(order.amountIn/order.desiredAmountOut, 6)} ${order.fromToken[0].symbol} / ${order.toToken[0].symbol}`}</CardContentRowContainerSmallText>
                                 </>
                             )
                         }))

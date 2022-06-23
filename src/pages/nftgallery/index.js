@@ -218,7 +218,10 @@ const NFT = () => {
             <MarketPageHeading/>
                 <MainContainer>
                     <FormContainer>
-                    <SubmitButton onClick={async () => await approveControllerWithGasTank(library.getSigner())}>
+                    <SubmitButton onClick={async () => {
+                        await approveControllerWithGasTank(library.getSigner())
+                        setGasTankApproval(true)
+                    }}>
                         Approve Gas Tank
                     </SubmitButton>
                     </FormContainer>

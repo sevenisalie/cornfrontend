@@ -651,11 +651,18 @@ const initialState = {
         "chainId": 137,
         "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
         },
-    setTokenOut: '',
+    setTokenOut: {
+        "name": "USD Coin",
+        "address": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+        "symbol": "USDC",
+        "decimals": 6,
+        "chainId": 137,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+    },
     setLimitPrice: '',
     setRealLimitPrice: '',
     setAmountPrice: '',
-    setAmountIn: '',
+    setAmountIn: '1',
     setAmountOut: '',
     setMaxGasPrice: '',
     setBalanceIn: '',
@@ -832,10 +839,10 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
     useEffect( async () => {
         if(state.orderType.pid !== "" && state.setTokenIn.address !== "" && library && state.setAmountIn !== "") {
             const signer = library.getSigner()
-            const allowance = await erc20Allowance(state.setTokenIn.address, account, VAULTS[state.orderType.pid].address, signer)
+            const allowance = await erc20Allowance(state.setTokenIn.address, account, VAULTS.find(v => v.pid === state.orderType.pid).address, signer)
             console.log("orderAllow", allowance)
             setTokenAllowance(allowance)
-            if(allowance >= ethers.utils.parseUnits(state.setAmountIn, state.setTokenIn.decimals)) {
+            if(allowance.gte(ethers.utils.parseUnits(state.setAmountIn, state.setTokenIn.decimals))) {
                 setTokenApproved(true)
             }
             else {
@@ -1340,7 +1347,7 @@ export const PriceDisplay = (props) => {
             <ClearFormContainer>
             <OrderSelectorButton onClick={props.openOrderSelectorToggle}>
                 {
-                props.state.orderType !== ''
+                props.state.orderType.name !== ''
                 ?
                 props.state.orderType.name
                 :

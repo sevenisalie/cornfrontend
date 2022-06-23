@@ -242,7 +242,7 @@ export const userTotalValue = (strategyTokens) => {
   }
 }
 
-export const cleanTradeData = (_tradeData) => {
+export const cleanTradeData = (_tradeData, index) => {
   console.log("tradeData", _tradeData)
   const mappedData = _tradeData.map( (trades) => {
     const mappedTrade = trades.trades.map( (trade) => {
@@ -277,7 +277,7 @@ export const cleanTradeData = (_tradeData) => {
       trades: mappedTrade,
       strategyId: trades.strategyId,
       tokenId: trades.tokenId,
-      txHash: _tradeData[0].txHash
+      txHash: trades.txHash
     }
   })
   return mappedData
