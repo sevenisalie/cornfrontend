@@ -10,6 +10,7 @@ import {NFTS} from "../../config/nfts"
 import {POOLS} from "../../config/pools"
 
 import {writeContract, userMint} from "../../utils/nft";
+import {approveControllerWithGasTank} from "../../utils/portfolio";
 import useFetchContractWrite from "../../hooks/useFetchContractWrite"
 import useFetchRouterInfo from "../../hooks/useFetchRouterInfo"
 
@@ -19,6 +20,11 @@ import {NFTCard} from "./components/NFTCard";
 import MarketPageHeading from "./components/MarketPageHeading";
 import LimitOrderEntry from './components/LimitOrderEntry'
 
+import useGraphQuery from '../../hooks/useGraphQuery'
+import { gasTankQuery } from "../../queries/portfolioQueries";
+
+import {HeaderButtonSecondary} from "../vaults/index"
+
 
 
 const MyNFTContainer = styled.div`
@@ -27,8 +33,8 @@ const MyNFTContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 40px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 300px;
+    margin-bottom: 300px;
 `
 
 const MyNFTGrid = styled.div`
@@ -48,6 +54,41 @@ const MyNFTGrid = styled.div`
         grid-template-rows: auto;
       }
   
+`
+
+const SubmitButton = styled(HeaderButtonSecondary)`
+    width: 100%;
+    height: 100px;
+    margin-top: 200px;
+    margin-bottom: 100px;
+`
+
+const MainContainer = styled.div`
+    display: flex;
+    height: auto;
+    width: 100%;
+    justify-content: space-around;
+
+    @media (max-width: 315px) {
+        margin-bottom: 6em;
+
+        flex-direction: column;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+    }
+    @media (max-width: 2048px) {
+        margin-bottom: 6em;
+      }
+  
+      @media (max-width: 768px) {
+        margin-bottom: 6em;
+   
+      }
+`
+const FormContainer = styled.div`
+    display: grid;
+    grid-auto-rows: auto;
+    row-gap: 0.25em;
 `
 
 const marketReducer = (state, action) => {
@@ -110,9 +151,9 @@ const NFT = () => {
         dispatch({ type: 'openTradeWindow'})
     }
     
-  
+    const gasTankApproval = false
 
-    if (loading == false) {
+    if (gasTankApproval) {
 
         const mapUserNFTs = NFTS.map((nft, index) => (
 
@@ -150,14 +191,13 @@ const NFT = () => {
             <Page>
 
             <MarketPageHeading/>
-
-    
-                <MyNFTContainer>
-    
-                    No NFTs :(
-               
-                </MyNFTContainer>
-    
+                <MainContainer>
+                    <FormContainer>
+                    <SubmitButton onClick={async () => await approveControllerWithGasTank(library.getSigner())}>
+                        Approve Gas Tank
+                    </SubmitButton>
+                    </FormContainer>
+                </MainContainer>
             </Page>
     
             </>

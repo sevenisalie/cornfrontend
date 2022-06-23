@@ -83,9 +83,16 @@ export const erc20Allowance = async (tokenAddress, user, spender, signer) => {
   
   // ----------------------------------------------------------------------------------
   
-  async function approveControllerWithGasTank(signer) {
+  export const approveControllerWithGasTank = async (signer) => {
     const gasTank = await fetchContract(addresses.gasTank, GAS_TANK.abi, signer);
-    return await gasTank.approve(addresses.controller, true);
+    console.log("gasTank", signer, gasTank)
+    try {
+      const raw = await gasTank.approve(addresses.vaults.controller, true);
+      return await raw.wait()
+    } catch (err) {
+      console.log("allowance", err)
+      return err
+    }
   }
   
   // ----------------------------------------------------------------------------------
