@@ -153,29 +153,12 @@ const HowToSection = () => {
                     <InstructionText style={{fontSize: "1.1em", color: "#fbdb37"}}>
                         Cool Things to Know:
                     </InstructionText>
-                    <InstructionListItem>Block-to-block execution</InstructionListItem>
+                    <InstructionListItem>Block-to-block execution by Gelato</InstructionListItem>
                         <InstructionListItem>Orders are filled via the Corn smart-router</InstructionListItem>
                         <InstructionListItem>Trade fees are pooled for dividend rewards</InstructionListItem>
+                        <InstructionListItem>Trades entered through the UI do not expire</InstructionListItem>
                     </InstructionList>
             </HowToCard>
-            <div style={{display: "flex", flexDirection: "column", width: "100%", maxWidth: "24em", height: "auto", justifyContent: "center", alignContent: "center", alignItems: "center"}}>
-                <PendingRewardCard>
-                    <RewardContainer>
-                        <RewardText>
-                            PENDING REWARDS
-                        </RewardText>
-                        <RewardAmountText>
-                   
-                        </RewardAmountText>
-                    </RewardContainer>
-            
-                        <ClaimButton >
-                            <AiOutlineDeliveredProcedure style={{marginRight: "0.42em"}} />
-                            Claim
-                        </ClaimButton>
-     
-                </PendingRewardCard>
-            </div>
 
 
         </SectionContainer>

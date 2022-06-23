@@ -16,6 +16,7 @@ import {FaTwitter, FaGithub, FaDiscord} from "react-icons/fa"
 import {Card, Container, Button, Dropdown, Form, Placeholder} from "react-bootstrap"
 import {HowToSection} from "./components/HowToSection"
 import OracleBar from "../../components/OracleBar"
+import StatWidget from "./components/StatWidget"
 import CobTokenDetails from "./components/CobTokenDetails"
 //images
 import Gelatologo from "../../assets/images/Gelatologo.svg"
@@ -361,6 +362,21 @@ const APYContainer = styled.div`
         row-gap: 1em;
     }
 `
+const StatWidgetContainer = styled.div`
+    padding: 1em;
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: auto; 
+    gap: 2em 2em; 
+    grid-template-areas: 
+    ". ."; 
+    justify-content: center; 
+    align-content: start; 
+    justify-items: center; 
+    align-items: center; 
+
+
+`
 
 export const Home = () => {
     const {slowRefresh} = useRefresh()
@@ -455,7 +471,9 @@ export const Home = () => {
                     <BigHeading>We Need a Bigger Ship Where We're Going. </BigHeading>
                     <LittleHeading>Next Generation DeFi Trading Protocol. Automate ERC20 Trading with Algo-NFTs</LittleHeading>
                     <StupidSpan>
-                    <HeaderButtonSecondary href="/trade">Trade <BsArrowUpRight /></HeaderButtonSecondary>
+                        <Link to={"/trade"}>
+                        <HeaderButtonSecondary >Trade <BsArrowUpRight /></HeaderButtonSecondary>
+                        </Link>
                     <HeaderButtonSecondary href="https://medium.com/@cornfinance" target="_blank" >Learn</HeaderButtonSecondary>
                     </StupidSpan>
                 </HeaderContentContainer>
@@ -468,11 +486,16 @@ export const Home = () => {
             
             <CobTokenDetails   />
 
-    
-                
+            <StatWidgetContainer>
+                <StatWidget header={"Trading Volume"} action={{name: "Trade", url:"/trade"}} data={`$ ${toFixed(controllerData.totalVolumeFilledUSD, 2)}`}></StatWidget>
+                <StatWidget header={"Global Profit"} action={{name: "Trade", url:"/trade"}} data={`${toFixed(((controllerData.totalVolumeFilledUSD - controllerData.totalVolumeDepositedUSD) / controllerData.totalVolumeDepositedUSD) * 100, 3)} %`}></StatWidget>
+                <StatWidget header={"TVL"} action={{name: "Farm", url:"/pools"}} data={`$ ${masterchefData.tvl}`}></StatWidget>
+                <StatWidget header={"Filled Orders"} action={{name: "Swap", url:"/swap"}} data={`${controllerData.filledOrderCount}`}></StatWidget>
+            </StatWidgetContainer>
+
 
                         <APYContainer>
-                            <div style={{display: "flex", flexDirection: "column", rowGap: "0.88em", alignContent: "center", alignItems: "center", justifyContent: "center", height: "auto", width: "auto"}}>
+                            {/* <div style={{display: "flex", flexDirection: "column", rowGap: "0.88em", alignContent: "center", alignItems: "center", justifyContent: "center", height: "auto", width: "auto"}}>
                                 <CleanLink to="/pools">
                                     <BuyButtonSecondary >Stake Now<BsArrowUpRight/></BuyButtonSecondary>
                                 </CleanLink>
@@ -579,10 +602,11 @@ export const Home = () => {
                                         {/* <div style={{fontSize:"1.2em", fontWeight: "600", color: "rgba(242,242,242,0.78)", }}>
                                         {`$ ${JSON.stringify(controllerData)}`}
                                         </div> */}
-                                    </BodyContentCardContainer>
-                                </BodyContentCard>
+                                    {/* </BodyContentCardContainer>
+                                </BodyContentCard> */}
             
-                            </div>
+                            {/* </div> */}
+
                             <BodyContentCard style={{width: "28em"}}>
                                 <BodyContentCardContainer>
                                     <TwitterTimelineEmbed
@@ -594,6 +618,7 @@ export const Home = () => {
                                 </BodyContentCardContainer>
                             
                             </BodyContentCard>
+
 
                         </APYContainer>
 
