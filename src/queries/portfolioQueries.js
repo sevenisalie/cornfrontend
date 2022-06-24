@@ -4,7 +4,7 @@ export const portfolioGraphRequest = (_account) => {
     const portfolioByUserQuery = gql`
     {
         users(where: {id: "${_account.toLowerCase()}"}) {
-            strategyTokens(where: {open: true}, orderBy: tokenId) {
+            strategyTokens(where: {open: true}, orderBy: tokenId, orderDirection: desc) {
                 strategyId
                 tokenId
                 txHash#

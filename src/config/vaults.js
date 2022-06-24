@@ -4,6 +4,17 @@ import ADDRESSES from "./build/deployments/map.json"
 
 export const VAULTS = [
     {   
+        pid: 2,
+        name: "LIMIT",
+        address: "0x546855e779f08b6ae3a11d13c23543eaf65bebe7",
+        tickets: 1,
+        image: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+    },
+
+]
+
+export const ALL_VAULTS = [
+    {   
         pid: 0,
         name: "OLD-Limit",
         address: "0x44C1e896Db557922230C042D4c577b173EE51472",

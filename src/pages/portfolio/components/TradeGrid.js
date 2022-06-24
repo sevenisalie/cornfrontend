@@ -3,7 +3,7 @@ import styled from "styled-components"
 import {request, gql} from "graphql-request"
 import { useWeb3React } from "@web3-react/core";
 import useGraphQuery from "../../../hooks/useGraphQuery"
-import {VAULTS} from "../../../config/vaults"
+import {VAULTS, ALL_VAULTS} from "../../../config/vaults"
 import { portfolioGraphRequest, portfolioGraphRequestClosed } from "../../../queries/portfolioQueries"
 import { cleanTradeData, viewTransaction, withdraw } from "../../../utils/portfolio"
 import { toFixed } from "../../../utils/nft"
@@ -235,7 +235,7 @@ const TradeGrid = (props) => {
         if(portfolioData.users !== undefined && portfolioData.users[0] !== undefined) {
             console.log("portDAta", portfolioData)
             const mappedTrades = portfolioData.users[0].strategyTokens.map( (strategy) => {
-                const strat = VAULTS.filter( (vault) => {
+                const strat = ALL_VAULTS.filter( (vault) => {
                     return vault.pid === parseInt(strategy.strategyId)
 
                 })
