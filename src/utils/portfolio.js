@@ -83,9 +83,16 @@ export const erc20Allowance = async (tokenAddress, user, spender, signer) => {
   
   // ----------------------------------------------------------------------------------
   
-  async function approveControllerWithGasTank(signer) {
+  export const approveControllerWithGasTank = async (signer) => {
     const gasTank = await fetchContract(addresses.gasTank, GAS_TANK.abi, signer);
-    return await gasTank.approve(addresses.controller, true);
+    console.log("gasTank", signer, gasTank)
+    try {
+      const raw = await gasTank.approve(addresses.vaults.controller, true);
+      return await raw.wait()
+    } catch (err) {
+      console.log("allowance", err)
+      return err
+    }
   }
   
   // ----------------------------------------------------------------------------------
@@ -235,7 +242,7 @@ export const userTotalValue = (strategyTokens) => {
   }
 }
 
-export const cleanTradeData = (_tradeData) => {
+export const cleanTradeData = (_tradeData, index) => {
   console.log("tradeData", _tradeData)
   const mappedData = _tradeData.map( (trades) => {
     const mappedTrade = trades.trades.map( (trade) => {
@@ -270,7 +277,7 @@ export const cleanTradeData = (_tradeData) => {
       trades: mappedTrade,
       strategyId: trades.strategyId,
       tokenId: trades.tokenId,
-      txHash: _tradeData[0].txHash
+      txHash: trades.txHash
     }
   })
   return mappedData
