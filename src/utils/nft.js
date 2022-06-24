@@ -273,6 +273,7 @@ export const toFixed = (num, fixed) => {
 
   export const createLimitTrade = async (pid, tokenIn, tokenInDecimals, tokenOut, amountIn, price, _controllerContract) => {
     console.log("DICKSDICKSDICKDIDCKS")
+    console.log(_controllerContract)
     const path = [tokenIn, tokenOut]
     const bigNumAmountIn = ethers.utils.parseUnits(amountIn, tokenInDecimals)
     const bigNumPrice = ethers.utils.parseUnits(price, 18)

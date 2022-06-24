@@ -683,6 +683,9 @@ export const NavigationBar = () => {
                             </CleanLink>
                             {/* <CleanLink to="/trade">
                                 <NavbarLink href="#">Trade</NavbarLink>
+                            </CleanLink>
+                            <CleanLink to="/portfolio">
+                                <NavbarLink href="#">Portfolio</NavbarLink>
                             </CleanLink> */}
                         </LinkContainer>
 

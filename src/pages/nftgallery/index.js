@@ -16,7 +16,8 @@ import useFetchRouterInfo from "../../hooks/useFetchRouterInfo"
 
 
 import {NFTCard} from "./components/NFTCard";
-import MarketPageHeading from "./components/MarketPageHeading";
+import MarketPageHeading from "./components/MarketPageHeading"
+import HowToSection from "./components/HowToSection"
 import LimitOrderEntry from './components/LimitOrderEntry'
 
 
@@ -99,7 +100,6 @@ const NFT = () => {
     const [stopLossContract, setStopLossContract] = useState('');
     const {active, account, library, connector} = useWeb3React();
     const [loading, setLoading] = useState(false);
-
     const [state, dispatch] = useReducer(marketReducer, initialState)
     
 
@@ -134,7 +134,7 @@ const NFT = () => {
         <Page>
 
             <MarketPageHeading/>
-
+            <HowToSection />
 
             <LimitOrderEntry state={state} openTradeWindowToggle={openTradeWindowToggle}/>
 

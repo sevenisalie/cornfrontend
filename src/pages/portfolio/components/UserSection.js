@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import { gql } from "graphql-request"
 import { portfolioTotalsGraphQuery } from "../../../queries/portfolioQueries"
-import { cleanPortfolioTotalData } from "../../../utils/portfolio"
+import { cleanPortfolioTotalData, userTotalValue } from "../../../utils/portfolio"
 import { toFixed } from "../../../utils/nft"
 import useFetchPortfolio from "../../../hooks/useFetchPortfolio"
 import useGraphQuery from "../../../hooks/useGraphQuery"
@@ -167,19 +167,28 @@ const UserSection = () => {
     const {account, library} = useWeb3React()
     const [query, setQuery] = useState("")
     const {data:portfolioData} = useGraphQuery(query, "controller")
-    const [portfolio, setPortfolio] = useState(null)
+    console.log("pData", portfolioData)
+    const [portfolio, setPortfolio] = useState({
+        totalValue: 0,
+        count: 0
+    })
 
     useEffect(() => {
         if (account) {
             const q = portfolioTotalsGraphQuery(account)
+            console.log("portQuery", q)
             setQuery(q)
         }
     }, [account])
 
+
     useEffect(() => {
         const fetchData = () => {
-            const data = cleanPortfolioTotalData(portfolioData.erc20S)
-            setPortfolio(data)
+            console.log("tokens", portfolioData)
+            if(portfolioData.strategyTokens.length > 0) {
+                const data = userTotalValue(portfolioData.strategyTokens)
+                setPortfolio(data)
+            }
         }
         if ( portfolioData ) {
             fetchData()
@@ -188,11 +197,11 @@ const UserSection = () => {
     
     // const {data} = useFetchPortfolio(account)
     let mappedTokens;
-    if (portfolio) {
-        mappedTokens = portfolio.allTokenLogos.map( (token) => {
-            return (<TokenLogoImage src={token} />)
-        })
-    }
+    // if (portfolio) {
+    //     mappedTokens = portfolio.allTokenLogos.map( (token) => {
+    //         return (<TokenLogoImage src={token} />)
+    //     })
+    // }
 
     return (
         <>
@@ -205,22 +214,22 @@ const UserSection = () => {
                            <ChartWidget />
                            <InfoGrid>
                                 <TokenLogoContainer>
-                                <ValueText style={{marginLeft: "1.12em"}}>
+                                {/* <ValueText style={{marginLeft: "1.12em"}}>
                                 {`My Tokens`}
-                                </ValueText>    
-                                    <TokenLogoHexContainer>
+                                </ValueText>     */}
+                                    {/* <TokenLogoHexContainer>
                                         {
                                             mappedTokens
                                         }
-                                    </TokenLogoHexContainer>
+                                    </TokenLogoHexContainer> */}
                                 </TokenLogoContainer>
                                 <TradeInfoContainer>
                                     <TradeInfoRow>
-                                        <InfoText>Open Volume:</InfoText>
-                                        <ValueText >${portfolio && toFixed(portfolio.totalValue, 6)}</ValueText>
+                                        <InfoText>User Total Value:</InfoText>
+                                        <ValueText >${toFixed(portfolio.totalValue, 2)}</ValueText>
                                
-                                        <InfoText>Open Interest</InfoText>
-                                        <ValueText>{portfolio && portfolio.tradeCount}</ValueText>
+                                        <InfoText>Open Tokens</InfoText>
+                                        <ValueText>{portfolio.count}</ValueText>
                                     </TradeInfoRow>
                                 </TradeInfoContainer>
                            </InfoGrid>

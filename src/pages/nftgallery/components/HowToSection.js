@@ -4,25 +4,25 @@ import ethers from "ethers"
 import {HeaderButtonSecondary} from "../../vaults"
 
 
-import useFetchPendingRewards from "../../../hooks/useFetchPendingRewards"
-import {useWeb3React} from "@web3-react/core"
+
 import {AiOutlineDeliveredProcedure} from "react-icons/ai"
 import {BiCoinStack} from "react-icons/bi"
 
-import {mapPendingClaimCalls, mapPoolAllowances} from "../../../utils/multiCall"
 
 const SectionContainer = styled.div`
     display: flex;
     flex-direction: row;
-    height: max-content;
-    margin-left: 2em;
+    height: auto;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: space-around;
     align-items: center;
     align-content: center;
-    padding-top: 2.5em;
-    padding-bottom: 0.5em;
-    column-gap: 2.42em;
+    padding: 2.5em;
+    column-gap: 0.42em;
+    @media (max-width: 666px) {
+        flex-direction: column;
+        row-gap: 0.8em;
+    }
 `
 
 const HowToCard = styled.div`
@@ -74,8 +74,9 @@ const InstructionLink = styled.a`
 export const PoolHeaderText = styled.div`
     font-size: 2em;
     color: rgba(242, 242, 242, 0.90);
-    margin: 0 0 0 0;
-    
+    align-self: center;
+    margin-left: 1.2em;
+
     @media (max-width: 712px) {
         font-size: 1.7em;
     }
@@ -88,7 +89,7 @@ export const LineBreak = styled.hr`
     color: rgba(242, 242, 242, 0.90);
     margin-left: 30px;
     margin-top: 1.8em;
-    margin-bottom: 2em;
+    margin-bottom: 8em;
 
     @media (max-width: 712px) {
         width: auto;
@@ -139,32 +140,30 @@ const ClaimButton = styled(HeaderButtonSecondary)`
 `
 
 const HowToSection = () => {
-    const {active, account, library, connector} = useWeb3React();
-    const {contract, results, total} = useFetchPendingRewards(true)
-
-
-
-    const claimAll = async () => {
-        if (account) {
-            try {
-                return await mapPendingClaimCalls(library.getSigner(), account)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-
-    }
+ 
 
     return (
         <>
+
+       
         <SectionContainer>
-        <PoolHeaderText>
-            {`My Trades`}
-        </PoolHeaderText>
-        {/* <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Open</HeaderButtonSecondary>
-        <HeaderButtonSecondary style={{margin: "0 0 0 0", alignSelf: "center"}}>Closed</HeaderButtonSecondary> */}
+
+            <HowToCard>
+                <InstructionList>
+                    <InstructionText style={{fontSize: "1.1em", color: "#fbdb37"}}>
+                        Cool Things to Know:
+                    </InstructionText>
+                    <InstructionListItem>Block-to-block execution by Gelato</InstructionListItem>
+                        <InstructionListItem>Orders are filled via the Corn smart-router</InstructionListItem>
+                        <InstructionListItem>Trade fees are pooled for dividend rewards</InstructionListItem>
+                        <InstructionListItem>Trades entered through the UI do not expire</InstructionListItem>
+                    </InstructionList>
+            </HowToCard>
+
+
         </SectionContainer>
-        <LineBreak />
+
+            
         </>
     )
 }
