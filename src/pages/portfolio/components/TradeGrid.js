@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import {request, gql} from "graphql-request"
-import { useWeb3React } from "@web3-react/core";
+import { useWeb3React, ethers } from "@web3-react/core";
 import useGraphQuery from "../../../hooks/useGraphQuery"
 import {VAULTS, ALL_VAULTS} from "../../../config/vaults"
-import { portfolioGraphRequest, portfolioGraphRequestClosed } from "../../../queries/portfolioQueries"
+import { portfolioGraphRequest, portfolioGraphRequestClosed, oracleQuery } from "../../../queries/portfolioQueries"
 import { cleanTradeData, viewTransaction, withdraw } from "../../../utils/portfolio"
 import { toFixed } from "../../../utils/nft"
 import { AiFillEye } from "react-icons/ai"
@@ -13,6 +13,8 @@ import { BsArrowBarDown, BsArrowRight, BsChevronRight } from "react-icons/bs"
 import { IoRadioButtonOff, IoRadioButtonOn } from "react-icons/io5"
 import { Token } from 'graphql/language/ast';
 import {goodToast} from "../../../components/Toast"
+import useFetchRouterInfo from '../../../hooks/useFetchRouterInfo';
+import { addresses } from '../../../config/addresses';
 
 const TradeGridContainer = styled.div`
     display: grid;
@@ -296,10 +298,31 @@ const Trade = ({ trade, setRefreshTrigger }) => {
     const {account, library} = useWeb3React()
     const [desiredRate, setDesiredRate] = useState(true)
     const [fillRate, setFillRate] = useState(true)
+    const {data:oracleData} = useGraphQuery(oracleQuery(), "oracle")
+    const [priceData, setPriceData] = useState()
+
+    
+    useEffect(() => {
+      setPriceData(oracleData)
+      console.log("oracleData", priceData)
+    //   getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address)
+    }, [oracleData])
+    
 
     console.log("god dammit bobby", trade)
 
+    const getRate = (from, to) => {
+        console.log("oracleDataaa", priceData)
+        if(priceData.erc20s !== undefined) {
+            const fromToken = priceData.erc20s.find(e => e.id === from.toLowerCase())
+            const toToken = priceData.erc20s.find(e => e.id === to.toLowerCase())
+            console.log("rates", fromToken, from.toLowerCase(), toToken)
+        }
+    }
 
+    // const rates = getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address)
+
+    
     const tokensOpen = trade.trades.map( (_trade) => {
         const tokenIns = _trade.orders.map( (order) => {
             console.log("TRADER")
@@ -404,13 +427,10 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                         {tokensOpen[0].tokensout[0]}
                         {tokensOpen[0].imagesout[0]}
                     </CardContentRowContainer>
-                    {/* <p>
-            
-                        {trade.strategyId}
-                        {trade.tokenId}
-                    </p> */}
-
-
+                    <CardContentRowContainerSmallText></CardContentRowContainerSmallText>
+                    <CardContentRowContainerSmallText>
+                        {/* {getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address)} */}
+                    </CardContentRowContainerSmallText>
                     <TradeHRFull></TradeHRFull>
                     
 
@@ -441,23 +461,23 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                                 </CardContentRowContainerButton>
                                 <CardContentRowContainerSmallText></CardContentRowContainerSmallText>
                                 <CardContentRowContainerSmallText onClick={(() => setDesiredRate(prev => !prev))}>
-                                    {`Desired Rate: 
+                                    {`Limit Rate: 
                                     ${desiredRate ? toFixed(order.amountIn/order.desiredAmountOut, 6) : toFixed(order.desiredAmountOut/order.amountIn, 6)} 
                                     ${desiredRate ? `${order.fromToken[0].symbol} / ${order.toToken[0].symbol}` : `${order.toToken[0].symbol} / ${order.fromToken[0].symbol}`}`}
                                 </CardContentRowContainerSmallText>
 
-                                <CardContentRowContainerSmallText onClick={(() => setFillRate(prev => !prev))}>
-                                    {`Fill Rate: 
-                                    ${fillRate ? toFixed(order.amountIn/order.amountOut, 6) : toFixed(order.amountOut/order.amountIn, 6)} 
-                                    ${fillRate ? `${order.fromToken[0].symbol} / ${order.toToken[0].symbol}` : `${order.toToken[0].symbol} / ${order.fromToken[0].symbol}`}`}
-                                </CardContentRowContainerSmallText>
+                                <CardContentRowContainerSmallText onClick={(() => setDesiredRate(prev => !prev))}>
+                                    Fill Rate: 
+                                    {order.amountOut > 0 && `
+                                    ${desiredRate ? toFixed(order.amountIn/order.amountOut, 6) : toFixed(order.amountOut/order.amountIn, 6)} 
+                                    ${desiredRate ? `${order.fromToken[0].symbol} / ${order.toToken[0].symbol}` : `${order.toToken[0].symbol} / ${order.fromToken[0].symbol}`}`}
+                                    
+                                    </CardContentRowContainerSmallText>
                                 
                                 {index < trade.orders.length-1 && <TradeHR></TradeHR>}
 
 
-                                {/* <CardContentRowContainerSmallText>
-                                    {`Fill Rate: ${order.amountOut == 0 ? 0: toFixed(order.amountIn/order.amountOut, 6)} ${order.fromToken[0].symbol} / ${order.toToken[0].symbol}`}
-                                </CardContentRowContainerSmallText> */}
+                                
                                 </>
                             )
                         })
