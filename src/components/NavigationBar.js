@@ -681,12 +681,12 @@ export const NavigationBar = () => {
                             <CleanLink to="/swap">
                                 <NavbarLink href="#">Swap</NavbarLink>
                             </CleanLink>
-                            <CleanLink to="/trade">
+                            {/* <CleanLink to="/trade">
                                 <NavbarLink href="#">Trade</NavbarLink>
                             </CleanLink>
                             <CleanLink to="/portfolio">
                                 <NavbarLink href="#">Portfolio</NavbarLink>
-                            </CleanLink>
+                            </CleanLink> */}
                         </LinkContainer>
 
                 
