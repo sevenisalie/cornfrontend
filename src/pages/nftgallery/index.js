@@ -100,7 +100,6 @@ const NFT = () => {
     const [stopLossContract, setStopLossContract] = useState('');
     const {active, account, library, connector} = useWeb3React();
     const [loading, setLoading] = useState(false);
-
     const [state, dispatch] = useReducer(marketReducer, initialState)
     
 
