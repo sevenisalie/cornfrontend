@@ -836,39 +836,83 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
         
     }, [state.setTokenIn, state.setTokenOut])
 
-    useEffect( async () => {
-        if(state.orderType.pid !== "" && state.setTokenIn.address !== "" && library && state.setAmountIn !== "") {
-            const signer = library.getSigner()
-            const allowance = await erc20Allowance(state.setTokenIn.address, account, VAULTS.find(v => v.pid === state.orderType.pid).address, signer)
-            console.log("orderAllow", allowance)
-            setTokenAllowance(allowance)
-            if(allowance.gte(ethers.utils.parseUnits(state.setAmountIn, state.setTokenIn.decimals))) {
-                setTokenApproved(true)
+    // useEffect( async () => {
+    //     if(state.orderType.pid !== "" && state.setTokenIn.address !== "" && library && state.setAmountIn !== "") {
+    //         const signer = library.getSigner()
+    //         const allowance = await erc20Allowance(state.setTokenIn.address, account, VAULTS.find(v => v.pid === state.orderType.pid).address, signer)
+    //         console.log("orderAllow", allowance)
+    //         setTokenAllowance(allowance)
+    //         if(allowance.gte(ethers.utils.parseUnits(state.setAmountIn, state.setTokenIn.decimals))) {
+    //             setTokenApproved(true)
+    //         }
+    //     }
+    // }
+
+    useEffect(  () => {
+        if(state.orderType.pid !== "" && state.setTokenIn.address !== undefined && library && state.setAmountIn !== "") {
+
+            const whichVault = (_pid) => {
+                const thisOne = VAULTS.filter( (vault) => {
+                    return vault.pid === _pid
+                })
+                return thisOne[0]
             }
-            else {
-                setTokenApproved(false)
+
+            const checkAllowance = async () => {
+                const vault = whichVault(state.orderType.pid)
+                const signer = library.getSigner()
+                const allowance = await erc20Allowance(state.setTokenIn.address, account, vault.address, signer)
+                const cleanAllowance = ethers.utils.formatUnits(allowance, state.setTokenIn.decimals)
+                setTokenAllowance(allowance)
+                if(parseFloat(cleanAllowance) >= parseFloat(ethers.utils.parseUnits(state.setAmountIn, state.setTokenIn.decimals)) ) {
+                    setTokenApproved(true)
+                }
+                else {
+                    setTokenApproved(false)
+                }
             }
+
+            checkAllowance()
+
         }
         else {
             setTokenApproved(true)
         }
     }, [state.orderType, state.setTokenIn, state.setAmountIn])
 
+    const isNaN = function(value) {
+        const n = Number(value);
+        return n !== n;
+    };
 
 
     //populate amount out when amount in and price exist
     useEffect(() => {
         if (state.setLimitPrice !== '') {
             const amountOutCalc = parseFloat(state.setAmountIn) * parseFloat(state.setLimitPrice)
-            setAmountOut(amountOutCalc.toString())
+
+
+            if (isNaN(amountOutCalc)) {
+                setAmountOut("")
+            }
+            if (isNaN(amountOutCalc) === false) {
+                setAmountOut(amountOutCalc.toString())
+            }
         }
     }, [state.side, state.setAmountIn])
+
 
 
     //change price then change amount out
     useEffect(() => {
         const amountOutCalc = parseFloat(state.setAmountIn) * parseFloat(state.setLimitPrice)
         setAmountOut(amountOutCalc.toString())
+        if (isNaN(amountOutCalc)) {
+            setAmountOut("")
+        }
+        if (isNaN(amountOutCalc) === false) {
+            setAmountOut(amountOutCalc.toString())
+        }
     }, [state.setLimitPrice])
 
     //top right value displayer
@@ -1113,7 +1157,24 @@ const AmountEntry = (props) => {
                                 <TokenSelect side={props.side} onClick={props.openTokenSelectorToggle}>
                                     <TokenSelectContainer>
                                         <TokenLogoContainer>
-                                            <GiTwoCoins style={{marginRight: "5px"}}></GiTwoCoins>
+
+                            
+                                            <img
+                                            src={props.side == "in" ? props.state.setTokenIn.logoURI : props.state.setTokenOut.logoURI}
+                                            style={{height: "auto", marginRight: "5px", width: "1.4em"}}
+                                            >
+                                            </img>
+                             
+
+
+
+                                            { props.state.setTokenOut === "" && props.side === "out" &&
+                                                <TokenName style={{marginLeft: "0.1em"}}>Select</TokenName>
+                                            }
+
+                                            { props.state.setTokenIn === "" && props.side === "in" &&
+                                                <TokenName style={{marginLeft: "0.1em"}}>Select</TokenName>
+                                            }
                                           
                                                 <TokenName>{`${symbol}`}</TokenName>
                                              
@@ -1152,8 +1213,8 @@ const AmountEntry = (props) => {
                             <TokenDataRow>
                                 <TokenDataContentContainer>
                                     <TokenPriceSymbolContainer>
-                                        <TokenBalanceText>Balance: { balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
-                                        <TokenMax >(Max)</TokenMax>
+                                        <TokenBalanceText style={{color: "#fbdb37", marginRight: "0.2em"}}>Balance:</TokenBalanceText>
+                                        <TokenBalanceText >{ balance == NaN ? 0 : toFixed(balance, 4)} {symbol}</TokenBalanceText>
                                     </TokenPriceSymbolContainer>
                                     
                                     

@@ -3,8 +3,8 @@ import styled from "styled-components"
 import {request, gql} from "graphql-request"
 import { useWeb3React } from "@web3-react/core";
 import useGraphQuery from "../../../hooks/useGraphQuery"
-import {VAULTS} from "../../../config/vaults"
-import { portfolioGraphRequest } from "../../../queries/portfolioQueries"
+import {VAULTS, ALL_VAULTS} from "../../../config/vaults"
+import { portfolioGraphRequest, portfolioGraphRequestClosed } from "../../../queries/portfolioQueries"
 import { cleanTradeData, viewTransaction, withdraw } from "../../../utils/portfolio"
 import { toFixed } from "../../../utils/nft"
 import { AiFillEye } from "react-icons/ai"
@@ -78,6 +78,16 @@ const CardContentRowContainer = styled.div`
     align-content: center;
 `
 
+const CardContentRowContainerButton = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    align-content: center;
+    cursor: pointer;
+`
+
 const CardContentRowContainerSmallText = styled.div`
     display: flex;
     flex-direction: row;
@@ -85,7 +95,9 @@ const CardContentRowContainerSmallText = styled.div`
     height: auto;
     align-items: center;
     align-content: center;
-    font-size: 1.0em;
+    font-size: 0.7em;
+    color: rgba(242, 242, 242, 0.9);
+    cursor: pointer;
 `
 
 const TokenInImage = styled.img`
@@ -97,7 +109,7 @@ const TokenOutImage = styled.img`
     height: 2.1em;
     width: auto;
     align-self: flex-start;
-    margin-left: auto;
+    margin-left: 0.5em;
     margin-right: 6.5em;
     justify-self: center;
 `
@@ -155,10 +167,23 @@ const TradeHR = styled.hr`
     margin-right: auto;
     margin-left: 0.1em;;
     size: 3px;
-    color: rgba(242, 242, 242, 1);
+    color: rgba(242, 242, 242, 0.7);
     margin-top: 0px;
     margin-bottom: 0px;
 `
+
+const TradeHRFull = styled.hr`
+    border: none;
+    border-top: double #FFF;
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+    width: 90%;
+    margin-right: auto;
+    margin-left: 0.1em;;
+`
+
 const TradePriceText = styled.div`
     font-size: 1em;
     color: rgba(242, 242, 242, 0.8);
@@ -175,7 +200,7 @@ const TradePriceTokenLogo = styled.img`
 
 
 
-const TradeGrid = () => {
+const TradeGrid = (props) => {
     const {account, library} = useWeb3React()
     const [query, setQuery] = useState("")
     const {data:portfolioData} = useGraphQuery(query, "controller")
@@ -184,10 +209,16 @@ const TradeGrid = () => {
 
     useEffect(() => {
         if (account) {
-            const q = portfolioGraphRequest(account)
-            setQuery(q)
+            if(props.tradeStatus) {
+                const q = portfolioGraphRequest(account)
+                setQuery(q)
+            }
+            else {
+                const q = portfolioGraphRequestClosed(account)
+                setQuery(q)
+            }
         }
-    }, [account, refreshTrigger])
+    }, [account, refreshTrigger, props.tradeStatus])
 
     useEffect(() => {
         if (portfolioData !== "") {
@@ -204,7 +235,7 @@ const TradeGrid = () => {
         if(portfolioData.users !== undefined && portfolioData.users[0] !== undefined) {
             console.log("portDAta", portfolioData)
             const mappedTrades = portfolioData.users[0].strategyTokens.map( (strategy) => {
-                const strat = VAULTS.filter( (vault) => {
+                const strat = ALL_VAULTS.filter( (vault) => {
                     return vault.pid === parseInt(strategy.strategyId)
 
                 })
@@ -263,7 +294,11 @@ export default TradeGrid
 
 const Trade = ({ trade, setRefreshTrigger }) => {
     const {account, library} = useWeb3React()
+    const [desiredRate, setDesiredRate] = useState(true)
+    const [fillRate, setFillRate] = useState(true)
+
     console.log("god dammit bobby", trade)
+
 
     const tokensOpen = trade.trades.map( (_trade) => {
         const tokenIns = _trade.orders.map( (order) => {
@@ -376,38 +411,56 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                     </p> */}
 
 
-                    <TradeHR></TradeHR>
+                    <TradeHRFull></TradeHRFull>
                     
 
                     { trade.trades.map( (trade => {
-                        return trade.orders.map( (order => {
+                        return trade.orders.map( (order, index) => {
                             console.log("orderData", order)
                             return (
                                 <>
-                                <CardContentRowContainer>
+                                <CardContentRowContainerButton onClick={ (e) => {
+                                        e.preventDefault()
+                                        if(!order.open && order.amountOut != 0) {
+                                            window.open(`https://polygonscan.com/tx/${order.txHash}`, '_blank')
+                                        }
+                                }}>
 
                                 <TradePriceText>{order.amountIn}</TradePriceText>
                                 <TradePriceTokenLogo src={order.fromToken[0].logoURI} />
                                 <PathIcon></PathIcon>
-                                <TradePriceText>{toFixed((order.open ? order.desiredAmountOut : order.amountOut), 3)}</TradePriceText>
+                                <TradePriceText>{toFixed(((order.open || order.amountOut == 0) ? order.desiredAmountOut : order.amountOut), 5)}</TradePriceText>
                                 <TradePriceTokenLogo src={order.toToken[0].logoURI} />
                                 {
-                                    order.open === true
+                                    (order.open === true || order.amountOut == 0)
                                     ?
                                     <IoRadioButtonOff style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
                                     :
-                                    <RadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} 
-                                    onClick={ (e) => {
-                                        e.preventDefault()
-                                        window.open(`https://polygonscan.com/tx/${order.txHash}`, '_blank')
-                                    }}
-                                    />
+                                    <RadioButtonOn style={{marginLeft: "1.82em", fontSize: "1.3em" }} />
                                 }
-                                </CardContentRowContainer>
-                                <CardContentRowContainerSmallText>{`Limit Rate: ${toFixed(order.amountIn/order.desiredAmountOut, 6)} ${order.fromToken[0].symbol} / ${order.toToken[0].symbol}`}</CardContentRowContainerSmallText>
+                                </CardContentRowContainerButton>
+                                <CardContentRowContainerSmallText></CardContentRowContainerSmallText>
+                                <CardContentRowContainerSmallText onClick={(() => setDesiredRate(prev => !prev))}>
+                                    {`Desired Rate: 
+                                    ${desiredRate ? toFixed(order.amountIn/order.desiredAmountOut, 6) : toFixed(order.desiredAmountOut/order.amountIn, 6)} 
+                                    ${desiredRate ? `${order.fromToken[0].symbol} / ${order.toToken[0].symbol}` : `${order.toToken[0].symbol} / ${order.fromToken[0].symbol}`}`}
+                                </CardContentRowContainerSmallText>
+
+                                <CardContentRowContainerSmallText onClick={(() => setFillRate(prev => !prev))}>
+                                    {`Fill Rate: 
+                                    ${fillRate ? toFixed(order.amountIn/order.amountOut, 6) : toFixed(order.amountOut/order.amountIn, 6)} 
+                                    ${fillRate ? `${order.fromToken[0].symbol} / ${order.toToken[0].symbol}` : `${order.toToken[0].symbol} / ${order.fromToken[0].symbol}`}`}
+                                </CardContentRowContainerSmallText>
+                                
+                                {index < trade.orders.length-1 && <TradeHR></TradeHR>}
+
+
+                                {/* <CardContentRowContainerSmallText>
+                                    {`Fill Rate: ${order.amountOut == 0 ? 0: toFixed(order.amountIn/order.amountOut, 6)} ${order.fromToken[0].symbol} / ${order.toToken[0].symbol}`}
+                                </CardContentRowContainerSmallText> */}
                                 </>
                             )
-                        }))
+                        })
                     }))}
                 </CardContentColumnContainer>
             </CardContentContainer>
