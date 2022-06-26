@@ -21,17 +21,20 @@ const TradeGridContainer = styled.div`
     width: 100%;
     height: auto;
     grid-template-columns: auto auto;
+    
     grid-template-rows: auto;
     justify-items: center;
     align-content: start;
     column-gap: 1em;
     row-gap: 4.20em;
     padding: 2.5em;
-
-    @media (max-width: 960px ) {
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    @media (max-width: 1200px ) {
         grid-template-columns: auto;
 
     }
+
+    // border: 3px solid rgba(255, 255, 255, 1);
 `
 
 const TradeCard = styled.div`
@@ -47,6 +50,10 @@ const TradeCard = styled.div`
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
+    // border: 3px solid rgba(255, 255, 255, 1);
+
+    
 `
 const CardContentContainer = styled.div`
     display: flex;
@@ -58,17 +65,21 @@ const CardContentContainer = styled.div`
     background-color: rgba(29, 30, 32, 1);
     border: 1px solid rgba(255, 255, 255, 0.125);
     box-shadow: var(--shadow-elevation-medium);
+
+    // border: 3px solid rgba(255, 255, 255, 1);
 `
 const CardContentColumnContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 500px;
     height: 100%;
     row-gap: 4px;
     padding: 1em;
     align-items: center;
     align-content: center;
     justify-content: space-evenly;
+
+    // border: 3px solid rgba(255, 255, 255, 1);
 `
 
 const CardContentRowContainer = styled.div`
@@ -78,6 +89,8 @@ const CardContentRowContainer = styled.div`
     height: auto;
     align-items: center;
     align-content: center;
+
+    // border: 3px solid rgba(255, 255, 255, 1);
 `
 
 const CardContentRowContainerButton = styled.div`
@@ -296,7 +309,7 @@ export default TradeGrid
 
 const Trade = ({ trade, setRefreshTrigger }) => {
     const {account, library} = useWeb3React()
-    const [desiredRate, setDesiredRate] = useState(true)
+    const [desiredRate, setDesiredRate] = useState(false)
     const [fillRate, setFillRate] = useState(true)
     const {data:oracleData} = useGraphQuery(oracleQuery(), "oracle")
     const [priceData, setPriceData] = useState()
@@ -313,10 +326,16 @@ const Trade = ({ trade, setRefreshTrigger }) => {
 
     const getRate = (from, to) => {
         console.log("oracleDataaa", priceData)
-        if(priceData.erc20s !== undefined) {
-            const fromToken = priceData.erc20s.find(e => e.id === from.toLowerCase())
-            const toToken = priceData.erc20s.find(e => e.id === to.toLowerCase())
-            console.log("rates", fromToken, from.toLowerCase(), toToken)
+        if(priceData !== undefined) {
+            console.log("whyGod", priceData.erc20S)
+            try {
+                const fromToken = priceData.erc20S.find(e => e.id === from.toLowerCase()).priceUSD
+                const toToken = priceData.erc20S.find(e => e.id === to.toLowerCase()).priceUSD
+                console.log("rates", fromToken, from.toLowerCase(), toToken)
+                return fromToken / toToken
+            } catch(err) {
+                console.log("getRateError", err)
+            }
         }
     }
 
@@ -428,8 +447,19 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                         {tokensOpen[0].imagesout[0]}
                     </CardContentRowContainer>
                     <CardContentRowContainerSmallText></CardContentRowContainerSmallText>
-                    <CardContentRowContainerSmallText>
-                        {/* {getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address)} */}
+
+
+                    <CardContentRowContainerSmallText onClick={(() => setDesiredRate(prev => !prev))}>
+                        {`Current Rate: 
+                        ${
+                            desiredRate == false ? toFixed(getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address), 5) : 
+                            toFixed(getRate(trade.trades[0].orders[0].toToken[0].address, trade.trades[0].orders[0].fromToken[0].address), 5)
+                        }
+                        ${
+                            desiredRate == false ? `${trade.trades[0].orders[0].toToken[0].symbol} / ${trade.trades[0].orders[0].fromToken[0].symbol}` : 
+                            `${trade.trades[0].orders[0].fromToken[0].symbol} / ${trade.trades[0].orders[0].toToken[0].symbol}`
+                        }
+                        `}
                     </CardContentRowContainerSmallText>
                     <TradeHRFull></TradeHRFull>
                     

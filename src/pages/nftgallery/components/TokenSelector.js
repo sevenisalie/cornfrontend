@@ -255,7 +255,7 @@ const ResultContainer = styled.div`
 
 
 export const TokenButton = (props) => {
-
+    console.log("TOKENPROPS", props)
     const handleTokenToggle = () => {
         if (props.side == 'in') {
             props.setTokenIn(props.data)

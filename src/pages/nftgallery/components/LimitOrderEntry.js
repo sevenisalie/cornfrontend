@@ -453,29 +453,42 @@ const TokenSelectorOverlay = styled.div`
 
 const SubmitSection = (props) => {
     const {library} = useWeb3React()
-
+    
+    const allowPrice = (props.state.setLimitPrice > props.state.setAmountPrice)
+    const allowOrderType = (props.state.orderType.pid !== '')
+    console.log("PROPS", props, allowPrice, allowOrderType)
     return (
         <>
             <TitleContainer>
-                
-                <SubmitButton onClick={() => {
-                    props.state.setTokenApproved ?
-                        props.handleMintLimit(
-                            props.state.orderType.pid,
-                            props.state.setTokenIn.address,
-                            props.state.setTokenIn.decimals,
-                            props.state.setTokenOut.address,
-                            props.state.setAmountIn,
-                            props.state.setRealLimitPrice,
-                            props.controller
-                        ) :
-                        approveStrategyWithERC20(
-                            props.state.setTokenIn.address,
-                            VAULTS.find(v => v.pid === props.state.orderType.pid).address,
-                            ethers.constants.MaxUint256,
-                            library.getSigner()
-                        )
-                }}>{props.state.setSubmitButtonText}</SubmitButton>
+                {(allowPrice === true && allowOrderType === true) &&
+                    <SubmitButton onClick={() => {
+                        props.state.setTokenApproved ?
+                            props.handleMintLimit(
+                                props.state.orderType.pid,
+                                props.state.setTokenIn.address,
+                                props.state.setTokenIn.decimals,
+                                props.state.setTokenOut.address,
+                                props.state.setAmountIn,
+                                props.state.setRealLimitPrice,
+                                props.controller
+                            ) :
+                            approveStrategyWithERC20(
+                                props.state.setTokenIn.address,
+                                VAULTS.find(v => v.pid === props.state.orderType.pid).address,
+                                ethers.constants.MaxUint256,
+                                library.getSigner()
+                            )
+                    }}>{props.state.setSubmitButtonText}</SubmitButton>
+                }
+
+                {(allowOrderType === false) &&
+                    <SubmitButton>{`Select Order Type`}</SubmitButton>
+                }
+
+                {(allowOrderType === true && allowPrice === false && props.state.orderType.pid === 2) &&
+                    <SubmitButton>{`Price Lower Than Market Rate`}</SubmitButton>
+                }
+
                 {/* <SubmitButton >{props.state.setSubmitButtonText}</SubmitButton> */}
 
             </TitleContainer>
@@ -679,7 +692,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
     const {active, account, library, connector} = useWeb3React()
     const { fastRefresh } = useRefresh()
     const [state, dispatch] = useReducer(orderReducer, initialState)
-    const {data:routerInfo, approval, triggerRefresh} = useFetchRouterInfo(state.setTokenIn, state.setTokenOut, "1" )
+    const {data:routerInfo, approval, triggerRefresh} = useFetchRouterInfo(state.setTokenIn, state.setTokenOut, state.setAmountIn )
     const [limitPriceCount, setLimitPriceCount ] = useState(Array.from(Array(1).keys())    )
     const [limitPrices, setLimitPrices] = useState(Array(limitPriceCount))
     const [tokenAllowance, setTokenAllowance] = useState(0)
@@ -982,7 +995,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                         <FaTimes style={{justifySelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545"}} /> 
 
 
-                        <PriceEntry routerInfo={routerInfo} state={state} setOverride={setOverride} override={override} setLimitPrice={setLimitPrice} setRealLimitPrice={setRealLimitPrice}/>
+                        <PriceEntry routerInfo={routerInfo} state={state} setAmountPrice={setAmountPrice} setOverride={setOverride} override={override} setLimitPrice={setLimitPrice} setRealLimitPrice={setRealLimitPrice}/>
 
                         <AmountEntry
                          state={state}
@@ -1045,9 +1058,10 @@ const PriceEntry = (props) => {
 
     useEffect(() => {
         if (props.routerInfo) {
+            props.setAmountPrice(props.routerInfo.amountOut / props.routerInfo.amountIn)
             if (props.override === false) {
-                setAmount(toFixed(props.routerInfo.amountOut, 5))
-                props.setLimitPrice(props.routerInfo.amountOut)
+                setAmount(toFixed(props.routerInfo.amountOut / props.routerInfo.amountIn, 5))
+                props.setLimitPrice(props.routerInfo.amountOut / props.routerInfo.amountIn)
             }
         }
     }, [props.routerInfo, props.override])
@@ -1353,12 +1367,12 @@ const OrderSelectorButton = styled(ClearFormButton)`
 
 export const PriceDisplay = (props) => {
     const [direction, setDirection] = useState(true)
-    const {data:results} = useFetchRouterInfo(props.state.setTokenIn, props.state.setTokenOut, "1")
+    const {data:results} = useFetchRouterInfo(props.state.setTokenIn, props.state.setTokenOut, props.state.setAmountIn)
     const [amount, setAmount] = useState(`1`)
 
     useEffect(() => {
         if (results) {
-            setAmount(toFixed(results.amountOut, 3))
+            setAmount(toFixed(results.amountOut / results.amountIn, 3))
         }
     }, [results])
 
@@ -1368,7 +1382,7 @@ export const PriceDisplay = (props) => {
         if (direction === true) {
             if (amount !== '') {
 
-                const floatyNum = inversePrice(results.amountOut)
+                const floatyNum = inversePrice(results.amountOut / results.amountIn)
                 setAmount(toFixed(floatyNum, 8))
             }
             if (amount == NaN) {
@@ -1378,7 +1392,7 @@ export const PriceDisplay = (props) => {
 
         if (direction === false) {
             if (amount !== '') {
-                setAmount(toFixed(results.amountOut, 3))
+                setAmount(toFixed(results.amountOut / results.amountIn, 3))
             }
 
             if (amount === NaN) {

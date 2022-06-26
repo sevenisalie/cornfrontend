@@ -52,6 +52,12 @@ async function fetchContract(address, abi, signer) {
   }
 
 
+
+export const getCurrentRate = async (fromToken, toToken, amountIn, signer) => {
+  const resolver = fetchContract(addresses.vaults.resolver, RESOLVER.abi, signer)
+  return await resolver.findBestPathExactIn(fromToken, toToken, amountIn)
+}
+
 // ----------------------------------------------------------------------------------
 // ///////////////////////////////// User Functions /////////////////////////////////
 // ----------------------------------------------------------------------------------
