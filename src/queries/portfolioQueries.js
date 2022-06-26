@@ -4,7 +4,7 @@ export const portfolioGraphRequest = (_account) => {
     const portfolioByUserQuery = gql`
     {
         users(where: {id: "${_account.toLowerCase()}"}) {
-            strategyTokens(where: {open: true}, orderBy: tokenId) {
+            strategyTokens(where: {open: true}, orderBy: tokenId, orderDirection: desc) {
                 strategyId
                 tokenId
                 txHash#
@@ -38,6 +38,23 @@ export const portfolioGraphRequest = (_account) => {
     `
     return portfolioByUserQuery
 }
+
+export const oracleQuery = () => {
+    return gql`
+    {
+        erc20S {
+          id
+          name
+          symbol
+          priceUSD
+          active
+          timestamp
+          decimals
+        }
+    }`
+}
+
+
 
 export const portfolioGraphRequestClosed = (_account) => {
     const portfolioByUserQuery = gql`
