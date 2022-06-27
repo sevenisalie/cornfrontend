@@ -22,6 +22,7 @@ const useFetchRouterInfo = (_tokenA, _tokenB, _amount) => {
             const updateRouterInfo = async (tokenA, tokenB, amount, resolver) => {
                 const response = await fetchRouterInfo(tokenA, tokenB, amount, resolver)
                 setData(response)
+                console.log("RESPONSE", response)
             }
             updateRouterInfo(_tokenA, _tokenB, _amount, contract)
 
