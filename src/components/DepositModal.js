@@ -35,7 +35,7 @@ const TitleContainer = styled.div`
     height: auto;
     align-items: center;
     align-text: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     padding: 1rem 1.25rem 0.5rem;
     justify-content: space-between;
 `
@@ -74,10 +74,11 @@ const FakeBackground = styled.div`
     z-index: 9999;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    background: #transparent !important;
-    position: fixed;
+    background: transparent !important;
+    position: fixed !important;
     display: flex;
-    top: -1px;
+    top: 0;
+    left: 0;
     padding: 60px;
 
     @media (max-width: 768px) {
@@ -118,7 +119,7 @@ const HeaderButtonSecondary = styled.button`
     }
 `
 
-const ModalContainer = styled(Container)`
+const ModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,15 +128,19 @@ const ModalContainer = styled(Container)`
     justify-content: flex-start;
     align-content: center;
 `
-const ModalCard = styled(Card)`
+const ModalCard = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0.3em;
     border-radius: 12px;
     position: relative;
-    max-width: 480px;
+    width: 70%;
+    margin: 0 auto;
     height: auto;
-    width: 100%;
+    max-height: 70vh;
+    margin-top: calc(100vh - 85vh - 20px);
+
+    max-width: 480px;
     backdrop-filter: blur(2px) saturate(189%);
     -webkit-backdrop-filter: blur(2px) saturate(189%);
     background-color: rgba(29, 30, 32, 0.99);
@@ -143,10 +148,12 @@ const ModalCard = styled(Card)`
     box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
     border-radius: 24px;
     margin-top: 1rem;
-    align-self: center;
+
 `
 const ModalCardContentContainer = styled(Container)`
     display: flex;
+    max-height: 70vh;
+    max-width: 480px;
     flex-direction: column;
     margin-top: 1em;
     justify-content: center;

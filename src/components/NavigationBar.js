@@ -466,7 +466,7 @@ export const GasForm = () => {
 }
 
 
-const GasTank = (props) => {
+export const GasTank = (props) => {
 
     const {active, account, library, connector} = useWeb3React()
     

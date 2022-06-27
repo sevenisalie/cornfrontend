@@ -375,6 +375,12 @@ const StatWidgetContainer = styled.div`
     justify-items: center; 
     align-items: center; 
 
+    @media (max-width: 810px) {
+        display: flex;
+        flex-direction: column;
+        
+    }
+
 
 `
 
