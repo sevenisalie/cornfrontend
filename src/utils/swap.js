@@ -96,7 +96,7 @@ const _fetchPrice = async (_tokenA, _tokenB, _amount, _router) => {
         amount
     )
 
-     
+     console.log("callll", callData)
     return {
         router: callData[0],
         path: callData[1],
