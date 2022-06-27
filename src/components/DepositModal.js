@@ -83,6 +83,8 @@ const FakeBackground = styled.div`
 
     @media (max-width: 768px) {
         background: linear-gradient(232deg, rgba(57,60,63,1) 17%, rgba(29,30,32,1) 82%) no-repeat !important; 
+        padding-left: 1em;
+        padding-right: 1em;
     }
 `
 const HeaderButtonSecondary = styled.button`
@@ -134,7 +136,7 @@ const ModalCard = styled.div`
     padding: 0.3em;
     border-radius: 12px;
     position: relative;
-    width: 70%;
+ 
     margin: 0 auto;
     height: auto;
     max-height: 70vh;
@@ -148,6 +150,11 @@ const ModalCard = styled.div`
     box-shadow: rgb(0 0 0 / 1%) 0px 0px 1px, rgb(0 0 0 / 4%) 0px 4px 8px, rgb(0 0 0 / 4%) 0px 16px 24px, rgb(0 0 0 / 1%) 0px 24px 32px;
     border-radius: 24px;
     margin-top: 1rem;
+
+    @media (max-width: 520px) {
+        min-width: 19em;
+        max-width: 620px;
+    }
 
 `
 const ModalCardContentContainer = styled(Container)`
