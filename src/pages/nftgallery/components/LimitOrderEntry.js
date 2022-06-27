@@ -1154,8 +1154,14 @@ const AmountEntry = (props) => {
         if(props.state.setTokenIn !== '' && props.state.setAmountIn !== '' && priceData !== '') {
             console.log("10-4", props.state.setTokenIn, props.state.setAmountIn, priceData)
             const token = priceData.erc20S.find(t => t.id === props.state.setTokenIn.address.toLowerCase())
-            const rate = token.priceUSD * props.state.setAmountIn
-            setFromValue(rate)
+            console.log("tokenlog", token)
+            if(token !== undefined) {
+                const rate = token.priceUSD * props.state.setAmountIn
+                setFromValue(rate)
+            }
+            else {
+                setFromValue(0)
+            }
         }  
     }, [props.state.setTokenIn, props.state.setAmountIn, priceData])
 
@@ -1164,8 +1170,14 @@ const AmountEntry = (props) => {
         if(props.state.setTokenOut !== '' && props.state.setAmountOut !== '' && priceData !== '') {
             console.log("10-4", props.state.setTokenOut, props.state.setAmountOut, priceData)
             const token = priceData.erc20S.find(t => t.id === props.state.setTokenOut.address.toLowerCase())
-            const rate = token.priceUSD * props.state.setAmountOut
-            setToValue(rate)
+            console.log("tokenlog", token)
+            if(token !== undefined) {
+                const rate = token.priceUSD * props.state.setAmountOut
+                setToValue(rate)
+            }
+            else {
+                setToValue(0)
+            }
         }  
     }, [props.state.setTokenOut, props.state.setAmountOut, priceData])
     
@@ -1265,11 +1277,11 @@ const AmountEntry = (props) => {
                                     
                                     
                                     {props.side == 'in' &&
-                                    <TokenPriceContainer>Value: $<TokenValue>{toFixed(fromValue,2)}</TokenValue></TokenPriceContainer>
+                                    <TokenPriceContainer>Value: $<TokenValue>{fromValue !== 0 ? toFixed(fromValue,2) : "-"}</TokenValue></TokenPriceContainer>
 
                                     }
                                     {props.side == 'out' &&
-                                    <TokenPriceContainer>$<TokenValue>{toFixed(toValue,2)}</TokenValue></TokenPriceContainer>
+                                    <TokenPriceContainer>$<TokenValue>{toValue !== 0 ? toFixed(toValue,2) : "-"}</TokenValue></TokenPriceContainer>
 
                                     }
                                 </TokenDataContentContainer>
