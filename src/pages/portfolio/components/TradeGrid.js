@@ -15,6 +15,7 @@ import { Token } from 'graphql/language/ast';
 import {goodToast} from "../../../components/Toast"
 import useFetchRouterInfo from '../../../hooks/useFetchRouterInfo';
 import { addresses } from '../../../config/addresses';
+import {useRefresh} from "../../../utils/useRefresh"
 
 const TradeGridContainer = styled.div`
     display: grid;
@@ -113,6 +114,20 @@ const CardContentRowContainerSmallText = styled.div`
     font-size: 0.7em;
     color: rgba(242, 242, 242, 0.9);
     cursor: pointer;
+`
+const CardContentRowContainerSmallTextItalic = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    align-content: center;
+    font-size: 0.7em;
+    color: rgba(242, 242, 242, 0.9);
+    cursor: pointer;
+    font-style: italic;
+    font-weight: bold;
+    margin-top: 1em;
 `
 
 const TokenInImage = styled.img`
@@ -314,12 +329,14 @@ const Trade = ({ trade, setRefreshTrigger }) => {
     const {data:oracleData} = useGraphQuery(oracleQuery(), "oracle")
     const [priceData, setPriceData] = useState()
 
+    const { fastRefresh, slowRefresh } = useRefresh()
+
     
     useEffect(() => {
       setPriceData(oracleData)
       console.log("oracleData", priceData)
     //   getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address)
-    }, [oracleData])
+    }, [oracleData, fastRefresh])
     
 
     console.log("god dammit bobby", trade)
@@ -446,10 +463,9 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                         {tokensOpen[0].tokensout[0]}
                         {tokensOpen[0].imagesout[0]}
                     </CardContentRowContainer>
-                    <CardContentRowContainerSmallText></CardContentRowContainerSmallText>
-
-
-                    <CardContentRowContainerSmallText onClick={(() => setDesiredRate(prev => !prev))}>
+    
+                    {/* <TradeHRFull></TradeHRFull> */}
+                    <CardContentRowContainerSmallTextItalic onClick={(() => setDesiredRate(prev => !prev))}>
                         {`Current Rate: 
                         ${
                             desiredRate == false ? toFixed(getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address), 5) : 
@@ -460,7 +476,7 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                             `${trade.trades[0].orders[0].fromToken[0].symbol} / ${trade.trades[0].orders[0].toToken[0].symbol}`
                         }
                         `}
-                    </CardContentRowContainerSmallText>
+                    </CardContentRowContainerSmallTextItalic>
                     <TradeHRFull></TradeHRFull>
                     
 

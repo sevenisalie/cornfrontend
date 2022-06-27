@@ -17,6 +17,9 @@ import {Container, Card, Button} from "react-bootstrap"
 import {writeContract, userMint, toFixed, createLimitTrade} from "../../../utils/nft"
 import {getUserTokenBalance} from "../../../utils/fetchUserData"
 
+import { oracleQuery } from "../../../queries/portfolioQueries"
+import useGraphQuery from "../../../hooks/useGraphQuery"
+
 
 
 import {HiChevronDoubleUp, HiChevronDoubleDown} from "react-icons/hi"
@@ -1114,8 +1117,18 @@ const AmountEntry = (props) => {
     const [symbol, setSymbol] = useState('')
     const [balance, setBalance] = useState('')
     const [amount, setAmount] = useState(null)
+    const {data:oracleData} = useGraphQuery(oracleQuery(), "oracle")
+    const [priceData, setPriceData] = useState('')
+    const { fastRefresh, slowRefresh } = useRefresh()
+    const [fromValue, setFromValue] = useState(0)
+    const [toValue, setToValue] = useState(0)
 
-
+    useEffect(() => {
+        if(oracleData !== undefined) {
+            setPriceData(oracleData)
+            console.log("oracleData", priceData)
+        }
+    }, [oracleData, fastRefresh])
 
 
     useEffect(() => {
@@ -1136,6 +1149,25 @@ const AmountEntry = (props) => {
         }
     }, [props.state.setTokenIn, props.state.setTokenOut, props.state.setBalanceIn, props.state.setBalanceOut])
  
+
+    useEffect(() => {
+        if(props.state.setTokenIn !== '' && props.state.setAmountIn !== '' && priceData !== '') {
+            console.log("10-4", props.state.setTokenIn, props.state.setAmountIn, priceData)
+            const token = priceData.erc20S.find(t => t.id === props.state.setTokenIn.address.toLowerCase())
+            const rate = token.priceUSD * props.state.setAmountIn
+            setFromValue(rate)
+        }  
+    }, [props.state.setTokenIn, props.state.setAmountIn, priceData])
+
+
+    useEffect(() => {
+        if(props.state.setTokenOut !== '' && props.state.setAmountOut !== '' && priceData !== '') {
+            console.log("10-4", props.state.setTokenOut, props.state.setAmountOut, priceData)
+            const token = priceData.erc20S.find(t => t.id === props.state.setTokenOut.address.toLowerCase())
+            const rate = token.priceUSD * props.state.setAmountOut
+            setToValue(rate)
+        }  
+    }, [props.state.setTokenOut, props.state.setAmountOut, priceData])
     
 
     const amountFilter = (e) => {
@@ -1233,11 +1265,11 @@ const AmountEntry = (props) => {
                                     
                                     
                                     {props.side == 'in' &&
-                                    <TokenPriceContainer>Value: $<TokenValue>{props.state.setAmountPrice !== '' ? props.state.setAmountPrice : '-'}</TokenValue></TokenPriceContainer>
+                                    <TokenPriceContainer>Value: $<TokenValue>{toFixed(fromValue,2)}</TokenValue></TokenPriceContainer>
 
                                     }
                                     {props.side == 'out' &&
-                                    <TokenPriceContainer>$<TokenValue>{`-`}</TokenValue></TokenPriceContainer>
+                                    <TokenPriceContainer>$<TokenValue>{toFixed(toValue,2)}</TokenValue></TokenPriceContainer>
 
                                     }
                                 </TokenDataContentContainer>
