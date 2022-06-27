@@ -10,7 +10,6 @@ export const VAULTS = [
         tickets: 1,
         image: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
     },
-
 ]
 
 export const ALL_VAULTS = [
@@ -29,7 +28,7 @@ export const ALL_VAULTS = [
         image: "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
     },
     {   
-        pid: 2,
+        pid: 4,
         name: "LIMIT",
         address: "0x546855e779f08b6ae3a11d13c23543eaf65bebe7",
         tickets: 1,

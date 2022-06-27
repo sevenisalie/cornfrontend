@@ -13,13 +13,14 @@ import {writeContract, userMint} from "../../utils/nft";
 import {approveControllerWithGasTank} from "../../utils/portfolio";
 import useFetchContractWrite from "../../hooks/useFetchContractWrite"
 import useFetchRouterInfo from "../../hooks/useFetchRouterInfo"
-
+import useFetchGasBalance from "../../hooks/useFetchGasBalance"
 
 
 import {NFTCard} from "./components/NFTCard";
 import MarketPageHeading from "./components/MarketPageHeading"
 import HowToSection from "./components/HowToSection"
 import LimitOrderEntry from './components/LimitOrderEntry'
+import {GasTank} from "../../components/NavigationBar"
 
 import useGraphQuery from '../../hooks/useGraphQuery'
 import { gasTankQuery } from "../../queries/portfolioQueries";
@@ -58,10 +59,10 @@ const MyNFTGrid = styled.div`
 `
 
 const SubmitButton = styled(HeaderButtonSecondary)`
-    width: 100%;
-    height: 100px;
-    margin-top: 200px;
-    margin-bottom: 100px;
+    width: auto;
+    height: auto;
+    margin: 0 0 0 0;
+    align-self: center;
 `
 
 const MainContainer = styled.div`
@@ -87,10 +88,32 @@ const MainContainer = styled.div`
       }
 `
 const FormContainer = styled.div`
-    display: grid;
-    grid-auto-rows: auto;
-    row-gap: 0.25em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding 2em;
+    height: auto;
+    width: 100%;
 `
+const GasCard = styled.div`
+      width: 18em;
+      height 12em;
+      padding: 2em;
+      display: flex;
+      border-radius: 12px;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      align-self: center;
+      row-gap: 0.82em;
+      justify-content: center;
+      background-color: rgba(29, 30, 32, 1);
+      border: 1px solid rgba(255, 255, 255, 0.125);
+      box-shadow: var(--shadow-elevation-medium);
+`
+
 
 const marketReducer = (state, action) => {
     switch (action.type) {
@@ -143,35 +166,36 @@ const NFT = () => {
     const [loading, setLoading] = useState(false);
     const [state, dispatch] = useReducer(marketReducer, initialState)
     
-    const [gasTankApproval, setGasTankApproval] = useState(false)
+    // const [gasTankApproval, setGasTankApproval] = useState(false)
     
-    const [gasTankQueryData, setGasTankQueryData] = useState("")
-    const [gasTankData, setGasTankData] = useState(0)
+    // const [gasTankQueryData, setGasTankQueryData] = useState("")
+    // const [gasTankData, setGasTankData] = useState(0)
     
-    const {data: balanceData} = useGraphQuery(gasTankQueryData, "gas-tank")
+    // const {data: balanceData} = useGraphQuery(gasTankQueryData, "gas-tank")
+    const {balanceData, approvalFunction, approval: gasTankApproval} = useFetchGasBalance()
 
     const openTradeWindowToggle = () => {
         dispatch({ type: 'openTradeWindow'})
     }
     
-    useEffect( () => {
-        if (account) {
-            setGasTankQueryData(gasTankQuery(account.toLowerCase()))
-            console.log("pppppppp", gasTankQueryData)
-        }
-    }, [account])
+    // useEffect( () => {
+    //     if (account) {
+    //         setGasTankQueryData(gasTankQuery(account.toLowerCase()))
+    //         console.log("pppppppp", gasTankQueryData)
+    //     }
+    // }, [account])
 
-    useEffect( () => {
-        console.log("balanceData", balanceData)
-        if (balanceData.payers !== undefined && balanceData.payers[0] !== undefined && balanceData.payers[0].payees.length > 0) {
-            balanceData.payers[0].payees.map(( payee ) => {
-                console.log("qqqqqqqq", payee)
-                if(payee !== undefined && payee.payee.id === addresses.vaults.controller.toLowerCase()) {
-                    setGasTankApproval(payee.approved)
-                }
-            })
-        }
-      }, [balanceData])
+    // useEffect( () => {
+    //     console.log("balanceData", balanceData)
+    //     if (balanceData.payers !== undefined && balanceData.payers[0] !== undefined && balanceData.payers[0].payees.length > 0) {
+    //         balanceData.payers[0].payees.map(( payee ) => {
+    //             console.log("qqqqqqqq", payee)
+    //             if(payee !== undefined && payee.payee.id === addresses.vaults.controller.toLowerCase()) {
+    //                 setGasTankApproval(payee.approved)
+    //             }
+    //         })
+    //     }
+    //   }, [balanceData])
 
 
 
@@ -179,20 +203,6 @@ const NFT = () => {
 
     
     if (gasTankApproval) {
-
-        const mapUserNFTs = NFTS.map((nft, index) => (
-
-            <NFTCard
-                state={state}
-                contract = {state.stopLossContract}
-                id={index}
-                nftId={nft.id}
-                image={null}
-                title={nft.name}
-            ></NFTCard>
- 
-        ));
-
 
         
         return (
@@ -216,16 +226,13 @@ const NFT = () => {
             <Page>
 
             <MarketPageHeading/>
-                <MainContainer>
-                    <FormContainer>
-                    <SubmitButton onClick={async () => {
-                        await approveControllerWithGasTank(library.getSigner())
-                        setGasTankApproval(true)
-                    }}>
-                        Approve Gas Tank
-                    </SubmitButton>
-                    </FormContainer>
-                </MainContainer>
+      
+       
+                    <GasCard style={{marginTop: "3em", marginBottom: "3em"}}>
+                        <GasTank />
+                        <SubmitButton>Approve Gas Tank</SubmitButton>
+                    </GasCard>
+
             </Page>
     
             </>
