@@ -39,6 +39,23 @@ export const portfolioGraphRequest = (_account) => {
     return portfolioByUserQuery
 }
 
+export const oracleQuery = () => {
+    return gql`
+    {
+        erc20S {
+          id
+          name
+          symbol
+          priceUSD
+          active
+          timestamp
+          decimals
+        }
+    }`
+}
+
+
+
 export const portfolioGraphRequestClosed = (_account) => {
     const portfolioByUserQuery = gql`
     {

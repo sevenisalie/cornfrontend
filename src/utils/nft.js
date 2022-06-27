@@ -276,7 +276,7 @@ export const toFixed = (num, fixed) => {
     console.log(_controllerContract)
     const path = [tokenIn, tokenOut]
     const bigNumAmountIn = ethers.utils.parseUnits(amountIn, tokenInDecimals)
-    const bigNumPrice = ethers.utils.parseUnits(price, 18)
+    const bigNumPrice = ethers.utils.parseUnits(toFixed(price,18), 18)
     const amounts = [bigNumAmountIn, bigNumPrice]
     const times = [0]
     const maxGas = 1000000000000

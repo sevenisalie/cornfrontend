@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import styled from "styled-components"
 import {request, gql} from "graphql-request"
-import { useWeb3React } from "@web3-react/core";
+import { useWeb3React, ethers } from "@web3-react/core";
 import useGraphQuery from "../../../hooks/useGraphQuery"
 import {VAULTS, ALL_VAULTS} from "../../../config/vaults"
-import { portfolioGraphRequest, portfolioGraphRequestClosed } from "../../../queries/portfolioQueries"
+import { portfolioGraphRequest, portfolioGraphRequestClosed, oracleQuery } from "../../../queries/portfolioQueries"
 import { cleanTradeData, viewTransaction, withdraw } from "../../../utils/portfolio"
 import { toFixed } from "../../../utils/nft"
 import { AiFillEye } from "react-icons/ai"
@@ -13,23 +13,29 @@ import { BsArrowBarDown, BsArrowRight, BsChevronRight } from "react-icons/bs"
 import { IoRadioButtonOff, IoRadioButtonOn } from "react-icons/io5"
 import { Token } from 'graphql/language/ast';
 import {goodToast} from "../../../components/Toast"
+import useFetchRouterInfo from '../../../hooks/useFetchRouterInfo';
+import { addresses } from '../../../config/addresses';
+import {useRefresh} from "../../../utils/useRefresh"
 
 const TradeGridContainer = styled.div`
     display: grid;
     width: 100%;
     height: auto;
     grid-template-columns: auto auto;
+    
     grid-template-rows: auto;
     justify-items: center;
     align-content: start;
     column-gap: 1em;
     row-gap: 4.20em;
     padding: 2.5em;
-
-    @media (max-width: 960px ) {
+    border: 1px solid rgba(255, 255, 255, 0.125);
+    @media (max-width: 1200px ) {
         grid-template-columns: auto;
 
     }
+
+    // border: 3px solid rgba(255, 255, 255, 1);
 `
 
 const TradeCard = styled.div`
@@ -45,6 +51,10 @@ const TradeCard = styled.div`
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+
+    // border: 3px solid rgba(255, 255, 255, 1);
+
+    
 `
 const CardContentContainer = styled.div`
     display: flex;
@@ -56,17 +66,21 @@ const CardContentContainer = styled.div`
     background-color: rgba(29, 30, 32, 1);
     border: 1px solid rgba(255, 255, 255, 0.125);
     box-shadow: var(--shadow-elevation-medium);
+
+    // border: 3px solid rgba(255, 255, 255, 1);
 `
 const CardContentColumnContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 500px;
     height: 100%;
     row-gap: 4px;
     padding: 1em;
     align-items: center;
     align-content: center;
     justify-content: space-evenly;
+
+    // border: 3px solid rgba(255, 255, 255, 1);
 `
 
 const CardContentRowContainer = styled.div`
@@ -76,6 +90,8 @@ const CardContentRowContainer = styled.div`
     height: auto;
     align-items: center;
     align-content: center;
+
+    // border: 3px solid rgba(255, 255, 255, 1);
 `
 
 const CardContentRowContainerButton = styled.div`
@@ -98,6 +114,20 @@ const CardContentRowContainerSmallText = styled.div`
     font-size: 0.7em;
     color: rgba(242, 242, 242, 0.9);
     cursor: pointer;
+`
+const CardContentRowContainerSmallTextItalic = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    align-content: center;
+    font-size: 0.7em;
+    color: rgba(242, 242, 242, 0.9);
+    cursor: pointer;
+    font-style: italic;
+    font-weight: bold;
+    margin-top: 1em;
 `
 
 const TokenInImage = styled.img`
@@ -294,12 +324,41 @@ export default TradeGrid
 
 const Trade = ({ trade, setRefreshTrigger }) => {
     const {account, library} = useWeb3React()
-    const [desiredRate, setDesiredRate] = useState(true)
+    const [desiredRate, setDesiredRate] = useState(false)
     const [fillRate, setFillRate] = useState(true)
+    const {data:oracleData} = useGraphQuery(oracleQuery(), "oracle")
+    const [priceData, setPriceData] = useState()
+
+    const { fastRefresh, slowRefresh } = useRefresh()
+
+    
+    useEffect(() => {
+      setPriceData(oracleData)
+      console.log("oracleData", priceData)
+    //   getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address)
+    }, [oracleData, fastRefresh])
+    
 
     console.log("god dammit bobby", trade)
 
+    const getRate = (from, to) => {
+        console.log("oracleDataaa", priceData)
+        if(priceData !== undefined) {
+            console.log("whyGod", priceData.erc20S)
+            try {
+                const fromToken = priceData.erc20S.find(e => e.id === from.toLowerCase()).priceUSD
+                const toToken = priceData.erc20S.find(e => e.id === to.toLowerCase()).priceUSD
+                console.log("rates", fromToken, from.toLowerCase(), toToken)
+                return fromToken / toToken
+            } catch(err) {
+                console.log("getRateError", err)
+            }
+        }
+    }
 
+    // const rates = getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address)
+
+    
     const tokensOpen = trade.trades.map( (_trade) => {
         const tokenIns = _trade.orders.map( (order) => {
             console.log("TRADER")
@@ -404,13 +463,20 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                         {tokensOpen[0].tokensout[0]}
                         {tokensOpen[0].imagesout[0]}
                     </CardContentRowContainer>
-                    {/* <p>
-            
-                        {trade.strategyId}
-                        {trade.tokenId}
-                    </p> */}
-
-
+    
+                    {/* <TradeHRFull></TradeHRFull> */}
+                    <CardContentRowContainerSmallTextItalic onClick={(() => setDesiredRate(prev => !prev))}>
+                        {`Current Rate: 
+                        ${
+                            desiredRate == false ? toFixed(getRate(trade.trades[0].orders[0].fromToken[0].address, trade.trades[0].orders[0].toToken[0].address), 5) : 
+                            toFixed(getRate(trade.trades[0].orders[0].toToken[0].address, trade.trades[0].orders[0].fromToken[0].address), 5)
+                        }
+                        ${
+                            desiredRate == false ? `${trade.trades[0].orders[0].toToken[0].symbol} / ${trade.trades[0].orders[0].fromToken[0].symbol}` : 
+                            `${trade.trades[0].orders[0].fromToken[0].symbol} / ${trade.trades[0].orders[0].toToken[0].symbol}`
+                        }
+                        `}
+                    </CardContentRowContainerSmallTextItalic>
                     <TradeHRFull></TradeHRFull>
                     
 
@@ -441,23 +507,23 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                                 </CardContentRowContainerButton>
                                 <CardContentRowContainerSmallText></CardContentRowContainerSmallText>
                                 <CardContentRowContainerSmallText onClick={(() => setDesiredRate(prev => !prev))}>
-                                    {`Desired Rate: 
+                                    {`Limit Rate: 
                                     ${desiredRate ? toFixed(order.amountIn/order.desiredAmountOut, 6) : toFixed(order.desiredAmountOut/order.amountIn, 6)} 
                                     ${desiredRate ? `${order.fromToken[0].symbol} / ${order.toToken[0].symbol}` : `${order.toToken[0].symbol} / ${order.fromToken[0].symbol}`}`}
                                 </CardContentRowContainerSmallText>
 
-                                <CardContentRowContainerSmallText onClick={(() => setFillRate(prev => !prev))}>
-                                    {`Fill Rate: 
-                                    ${fillRate ? toFixed(order.amountIn/order.amountOut, 6) : toFixed(order.amountOut/order.amountIn, 6)} 
-                                    ${fillRate ? `${order.fromToken[0].symbol} / ${order.toToken[0].symbol}` : `${order.toToken[0].symbol} / ${order.fromToken[0].symbol}`}`}
-                                </CardContentRowContainerSmallText>
+                                <CardContentRowContainerSmallText onClick={(() => setDesiredRate(prev => !prev))}>
+                                    Fill Rate: 
+                                    {order.amountOut > 0 && `
+                                    ${desiredRate ? toFixed(order.amountIn/order.amountOut, 6) : toFixed(order.amountOut/order.amountIn, 6)} 
+                                    ${desiredRate ? `${order.fromToken[0].symbol} / ${order.toToken[0].symbol}` : `${order.toToken[0].symbol} / ${order.fromToken[0].symbol}`}`}
+                                    
+                                    </CardContentRowContainerSmallText>
                                 
                                 {index < trade.orders.length-1 && <TradeHR></TradeHR>}
 
 
-                                {/* <CardContentRowContainerSmallText>
-                                    {`Fill Rate: ${order.amountOut == 0 ? 0: toFixed(order.amountIn/order.amountOut, 6)} ${order.fromToken[0].symbol} / ${order.toToken[0].symbol}`}
-                                </CardContentRowContainerSmallText> */}
+                                
                                 </>
                             )
                         })
