@@ -37,6 +37,7 @@ import useFetchContractWrite from "../../../hooks/useFetchContractWrite"
 
 import { approveStrategyWithERC20, erc20Allowance } from "../../../utils/portfolio"
 import { VAULTS } from "../../../config/vaults"
+import { STRATEGIES } from "../../../config/strategies"
 
 
 const MainContainer = styled.div`
@@ -214,6 +215,18 @@ const InputBox = styled.div`
     background-color: rgb(33, 36, 41);
     width: initial;
 `
+
+const InputBoxLong = styled.div`
+    display: grid;
+    border-radius: 20px;
+    border: 1px solid rgb(80, 80, 80);
+    background-color: rgb(50, 50, 50);
+    width: initial;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 7px 0px 10px;
+    grid-template-columns: auto auto;
+`
 const InputRow = styled.div`
     display: flex;
     flex-flow: row nowrap;
@@ -313,10 +326,16 @@ const CardContentRowContainerSmallText = styled.div`
     height: auto;
     align-items: center;
     align-content: center;
-    font-size: 1.0em;
-    color: rgba(242, 242, 242, 0.9);
-    cursor: pointer;
+    font-size: 0.8em;
+    color: rgba(250, 250, 250, 0.9);
+    // cursor: pointer;
     margin-bottom: 10px
+    border-radius: 16px;
+    margin-left: 30px;
+    margin-top: 5px;
+    font-style: italic;
+    font-weight: bold;
+
 `
 
 const TokenPriceSymbolContainer = styled.div`
@@ -495,12 +514,6 @@ const SubmitSection = (props) => {
                             )
                     }}>{props.state.setSubmitButtonText}</SubmitButton>
                 }
-                {/* <CardContentRowContainerSmallText>
-                    Deposit Fee: 0%
-                </CardContentRowContainerSmallText>
-                <CardContentRowContainerSmallText>
-                    Transaction Fee: 0%
-                </CardContentRowContainerSmallText> */}
                 {(allowOrderType === false) &&
                     <SubmitButton>{`Select Order Type`}</SubmitButton>
                 }
@@ -1010,7 +1023,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                          openTokenSelectorToggle={openTokenSelectorInToggle}
                          />
 
-
+            
 
                         <FaTimes style={{justifySelf: "center", fontSize: "1.5em", paddingBottom: "0px !important", marginBottom: "0px !important", marginTop: "-1em", zIndex: "4545"}} /> 
 
@@ -1023,9 +1036,8 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                          setAmountOut={setAmountOut}
                          side={'out'}
                          openTokenSelectorToggle={openTokenSelectorOutToggle} />
-
                         <PriceDisplay openOrderSelectorToggle={openOrderSelectorToggle} state={state} clearOrderEntry={clearOrderEntry} />
-
+                        
 
                         {/* <SubmitSection state={state} mintFunction={handleMintLimit} /> */}
                         <SubmitSection approveStrategyWithERC20={approveStrategyWithERC20} controller={contract} handleMintLimit={handleMintLimit} state={state}  />
@@ -1058,8 +1070,6 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                 
             
             }
-            
-
         </MainContainer>
         </>
     )
@@ -1430,6 +1440,8 @@ export const PriceDisplay = (props) => {
     const [direction, setDirection] = useState(true)
     const {data:results} = useFetchRouterInfo(props.state.setTokenIn, props.state.setTokenOut, props.state.setAmountIn)
     const [amount, setAmount] = useState(`1`)
+    const [depositFee, setDepositFee] = useState(0)
+    const [txFee, setTxFee] = useState(0)
 
     useEffect(() => {
         if (results) {
@@ -1437,7 +1449,24 @@ export const PriceDisplay = (props) => {
         }
     }, [results])
 
+    useEffect(() => {
+        if(props.state.setTokenIn !== '') {
+            const strat = findStrategy(props.state.setTokenIn)
+            setDepositFee(strat.depositFee)
+            setTxFee(strat.txFee)
+        }
+    }, [props.state.setTokenIn])
 
+    const findStrategy = (token) => {
+        console.log("what", token)
+        for(let i = 0; i < addresses.aaveTokens.length; i++) {
+            if(addresses.aaveTokens[i].toLowerCase() === token.address.toLowerCase()) {
+                return STRATEGIES[0]
+            }
+        }
+        
+        return STRATEGIES[1]
+    }
 
     const switchAmounts = () => {
         if (direction === true) {
@@ -1476,6 +1505,7 @@ export const PriceDisplay = (props) => {
 
     return (
         <>
+        
         <PriceContainer>
             <ClearFormContainer>
                 <ClearFormButton onClick={props.clearOrderEntry}>Clear</ClearFormButton>
@@ -1509,6 +1539,14 @@ export const PriceDisplay = (props) => {
                 
             </RateContainer>
         </PriceContainer>  
+        <InputBoxLong>
+        <CardContentRowContainerSmallText>
+            {`Deposit Fee: ${depositFee}%`}
+        </CardContentRowContainerSmallText>
+        <CardContentRowContainerSmallText>
+            {`Transaction Fee: ${txFee}%`}
+        </CardContentRowContainerSmallText>
+        </InputBoxLong>
         </>
     )
 }
