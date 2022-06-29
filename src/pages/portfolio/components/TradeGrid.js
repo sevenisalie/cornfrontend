@@ -9,7 +9,7 @@ import { cleanTradeData, viewTransaction, withdraw } from "../../../utils/portfo
 import { toFixed } from "../../../utils/nft"
 import { AiFillEye } from "react-icons/ai"
 import { GoSettings } from "react-icons/go"
-import { BsArrowBarDown, BsArrowRight, BsChevronRight } from "react-icons/bs"
+import { BsArrowBarUp, BsArrowBarDown, BsArrowRight, BsChevronRight } from "react-icons/bs"
 import { IoRadioButtonOff, IoRadioButtonOn } from "react-icons/io5"
 import { Token } from 'graphql/language/ast';
 import {goodToast} from "../../../components/Toast"
@@ -151,6 +151,13 @@ const TokenInNameText = styled.div`
 `
 
 const RadioButtonOn = styled(IoRadioButtonOn)`
+    cursor: pointer;
+`
+const WithdrawIcon = styled(BsArrowBarUp)`
+    font-size: 1.3em;
+    font-weight: 800;
+    color: rgba(242, 242, 242, 0.6);
+    margin-left: 0.5em;
     cursor: pointer;
 `
 
@@ -430,6 +437,7 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                     <CardContentRowContainer>
                         {tokensOpen[0].images[0]}
                         <EyeButton
+                        title="View Trade Creation"
                         onClick={ (e) => {
                             e.preventDefault()
                             window.open(`https://polygonscan.com/tx/${trade.txHash}`, '_blank')
@@ -437,7 +445,8 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                         >
                         </EyeButton>
  
-                        <SettingsButton
+                        <WithdrawIcon
+                        title="Withdraw Trade"
                         onClick={ async (e) => {
                             e.preventDefault()
                             const tx = await withdraw(trade.strategyId, trade.tokenId, library.getSigner())
@@ -445,7 +454,7 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                                 goodToast(`Trade Withdrawn`)
                                 setRefreshTrigger(prev => !prev)
                             } 
-                        }}></SettingsButton>
+                        }}></WithdrawIcon>
                     </CardContentRowContainer>
 
 
@@ -485,7 +494,9 @@ const Trade = ({ trade, setRefreshTrigger }) => {
                             console.log("orderData", order)
                             return (
                                 <>
-                                <CardContentRowContainerButton onClick={ (e) => {
+                                <CardContentRowContainerButton 
+                                title="View Order"
+                                onClick={ (e) => {
                                         e.preventDefault()
                                         if(!order.open && order.amountOut != 0) {
                                             window.open(`https://polygonscan.com/tx/${order.txHash}`, '_blank')

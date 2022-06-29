@@ -42,13 +42,11 @@ export const portfolioGraphRequest = (_account) => {
 export const oracleQuery = () => {
     return gql`
     {
-        erc20S {
+        erc20S(first: 200) {
           id
           name
           symbol
           priceUSD
-          active
-          timestamp
           decimals
         }
     }`
