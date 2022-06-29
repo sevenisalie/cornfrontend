@@ -929,7 +929,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
                 setAmountOut("")
             }
             if (isNaN(amountOutCalc) === false) {
-                setAmountOut(amountOutCalc.toString())
+                setAmountOut(toFixed(amountOutCalc, 5))
             }
         }
     }, [state.side, state.setAmountIn])
@@ -944,7 +944,7 @@ const LimitOrderEntry = (props, {openTradeWindowToggle}) => {
             setAmountOut("")
         }
         if (isNaN(amountOutCalc) === false) {
-            setAmountOut(amountOutCalc.toString())
+            setAmountOut(toFixed(amountOutCalc, 5))
         }
     }, [state.setLimitPrice])
 
