@@ -299,8 +299,6 @@ const MobileMenuGasContainer = styled.div`
     height: auto;
     padding: 0.8em;
     margin-top: 1.4em;
-    backdrop-filter: saturate(149%);
-    -webkit-backdrop-filter:  saturate(149%);
     background-color: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.125);
     border-radius: 16px;
@@ -392,8 +390,10 @@ const GasContainer = styled(LinkContainer)`
 const MobileGasContainer = styled(GasContainer)`
       display: flex;
       margin-top: 0.9em;
+    
       @media (min-width: 520px) {
           display: none;
+
       }
 `
 const GasTextContainer = styled.div`
@@ -533,7 +533,7 @@ const MobileGasTank = (props) => {
         <>
         <MobileGasContainer style={props.breakpoint}>
             <GasTextContainer>
-                <GasText>{data}</GasText>
+                <GasText>{toFixed(data, 3)}</GasText>
                 
             </GasTextContainer>
             <GasButtonContainer>
@@ -630,21 +630,34 @@ export const NavigationBar = () => {
                                 <MenuLink href="#">Swap</MenuLink>
                             </CleanLink>
                         </MobileMenuRow>
-                        {/* <MobileMenuRow style={{margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
+                        <MobileMenuRow style={{borderBottom: "1px solid rgba(244, 244, 244, 0.32", margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
                             <FaTicketAlt style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}} />
                             <CleanLink onClick={toggle} to="/trade">
                                 <MenuLink href="#">Trade</MenuLink>
                             </CleanLink>
-                        </MobileMenuRow> */}
+                        </MobileMenuRow>
+                        <MobileMenuRow style={{margin: "0.4em 0 0.4em 0", justifyContent: "flex-start"}}>
+                            <FaTicketAlt style={{fontSize: "2.8em", alignSelf: "center", marginRight: "0.8em"}} />
+                            <CleanLink onClick={toggle} to="/portfolio">
+                                <MenuLink href="#">Portfolio</MenuLink>
+                            </CleanLink>
+                        </MobileMenuRow>
 
                     </MobileMenuLinkContainer>
 
                     <MobileMenuRow style={{justifyContent: "center"}}>
-                    <HeaderButtonSecondary href="https://corn-finance.gitbook.io/corn-finance/" target="_blank"><SiReadthedocs/></HeaderButtonSecondary>
-                    <HeaderButtonSecondary href="https://twitter.com/PolyCornFi" target="_blank"><FaTwitter /></HeaderButtonSecondary>
-          
-                    <HeaderButtonSecondary href="https://github.com/Corn-Fi" target="_blank"><FaGithub /></HeaderButtonSecondary>
-                    <HeaderButtonSecondary href="https://discord.gg/MnyauaMDgQ" target="_blank"><FaDiscord /></HeaderButtonSecondary>
+                    <a href="https://corn-finance.gitbook.io/corn-finance/" target="_blank">
+                    <HeaderButtonSecondary  target="_blank"><SiReadthedocs/></HeaderButtonSecondary>
+                    </a>
+                    <a  href="https://twitter.com/PolyCornFi" target="_blank">
+                    <HeaderButtonSecondary target="_blank"><FaTwitter /></HeaderButtonSecondary>
+                    </a>
+                    <a href="https://github.com/Corn-Fi" target="_blank">
+                    <HeaderButtonSecondary  ><FaGithub /></HeaderButtonSecondary>
+                    </a>
+                    <a href="https://discord.gg/MnyauaMDgQ" target="_blank" >
+                    <HeaderButtonSecondary ><FaDiscord /></HeaderButtonSecondary>
+                    </a>
 
                     {/* <HeaderButtonSecondary href="#">
                     <CleanLink onClick={toggle} to="/collections">
@@ -681,12 +694,12 @@ export const NavigationBar = () => {
                             <CleanLink to="/swap">
                                 <NavbarLink href="#">Swap</NavbarLink>
                             </CleanLink>
-                            {/* <CleanLink to="/trade">
+                            <CleanLink to="/trade">
                                 <NavbarLink href="#">Trade</NavbarLink>
                             </CleanLink>
                             <CleanLink to="/portfolio">
                                 <NavbarLink href="#">Portfolio</NavbarLink>
-                            </CleanLink> */}
+                            </CleanLink>
                         </LinkContainer>
 
                 

@@ -306,6 +306,18 @@ const TokenDataContentContainer = styled.div`
     -webkit-box-pack: justify;
     justify-content: space-between;
 `
+const CardContentRowContainerSmallText = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    align-content: center;
+    font-size: 1.0em;
+    color: rgba(242, 242, 242, 0.9);
+    cursor: pointer;
+    margin-bottom: 10px
+`
 
 const TokenPriceSymbolContainer = styled.div`
     box-sizing: border-box;
@@ -483,7 +495,12 @@ const SubmitSection = (props) => {
                             )
                     }}>{props.state.setSubmitButtonText}</SubmitButton>
                 }
-
+                {/* <CardContentRowContainerSmallText>
+                    Deposit Fee: 0%
+                </CardContentRowContainerSmallText>
+                <CardContentRowContainerSmallText>
+                    Transaction Fee: 0%
+                </CardContentRowContainerSmallText> */}
                 {(allowOrderType === false) &&
                     <SubmitButton>{`Select Order Type`}</SubmitButton>
                 }

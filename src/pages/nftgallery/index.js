@@ -230,7 +230,9 @@ const NFT = () => {
        
                     <GasCard style={{marginTop: "3em", marginBottom: "3em"}}>
                         <GasTank />
-                        <SubmitButton onClick={(async () => approveControllerWithGasTank(library.getSigner()))}>Approve Gas Tank</SubmitButton>
+                        <SubmitButton
+                        onClick={ () => approveControllerWithGasTank(library.getSigner())}
+                        >Approve Gas Tank</SubmitButton>
                     </GasCard>
 
             </Page>
